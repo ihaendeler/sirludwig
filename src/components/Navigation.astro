@@ -5,13 +5,13 @@ import Brand from './Brand.astro';
 const navItems = mainNavigation;
 ---
 
-<header class="site-header">
+<header class="site-header" data-site-header>
 	<div class="site-header__inner container">
 		<Brand href="/" class="site-header__brand" />
 
 		<button
 			type="button"
-			class="nav-toggle"
+			class="nav-toggle nav-toggle--open"
 			aria-expanded="false"
 			aria-controls="site-nav"
 			aria-label="Menü öffnen"
@@ -25,21 +25,29 @@ const navItems = mainNavigation;
 	<div class="nav-overlay" data-nav-overlay hidden></div>
 
 	<nav id="site-nav" class="site-nav" aria-label="Hauptnavigation" hidden>
-		<div class="site-nav__intro">
+		<div class="site-nav__head container">
 			<Brand href="/" class="site-nav__brand" />
+
+			<button type="button" class="nav-toggle nav-toggle--close" aria-label="Menü schließen">
+				<span class="nav-toggle__bar" aria-hidden="true"></span>
+				<span class="nav-toggle__bar" aria-hidden="true"></span>
+				<span class="nav-toggle__bar" aria-hidden="true"></span>
+			</button>
 		</div>
 
-		<ul class="site-nav__list">
-			{
-				navItems.map((item) => (
-					<li class="site-nav__item">
-						<a href={item.href} class="site-nav__link" data-nav-link>
-							{item.label}
-						</a>
-					</li>
-				))
-			}
-		</ul>
+		<div class="site-nav__body container">
+			<ul class="site-nav__list">
+				{
+					navItems.map((item) => (
+						<li class="site-nav__item">
+							<a href={item.href} class="site-nav__link" data-nav-link>
+								{item.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</div>
 	</nav>
 </header>
 
@@ -72,6 +80,7 @@ const navItems = mainNavigation;
 		justify-content: center;
 		align-items: center;
 		gap: 0.3125rem;
+		flex-shrink: 0;
 		width: var(--touch-min);
 		height: var(--touch-min);
 		border-radius: var(--radius-sm);
@@ -93,15 +102,27 @@ const navItems = mainNavigation;
 			opacity var(--transition-fast);
 	}
 
-	.nav-toggle[aria-expanded='true'] .nav-toggle__bar:nth-child(1) {
+	.nav-toggle--open[aria-expanded='true'] .nav-toggle__bar:nth-child(1) {
 		transform: translateY(0.4375rem) rotate(45deg);
 	}
 
-	.nav-toggle[aria-expanded='true'] .nav-toggle__bar:nth-child(2) {
+	.nav-toggle--open[aria-expanded='true'] .nav-toggle__bar:nth-child(2) {
 		opacity: 0;
 	}
 
-	.nav-toggle[aria-expanded='true'] .nav-toggle__bar:nth-child(3) {
+	.nav-toggle--open[aria-expanded='true'] .nav-toggle__bar:nth-child(3) {
+		transform: translateY(-0.4375rem) rotate(-45deg);
+	}
+
+	.nav-toggle--close .nav-toggle__bar:nth-child(1) {
+		transform: translateY(0.4375rem) rotate(45deg);
+	}
+
+	.nav-toggle--close .nav-toggle__bar:nth-child(2) {
+		opacity: 0;
+	}
+
+	.nav-toggle--close .nav-toggle__bar:nth-child(3) {
 		transform: translateY(-0.4375rem) rotate(-45deg);
 	}
 
@@ -122,15 +143,14 @@ const navItems = mainNavigation;
 
 	.site-nav {
 		position: fixed;
-		inset: var(--header-height) 0 0 0;
+		inset: 0;
 		z-index: 120;
 		display: flex;
 		flex-direction: column;
-		padding: var(--space-xl) var(--page-gutter) var(--space-2xl);
 		background-color: var(--color-cream);
-		border-top: 1px solid rgb(74 52 40 / 0.1);
 		overflow-y: auto;
 		-webkit-overflow-scrolling: touch;
+		padding-top: env(safe-area-inset-top, 0);
 		opacity: 0;
 		transition: opacity 220ms ease;
 		pointer-events: none;
@@ -141,19 +161,23 @@ const navItems = mainNavigation;
 		pointer-events: auto;
 	}
 
-	.site-nav__intro {
-		margin-bottom: var(--space-xl);
-		padding-bottom: var(--space-lg);
-		border-bottom: 1px solid rgb(74 52 40 / 0.1);
+	.site-nav__head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-shrink: 0;
+		min-height: var(--header-height);
+		border-bottom: 1px solid rgb(74 52 40 / 0.08);
 	}
 
-	.site-nav__brand :global(.brand__name) {
-		font-size: 1.25rem;
-		letter-spacing: 0.05em;
+	.site-nav__brand {
+		min-height: var(--touch-min);
+		padding-inline: var(--space-2xs);
 	}
 
-	.site-nav__brand :global(.brand__tagline) {
-		font-size: 0.75rem;
+	.site-nav__body {
+		flex: 1;
+		padding-block: var(--space-lg) var(--space-2xl);
 	}
 
 	.site-nav__list {
@@ -166,19 +190,19 @@ const navItems = mainNavigation;
 	}
 
 	.site-nav__item + .site-nav__item {
-		border-top: 1px solid rgb(74 52 40 / 0.1);
+		border-top: 1px solid rgb(74 52 40 / 0.06);
 	}
 
 	.site-nav__link {
 		display: flex;
 		align-items: center;
 		min-height: var(--touch-min);
-		padding: var(--space-md) 0;
+		padding: var(--space-sm) 0;
 		font-family: var(--font-display);
-		font-size: clamp(1.25rem, 4.5vw, 1.4375rem);
+		font-size: clamp(1.125rem, 3.8vw, 1.3125rem);
 		font-weight: 400;
-		line-height: 1.2;
-		letter-spacing: -0.015em;
+		line-height: 1.25;
+		letter-spacing: -0.01em;
 		color: var(--color-brown);
 		text-decoration: none;
 		transition: color var(--transition-fast);
@@ -194,11 +218,19 @@ const navItems = mainNavigation;
 		color: var(--color-brown);
 	}
 
+	.site-header.is-menu-open .site-header__inner {
+		visibility: hidden;
+	}
+
 	@media (min-width: 64rem) {
 		.nav-toggle,
 		.nav-overlay,
-		.site-nav__intro {
+		.site-nav__head {
 			display: none;
+		}
+
+		.site-header.is-menu-open .site-header__inner {
+			visibility: visible;
 		}
 
 		.site-nav {
@@ -209,13 +241,17 @@ const navItems = mainNavigation;
 			display: flex !important;
 			flex-direction: row;
 			align-items: center;
+			width: auto;
 			height: var(--header-height);
 			padding: 0;
 			background: none;
-			border-top: none;
 			overflow: visible;
 			opacity: 1;
 			pointer-events: auto;
+		}
+
+		.site-nav__body {
+			padding: 0;
 		}
 
 		.site-header__inner {
@@ -249,7 +285,9 @@ const navItems = mainNavigation;
 			letter-spacing: 0;
 			color: var(--color-black);
 			border-radius: var(--radius-md);
-			transition: background-color var(--transition-fast), color var(--transition-fast);
+			transition:
+				background-color var(--transition-fast),
+				color var(--transition-fast);
 		}
 
 		.site-nav__link:hover,
@@ -261,17 +299,19 @@ const navItems = mainNavigation;
 </style>
 
 <script>
-	const toggle = document.querySelector('.nav-toggle');
+	const header = document.querySelector('[data-site-header]');
+	const toggleOpen = document.querySelector('.nav-toggle--open');
+	const toggleClose = document.querySelector('.nav-toggle--close');
 	const nav = document.getElementById('site-nav');
 	const overlay = document.querySelector('[data-nav-overlay]');
 	const navLinks = document.querySelectorAll('[data-nav-link], .site-nav__brand');
 	const desktopQuery = window.matchMedia('(min-width: 64rem)');
 
 	function setMenuOpen(open: boolean) {
-		if (!toggle || !nav || !overlay) return;
+		if (!toggleOpen || !nav || !overlay || !header) return;
 
-		toggle.setAttribute('aria-expanded', String(open));
-		toggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+		toggleOpen.setAttribute('aria-expanded', String(open));
+		header.classList.toggle('is-menu-open', open);
 		nav.classList.toggle('is-open', open);
 		overlay.classList.toggle('is-visible', open);
 		nav.hidden = !open;
@@ -283,11 +323,12 @@ const navItems = mainNavigation;
 		if (!desktopQuery.matches) setMenuOpen(false);
 	}
 
-	toggle?.addEventListener('click', () => {
-		const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+	toggleOpen?.addEventListener('click', () => {
+		const isOpen = toggleOpen.getAttribute('aria-expanded') === 'true';
 		setMenuOpen(!isOpen);
 	});
 
+	toggleClose?.addEventListener('click', closeMenu);
 	overlay?.addEventListener('click', closeMenu);
 	navLinks.forEach((link) => link.addEventListener('click', closeMenu));
 
@@ -296,18 +337,20 @@ const navItems = mainNavigation;
 	});
 
 	function handleViewportChange() {
-		if (!nav || !overlay || !toggle) return;
+		if (!nav || !overlay || !toggleOpen || !header) return;
 
 		if (desktopQuery.matches) {
 			nav.hidden = false;
 			overlay.hidden = true;
 			nav.classList.remove('is-open');
 			overlay.classList.remove('is-visible');
-			toggle.setAttribute('aria-expanded', 'false');
+			header.classList.remove('is-menu-open');
+			toggleOpen.setAttribute('aria-expanded', 'false');
 			document.body.style.overflow = '';
-		} else if (toggle.getAttribute('aria-expanded') !== 'true') {
+		} else if (toggleOpen.getAttribute('aria-expanded') !== 'true') {
 			nav.hidden = true;
 			overlay.hidden = true;
+			header.classList.remove('is-menu-open');
 		}
 	}
 
