@@ -20,6 +20,8 @@ const features = [
 	{
 		title: 'Stammbaum',
 		href: '/stammbaum',
+		teaser:
+			'Abstammung und Linienführung im Überblick. Die Dokumentation wird mit dem Registerprojekt ergänzt.',
 		image: stammbaumImage,
 		alt: 'Sir Ludwig im Profil auf einer Wiese',
 		position: 'center 30%',
@@ -28,6 +30,8 @@ const features = [
 	{
 		title: 'Gesundheit',
 		href: '/gesundheit',
+		teaser:
+			'Untersuchungen und Gesundheitsüberwachung im Rahmen der Entwicklung. Ergebnisse folgen nach Abschluss.',
 		image: gesundheitImage,
 		alt: 'Sir Ludwig entspannt auf einer Decke im Gras',
 		position: 'center 38%',
@@ -36,6 +40,8 @@ const features = [
 	{
 		title: 'Galerie',
 		href: '/galerie',
+		teaser:
+			'Einblicke in Typ, Haltung und Alltag — visuell dokumentiert, ohne Übertreibung.',
 		image: galerieImage,
 		alt: 'Sir Ludwig mit Betreuerin auf einer Sommerwiese',
 		position: 'center 24%',
@@ -48,20 +54,20 @@ const profileFields = [
 	{ label: 'Farbe', value: 'Tuxedo Apricot-Weiß' },
 	{ label: 'Größe', value: 'in Entwicklung' },
 	{ label: 'Gewicht', value: 'in Entwicklung' },
-	{ label: 'Registrierung', value: 'FRZ' },
+	{ label: 'Registrierung', value: 'FRZ — Registerprojekt' },
 ];
 
 const timelineEntries = [
 	{ phase: '2025', heading: 'Geburt' },
 	{ phase: '2026', heading: 'Registerverfahren & Gesundheitstests' },
 	{ phase: '2026', heading: 'ZTP & Ausstellungen' },
-	{ phase: '2027', heading: 'Erste Nachzucht' },
+	{ phase: '2027', heading: 'Erste Nachzucht — geplant' },
 ];
 ---
 
 <BaseLayout
 	title={`${siteConfig.brandName} — ${siteConfig.heroSubtitle}`}
-	description="Sir Ludwig — Tuxedo Großpudel by Flying Royals."
+	description="Sir Ludwig — Tuxedo Großpudel by Flying Royals. Dokumentation von Abstammung, Entwicklung und Gesundheitsüberwachung."
 >
 	<!-- 1. Hero -->
 	<section class="home-hero" aria-labelledby="home-hero-brand">
@@ -80,6 +86,10 @@ const timelineEntries = [
 		<div class="home-hero__content container">
 			<h1 id="home-hero-brand" class="home-hero__brand">{siteConfig.brandName}</h1>
 			<p class="home-hero__subtitle">{siteConfig.heroSubtitle}</p>
+			<p class="home-hero__lead">
+				Ludwig wurde aufgrund seiner Abstammung, Gesundheit und seines Potenzials als
+				zukünftiger Deckrüde ausgewählt.
+			</p>
 		</div>
 	</section>
 
@@ -87,8 +97,11 @@ const timelineEntries = [
 	<section class="home-section home-features" aria-labelledby="features-heading">
 		<div class="container">
 			<header class="home-features__intro">
-				<p class="section-eyebrow">Bereich</p>
+				<p class="section-eyebrow">Sir Ludwig</p>
 				<h2 id="features-heading" class="section-title">Überblick</h2>
+				<p class="home-section__lead">
+					Die wesentlichen Bereiche — sachlich dokumentiert und schrittweise ergänzt.
+				</p>
 			</header>
 
 			<div class="home-features__grid">
@@ -116,6 +129,7 @@ const timelineEntries = [
 										{item.title}
 									</a>
 								</h3>
+								<p class="home-feature__teaser">{item.teaser}</p>
 							</div>
 						</article>
 					))
@@ -128,8 +142,11 @@ const timelineEntries = [
 	<section class="home-section home-profile" aria-labelledby="profile-heading">
 		<div class="container">
 			<header class="home-profile__header">
-				<p class="section-eyebrow">Bereich</p>
+				<p class="section-eyebrow">Daten</p>
 				<h2 id="profile-heading" class="section-title">Steckbrief</h2>
+				<p class="home-section__lead">
+					Aktuelle Eckdaten. Offene Felder werden ergänzt, sobald die Werte vorliegen.
+				</p>
 			</header>
 
 			<dl class="home-profile__grid">
@@ -149,8 +166,11 @@ const timelineEntries = [
 	<section class="home-section home-timeline" aria-labelledby="timeline-heading">
 		<div class="container">
 			<header class="home-timeline__header">
-				<p class="section-eyebrow">Bereich</p>
+				<p class="section-eyebrow">Werdegang</p>
 				<h2 id="timeline-heading" class="section-title">Entwicklung</h2>
+				<p class="home-section__lead">
+					Geplanter Werdegang — ohne verbindliche Zusage zu einzelnen Terminen.
+				</p>
 			</header>
 
 			<ol class="home-timeline__track">
@@ -191,8 +211,12 @@ const timelineEntries = [
 					/>
 				</div>
 				<div class="home-highlight__content">
-					<p class="section-eyebrow">Bereich</p>
-					<h2 id="highlight-heading" class="section-title">Highlight</h2>
+					<p class="section-eyebrow">Einblick</p>
+					<h2 id="highlight-heading" class="section-title">Ruhe und Präsenz</h2>
+					<p class="home-highlight__text">
+						Ausgeglichene Haltung, aufmerksames Wesen — Eigenschaften, die in der
+						weiteren Entwicklung beobachtet und dokumentiert werden.
+					</p>
 				</div>
 			</div>
 		</div>
@@ -204,6 +228,9 @@ const timelineEntries = [
 			<div class="home-cta__inner">
 				<p class="home-cta__note">Kontakt</p>
 				<h2 id="cta-heading" class="home-cta__title">Deckanfrage</h2>
+				<p class="home-cta__text">
+					Für spätere Anfragen — der Bereich wird vorbereitet.
+				</p>
 				<a href="/deckanfrage" class="btn btn--primary">Deckanfrage vorbereiten</a>
 			</div>
 		</div>

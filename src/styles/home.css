@@ -116,11 +116,28 @@
 	color: rgb(74 52 40 / 0.62);
 }
 
+.home-hero__lead {
+	margin: 0;
+	max-width: 36ch;
+	padding-top: var(--space-md);
+	font-size: var(--text-lg);
+	line-height: var(--leading-relaxed);
+	color: rgb(74 52 40 / 0.72);
+}
+
 /* ── 2. Feature areas ────────────────────────────────────────── */
 
 .home-features__intro {
 	margin-bottom: calc(var(--home-gap) * 0.9);
-	max-width: 26ch;
+	max-width: 34ch;
+}
+
+.home-section__lead {
+	margin: var(--space-sm) 0 0;
+	max-width: 38ch;
+	font-size: var(--text-base);
+	line-height: var(--leading-relaxed);
+	color: rgb(74 52 40 / 0.68);
 }
 
 .home-features__grid {
@@ -173,6 +190,14 @@
 	line-height: 1.15;
 }
 
+.home-feature__teaser {
+	margin: 0;
+	max-width: 32ch;
+	font-size: var(--text-base);
+	line-height: var(--leading-relaxed);
+	color: rgb(74 52 40 / 0.65);
+}
+
 .home-feature__link {
 	display: inline-flex;
 	align-items: center;
@@ -191,6 +216,7 @@
 
 .home-profile__header {
 	margin-bottom: calc(var(--home-gap) * 0.9);
+	max-width: 38ch;
 }
 
 .home-profile__grid {
@@ -239,6 +265,7 @@
 
 .home-timeline__header {
 	margin-bottom: calc(var(--home-gap) * 0.9);
+	max-width: 38ch;
 }
 
 .home-timeline__track {
@@ -380,6 +407,14 @@
 	letter-spacing: 0.18em;
 	text-transform: uppercase;
 	color: rgb(74 52 40 / 0.48);
+}
+
+.home-cta__text {
+	margin: 0;
+	max-width: 28ch;
+	font-size: var(--text-base);
+	line-height: var(--leading-relaxed);
+	color: rgb(74 52 40 / 0.62);
 }
 
 .home-cta .btn {
