@@ -1,13 +1,18 @@
 ---
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
 import '../styles/home.css';
 
 import heroImage from '../assets/images/hero/PXL_20260516_084223542.jpg';
+// Profilansicht — ruhiger Zuschnitt für Stammbaum-Teaser
 import stammbaumImage from '../assets/images/ludwig/PXL_20260516_084222134.jpg';
+// Liegt entspannt; bei 5:6-Zuschnitt können Vorderläufe abgeschnitten werden — ggf. eigenes Crop
 import gesundheitImage from '../assets/images/ludwig/PXL_20260516_085447844.jpg';
+// Mit Betreuerin; bei schmalem Viewport Schultern/Haaransatz im Blick behalten (center 24%)
 import galerieImage from '../assets/images/galerie/PXL_20260516_084843156.jpg';
-import highlightImage from '../assets/images/ausstellungen/PXL_20260516_084223542.jpg';
+// Sonnenlicht, entspannt — bewusst anderes Motiv als Hero
+import highlightImage from '../assets/images/ausstellungen/PXL_20260516_085447844.jpg';
 
 const mobileWidths = [480, 640, 828, 1080, 1280, 1920];
 
@@ -16,7 +21,7 @@ const features = [
 		title: 'Stammbaum',
 		href: '/stammbaum',
 		image: stammbaumImage,
-		alt: 'Platzhalter — Ludwig im Profil auf einer Wiese',
+		alt: 'Sir Ludwig im Profil auf einer Wiese',
 		position: 'center 30%',
 		sizes: '(min-width: 64rem) 30vw, 100vw',
 	},
@@ -24,7 +29,7 @@ const features = [
 		title: 'Gesundheit',
 		href: '/gesundheit',
 		image: gesundheitImage,
-		alt: 'Platzhalter — Ludwig entspannt auf einer Decke im Gras',
+		alt: 'Sir Ludwig entspannt auf einer Decke im Gras',
 		position: 'center 38%',
 		sizes: '(min-width: 64rem) 30vw, 100vw',
 	},
@@ -32,37 +37,38 @@ const features = [
 		title: 'Galerie',
 		href: '/galerie',
 		image: galerieImage,
-		alt: 'Platzhalter — Ludwig mit Betreuerin auf einer Sommerwiese',
+		alt: 'Sir Ludwig mit Betreuerin auf einer Sommerwiese',
 		position: 'center 24%',
 		sizes: '(min-width: 64rem) 30vw, 100vw',
 	},
 ];
 
 const profileFields = [
-	{ label: 'Merkmal', value: 'Wert' },
-	{ label: 'Merkmal', value: 'Wert' },
-	{ label: 'Merkmal', value: 'Wert' },
-	{ label: 'Merkmal', value: 'Wert' },
+	{ label: 'Geboren', value: 'xx.xx.xxxx' },
+	{ label: 'Farbe', value: 'Tuxedo Apricot-Weiß' },
+	{ label: 'Größe', value: 'in Entwicklung' },
+	{ label: 'Gewicht', value: 'in Entwicklung' },
+	{ label: 'Registrierung', value: 'FRZ' },
 ];
 
 const timelineEntries = [
-	{ phase: 'Phase 01', heading: 'Eintrag' },
-	{ phase: 'Phase 02', heading: 'Eintrag' },
-	{ phase: 'Phase 03', heading: 'Eintrag' },
-	{ phase: 'Phase 04', heading: 'Eintrag' },
+	{ phase: '2025', heading: 'Geburt' },
+	{ phase: '2026', heading: 'Registerverfahren & Gesundheitstests' },
+	{ phase: '2026', heading: 'ZTP & Ausstellungen' },
+	{ phase: '2027', heading: 'Erste Nachzucht' },
 ];
 ---
 
 <BaseLayout
-	title="Platzhalter — Startseite"
-	description="Struktureller Platzhalter für die Startseite."
+	title={`${siteConfig.brandName} — ${siteConfig.heroSubtitle}`}
+	description="Sir Ludwig — Tuxedo Großpudel by Flying Royals."
 >
 	<!-- 1. Hero -->
 	<section class="home-hero" aria-labelledby="home-hero-brand">
 		<div class="home-hero__media home-media">
 			<Image
 				src={heroImage}
-				alt="Platzhalter — Ludwig sitzt aufmerksam auf einer Wiese"
+				alt="Sir Ludwig sitzt aufmerksam auf einer Wiese"
 				widths={mobileWidths}
 				sizes="100vw"
 				loading="eager"
@@ -72,8 +78,8 @@ const timelineEntries = [
 			/>
 		</div>
 		<div class="home-hero__content container">
-			<h1 id="home-hero-brand" class="home-hero__brand">Markenname</h1>
-			<p class="home-hero__subtitle">Untertitel</p>
+			<h1 id="home-hero-brand" class="home-hero__brand">{siteConfig.brandName}</h1>
+			<p class="home-hero__subtitle">{siteConfig.heroSubtitle}</p>
 		</div>
 	</section>
 
@@ -155,7 +161,6 @@ const timelineEntries = [
 							<div class="home-timeline__body">
 								<p class="home-timeline__phase">{entry.phase}</p>
 								<h3 class="home-timeline__heading">{entry.heading}</h3>
-								<p class="home-timeline__placeholder">Textplatzhalter</p>
 							</div>
 						</li>
 					))
@@ -173,11 +178,11 @@ const timelineEntries = [
 			<div class="home-highlight__layout">
 				<div
 					class="home-highlight__media home-media"
-					style="--media-position: center 34%"
+					style="--media-position: center 38%"
 				>
 					<Image
 						src={highlightImage}
-						alt="Platzhalter — Ludwig im Seitenprofil auf einer Wiese"
+						alt="Sir Ludwig entspannt im Sonnenlicht auf einer Decke"
 						widths={mobileWidths}
 						sizes="(min-width: 64rem) 50vw, 100vw"
 						loading="lazy"
@@ -188,7 +193,6 @@ const timelineEntries = [
 				<div class="home-highlight__content">
 					<p class="section-eyebrow">Bereich</p>
 					<h2 id="highlight-heading" class="section-title">Highlight</h2>
-					<p class="home-highlight__text">Textplatzhalter</p>
 				</div>
 			</div>
 		</div>
@@ -200,7 +204,7 @@ const timelineEntries = [
 			<div class="home-cta__inner">
 				<p class="home-cta__note">Kontakt</p>
 				<h2 id="cta-heading" class="home-cta__title">Deckanfrage</h2>
-				<a href="/deckanfrage" class="btn btn--primary">Aktion</a>
+				<a href="/deckanfrage" class="btn btn--primary">Deckanfrage vorbereiten</a>
 			</div>
 		</div>
 	</section>
