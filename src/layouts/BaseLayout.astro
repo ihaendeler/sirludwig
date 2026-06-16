@@ -5,12 +5,14 @@ import Footer from '../components/Footer.astro';
 import SEO from '../components/SEO.astro';
 
 interface Props {
-	title: string;
+	title?: string;
 	description?: string;
 	canonical?: string;
+	image?: string;
+	type?: string;
 }
 
-const { title, description, canonical } = Astro.props;
+const { title, description, canonical, image, type } = Astro.props;
 ---
 
 <!doctype html>
@@ -21,7 +23,7 @@ const { title, description, canonical } = Astro.props;
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="theme-color" content="#F4F0E8" />
-		<SEO title={title} description={description} canonical={canonical} />
+		<SEO title={title} description={description} canonical={canonical} image={image} type={type} />
 	</head>
 	<body>
 		<a class="skip-link" href="#main-content">Zum Inhalt springen</a>
