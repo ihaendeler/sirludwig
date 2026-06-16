@@ -29,7 +29,7 @@ export const siteConfig: SiteConfig = {
 	brandMonogram: 'SL',
 	heroSubtitle: 'Tuxedo Großpudel · by Flying Royals',
 	social: {
-		instagram: '',
+		instagram: 'https://instagram.com/sir.ludwig_flyingroyals',
 		facebook: '',
 		youtube: '',
 	},

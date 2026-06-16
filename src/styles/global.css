@@ -228,6 +228,29 @@ p {
 	color: var(--color-cream);
 }
 
+.btn--pill {
+	min-height: 3.25rem;
+	padding: 0.875rem 1.75rem;
+	border-radius: 999px;
+	background-color: var(--color-apricot);
+	color: var(--color-brown);
+	border: 2px solid var(--color-apricot);
+	font-weight: 500;
+	letter-spacing: 0.02em;
+}
+
+.btn--pill:hover {
+	background-color: var(--color-apricot-dark);
+	border-color: var(--color-apricot-dark);
+	color: var(--color-brown);
+}
+
+.btn--pill__icon {
+	flex-shrink: 0;
+	width: 1.125rem;
+	height: 1.125rem;
+}
+
 /* ── Section spacing utility ─────────────────────────────────── */
 
 .section {

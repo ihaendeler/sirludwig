@@ -5,6 +5,11 @@ import Brand from './Brand.astro';
 const footerLinks = [
 	{ href: '#impressum', label: 'Impressum' },
 	{ href: '#datenschutz', label: 'Datenschutz' },
+	{
+		href: siteConfig.social.instagram,
+		label: 'Instagram',
+		external: true,
+	},
 ];
 ---
 
@@ -17,7 +22,13 @@ const footerLinks = [
 				{
 					footerLinks.map((item) => (
 						<li>
-							<a href={item.href} class="site-footer__link">
+							<a
+								href={item.href}
+								class="site-footer__link"
+								{...(item.external
+									? { target: '_blank', rel: 'noopener noreferrer' }
+									: {})}
+							>
 								{item.label}
 							</a>
 						</li>

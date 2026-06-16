@@ -443,6 +443,28 @@
 	color: rgb(74 52 40 / 0.72);
 }
 
+/* ── Instagram ───────────────────────────────────────────────── */
+
+.home-instagram__inner {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: var(--space-lg);
+	max-width: 36rem;
+}
+
+.home-instagram__text {
+	margin: 0;
+	max-width: 40ch;
+	font-size: var(--text-base);
+	line-height: var(--leading-relaxed);
+	color: rgb(74 52 40 / 0.72);
+}
+
+.home-instagram .btn--pill {
+	width: 100%;
+}
+
 /* ── Breakpoints ─────────────────────────────────────────────── */
 
 @media (min-width: 40rem) {
@@ -489,6 +511,11 @@
 
 	.home-cta__inner {
 		align-items: center;
+	}
+
+	.home-instagram .btn--pill {
+		width: auto;
+		min-width: 14rem;
 	}
 
 	.home-cta .btn {
