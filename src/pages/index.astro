@@ -1,11 +1,41 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/home.css';
 
+import heroImage from '../assets/images/hero/PXL_20260516_084223542.jpg';
+import stammbaumImage from '../assets/images/ludwig/PXL_20260516_084222134.jpg';
+import gesundheitImage from '../assets/images/ludwig/PXL_20260516_085447844.jpg';
+import galerieImage from '../assets/images/galerie/PXL_20260516_084843156.jpg';
+import highlightImage from '../assets/images/ausstellungen/PXL_20260516_084223542.jpg';
+
+const mobileWidths = [480, 640, 828, 1080, 1280, 1920];
+
 const features = [
-	{ title: 'Stammbaum', label: 'Bildbereich' },
-	{ title: 'Gesundheit', label: 'Bildbereich' },
-	{ title: 'Galerie', label: 'Bildbereich' },
+	{
+		title: 'Stammbaum',
+		href: '/stammbaum',
+		image: stammbaumImage,
+		alt: 'Platzhalter — Ludwig im Profil auf einer Wiese',
+		position: 'center 30%',
+		sizes: '(min-width: 64rem) 30vw, 100vw',
+	},
+	{
+		title: 'Gesundheit',
+		href: '/gesundheit',
+		image: gesundheitImage,
+		alt: 'Platzhalter — Ludwig entspannt auf einer Decke im Gras',
+		position: 'center 38%',
+		sizes: '(min-width: 64rem) 30vw, 100vw',
+	},
+	{
+		title: 'Galerie',
+		href: '/galerie',
+		image: galerieImage,
+		alt: 'Platzhalter — Ludwig mit Betreuerin auf einer Sommerwiese',
+		position: 'center 24%',
+		sizes: '(min-width: 64rem) 30vw, 100vw',
+	},
 ];
 
 const profileFields = [
@@ -29,8 +59,17 @@ const timelineEntries = [
 >
 	<!-- 1. Hero -->
 	<section class="home-hero" aria-labelledby="home-hero-brand">
-		<div class="home-hero__media placeholder-media" aria-hidden="true">
-			<p class="placeholder-label">Bildbereich</p>
+		<div class="home-hero__media home-media">
+			<Image
+				src={heroImage}
+				alt="Platzhalter — Ludwig sitzt aufmerksam auf einer Wiese"
+				widths={mobileWidths}
+				sizes="100vw"
+				loading="eager"
+				fetchpriority="high"
+				decoding="async"
+				class="home-media__img"
+			/>
 		</div>
 		<div class="home-hero__content container">
 			<h1 id="home-hero-brand" class="home-hero__brand">Markenname</h1>
@@ -50,13 +89,26 @@ const timelineEntries = [
 				{
 					features.map((item) => (
 						<article class="home-feature">
-							<div class="home-feature__media placeholder-media" aria-hidden="true">
-								<p class="placeholder-label">{item.label}</p>
+							<div
+								class="home-feature__media home-media"
+								style={`--media-position: ${item.position}`}
+							>
+								<Image
+									src={item.image}
+									alt={item.alt}
+									widths={mobileWidths}
+									sizes={item.sizes}
+									loading="lazy"
+									decoding="async"
+									class="home-media__img"
+								/>
 							</div>
 							<div class="home-feature__body">
 								<hr class="home-feature__line" />
 								<h3 class="home-feature__title">
-									<a href="#" class="home-feature__link">{item.title}</a>
+									<a href={item.href} class="home-feature__link">
+										{item.title}
+									</a>
 								</h3>
 							</div>
 						</article>
@@ -119,8 +171,19 @@ const timelineEntries = [
 	>
 		<div class="container">
 			<div class="home-highlight__layout">
-				<div class="home-highlight__media placeholder-media" aria-hidden="true">
-					<p class="placeholder-label">Bildbereich</p>
+				<div
+					class="home-highlight__media home-media"
+					style="--media-position: center 34%"
+				>
+					<Image
+						src={highlightImage}
+						alt="Platzhalter — Ludwig im Seitenprofil auf einer Wiese"
+						widths={mobileWidths}
+						sizes="(min-width: 64rem) 50vw, 100vw"
+						loading="lazy"
+						decoding="async"
+						class="home-media__img"
+					/>
 				</div>
 				<div class="home-highlight__content">
 					<p class="section-eyebrow">Bereich</p>
@@ -137,7 +200,7 @@ const timelineEntries = [
 			<div class="home-cta__inner">
 				<p class="home-cta__note">Kontakt</p>
 				<h2 id="cta-heading" class="home-cta__title">Deckanfrage</h2>
-				<a href="#deckanfrage" class="btn btn--primary">Aktion</a>
+				<a href="/deckanfrage" class="btn btn--primary">Aktion</a>
 			</div>
 		</div>
 	</section>
