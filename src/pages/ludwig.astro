@@ -1,20 +1,117 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getCanonical } from '../config/site';
+import { siteConfig, getCanonical } from '../config/site';
+import '../styles/ludwig.css';
+
+import heroImage from '../assets/images/ludwig/PXL_20260516_084223542.jpg';
 
 const path = '/ludwig';
+const imageWidths = [480, 640, 828, 1080, 1280, 1920];
+
+const projectGoals = [
+	'Tuxedo Großpudel als klare Rasseführung',
+	'Transparenz in Abstammung und Entwicklung',
+	'Gesundheitsüberwachung im Rahmen des Aufbaus',
+	'Dokumentation aller relevanten Schritte',
+	'Langfristiger, bewusster Aufbau',
+];
 ---
 
 <BaseLayout
-	title="Ludwig — Platzhalter"
-	description="Bereich Ludwig — in Vorbereitung."
+	title={`Ludwig — ${siteConfig.brandName}`}
+	description="Sir Ludwig — Tuxedo Großpudel by Flying Royals. Herkunft, Charakter und Projektziel im Überblick."
 	canonical={getCanonical(path)}
 >
-	<section class="page-placeholder container" aria-labelledby="page-heading">
-		<p class="page-placeholder__label">Bereich</p>
-		<h1 id="page-heading">Ludwig</h1>
-		<p class="page-placeholder__hint">
-			Dieser Bereich ist vorbereitet und wird in einer späteren Phase ausgearbeitet.
-		</p>
+	<!-- Hero -->
+	<section class="ludwig-hero" aria-labelledby="ludwig-heading">
+		<div class="ludwig-hero__media ludwig-media">
+			<Image
+				src={heroImage}
+				alt="Sir Ludwig sitzt aufmerksam auf einer Wiese"
+				widths={imageWidths}
+				sizes="(min-width: 48rem) 55vw, 100vw"
+				loading="eager"
+				fetchpriority="high"
+				decoding="async"
+				class="ludwig-media__img"
+			/>
+		</div>
+		<div class="ludwig-hero__content container">
+			<p class="ludwig-eyebrow">Ludwig</p>
+			<h1 id="ludwig-heading" class="ludwig-hero__heading">
+				Tuxedo Großpudel mit ruhiger Präsenz
+			</h1>
+			<p class="ludwig-hero__lead">
+				Sir Ludwig steht für einen bewusst geführten Aufbau — dokumentiert, transparent
+				und ohne Eile.
+			</p>
+		</div>
+	</section>
+
+	<!-- Herkunft -->
+	<section class="ludwig-section" aria-labelledby="ludwig-origin-heading">
+		<div class="container">
+			<div class="ludwig-section__inner">
+				<p class="ludwig-eyebrow">Herkunft</p>
+				<h2 id="ludwig-origin-heading" class="ludwig-title">Flying Royals</h2>
+				<p class="ludwig-text">
+					Ludwig gehört zum Rudel Flying Royals und wird als eigenständiger zukünftiger
+					Deckrüde präsentiert.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Auswahl -->
+	<section class="ludwig-section" aria-labelledby="ludwig-selection-heading">
+		<div class="container">
+			<div class="ludwig-section__inner">
+				<p class="ludwig-eyebrow">Auswahl</p>
+				<h2 id="ludwig-selection-heading" class="ludwig-title">Bewusste Entscheidung</h2>
+				<p class="ludwig-text">
+					Ludwig wurde aufgrund seiner Abstammung, Gesundheit und seines Potenzials als
+					zukünftiger Deckrüde ausgewählt.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Charakter -->
+	<section class="ludwig-section" aria-labelledby="ludwig-character-heading">
+		<div class="container">
+			<div class="ludwig-section__inner">
+				<p class="ludwig-eyebrow">Charakter</p>
+				<h2 id="ludwig-character-heading" class="ludwig-title">Beobachtung</h2>
+				<p class="ludwig-text">
+					Ludwig wirkt ruhig und aufmerksam. Er ist menschenbezogen und zeigt ein klares,
+					ausgeglichenes Wesen — ohne Hast, mit Präsenz.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Projektziel -->
+	<section class="ludwig-section" aria-labelledby="ludwig-goals-heading">
+		<div class="container">
+			<div class="ludwig-section__inner">
+				<p class="ludwig-eyebrow">Projektziel</p>
+				<h2 id="ludwig-goals-heading" class="ludwig-title">Langfristiger Aufbau</h2>
+				<ul class="ludwig-goals">
+					{projectGoals.map((goal) => <li>{goal}</li>)}
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA -->
+	<section class="ludwig-section ludwig-cta" aria-labelledby="ludwig-cta-heading">
+		<div class="container">
+			<div class="ludwig-cta__inner">
+				<h2 id="ludwig-cta-heading" class="ludwig-title">Deckanfrage</h2>
+				<p class="ludwig-text">Für spätere Anfragen — der Bereich wird vorbereitet.</p>
+				<a href="/deckanfrage" class="btn btn--primary">Zur Deckanfrage</a>
+			</div>
+		</div>
 	</section>
 </BaseLayout>
