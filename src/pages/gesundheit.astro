@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCanonical } from '../config/site';
+
+const path = '/gesundheit';
+---
+
+<BaseLayout
+	title="Gesundheit — Platzhalter"
+	description="Bereich Gesundheit — in Vorbereitung."
+	canonical={getCanonical(path)}
+>
+	<section class="page-placeholder container" aria-labelledby="page-heading">
+		<p class="page-placeholder__label">Bereich</p>
+		<h1 id="page-heading">Gesundheit</h1>
+		<p class="page-placeholder__hint">
+			Dieser Bereich ist vorbereitet und wird in einer späteren Phase ausgearbeitet.
+		</p>
+	</section>
+</BaseLayout>

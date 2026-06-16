@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCanonical } from '../config/site';
+
+const path = '/stammbaum';
+---
+
+<BaseLayout
+	title="Stammbaum — Platzhalter"
+	description="Bereich Stammbaum — in Vorbereitung."
+	canonical={getCanonical(path)}
+>
+	<section class="page-placeholder container" aria-labelledby="page-heading">
+		<p class="page-placeholder__label">Bereich</p>
+		<h1 id="page-heading">Stammbaum</h1>
+		<p class="page-placeholder__hint">
+			Dieser Bereich ist vorbereitet und wird in einer späteren Phase ausgearbeitet.
+		</p>
+	</section>
+</BaseLayout>

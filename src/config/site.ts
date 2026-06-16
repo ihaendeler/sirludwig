@@ -33,3 +33,10 @@ export const siteConfig: SiteConfig = {
 		address: '',
 	},
 };
+
+/** Fallback bis `siteConfig.url` gesetzt ist. */
+export const siteUrl = siteConfig.url || 'https://sirludwig.pages.dev';
+
+export function getCanonical(path: string): string {
+	return new URL(path, siteUrl).href;
+}

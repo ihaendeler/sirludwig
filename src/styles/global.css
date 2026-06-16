@@ -234,6 +234,27 @@ p {
 	padding-block: var(--space-2xl);
 }
 
+/* ── Page placeholder (Unterseiten) ──────────────────────────── */
+
+.page-placeholder {
+	padding-block: var(--space-2xl) var(--space-3xl);
+}
+
+.page-placeholder__label {
+	margin: 0 0 var(--space-sm);
+	font-size: var(--text-sm);
+	font-weight: 500;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: rgb(74 52 40 / 0.55);
+}
+
+.page-placeholder__hint {
+	margin: var(--space-md) 0 0;
+	max-width: 38ch;
+	color: rgb(74 52 40 / 0.72);
+}
+
 /* ── Breakpoints (enhance, don't rebuild) ────────────────────── */
 
 @media (min-width: 40rem) {
