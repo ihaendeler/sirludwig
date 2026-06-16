@@ -14,14 +14,18 @@ export interface SiteConfig {
 	name: string;
 	url: string;
 	brandName: string;
+	brandTagline: string;
+	heroSubtitle: string;
 	social: SocialLinks;
 	contact: ContactInfo;
 }
 
 export const siteConfig: SiteConfig = {
-	name: '',
+	name: 'Sir Ludwig',
 	url: '',
-	brandName: '',
+	brandName: 'SIR LUDWIG',
+	brandTagline: 'by Flying Royals',
+	heroSubtitle: 'Tuxedo Großpudel · by Flying Royals',
 	social: {
 		instagram: '',
 		facebook: '',

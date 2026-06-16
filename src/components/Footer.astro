@@ -1,4 +1,6 @@
 ---
+import { siteConfig } from '../config/site';
+
 const footerLinks = [
 	{ href: '#impressum', label: 'Impressum' },
 	{ href: '#datenschutz', label: 'Datenschutz' },
@@ -8,8 +10,8 @@ const footerLinks = [
 <footer class="site-footer">
 	<div class="site-footer__inner container">
 		<div class="site-footer__brand">
-			<p class="site-footer__name">Platzhalter</p>
-			<p class="text-muted">Mobile-First Fundament</p>
+			<p class="site-footer__name">{siteConfig.brandName}</p>
+			<p class="text-muted">{siteConfig.brandTagline}</p>
 		</div>
 
 		<nav class="site-footer__nav" aria-label="Footer-Navigation">
@@ -27,7 +29,7 @@ const footerLinks = [
 		</nav>
 
 		<p class="site-footer__copy text-muted">
-			&copy; {new Date().getFullYear()} Platzhalter
+			&copy; {new Date().getFullYear()} {siteConfig.brandName}
 		</p>
 	</div>
 </footer>
