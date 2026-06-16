@@ -1,20 +1,251 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getCanonical } from '../config/site';
+import { siteConfig, getCanonical } from '../config/site';
+import '../styles/deckanfrage.css';
 
 const path = '/deckanfrage';
 ---
 
 <BaseLayout
-	title="Deckanfrage — Platzhalter"
-	description="Bereich Deckanfrage — in Vorbereitung."
+	title={`Deckanfrage — ${siteConfig.brandName}`}
+	description="Deckanfrage für Sir Ludwig — Formular zur ersten Einschätzung. Der Bereich wird schrittweise vorbereitet."
 	canonical={getCanonical(path)}
 >
-	<section class="page-placeholder container" aria-labelledby="page-heading">
-		<p class="page-placeholder__label">Bereich</p>
-		<h1 id="page-heading">Deckanfrage</h1>
-		<p class="page-placeholder__hint">
-			Dieser Bereich ist vorbereitet und wird in einer späteren Phase ausgearbeitet.
-		</p>
+	<section class="inquiry-hero" aria-labelledby="inquiry-heading">
+		<div class="container inquiry-hero__inner">
+			<p class="inquiry-eyebrow">Deckanfrage</p>
+			<h1 id="inquiry-heading" class="inquiry-hero__heading">Deckanfrage</h1>
+			<p class="inquiry-hero__lead">
+				Informationen zur Hündin und zum geplanten Wurf helfen bei der ersten Einschätzung.
+			</p>
+		</div>
+	</section>
+
+	<section class="inquiry-section" aria-labelledby="inquiry-form-heading">
+		<div class="container">
+			<h2 id="inquiry-form-heading" class="visually-hidden">Anfrageformular</h2>
+
+			<form class="inquiry-form" action="#" method="post" novalidate>
+				<fieldset class="inquiry-form__group">
+					<legend class="inquiry-form__legend">Kontaktdaten</legend>
+					<div class="inquiry-form__grid">
+						<div class="inquiry-field inquiry-field--full">
+							<label class="inquiry-field__label" for="contact-name">Name</label>
+							<input
+								class="inquiry-field__input"
+								type="text"
+								id="contact-name"
+								name="contact-name"
+								autocomplete="name"
+							/>
+						</div>
+						<div class="inquiry-field">
+							<label class="inquiry-field__label" for="contact-email">E-Mail</label>
+							<input
+								class="inquiry-field__input"
+								type="email"
+								id="contact-email"
+								name="contact-email"
+								autocomplete="email"
+							/>
+						</div>
+						<div class="inquiry-field">
+							<label class="inquiry-field__label" for="contact-phone">Telefon</label>
+							<input
+								class="inquiry-field__input"
+								type="tel"
+								id="contact-phone"
+								name="contact-phone"
+								autocomplete="tel"
+							/>
+						</div>
+					</div>
+				</fieldset>
+
+				<fieldset class="inquiry-form__group">
+					<legend class="inquiry-form__legend">Hündin</legend>
+					<div class="inquiry-form__grid">
+						<div class="inquiry-field inquiry-field--full">
+							<label class="inquiry-field__label" for="bitch-name">Name der Hündin</label>
+							<input
+								class="inquiry-field__input"
+								type="text"
+								id="bitch-name"
+								name="bitch-name"
+							/>
+						</div>
+						<div class="inquiry-field">
+							<label class="inquiry-field__label" for="bitch-birthdate">Geburtsdatum</label>
+							<input
+								class="inquiry-field__input"
+								type="date"
+								id="bitch-birthdate"
+								name="bitch-birthdate"
+							/>
+						</div>
+						<div class="inquiry-field">
+							<label class="inquiry-field__label" for="bitch-color">Farbe</label>
+							<input
+								class="inquiry-field__input"
+								type="text"
+								id="bitch-color"
+								name="bitch-color"
+							/>
+						</div>
+						<div class="inquiry-field">
+							<label class="inquiry-field__label" for="bitch-size">Größe</label>
+							<input
+								class="inquiry-field__input"
+								type="text"
+								id="bitch-size"
+								name="bitch-size"
+							/>
+						</div>
+						<div class="inquiry-field">
+							<label class="inquiry-field__label" for="bitch-weight">Gewicht</label>
+							<input
+								class="inquiry-field__input"
+								type="text"
+								id="bitch-weight"
+								name="bitch-weight"
+							/>
+						</div>
+						<div class="inquiry-field inquiry-field--full">
+							<label class="inquiry-field__label" for="bitch-club">Verein / Verband</label>
+							<input
+								class="inquiry-field__input"
+								type="text"
+								id="bitch-club"
+								name="bitch-club"
+							/>
+						</div>
+					</div>
+				</fieldset>
+
+				<fieldset class="inquiry-form__group">
+					<legend class="inquiry-form__legend">Gesundheit</legend>
+					<div class="inquiry-form__grid">
+						<div class="inquiry-field">
+							<label class="inquiry-field__label" for="health-hd">HD</label>
+							<input class="inquiry-field__input" type="text" id="health-hd" name="health-hd" />
+						</div>
+						<div class="inquiry-field">
+							<label class="inquiry-field__label" for="health-ed">ED</label>
+							<input class="inquiry-field__input" type="text" id="health-ed" name="health-ed" />
+						</div>
+						<div class="inquiry-field">
+							<label class="inquiry-field__label" for="health-patella">Patella</label>
+							<input
+								class="inquiry-field__input"
+								type="text"
+								id="health-patella"
+								name="health-patella"
+							/>
+						</div>
+						<div class="inquiry-field">
+							<label class="inquiry-field__label" for="health-eyes">Augenuntersuchung</label>
+							<input
+								class="inquiry-field__input"
+								type="text"
+								id="health-eyes"
+								name="health-eyes"
+							/>
+						</div>
+						<div class="inquiry-field inquiry-field--full">
+							<label class="inquiry-field__label" for="health-dna">DNA-Tests</label>
+							<input
+								class="inquiry-field__input"
+								type="text"
+								id="health-dna"
+								name="health-dna"
+							/>
+						</div>
+					</div>
+				</fieldset>
+
+				<fieldset class="inquiry-form__group">
+					<legend class="inquiry-form__legend">Planung</legend>
+					<div class="inquiry-form__grid">
+						<div class="inquiry-field inquiry-field--full">
+							<label class="inquiry-field__label" for="plan-period">Geplanter Deckzeitraum</label>
+							<input
+								class="inquiry-field__input"
+								type="text"
+								id="plan-period"
+								name="plan-period"
+							/>
+						</div>
+						<div class="inquiry-field">
+							<label class="inquiry-field__label" for="plan-first-litter">Erster Wurf?</label>
+							<select class="inquiry-field__select" id="plan-first-litter" name="plan-first-litter">
+								<option value="">Bitte wählen</option>
+								<option value="ja">Ja</option>
+								<option value="nein">Nein</option>
+							</select>
+						</div>
+						<div class="inquiry-field">
+							<label class="inquiry-field__label" for="plan-existing-litters"
+								>Bereits vorhandene Würfe?</label
+							>
+							<select
+								class="inquiry-field__select"
+								id="plan-existing-litters"
+								name="plan-existing-litters"
+							>
+								<option value="">Bitte wählen</option>
+								<option value="ja">Ja</option>
+								<option value="nein">Nein</option>
+							</select>
+						</div>
+					</div>
+				</fieldset>
+
+				<fieldset class="inquiry-form__group">
+					<legend class="inquiry-form__legend">Nachricht</legend>
+					<div class="inquiry-field">
+						<label class="inquiry-field__label" for="message">Freitextfeld</label>
+						<textarea
+							class="inquiry-field__textarea"
+							id="message"
+							name="message"
+							rows="6"></textarea>
+					</div>
+				</fieldset>
+
+				<div class="inquiry-form__actions">
+					<button type="submit" class="btn btn--primary inquiry-form__submit" disabled>
+						Absenden — demnächst verfügbar
+					</button>
+					<p class="inquiry-form__note">Versand wird zu gegebener Zeit aktiviert.</p>
+				</div>
+			</form>
+		</div>
+	</section>
+
+	<section class="inquiry-notice" aria-labelledby="inquiry-notice-heading">
+		<div class="container">
+			<div class="inquiry-notice__inner">
+				<h2 id="inquiry-notice-heading" class="inquiry-title">Hinweis</h2>
+				<p class="inquiry-text">
+					Ludwig befindet sich aktuell im Aufbau als zukünftiger Deckrüde. Die Seite dient der
+					Dokumentation seiner Entwicklung. Verfügbarkeiten und Voraussetzungen werden zu
+					gegebener Zeit veröffentlicht.
+				</p>
+			</div>
+		</div>
 	</section>
 </BaseLayout>
+
+<style>
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+</style>

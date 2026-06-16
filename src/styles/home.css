@@ -116,13 +116,13 @@
 	color: rgb(74 52 40 / 0.62);
 }
 
-.home-hero__lead {
+.home-hero__intro {
 	margin: 0;
-	max-width: 36ch;
-	padding-top: var(--space-md);
-	font-size: var(--text-lg);
+	max-width: 38ch;
+	padding-top: var(--space-sm);
+	font-size: var(--text-base);
 	line-height: var(--leading-relaxed);
-	color: rgb(74 52 40 / 0.72);
+	color: rgb(74 52 40 / 0.68);
 }
 
 /* ── 2. Feature areas ────────────────────────────────────────── */
@@ -426,6 +426,23 @@
 	letter-spacing: 0.03em;
 }
 
+/* ── Trust ───────────────────────────────────────────────────── */
+
+.home-trust__inner {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-md);
+	max-width: 36rem;
+}
+
+.home-trust__text {
+	margin: 0;
+	max-width: 40ch;
+	font-size: var(--text-base);
+	line-height: var(--leading-relaxed);
+	color: rgb(74 52 40 / 0.72);
+}
+
 /* ── Breakpoints ─────────────────────────────────────────────── */
 
 @media (min-width: 40rem) {
@@ -543,7 +560,11 @@
 	}
 
 	.home-profile__grid {
-		grid-template-columns: repeat(4, 1fr);
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.home-profile__cell:nth-last-child(-n + 3) {
+		border-bottom: none;
 	}
 
 	.home-profile__cell {

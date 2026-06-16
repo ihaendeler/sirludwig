@@ -1,0 +1,201 @@
+/* ── Deckanfrage page (mobile first) ─────────────────────────── */
+
+:root {
+	--inquiry-section-pad: clamp(3.25rem, 10vw, 7rem);
+	--inquiry-line: 1px solid rgb(74 52 40 / 0.12);
+}
+
+.inquiry-eyebrow {
+	margin: 0 0 var(--space-sm);
+	font-size: 0.8125rem;
+	font-weight: 500;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: rgb(74 52 40 / 0.52);
+}
+
+.inquiry-title {
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: clamp(1.75rem, 5.5vw, 2.25rem);
+	font-weight: 400;
+	line-height: 1.12;
+	letter-spacing: -0.025em;
+	color: var(--color-black);
+}
+
+.inquiry-text {
+	margin: 0;
+	max-width: 40ch;
+	font-size: var(--text-base);
+	line-height: var(--leading-relaxed);
+	color: rgb(74 52 40 / 0.72);
+}
+
+.inquiry-section {
+	padding-block: var(--inquiry-section-pad);
+}
+
+.inquiry-section + .inquiry-section {
+	border-top: var(--inquiry-line);
+}
+
+/* ── Hero ────────────────────────────────────────────────────── */
+
+.inquiry-hero {
+	padding-block: var(--space-2xl) var(--space-xl);
+}
+
+.inquiry-hero__inner {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-sm);
+	max-width: 36rem;
+}
+
+.inquiry-hero__heading {
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: clamp(1.875rem, 6.5vw, 2.75rem);
+	font-weight: 400;
+	line-height: 1.1;
+	letter-spacing: -0.025em;
+	color: var(--color-black);
+}
+
+.inquiry-hero__lead {
+	margin: 0;
+	max-width: 38ch;
+	padding-top: var(--space-xs);
+	font-size: var(--text-lg);
+	line-height: var(--leading-relaxed);
+	color: rgb(74 52 40 / 0.72);
+}
+
+/* ── Form ────────────────────────────────────────────────────── */
+
+.inquiry-form {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-2xl);
+	max-width: 40rem;
+}
+
+.inquiry-form__group {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-lg);
+	margin: 0;
+	padding: 0;
+	border: none;
+	min-width: 0;
+}
+
+.inquiry-form__legend {
+	margin-bottom: var(--space-xs);
+	padding: 0;
+	font-family: var(--font-display);
+	font-size: var(--text-lg);
+	font-weight: 400;
+	color: var(--color-black);
+}
+
+.inquiry-field {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-2xs);
+}
+
+.inquiry-field__label {
+	font-size: var(--text-sm);
+	font-weight: 500;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: rgb(74 52 40 / 0.55);
+}
+
+.inquiry-field__input,
+.inquiry-field__select,
+.inquiry-field__textarea {
+	width: 100%;
+	min-height: var(--touch-min);
+	padding: var(--space-sm) var(--space-md);
+	border: var(--inquiry-line);
+	border-radius: var(--radius-sm);
+	background-color: var(--color-cream);
+	color: var(--color-brown);
+	line-height: var(--leading-normal);
+	transition: border-color var(--transition-fast);
+}
+
+.inquiry-field__textarea {
+	min-height: 9rem;
+	resize: vertical;
+}
+
+.inquiry-field__input:focus,
+.inquiry-field__select:focus,
+.inquiry-field__textarea:focus {
+	outline: none;
+	border-color: var(--color-apricot-dark);
+}
+
+.inquiry-field__input:focus-visible,
+.inquiry-field__select:focus-visible,
+.inquiry-field__textarea:focus-visible {
+	outline: 2px solid var(--color-apricot);
+	outline-offset: 2px;
+}
+
+.inquiry-form__actions {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-sm);
+	padding-top: var(--space-md);
+}
+
+.inquiry-form__submit {
+	width: 100%;
+}
+
+.inquiry-form__note {
+	margin: 0;
+	font-size: var(--text-sm);
+	color: rgb(74 52 40 / 0.55);
+	text-align: center;
+}
+
+/* ── Hinweis ─────────────────────────────────────────────────── */
+
+.inquiry-notice {
+	padding-block: var(--inquiry-section-pad);
+	border-top: var(--inquiry-line);
+}
+
+.inquiry-notice__inner {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-md);
+	max-width: 40rem;
+}
+
+@media (min-width: 40rem) {
+	.inquiry-form__grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--space-lg);
+	}
+
+	.inquiry-form__grid .inquiry-field--full {
+		grid-column: 1 / -1;
+	}
+
+	.inquiry-form__submit {
+		width: auto;
+		min-width: 14rem;
+	}
+
+	.inquiry-form__actions {
+		align-items: flex-start;
+	}
+}

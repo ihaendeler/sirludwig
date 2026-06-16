@@ -55,6 +55,7 @@ const profileFields = [
 	{ label: 'Größe', value: 'in Entwicklung' },
 	{ label: 'Gewicht', value: 'in Entwicklung' },
 	{ label: 'Registrierung', value: 'FRZ — Registerprojekt' },
+	{ label: 'Wohnort / Region', value: 'folgt' },
 ];
 
 const timelineEntries = [
@@ -86,9 +87,9 @@ const timelineEntries = [
 		<div class="home-hero__content container">
 			<h1 id="home-hero-brand" class="home-hero__brand">{siteConfig.brandName}</h1>
 			<p class="home-hero__subtitle">{siteConfig.heroSubtitle}</p>
-			<p class="home-hero__lead">
-				Ludwig wurde aufgrund seiner Abstammung, Gesundheit und seines Potenzials als
-				zukünftiger Deckrüde ausgewählt.
+			<p class="home-hero__intro">
+				Tuxedo Großpudel aus ausgewählten Linien. Dokumentation von Entwicklung,
+				Gesundheit und zukünftigem Zuchteinsatz.
 			</p>
 		</div>
 	</section>
@@ -189,7 +190,20 @@ const timelineEntries = [
 		</div>
 	</section>
 
-	<!-- 5. Highlight -->
+	<!-- 5. Trust -->
+	<section class="home-section home-trust" aria-labelledby="trust-heading">
+		<div class="container">
+			<div class="home-trust__inner">
+				<h2 id="trust-heading" class="section-title">Dokumentation statt Versprechen</h2>
+				<p class="home-trust__text">
+					Gesundheit, Abstammung und Entwicklung werden Schritt für Schritt dokumentiert.
+					Ergebnisse und Unterlagen werden nach Vorliegen veröffentlicht.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- 6. Highlight -->
 	<section
 		class="home-section home-highlight home-highlight--reverse"
 		aria-labelledby="highlight-heading"
@@ -222,7 +236,7 @@ const timelineEntries = [
 		</div>
 	</section>
 
-	<!-- 6. Call to action -->
+	<!-- 7. Call to action -->
 	<section class="home-section home-cta" aria-labelledby="cta-heading">
 		<div class="container">
 			<div class="home-cta__inner">
