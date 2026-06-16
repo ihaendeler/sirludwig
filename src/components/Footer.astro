@@ -1,5 +1,106 @@
 ---
-
+const footerLinks = [
+	{ href: '#impressum', label: 'Impressum' },
+	{ href: '#datenschutz', label: 'Datenschutz' },
+];
 ---
 
-<footer></footer>
+<footer class="site-footer">
+	<div class="site-footer__inner container">
+		<div class="site-footer__brand">
+			<p class="site-footer__name">Platzhalter</p>
+			<p class="text-muted">Mobile-First Fundament</p>
+		</div>
+
+		<nav class="site-footer__nav" aria-label="Footer-Navigation">
+			<ul class="site-footer__list">
+				{
+					footerLinks.map((item) => (
+						<li>
+							<a href={item.href} class="site-footer__link">
+								{item.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+
+		<p class="site-footer__copy text-muted">
+			&copy; {new Date().getFullYear()} Platzhalter
+		</p>
+	</div>
+</footer>
+
+<style>
+	.site-footer {
+		margin-top: auto;
+		padding-block: var(--space-xl);
+		border-top: 1px solid rgb(74 52 40 / 0.12);
+		background-color: rgb(74 52 40 / 0.04);
+	}
+
+	.site-footer__inner {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-lg);
+	}
+
+	.site-footer__brand {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2xs);
+	}
+
+	.site-footer__name {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: var(--text-lg);
+		font-weight: 500;
+		color: var(--color-black);
+	}
+
+	.site-footer__list {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-xs);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.site-footer__link {
+		display: inline-flex;
+		align-items: center;
+		min-height: var(--touch-min);
+		padding-inline: var(--space-2xs);
+		font-size: var(--text-base);
+		font-weight: 500;
+		text-decoration: none;
+	}
+
+	.site-footer__copy {
+		margin: 0;
+		padding-top: var(--space-sm);
+		border-top: 1px solid rgb(74 52 40 / 0.08);
+	}
+
+	@media (min-width: 48rem) {
+		.site-footer__inner {
+			display: grid;
+			grid-template-columns: 1fr auto;
+			grid-template-rows: auto auto;
+			align-items: start;
+			column-gap: var(--space-xl);
+		}
+
+		.site-footer__copy {
+			grid-column: 1 / -1;
+		}
+
+		.site-footer__list {
+			flex-direction: row;
+			gap: var(--space-md);
+		}
+	}
+</style>

@@ -19,13 +19,15 @@ const { title, description, canonical } = Astro.props;
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
+		<meta name="theme-color" content="#F4F0E8" />
 		<SEO title={title} description={description} canonical={canonical} />
 	</head>
 	<body>
+		<a class="skip-link" href="#main-content">Zum Inhalt springen</a>
 		<Navigation />
-		<main>
+		<main id="main-content" class="main-content">
 			<slot />
 		</main>
 		<Footer />

@@ -1,5 +1,285 @@
 ---
-
+const navItems = [
+	{ href: '/', label: 'Start' },
+	{ href: '#bereich', label: 'Bereich' },
+	{ href: '#kontakt', label: 'Kontakt' },
+];
 ---
 
-<nav></nav>
+<header class="site-header">
+	<div class="site-header__inner container">
+		<a href="/" class="site-header__brand" aria-label="Zur Startseite">
+			<span class="site-header__brand-text">Platzhalter</span>
+		</a>
+
+		<button
+			type="button"
+			class="nav-toggle"
+			aria-expanded="false"
+			aria-controls="site-nav"
+			aria-label="Menü öffnen"
+		>
+			<span class="nav-toggle__bar" aria-hidden="true"></span>
+			<span class="nav-toggle__bar" aria-hidden="true"></span>
+			<span class="nav-toggle__bar" aria-hidden="true"></span>
+		</button>
+	</div>
+
+	<div class="nav-overlay" data-nav-overlay hidden></div>
+
+	<nav id="site-nav" class="site-nav" aria-label="Hauptnavigation" hidden>
+		<ul class="site-nav__list">
+			{
+				navItems.map((item) => (
+					<li class="site-nav__item">
+						<a href={item.href} class="site-nav__link" data-nav-link>
+							{item.label}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</nav>
+</header>
+
+<style>
+	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: 100;
+		height: var(--header-height);
+		background-color: var(--color-cream);
+		box-shadow: var(--shadow-header);
+		isolation: isolate;
+	}
+
+	.site-header__inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 100%;
+	}
+
+	.site-header__brand {
+		display: flex;
+		align-items: center;
+		min-height: var(--touch-min);
+		padding-inline: var(--space-2xs);
+		font-family: var(--font-display);
+		font-size: var(--text-lg);
+		font-weight: 500;
+		color: var(--color-black);
+		text-decoration: none;
+		letter-spacing: -0.02em;
+	}
+
+	.site-header__brand:hover {
+		color: var(--color-apricot-dark);
+	}
+
+	.nav-toggle {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 0.3125rem;
+		width: var(--touch-min);
+		height: var(--touch-min);
+		border-radius: var(--radius-sm);
+	}
+
+	.nav-toggle__bar {
+		display: block;
+		width: 1.375rem;
+		height: 2px;
+		background-color: var(--color-brown);
+		border-radius: 1px;
+		transition:
+			transform var(--transition-fast),
+			opacity var(--transition-fast);
+	}
+
+	.nav-toggle[aria-expanded='true'] .nav-toggle__bar:nth-child(1) {
+		transform: translateY(0.4375rem) rotate(45deg);
+	}
+
+	.nav-toggle[aria-expanded='true'] .nav-toggle__bar:nth-child(2) {
+		opacity: 0;
+	}
+
+	.nav-toggle[aria-expanded='true'] .nav-toggle__bar:nth-child(3) {
+		transform: translateY(-0.4375rem) rotate(-45deg);
+	}
+
+	.nav-overlay {
+		position: fixed;
+		inset: 0;
+		z-index: 110;
+		background-color: rgb(28 28 28 / 0.45);
+		opacity: 0;
+		transition: opacity var(--transition-fast);
+		pointer-events: none;
+	}
+
+	.nav-overlay.is-visible {
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	.site-nav {
+		position: fixed;
+		inset: var(--header-height) 0 0 0;
+		z-index: 120;
+		padding: var(--space-md) var(--page-gutter) var(--space-xl);
+		background-color: var(--color-cream);
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
+		transform: translateY(-0.5rem);
+		opacity: 0;
+		transition:
+			transform var(--transition-fast),
+			opacity var(--transition-fast);
+		pointer-events: none;
+	}
+
+	.site-nav.is-open {
+		transform: translateY(0);
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	.site-nav__list {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-xs);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.site-nav__link {
+		display: flex;
+		align-items: center;
+		min-height: var(--touch-min);
+		padding: var(--space-sm) var(--space-md);
+		border-radius: var(--radius-md);
+		font-size: var(--text-xl);
+		font-weight: 500;
+		color: var(--color-black);
+		text-decoration: none;
+		transition: background-color var(--transition-fast);
+	}
+
+	.site-nav__link:hover,
+	.site-nav__link:focus-visible {
+		background-color: rgb(217 160 102 / 0.18);
+		color: var(--color-brown);
+	}
+
+	@media (min-width: 64rem) {
+		.nav-toggle,
+		.nav-overlay {
+			display: none;
+		}
+
+		.site-nav {
+			position: static;
+			display: block !important;
+			padding: 0;
+			background: none;
+			overflow: visible;
+			transform: none;
+			opacity: 1;
+			pointer-events: auto;
+		}
+
+		.site-header__inner {
+			gap: var(--space-lg);
+		}
+
+		.site-header {
+			display: flex;
+			align-items: center;
+		}
+
+		.site-header > .container.site-header__inner {
+			flex: 1;
+		}
+
+		.site-nav {
+			position: absolute;
+			inset: auto;
+			top: 0;
+			right: var(--page-gutter);
+			height: var(--header-height);
+			display: flex !important;
+			align-items: center;
+		}
+
+		.site-nav__list {
+			flex-direction: row;
+			gap: var(--space-2xs);
+		}
+
+		.site-nav__link {
+			min-height: var(--touch-min);
+			padding: var(--space-xs) var(--space-md);
+			font-size: var(--text-base);
+		}
+	}
+</style>
+
+<script>
+	const toggle = document.querySelector('.nav-toggle');
+	const nav = document.getElementById('site-nav');
+	const overlay = document.querySelector('[data-nav-overlay]');
+	const navLinks = document.querySelectorAll('[data-nav-link]');
+	const desktopQuery = window.matchMedia('(min-width: 64rem)');
+
+	function setMenuOpen(open: boolean) {
+		if (!toggle || !nav || !overlay) return;
+
+		toggle.setAttribute('aria-expanded', String(open));
+		toggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+		nav.classList.toggle('is-open', open);
+		overlay.classList.toggle('is-visible', open);
+		nav.hidden = !open;
+		overlay.hidden = !open;
+		document.body.style.overflow = open ? 'hidden' : '';
+	}
+
+	function closeMenu() {
+		if (!desktopQuery.matches) setMenuOpen(false);
+	}
+
+	toggle?.addEventListener('click', () => {
+		const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+		setMenuOpen(!isOpen);
+	});
+
+	overlay?.addEventListener('click', closeMenu);
+	navLinks.forEach((link) => link.addEventListener('click', closeMenu));
+
+	document.addEventListener('keydown', (event) => {
+		if (event.key === 'Escape') closeMenu();
+	});
+
+	function handleViewportChange() {
+		if (!nav || !overlay || !toggle) return;
+
+		if (desktopQuery.matches) {
+			nav.hidden = false;
+			overlay.hidden = true;
+			nav.classList.remove('is-open');
+			overlay.classList.remove('is-visible');
+			toggle.setAttribute('aria-expanded', 'false');
+			document.body.style.overflow = '';
+		} else if (toggle.getAttribute('aria-expanded') !== 'true') {
+			nav.hidden = true;
+			overlay.hidden = true;
+		}
+	}
+
+	desktopQuery.addEventListener('change', handleViewportChange);
+	handleViewportChange();
+</script>
