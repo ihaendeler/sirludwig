@@ -25,6 +25,10 @@ const navItems = mainNavigation;
 	<div class="nav-overlay" data-nav-overlay hidden></div>
 
 	<nav id="site-nav" class="site-nav" aria-label="Hauptnavigation" hidden>
+		<div class="site-nav__intro">
+			<Brand href="/" class="site-nav__brand" />
+		</div>
+
 		<ul class="site-nav__list">
 			{
 				navItems.map((item) => (
@@ -71,14 +75,19 @@ const navItems = mainNavigation;
 		width: var(--touch-min);
 		height: var(--touch-min);
 		border-radius: var(--radius-sm);
+		color: var(--color-brown);
+	}
+
+	.nav-toggle:focus-visible {
+		outline: 2px solid var(--color-apricot);
+		outline-offset: 3px;
 	}
 
 	.nav-toggle__bar {
 		display: block;
-		width: 1.375rem;
-		height: 2px;
-		background-color: var(--color-brown);
-		border-radius: 1px;
+		width: 1.25rem;
+		height: 1px;
+		background-color: currentColor;
 		transition:
 			transform var(--transition-fast),
 			opacity var(--transition-fast);
@@ -100,9 +109,9 @@ const navItems = mainNavigation;
 		position: fixed;
 		inset: 0;
 		z-index: 110;
-		background-color: rgb(28 28 28 / 0.45);
+		background-color: rgb(74 52 40 / 0.22);
 		opacity: 0;
-		transition: opacity var(--transition-fast);
+		transition: opacity 220ms ease;
 		pointer-events: none;
 	}
 
@@ -115,65 +124,96 @@ const navItems = mainNavigation;
 		position: fixed;
 		inset: var(--header-height) 0 0 0;
 		z-index: 120;
-		padding: var(--space-md) var(--page-gutter) var(--space-xl);
+		display: flex;
+		flex-direction: column;
+		padding: var(--space-xl) var(--page-gutter) var(--space-2xl);
 		background-color: var(--color-cream);
+		border-top: 1px solid rgb(74 52 40 / 0.1);
 		overflow-y: auto;
 		-webkit-overflow-scrolling: touch;
-		transform: translateY(-0.5rem);
 		opacity: 0;
-		transition:
-			transform var(--transition-fast),
-			opacity var(--transition-fast);
+		transition: opacity 220ms ease;
 		pointer-events: none;
 	}
 
 	.site-nav.is-open {
-		transform: translateY(0);
 		opacity: 1;
 		pointer-events: auto;
+	}
+
+	.site-nav__intro {
+		margin-bottom: var(--space-xl);
+		padding-bottom: var(--space-lg);
+		border-bottom: 1px solid rgb(74 52 40 / 0.1);
+	}
+
+	.site-nav__brand :global(.brand__name) {
+		font-size: 1.25rem;
+		letter-spacing: 0.05em;
+	}
+
+	.site-nav__brand :global(.brand__tagline) {
+		font-size: 0.75rem;
 	}
 
 	.site-nav__list {
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-xs);
+		gap: 0;
 		margin: 0;
 		padding: 0;
 		list-style: none;
+	}
+
+	.site-nav__item + .site-nav__item {
+		border-top: 1px solid rgb(74 52 40 / 0.1);
 	}
 
 	.site-nav__link {
 		display: flex;
 		align-items: center;
 		min-height: var(--touch-min);
-		padding: var(--space-sm) var(--space-md);
-		border-radius: var(--radius-md);
-		font-size: var(--text-xl);
-		font-weight: 500;
-		color: var(--color-black);
+		padding: var(--space-md) 0;
+		font-family: var(--font-display);
+		font-size: clamp(1.25rem, 4.5vw, 1.4375rem);
+		font-weight: 400;
+		line-height: 1.2;
+		letter-spacing: -0.015em;
+		color: var(--color-brown);
 		text-decoration: none;
-		transition: background-color var(--transition-fast);
+		transition: color var(--transition-fast);
 	}
 
-	.site-nav__link:hover,
+	.site-nav__link:hover {
+		color: var(--color-apricot-dark);
+	}
+
 	.site-nav__link:focus-visible {
-		background-color: rgb(217 160 102 / 0.18);
+		outline: 2px solid var(--color-apricot);
+		outline-offset: 4px;
 		color: var(--color-brown);
 	}
 
 	@media (min-width: 64rem) {
 		.nav-toggle,
-		.nav-overlay {
+		.nav-overlay,
+		.site-nav__intro {
 			display: none;
 		}
 
 		.site-nav {
-			position: static;
-			display: block !important;
+			position: absolute;
+			inset: auto;
+			top: 0;
+			right: var(--page-gutter);
+			display: flex !important;
+			flex-direction: row;
+			align-items: center;
+			height: var(--header-height);
 			padding: 0;
 			background: none;
+			border-top: none;
 			overflow: visible;
-			transform: none;
 			opacity: 1;
 			pointer-events: auto;
 		}
@@ -191,25 +231,31 @@ const navItems = mainNavigation;
 			flex: 1;
 		}
 
-		.site-nav {
-			position: absolute;
-			inset: auto;
-			top: 0;
-			right: var(--page-gutter);
-			height: var(--header-height);
-			display: flex !important;
-			align-items: center;
-		}
-
 		.site-nav__list {
 			flex-direction: row;
 			gap: var(--space-2xs);
 		}
 
+		.site-nav__item + .site-nav__item {
+			border-top: none;
+		}
+
 		.site-nav__link {
 			min-height: var(--touch-min);
 			padding: var(--space-xs) var(--space-md);
+			font-family: var(--font-body);
 			font-size: var(--text-base);
+			font-weight: 500;
+			letter-spacing: 0;
+			color: var(--color-black);
+			border-radius: var(--radius-md);
+			transition: background-color var(--transition-fast), color var(--transition-fast);
+		}
+
+		.site-nav__link:hover,
+		.site-nav__link:focus-visible {
+			background-color: rgb(217 160 102 / 0.12);
+			color: var(--color-brown);
 		}
 	}
 </style>
@@ -218,7 +264,7 @@ const navItems = mainNavigation;
 	const toggle = document.querySelector('.nav-toggle');
 	const nav = document.getElementById('site-nav');
 	const overlay = document.querySelector('[data-nav-overlay]');
-	const navLinks = document.querySelectorAll('[data-nav-link]');
+	const navLinks = document.querySelectorAll('[data-nav-link], .site-nav__brand');
 	const desktopQuery = window.matchMedia('(min-width: 64rem)');
 
 	function setMenuOpen(open: boolean) {
