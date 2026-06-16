@@ -1,20 +1,130 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getCanonical } from '../config/site';
+import { siteConfig, getCanonical } from '../config/site';
+import '../styles/gesundheit.css';
 
 const path = '/gesundheit';
+
+const dnaRecords = [
+	{ name: 'Großes Pudelpaket', status: 'vorbereitet' },
+	{ name: 'DNA-Profil', status: 'folgt' },
+	{ name: 'Merle-Test', status: 'vorbereitet' },
+	{ name: 'VGL-Test', status: 'folgt' },
+];
+
+const orthoRecords = [
+	{ name: 'HD', status: 'folgt nach Auswertung' },
+	{ name: 'ED', status: 'folgt nach Auswertung' },
+	{ name: 'Patella', status: 'folgt nach Auswertung' },
+];
+
+const eyeRecords = [{ name: 'DOK Augenuntersuchung', status: 'geplant' }];
+
+const futureDocuments = ['DNA', 'HD / ED', 'Patella', 'DOK'];
 ---
 
 <BaseLayout
-	title="Gesundheit — Platzhalter"
-	description="Bereich Gesundheit — in Vorbereitung."
+	title={`Gesundheit — ${siteConfig.brandName}`}
+	description="Gesundheitsdokumentation für Sir Ludwig — Untersuchungen werden nach Abschluss transparent veröffentlicht."
 	canonical={getCanonical(path)}
 >
-	<section class="page-placeholder container" aria-labelledby="page-heading">
-		<p class="page-placeholder__label">Bereich</p>
-		<h1 id="page-heading">Gesundheit</h1>
-		<p class="page-placeholder__hint">
-			Dieser Bereich ist vorbereitet und wird in einer späteren Phase ausgearbeitet.
-		</p>
+	<!-- Hero -->
+	<section class="health-hero" aria-labelledby="health-heading">
+		<div class="container health-hero__inner">
+			<p class="health-eyebrow">Gesundheit</p>
+			<h1 id="health-heading" class="health-hero__heading">
+				Gesundheit transparent dokumentiert
+			</h1>
+			<p class="health-hero__lead">
+				Alle relevanten Untersuchungen werden hier nach Abschluss nachvollziehbar
+				dokumentiert.
+			</p>
+		</div>
+	</section>
+
+	<!-- DNA -->
+	<section class="health-section" aria-labelledby="health-dna-heading">
+		<div class="container">
+			<header class="health-section__header">
+				<p class="health-eyebrow">DNA</p>
+				<h2 id="health-dna-heading" class="health-title">Genetische Untersuchungen</h2>
+			</header>
+
+			<ul class="health-records health-records--grid">
+				{
+					dnaRecords.map((record) => (
+						<li class="health-records__item">
+							<p class="health-records__name">{record.name}</p>
+							<p class="health-records__status">{record.status}</p>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+
+	<!-- Orthopädie -->
+	<section class="health-section" aria-labelledby="health-ortho-heading">
+		<div class="container">
+			<header class="health-section__header">
+				<p class="health-eyebrow">Orthopädie</p>
+				<h2 id="health-ortho-heading" class="health-title">Bewegungsapparat</h2>
+			</header>
+
+			<ul class="health-records health-records--triple">
+				{
+					orthoRecords.map((record) => (
+						<li class="health-records__item">
+							<p class="health-records__name">{record.name}</p>
+							<p class="health-records__status">{record.status}</p>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+
+	<!-- Augen -->
+	<section class="health-section" aria-labelledby="health-eyes-heading">
+		<div class="container">
+			<header class="health-section__header">
+				<p class="health-eyebrow">Augen</p>
+				<h2 id="health-eyes-heading" class="health-title">Augenuntersuchung</h2>
+			</header>
+
+			<ul class="health-records">
+				{
+					eyeRecords.map((record) => (
+						<li class="health-records__item">
+							<p class="health-records__name">{record.name}</p>
+							<p class="health-records__status">{record.status}</p>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+
+	<!-- Downloads -->
+	<section class="health-section" aria-labelledby="health-downloads-heading">
+		<div class="container">
+			<div class="health-downloads">
+				<header class="health-section__header">
+					<p class="health-eyebrow">Dokumente</p>
+					<h2 id="health-downloads-heading" class="health-title">Downloads</h2>
+					<p class="health-text">
+						PDF-Dokumente werden nach Vorliegen der Ergebnisse ergänzt.
+					</p>
+				</header>
+
+				<ul class="health-downloads__list" aria-label="Geplante Dokumente">
+					{
+						futureDocuments.map((doc) => (
+							<li class="health-downloads__item">{doc}</li>
+						))
+					}
+				</ul>
+			</div>
+		</div>
 	</section>
 </BaseLayout>
