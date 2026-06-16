@@ -1,16 +1,13 @@
 ---
 import { mainNavigation } from '../config/navigation';
-import { siteConfig } from '../config/site';
+import Brand from './Brand.astro';
 
 const navItems = mainNavigation;
 ---
 
 <header class="site-header">
 	<div class="site-header__inner container">
-		<a href="/" class="site-header__brand" aria-label="Zur Startseite">
-			<span class="site-header__brand-name">{siteConfig.brandName}</span>
-			<span class="site-header__brand-tagline">{siteConfig.brandTagline}</span>
-		</a>
+		<Brand href="/" class="site-header__brand" />
 
 		<button
 			type="button"
@@ -61,37 +58,8 @@ const navItems = mainNavigation;
 	}
 
 	.site-header__brand {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		gap: 0.125rem;
 		min-height: var(--touch-min);
 		padding-inline: var(--space-2xs);
-		font-family: var(--font-display);
-		color: var(--color-black);
-		text-decoration: none;
-		letter-spacing: -0.02em;
-	}
-
-	.site-header__brand-name {
-		font-size: var(--text-lg);
-		font-weight: 500;
-		line-height: 1.1;
-		letter-spacing: 0.04em;
-	}
-
-	.site-header__brand-tagline {
-		font-family: var(--font-body);
-		font-size: 0.6875rem;
-		font-weight: 500;
-		line-height: 1.2;
-		letter-spacing: 0.08em;
-		text-transform: lowercase;
-		color: rgb(74 52 40 / 0.62);
-	}
-
-	.site-header__brand:hover .site-header__brand-name {
-		color: var(--color-apricot-dark);
 	}
 
 	.nav-toggle {

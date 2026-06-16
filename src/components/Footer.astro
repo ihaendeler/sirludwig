@@ -1,5 +1,6 @@
 ---
 import { siteConfig } from '../config/site';
+import Brand from './Brand.astro';
 
 const footerLinks = [
 	{ href: '#impressum', label: 'Impressum' },
@@ -9,10 +10,7 @@ const footerLinks = [
 
 <footer class="site-footer">
 	<div class="site-footer__inner container">
-		<div class="site-footer__brand">
-			<p class="site-footer__name">{siteConfig.brandName}</p>
-			<p class="text-muted">{siteConfig.brandTagline}</p>
-		</div>
+		<Brand class="site-footer__brand" />
 
 		<nav class="site-footer__nav" aria-label="Footer-Navigation">
 			<ul class="site-footer__list">
@@ -49,17 +47,7 @@ const footerLinks = [
 	}
 
 	.site-footer__brand {
-		display: flex;
-		flex-direction: column;
 		gap: var(--space-2xs);
-	}
-
-	.site-footer__name {
-		margin: 0;
-		font-family: var(--font-display);
-		font-size: var(--text-lg);
-		font-weight: 500;
-		color: var(--color-black);
 	}
 
 	.site-footer__list {

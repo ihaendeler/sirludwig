@@ -15,6 +15,7 @@ export interface SiteConfig {
 	url: string;
 	brandName: string;
 	brandTagline: string;
+	brandMonogram: string;
 	heroSubtitle: string;
 	social: SocialLinks;
 	contact: ContactInfo;
@@ -25,6 +26,7 @@ export const siteConfig: SiteConfig = {
 	url: '',
 	brandName: 'SIR LUDWIG',
 	brandTagline: 'by Flying Royals',
+	brandMonogram: 'SL',
 	heroSubtitle: 'Tuxedo Großpudel · by Flying Royals',
 	social: {
 		instagram: '',

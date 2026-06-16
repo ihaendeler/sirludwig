@@ -1,0 +1,81 @@
+---
+import { siteConfig } from '../config/site';
+
+interface Props {
+	variant?: 'full' | 'monogram';
+	href?: string;
+	class?: string;
+}
+
+const { variant = 'full', href, class: className } = Astro.props;
+
+const Element = href ? 'a' : 'div';
+---
+
+<Element
+	href={href}
+	class:list={['brand', `brand--${variant}`, className]}
+	aria-label={href ? 'Zur Startseite' : undefined}
+>
+	{
+		variant === 'monogram' ? (
+			<span class="brand__monogram" aria-hidden="true">
+				{siteConfig.brandMonogram}
+			</span>
+		) : (
+			<>
+				<span class="brand__name">{siteConfig.brandName}</span>
+				<span class="brand__tagline">{siteConfig.brandTagline}</span>
+			</>
+		)
+	}
+</Element>
+
+<style>
+	.brand {
+		display: inline-flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 0.125rem;
+		color: var(--color-black);
+		text-decoration: none;
+	}
+
+	.brand__name {
+		font-family: var(--font-display);
+		font-size: var(--text-lg);
+		font-weight: 500;
+		line-height: 1.1;
+		letter-spacing: 0.04em;
+	}
+
+	.brand__tagline {
+		font-family: var(--font-body);
+		font-size: 0.6875rem;
+		font-weight: 500;
+		line-height: 1.2;
+		letter-spacing: 0.08em;
+		text-transform: lowercase;
+		color: rgb(74 52 40 / 0.62);
+	}
+
+	a.brand:hover .brand__name {
+		color: var(--color-apricot-dark);
+	}
+
+	.brand--monogram {
+		align-items: center;
+		justify-content: center;
+		min-width: var(--touch-min);
+		min-height: var(--touch-min);
+	}
+
+	.brand__monogram {
+		font-family: var(--font-display);
+		font-size: 1.125rem;
+		font-weight: 500;
+		line-height: 1;
+		letter-spacing: 0.08em;
+		color: var(--color-brown);
+	}
+</style>

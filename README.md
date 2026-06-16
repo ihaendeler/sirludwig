@@ -51,7 +51,7 @@ src/
       ausstellungen/  # Ausstellungsfotos
       nachzucht/      # Nachzucht-Bilder
       gesundheit/     # Gesundheits- und Dokumentationsbilder
-  components/         # Wiederverwendbare Komponenten
+  components/         # Wiederverwendbare Komponenten (inkl. Brand.astro)
   config/             # Zentrale Konfiguration (Site, Navigation)
   layouts/            # Seitenlayouts
   pages/              # Routen
@@ -121,3 +121,38 @@ Zentrale Werte werden in `src/config/` gepflegt:
 
 - `site.ts` — Site Name, URL, Brand Name, Social Media, Kontakt
 - `navigation.ts` — Navigationspunkte für Header und Menü
+
+## Branding
+
+Die Marke folgt einem minimalistischen Premium-Ansatz — editorial, modern und zeitlos. Bewusst kein klassisches Hundezüchterdesign.
+
+### Nicht verwendet
+
+- Kronen, Wappen, Pfoten, Hundesilhouetten
+- Goldoptik, Verläufe, dekorative Rahmen
+
+### Markenbestandteile
+
+| Element | Verwendung |
+|---------|------------|
+| **Wortmarke** | `SIR LUDWIG` + `by Flying Royals` — Komponente `Brand.astro`, Variante `full` |
+| **Monogramm** | `SL` — Variante `monogram` in `Brand.astro` |
+| **Favicon** | `public/favicon.svg` — cremefarbener Hintergrund (`#F4F0E8`), Monogramm in Dunkelbraun (`#4A3428`) |
+
+### Farben
+
+- Cream: `#F4F0E8`
+- Brown: `#4A3428`
+
+Zentrale Werte in `src/config/site.ts`: `brandName`, `brandTagline`, `brandMonogram`.
+
+### Verwendung
+
+```astro
+---
+import Brand from '../components/Brand.astro';
+---
+
+<Brand href="/" />
+<Brand variant="monogram" />
+```
