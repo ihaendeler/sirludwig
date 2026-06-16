@@ -1,22 +1,141 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/home.css';
+
+const features = [
+	{ title: 'Stammbaum', label: 'Bildbereich' },
+	{ title: 'Gesundheit', label: 'Bildbereich' },
+	{ title: 'Galerie', label: 'Bildbereich' },
+];
+
+const profileFields = [
+	{ label: 'Merkmal', value: 'Wert' },
+	{ label: 'Merkmal', value: 'Wert' },
+	{ label: 'Merkmal', value: 'Wert' },
+	{ label: 'Merkmal', value: 'Wert' },
+];
+
+const timelineEntries = [
+	{ phase: 'Phase 01', heading: 'Eintrag' },
+	{ phase: 'Phase 02', heading: 'Eintrag' },
+	{ phase: 'Phase 03', heading: 'Eintrag' },
+	{ phase: 'Phase 04', heading: 'Eintrag' },
+];
 ---
 
 <BaseLayout
-	title="Platzhalter — Mobile First"
-	description="Mobile-First Fundament für die zukünftige Website."
+	title="Platzhalter — Startseite"
+	description="Struktureller Platzhalter für die Startseite."
 >
-	<section class="hero" aria-labelledby="hero-heading">
-		<div class="hero__inner container">
-			<p class="hero__eyebrow">Platzhalter</p>
-			<h1 id="hero-heading">Hochwertiger Hero-Bereich</h1>
-			<p class="lead">
-				Dieser Bereich ist ein struktureller Platzhalter für die spätere
-				Startseite — optimiert für Smartphones und Besucher von Instagram.
-			</p>
-			<div class="hero__actions">
-				<a href="#bereich" class="btn btn--primary">Platzhalter Aktion</a>
-				<a href="#kontakt" class="btn btn--secondary">Mehr erfahren</a>
+	<!-- 1. Hero -->
+	<section class="home-hero" aria-labelledby="home-hero-brand">
+		<div class="home-hero__media placeholder-media" aria-hidden="true">
+			<p class="placeholder-label">Bildbereich</p>
+		</div>
+		<div class="home-hero__content container">
+			<h1 id="home-hero-brand" class="home-hero__brand">Markenname</h1>
+			<p class="home-hero__subtitle">Untertitel</p>
+		</div>
+	</section>
+
+	<!-- 2. Feature areas -->
+	<section class="home-section home-features" aria-labelledby="features-heading">
+		<div class="container">
+			<header class="home-features__intro">
+				<p class="section-eyebrow">Bereich</p>
+				<h2 id="features-heading" class="section-title">Überblick</h2>
+			</header>
+
+			<div class="home-features__grid">
+				{
+					features.map((item) => (
+						<article class="home-feature">
+							<div class="home-feature__media placeholder-media" aria-hidden="true">
+								<p class="placeholder-label">{item.label}</p>
+							</div>
+							<div class="home-feature__body">
+								<hr class="home-feature__line" />
+								<h3 class="home-feature__title">{item.title}</h3>
+							</div>
+						</article>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<!-- 3. Steckbrief -->
+	<section class="home-section home-profile" aria-labelledby="profile-heading">
+		<div class="container">
+			<header class="home-profile__header">
+				<p class="section-eyebrow">Bereich</p>
+				<h2 id="profile-heading" class="section-title">Steckbrief</h2>
+			</header>
+
+			<dl class="home-profile__grid">
+				{
+					profileFields.map((field) => (
+						<div class="home-profile__cell">
+							<dt class="home-profile__label">{field.label}</dt>
+							<dd class="home-profile__value">{field.value}</dd>
+						</div>
+					))
+				}
+			</dl>
+		</div>
+	</section>
+
+	<!-- 4. Timeline -->
+	<section class="home-section home-timeline" aria-labelledby="timeline-heading">
+		<div class="container">
+			<header class="home-timeline__header">
+				<p class="section-eyebrow">Bereich</p>
+				<h2 id="timeline-heading" class="section-title">Entwicklung</h2>
+			</header>
+
+			<ol class="home-timeline__track">
+				{
+					timelineEntries.map((entry) => (
+						<li class="home-timeline__entry">
+							<span class="home-timeline__marker" aria-hidden="true" />
+							<div class="home-timeline__body">
+								<p class="home-timeline__phase">{entry.phase}</p>
+								<h3 class="home-timeline__heading">{entry.heading}</h3>
+								<p class="home-timeline__placeholder">Textplatzhalter</p>
+							</div>
+						</li>
+					))
+				}
+			</ol>
+		</div>
+	</section>
+
+	<!-- 5. Highlight -->
+	<section
+		class="home-section home-highlight home-highlight--reverse"
+		aria-labelledby="highlight-heading"
+	>
+		<div class="container">
+			<div class="home-highlight__layout">
+				<div class="home-highlight__media placeholder-media" aria-hidden="true">
+					<p class="placeholder-label">Bildbereich</p>
+				</div>
+				<div class="home-highlight__content">
+					<p class="section-eyebrow">Bereich</p>
+					<h2 id="highlight-heading" class="section-title">Highlight</h2>
+					<p class="home-highlight__text">Textplatzhalter</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- 6. Call to action -->
+	<section class="home-section home-cta" aria-labelledby="cta-heading">
+		<div class="container">
+			<div class="home-cta__inner">
+				<p class="home-cta__note">Kontakt</p>
+				<h2 id="cta-heading" class="home-cta__title">Deckanfrage</h2>
+				<a href="#deckanfrage" class="btn btn--primary">Aktion</a>
 			</div>
 		</div>
 	</section>
