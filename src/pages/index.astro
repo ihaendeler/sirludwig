@@ -19,6 +19,7 @@ const mobileWidths = [480, 640, 828, 1080, 1280, 1920];
 const features = [
 	{
 		title: 'Stammbaum',
+		tagline: 'Abstammung, Linien und Herkunft.',
 		href: '/stammbaum',
 		teaser:
 			'Abstammung und Linienführung im Überblick. Die Dokumentation wird mit dem Registerprojekt ergänzt.',
@@ -29,6 +30,7 @@ const features = [
 	},
 	{
 		title: 'Gesundheit',
+		tagline: 'Untersuchungen, Ergebnisse und Dokumentation.',
 		href: '/gesundheit',
 		teaser:
 			'Untersuchungen und Gesundheitsüberwachung im Rahmen der Entwicklung. Ergebnisse folgen nach Abschluss.',
@@ -39,6 +41,7 @@ const features = [
 	},
 	{
 		title: 'Galerie',
+		tagline: 'Entwicklung, Alltag und Eindrücke.',
 		href: '/galerie',
 		teaser:
 			'Einblicke in Typ, Haltung und Alltag — visuell dokumentiert, ohne Übertreibung.',
@@ -130,6 +133,7 @@ const timelineEntries = [
 										{item.title}
 									</a>
 								</h3>
+								<p class="home-feature__tagline">{item.tagline}</p>
 								<p class="home-feature__teaser">{item.teaser}</p>
 							</div>
 						</article>

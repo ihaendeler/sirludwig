@@ -2,7 +2,7 @@
 
 :root {
 	--health-section-pad: clamp(3.25rem, 10vw, 7rem);
-	--health-line: 1px solid rgb(74 52 40 / 0.12);
+	--health-line: 1px solid rgb(74 52 40 / 0.1);
 }
 
 .health-eyebrow {
@@ -26,10 +26,10 @@
 
 .health-text {
 	margin: 0;
-	max-width: 40ch;
+	max-width: 42ch;
 	font-size: var(--text-base);
 	line-height: var(--leading-relaxed);
-	color: rgb(74 52 40 / 0.72);
+	color: rgb(74 52 40 / 0.68);
 }
 
 .health-section {
@@ -50,7 +50,7 @@
 	display: flex;
 	flex-direction: column;
 	gap: var(--space-sm);
-	max-width: 36rem;
+	max-width: 38rem;
 }
 
 .health-hero__heading {
@@ -65,11 +65,11 @@
 
 .health-hero__lead {
 	margin: 0;
-	max-width: 38ch;
+	max-width: 40ch;
 	padding-top: var(--space-xs);
 	font-size: var(--text-lg);
 	line-height: var(--leading-relaxed);
-	color: rgb(74 52 40 / 0.72);
+	color: rgb(74 52 40 / 0.68);
 }
 
 /* ── Section header ──────────────────────────────────────────── */
@@ -78,8 +78,8 @@
 	display: flex;
 	flex-direction: column;
 	gap: var(--space-sm);
-	margin-bottom: var(--space-xl);
-	max-width: 40rem;
+	margin-bottom: var(--space-2xl);
+	max-width: 42rem;
 }
 
 /* ── Record list ─────────────────────────────────────────────── */
@@ -91,37 +91,43 @@
 	margin: 0;
 	padding: 0;
 	list-style: none;
-	border: var(--health-line);
+	border: none;
 }
 
 .health-records__item {
 	display: flex;
 	flex-direction: column;
-	gap: var(--space-2xs);
-	padding: var(--space-lg) var(--space-md);
+	gap: var(--space-sm);
+	padding: var(--space-xl) 0;
 	border-bottom: var(--health-line);
 }
 
+.health-records__item:first-child {
+	padding-top: 0;
+}
+
 .health-records__item:last-child {
+	padding-bottom: 0;
 	border-bottom: none;
 }
 
 .health-records__name {
 	margin: 0;
 	font-family: var(--font-display);
-	font-size: var(--text-lg);
+	font-size: clamp(1.1875rem, 3.5vw, 1.3125rem);
 	font-weight: 400;
 	line-height: 1.3;
+	letter-spacing: -0.01em;
 	color: var(--color-black);
 }
 
 .health-records__status {
 	margin: 0;
-	font-size: var(--text-sm);
+	font-size: 0.75rem;
 	font-weight: 500;
-	letter-spacing: 0.06em;
-	text-transform: lowercase;
-	color: rgb(74 52 40 / 0.5);
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: rgb(74 52 40 / 0.42);
 }
 
 /* ── Downloads ───────────────────────────────────────────────── */
@@ -129,8 +135,8 @@
 .health-downloads {
 	display: flex;
 	flex-direction: column;
-	gap: var(--space-lg);
-	max-width: 40rem;
+	gap: var(--space-xl);
+	max-width: 42rem;
 }
 
 .health-downloads__list {
@@ -143,11 +149,12 @@
 }
 
 .health-downloads__item {
-	padding: var(--space-md) 0;
+	padding: var(--space-lg) 0;
 	border-bottom: var(--health-line);
+	font-family: var(--font-display);
 	font-size: var(--text-base);
 	line-height: var(--leading-relaxed);
-	color: rgb(74 52 40 / 0.55);
+	color: rgb(74 52 40 / 0.5);
 }
 
 .health-downloads__item:first-child {
@@ -167,9 +174,11 @@
 	.health-records--grid {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
+		column-gap: var(--space-2xl);
 	}
 
 	.health-records--grid .health-records__item {
+		padding: var(--space-xl) 0;
 		border-bottom: var(--health-line);
 	}
 
@@ -179,12 +188,7 @@
 
 	.health-records--grid .health-records__item:nth-child(odd) {
 		border-right: var(--health-line);
-	}
-}
-
-@media (min-width: 48rem) {
-	.health-records--triple .health-records__item:last-child {
-		border-bottom: none;
+		padding-right: var(--space-2xl);
 	}
 }
 
@@ -192,14 +196,16 @@
 	.health-records--triple {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
+		column-gap: var(--space-3xl);
 	}
 
 	.health-records--triple .health-records__item {
+		padding: 0;
 		border-bottom: none;
-		border-right: var(--health-line);
 	}
 
-	.health-records--triple .health-records__item:last-child {
-		border-right: none;
+	.health-records--triple .health-records__item:not(:nth-child(3n)) {
+		border-right: var(--health-line);
+		padding-right: var(--space-3xl);
 	}
 }
