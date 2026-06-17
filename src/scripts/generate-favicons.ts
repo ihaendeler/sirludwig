@@ -23,7 +23,7 @@ const PNG_OUTPUTS = [
 const MANIFEST = {
 	name: 'SIR LUDWIG',
 	short_name: 'SIR LUDWIG',
-	description: 'Sir Ludwig — Tuxedo Großpudel by Flying Royals',
+	description: 'Sir Ludwig — Tuxedo Großpudel by FlyingRoyals von Reckewitz',
 	icons: [
 		{
 			src: '/android-chrome-192x192.png',

@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { siteConfig, getCanonical } from '../config/site';
+import { isRecommendationPending, recommendations } from '../data/recommendations';
+import '../styles/empfehlungen.css';
+
+const path = '/empfehlungen';
+---
+
+<BaseLayout
+	title={`Empfehlungen — ${siteConfig.brandName}`}
+	description="Ausgewählte Hinweise rund um Ludwig, Pflege, Alltag und das Rudel FlyingRoyals von Reckewitz."
+	canonical={getCanonical(path)}
+>
+	<PageHero
+		label="Empfehlungen"
+		title="Links und Empfehlungen"
+		intro="Ausgewählte Hinweise rund um Ludwig, Pflege, Alltag und das Rudel FlyingRoyals von Reckewitz."
+		headingId="recommendations-heading"
+	/>
+
+	<section class="rec-section" aria-label="Empfehlungen">
+		<div class="container">
+			<ul class="rec-list">
+				{
+					recommendations.map((item) => {
+						const pending = isRecommendationPending(item);
+
+						return (
+							<li class="rec-item">
+								<h3 class="rec-item__title">{item.title}</h3>
+								<p class="rec-item__text">{item.text}</p>
+								{pending ? (
+									<p class="rec-item__pending">Link folgt</p>
+								) : (
+									<a
+										href={item.url}
+										class="rec-item__link"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										{item.linkLabel}
+									</a>
+								)}
+							</li>
+						);
+					})
+				}
+			</ul>
+		</div>
+	</section>
+</BaseLayout>

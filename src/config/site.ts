@@ -30,9 +30,9 @@ export const siteConfig: SiteConfig = {
 	name: 'Sir Ludwig',
 	url: siteUrl,
 	brandName: 'SIR LUDWIG',
-	brandTagline: 'by Flying Royals',
+	brandTagline: 'by FlyingRoyals von Reckewitz',
 	brandMonogram: 'SL',
-	heroSubtitle: 'Tuxedo Großpudel · by Flying Royals',
+	heroSubtitle: 'Tuxedo Großpudel · by FlyingRoyals von Reckewitz',
 	social: {
 		instagram: 'https://instagram.com/sir.ludwig_flyingroyals',
 		facebook: '',
@@ -48,7 +48,10 @@ export const siteConfig: SiteConfig = {
 export const defaultTitle = `${siteConfig.brandName} — ${siteConfig.heroSubtitle}`;
 
 export const defaultDescription =
-	'Sir Ludwig — Tuxedo Großpudel by Flying Royals. Dokumentation von Abstammung, Entwicklung und Gesundheitsüberwachung.';
+	'Sir Ludwig — Tuxedo Großpudel by FlyingRoyals von Reckewitz. Dokumentation von Abstammung, Entwicklung und Gesundheitsüberwachung.';
+
+export const defaultOgImageAlt =
+	'Sir Ludwig — Tuxedo Großpudel by FlyingRoyals von Reckewitz';
 
 export const defaultOgImage = '/og.jpg';
 

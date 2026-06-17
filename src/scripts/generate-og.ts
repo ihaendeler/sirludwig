@@ -19,7 +19,7 @@ const HEIGHT = 630;
 const ASPECT = WIDTH / HEIGHT;
 
 const BRAND_NAME = 'SIR LUDWIG';
-const BRAND_TAGLINE = 'by Flying Royals';
+const BRAND_TAGLINE = 'by FlyingRoyals von Reckewitz';
 const BRAND_DESCRIPTOR = 'Tuxedo Großpudel';
 
 const CREAM = '#F4F0E8';
