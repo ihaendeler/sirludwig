@@ -37,7 +37,25 @@ Der Build-Output liegt im Ordner `dist/`.
 | Build output directory | `dist` |
 | Node.js version | `22` oder höher |
 
-Optional: Environment Variables über das Cloudflare Pages Dashboard setzen (z. B. `.env`-Werte für Production).
+Der Deckanfrage-Versand läuft über eine serverseitige API-Route (`/api/deckanfrage`) mit dem Cloudflare-Adapter. `RESEND_API_KEY` muss in Cloudflare gesetzt sein.
+
+Optional: Environment Variables über das Cloudflare Pages Dashboard setzen (Settings → Variables & Secrets).
+
+### Deckanfrage (Resend)
+
+| Variable | Beschreibung |
+|----------|--------------|
+| `RESEND_API_KEY` | API-Schlüssel von [Resend](https://resend.com) für den Versand der Deckanfrage-E-Mails |
+
+In Cloudflare Pages unter **Settings → Variables & Secrets** hinterlegen (Production und optional Preview).
+
+Optional:
+
+| Variable | Beschreibung |
+|----------|--------------|
+| `RESEND_FROM_EMAIL` | Verifizierte Absenderadresse in Resend (Standard: `Sir Ludwig Website <noreply@sirludwig.de>`) |
+
+Lokal: `.env` anlegen (siehe `.env.example`). Ohne gesetzten `RESEND_API_KEY` erscheint beim Absenden eine klare Hinweismeldung.
 
 ## Projektstruktur
 

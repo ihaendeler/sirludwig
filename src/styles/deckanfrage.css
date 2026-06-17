@@ -372,6 +372,37 @@
 	opacity: 0.48;
 }
 
+.inquiry-form__honeypot {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}
+
+.inquiry-form__status {
+	margin: 0;
+}
+
+.inquiry-form__status--success {
+	padding: var(--space-xl) 0;
+}
+
+.inquiry-form__status-text {
+	margin: 0;
+	max-width: 42ch;
+	font-size: var(--text-base);
+	line-height: var(--leading-relaxed);
+	color: rgb(74 52 40 / 0.72);
+}
+
+.inquiry-form__status--error {
+	font-size: var(--text-sm);
+	line-height: var(--leading-relaxed);
+	color: rgb(74 52 40 / 0.68);
+}
+
 .inquiry-form__note {
 	margin: 0;
 	font-size: var(--text-sm);
