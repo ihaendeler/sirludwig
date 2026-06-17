@@ -34,8 +34,13 @@ const path = '/deckanfrage';
 		<div class="container">
 			<h2 id="inquiry-form-heading" class="visually-hidden">Anfrageformular</h2>
 
-			<div class="inquiry-form__status inquiry-form__status--success" data-form-success hidden>
-				<p class="inquiry-form__status-text">Vielen Dank. Ihre Anfrage wurde erfolgreich übermittelt.</p>
+			<div class="inquiry-success" data-form-success hidden>
+				<p class="inquiry-success__headline">✓ Anfrage erfolgreich übermittelt</p>
+				<p class="inquiry-success__lead">Vielen Dank für Ihre Deckanfrage.</p>
+				<p class="inquiry-success__text">
+					Die Angaben wurden erfolgreich übermittelt und werden geprüft.
+				</p>
+				<a href="/" class="btn btn--primary inquiry-success__cta">Zur Startseite</a>
 			</div>
 
 			<form
@@ -584,8 +589,10 @@ const path = '/deckanfrage';
 
 			if (submitButton) {
 				submitButton.disabled = true;
-				submitButton.textContent = 'Wird gesendet …';
+				submitButton.textContent = 'Wird übermittelt...';
 			}
+
+			let succeeded = false;
 
 			try {
 				const response = await fetch('/api/deckanfrage', {
@@ -605,6 +612,7 @@ const path = '/deckanfrage';
 				}
 
 				if (response.ok && data.ok) {
+					succeeded = true;
 					showFormSuccess();
 					return;
 				}
@@ -618,7 +626,7 @@ const path = '/deckanfrage';
 			} catch {
 				showFormError(neutralError);
 			} finally {
-				if (submitButton) {
+				if (!succeeded && submitButton) {
 					submitButton.textContent = 'Anfrage absenden';
 					syncSubmitState();
 				}
