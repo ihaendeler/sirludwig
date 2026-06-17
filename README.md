@@ -115,6 +115,41 @@ import heroImage from '../assets/images/hero/beispiel.jpg';
 
 Bilder aus `src/assets/` werden beim Build in moderne Formate konvertiert, in mehrere Größen gerendert und für Mobilgeräte optimiert ausgeliefert.
 
+## Open Graph Bild (`public/og.jpg`)
+
+Das Share-Bild für WhatsApp, Facebook, Telegram, LinkedIn und X wird beim Build automatisch erzeugt.
+
+### Hero-Quelle
+
+- Pfad: `src/assets/images/hero/PXL_20260516_084223542.jpg`
+- Verwendung auf der Startseite als Hero-Foto
+
+### Generierung
+
+```bash
+npm run generate:og   # manuell
+npm run build         # läuft automatisch via prebuild-Hook
+```
+
+Skript: `src/scripts/generate-og.ts`
+
+- Zuschnitt **1200 × 630 px** (Landscape) aus dem Hero-Bild
+- Hund rechts, Markentext links unten auf dezentem Cream-Verlauf
+- Ausgabe: `public/og.jpg` (stabile URL, kein Hash im Dateinamen)
+
+SEO-Metadaten (`og:image`, `twitter:image`) verweisen über `defaultOgImage` in `src/config/site.ts` auf `/og.jpg`.
+
+### Anpassen
+
+| Änderung | Wo |
+|----------|-----|
+| Anderes Quellfoto | `HERO_IMAGE_REL` in `src/scripts/generate-og.ts` |
+| Texte / Farben | Konstanten am Anfang von `generate-og.ts` |
+| Bildausschnitt | `FOCAL_Y_RATIO` oder Crop-Logik in `cropHeroPhoto()` |
+| Overlay-Layout | Funktion `buildOverlaySvg()` |
+
+Nach Änderungen `npm run generate:og` ausführen und `public/og.jpg` prüfen.
+
 ## Konfiguration
 
 Zentrale Werte werden in `src/config/` gepflegt:

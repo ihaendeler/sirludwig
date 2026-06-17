@@ -63,22 +63,6 @@
 	min-width: 14rem;
 }
 
-.not-found__link {
-	display: inline-flex;
-	align-items: center;
-	min-height: var(--touch-min);
-	padding-block: var(--space-2xs);
-	font-size: var(--text-base);
-	font-weight: 500;
-	color: var(--color-brown);
-	text-decoration: underline;
-	text-underline-offset: 0.2em;
-}
-
-.not-found__link:hover {
-	color: var(--color-apricot-dark);
-}
-
 @media (min-width: 40rem) {
 	.not-found__cta {
 		width: auto;
