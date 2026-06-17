@@ -132,7 +132,6 @@ const navItems = mainNavigation;
 		z-index: 110;
 		background-color: rgb(74 52 40 / 0.1);
 		opacity: 0;
-		transition: opacity 220ms ease;
 		pointer-events: none;
 	}
 
@@ -152,7 +151,6 @@ const navItems = mainNavigation;
 		-webkit-overflow-scrolling: touch;
 		padding-top: env(safe-area-inset-top, 0);
 		opacity: 0;
-		transition: opacity 220ms ease;
 		pointer-events: none;
 	}
 
@@ -306,17 +304,49 @@ const navItems = mainNavigation;
 	const overlay = document.querySelector('[data-nav-overlay]');
 	const navLinks = document.querySelectorAll('[data-nav-link], .site-nav__brand');
 	const desktopQuery = window.matchMedia('(min-width: 64rem)');
+	const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+	const NAV_TRANSITION_MS = 380;
 
 	function setMenuOpen(open: boolean) {
 		if (!toggleOpen || !nav || !overlay || !header) return;
 
 		toggleOpen.setAttribute('aria-expanded', String(open));
 		header.classList.toggle('is-menu-open', open);
-		nav.classList.toggle('is-open', open);
-		overlay.classList.toggle('is-visible', open);
-		nav.hidden = !open;
-		overlay.hidden = !open;
-		document.body.style.overflow = open ? 'hidden' : '';
+
+		if (open) {
+			nav.hidden = false;
+			overlay.hidden = false;
+			document.body.style.overflow = 'hidden';
+
+			if (reducedMotionQuery.matches) {
+				nav.classList.add('is-open');
+				overlay.classList.add('is-visible');
+				return;
+			}
+
+			requestAnimationFrame(() => {
+				nav.classList.add('is-open');
+				overlay.classList.add('is-visible');
+			});
+			return;
+		}
+
+		nav.classList.remove('is-open');
+		overlay.classList.remove('is-visible');
+		document.body.style.overflow = '';
+
+		const hideNav = () => {
+			if (toggleOpen.getAttribute('aria-expanded') === 'true') return;
+			nav.hidden = true;
+			overlay.hidden = true;
+		};
+
+		if (reducedMotionQuery.matches) {
+			hideNav();
+			return;
+		}
+
+		window.setTimeout(hideNav, NAV_TRANSITION_MS);
 	}
 
 	function closeMenu() {
