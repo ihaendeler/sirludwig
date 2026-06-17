@@ -150,6 +150,96 @@ SEO-Metadaten (`og:image`, `twitter:image`) verweisen über `defaultOgImage` in 
 
 Nach Änderungen `npm run generate:og` ausführen und `public/og.jpg` prüfen.
 
+## Bildsignatur
+
+Die Bildsignatur ist **kein Wasserzeichen** und kein Diebstahlschutz. Sie wirkt wie die dezente Signatur eines Fotografen, Künstlers oder Gestüts — ein zurückhaltendes Markenelement auf ausgewählten Fotos.
+
+### Zweck
+
+- Einheitliche, hochwertige Kennzeichnung editorialer Bilder
+- Wiedererkennung der Marke ohne Dominanz über das Motiv
+- Visuelle Verbindung zu Favicon und Monogramm der Website
+
+### Einsatzbereiche (geplant)
+
+| Bereich | Signatur |
+|---------|----------|
+| Galerie | ja |
+| Ausstellungen | ja |
+| Nachzucht | ja |
+| Hero / Startseite | nein |
+| Open Graph (`og.jpg`) | nein |
+| Gesundheitsdokumente | nein |
+| Stammbaumgrafiken | nein |
+
+### Dateien
+
+Alle Varianten liegen unter `public/branding/`:
+
+| Datei | Inhalt | Einsatz |
+|-------|--------|---------|
+| `signature.svg` | **SL** Monogramm in Dunkelbraun (`#4A3428`) | Standard — helle bis mittlere Bildbereiche |
+| `signature-light.svg` | **SL** in Cremeweiß (`#F4F0E8`) | Dunkle Bildbereiche |
+| `signature-wordmark.svg` | **SIR LUDWIG** Wortmarke | Alternative bei großzügigem Rand |
+| `signature-full.svg` | **SL** + *by Flying Royals* | Alternative mit Herkunftshinweis |
+
+### Platzierungskonzept (für spätere Umsetzung)
+
+- Position: unten rechts
+- Abstand zum Rand: 24–40 px (responsive skalieren)
+- Deckkraft: 20–35 %
+- Kein Hintergrund, keine Box, keine Umrandung, kein Schatten
+
+### Varianten — Empfehlung
+
+| Variante | Charakter | Bewertung |
+|----------|-----------|-----------|
+| **SL Monogramm** (`signature.svg`) | Kompakt, zeitlos, analog zum Favicon | **Empfohlen** — passt am besten zur bestehenden Website und wirkt am natürlichsten wie eine Fotografensignatur |
+| SIR LUDWIG Wortmarke | Lesbarer, aber breiter und präsenter | Für große Formate oder wenn der Name explizit sichtbar sein soll |
+| SL + by Flying Royals | Herkunft erkennbar, etwas mehr Höhe | Für formale Kontexte (z. B. Ausstellungen), wenn etwas mehr Marke erlaubt ist |
+
+**Empfehlung:** `signature.svg` (SL) als Standard. Auf dunklen Bildpartien `signature-light.svg` wählen — nicht beide gleichzeitig überlagern.
+
+### Spätere automatische Anwendung (noch nicht aktiv)
+
+Aktuell werden **keine Bilder verändert**. Für eine spätere Integration sind zwei Wege denkbar:
+
+**1. CSS-Overlay in der Galerie (bevorzugt für die Website)**
+
+```html
+<figure class="gallery-photo">
+  <img src="…" alt="…" />
+  <img
+    class="gallery-photo__signature"
+    src="/branding/signature.svg"
+    alt=""
+    aria-hidden="true"
+  />
+</figure>
+```
+
+```css
+.gallery-photo {
+  position: relative;
+}
+
+.gallery-photo__signature {
+  position: absolute;
+  right: clamp(1.5rem, 4vw, 2.5rem);
+  bottom: clamp(1.5rem, 4vw, 2.5rem);
+  width: clamp(2.5rem, 6vw, 4rem);
+  height: auto;
+  opacity: 0.28;
+  pointer-events: none;
+}
+```
+
+Bei dunklem Untergrund `signature-light.svg` per Klasse tauschen.
+
+**2. Build-Zeit-Compositing (für exportierte Dateien)**
+
+Analog zu `src/scripts/generate-og.ts` könnte ein separates Skript die SVG mit Sharp auf Galerie-Assets compositen — nur für Bereiche Galerie, Ausstellungen und Nachzucht. Nicht für Hero, OG oder Dokumente.
+
 ## Konfiguration
 
 Zentrale Werte werden in `src/config/` gepflegt:
@@ -172,6 +262,7 @@ Die Marke folgt einem minimalistischen Premium-Ansatz — editorial, modern und 
 |---------|------------|
 | **Wortmarke** | `SIR LUDWIG` + `by Flying Royals` — Komponente `Brand.astro`, Variante `full` |
 | **Monogramm** | `SL` — Variante `monogram` in `Brand.astro` |
+| **Bildsignatur** | `public/branding/signature.svg` — dezentes SL-Monogramm für Galerie, Ausstellungen, Nachzucht (siehe Abschnitt *Bildsignatur*) |
 | **Favicon** | `public/favicon.svg` — cremefarbener Hintergrund (`#F4F0E8`), Monogramm in Dunkelbraun (`#4A3428`) |
 
 ### Farben

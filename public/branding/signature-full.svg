@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" fill="none" role="img" aria-label="Sir Ludwig by Flying Royals">
+	<title>Sir Ludwig  Signatur mit Tagline</title>
+	<text
+		x="0"
+		y="20"
+		font-family="Georgia, 'Times New Roman', Times, serif"
+		font-size="22"
+		font-weight="500"
+		fill="#4A3428"
+		letter-spacing="0.1em"
+	>SL</text>
+	<text
+		x="0"
+		y="36"
+		font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+		font-size="9"
+		font-weight="500"
+		fill="#4A3428"
+		fill-opacity="0.72"
+		letter-spacing="0.14em"
+	>by Flying Royals</text>
+</svg>
