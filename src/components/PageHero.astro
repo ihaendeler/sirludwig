@@ -2,7 +2,7 @@
 import '../styles/page-hero.css';
 
 interface Props {
-	label: string;
+	label?: string;
 	title: string;
 	intro: string;
 	headingId: string;
@@ -26,7 +26,7 @@ const hasMedia = variant === 'media' && Astro.slots.has('media');
 		)
 	}
 	<div class="container page-hero__inner">
-		<p class="page-hero__label">{label}</p>
+		{label && <p class="page-hero__label">{label}</p>}
 		<h1 id={headingId} class="page-hero__title">{title}</h1>
 		<p class="page-hero__intro">{intro}</p>
 	</div>

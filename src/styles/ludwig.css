@@ -22,6 +22,7 @@
 	line-height: 1.12;
 	letter-spacing: -0.025em;
 	color: var(--color-black);
+	text-align: left;
 }
 
 .ludwig-text {

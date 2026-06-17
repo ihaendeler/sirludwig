@@ -7,8 +7,10 @@
 .page-hero__inner {
 	display: flex;
 	flex-direction: column;
+	align-items: flex-start;
 	gap: var(--space-sm);
 	max-width: 38rem;
+	text-align: left;
 }
 
 .page-hero__label {
@@ -18,6 +20,7 @@
 	letter-spacing: 0.18em;
 	text-transform: uppercase;
 	color: rgb(74 52 40 / 0.52);
+	text-align: left;
 }
 
 .page-hero__title {
@@ -28,6 +31,7 @@
 	line-height: 1.1;
 	letter-spacing: -0.025em;
 	color: var(--color-black);
+	text-align: left;
 }
 
 .page-hero__intro {
@@ -36,6 +40,7 @@
 	font-size: var(--text-lg);
 	line-height: var(--leading-relaxed);
 	color: rgb(74 52 40 / 0.68);
+	text-align: left;
 }
 
 /* ── Hero with image (Ludwig) ────────────────────────────────── */
@@ -103,8 +108,10 @@
 		grid-row: 1;
 		grid-column: 2;
 		justify-content: flex-end;
+		align-items: flex-start;
 		max-width: none;
 		padding: 0 0 var(--space-xl);
+		text-align: left;
 	}
 
 	.page-hero--media .page-hero__inner.container {

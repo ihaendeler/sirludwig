@@ -1,22 +1,124 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
-import { getCanonical } from '../config/site';
+import { siteConfig, getCanonical } from '../config/site';
+import { pedigreeLines, pedigreeParents, pedigreeSubject } from '../data/pedigree';
+import '../styles/stammbaum.css';
 
 const path = '/stammbaum';
-const placeholderIntro =
-	'Dieser Bereich ist vorbereitet und wird in einer späteren Phase ausgearbeitet.';
 ---
 
 <BaseLayout
-	title="Stammbaum — Platzhalter"
-	description="Bereich Stammbaum — in Vorbereitung."
+	title={`Stammbaum — ${siteConfig.brandName}`}
+	description="Abstammung und Linien von Sir Ludwig — dokumentiert und schrittweise ergänzt."
 	canonical={getCanonical(path)}
 >
 	<PageHero
-		label="Bereich"
-		title="Stammbaum"
-		intro={placeholderIntro}
-		headingId="page-heading"
+		label="Stammbaum"
+		title="Abstammung und Linien"
+		intro="Die Abstammung von Ludwig wird hier fortlaufend dokumentiert."
+		headingId="pedigree-heading"
 	/>
+
+	<section class="pedigree-section" aria-labelledby="pedigree-tree-heading">
+		<div class="container">
+			<header class="pedigree-section__header">
+				<p class="pedigree-eyebrow">Ahnen</p>
+				<h2 id="pedigree-tree-heading" class="pedigree-title">Stammbaum</h2>
+			</header>
+
+			<div class="pedigree-tree" data-pedigree-tree>
+				<div class="pedigree-tree__subject">
+					<p class="pedigree-tree__role">{pedigreeSubject.role}</p>
+					<p class="pedigree-tree__name">{pedigreeSubject.name}</p>
+				</div>
+
+				<ul class="pedigree-tree__branches">
+					{
+						pedigreeParents.map((parent) => (
+							<li class="pedigree-branch" data-pedigree-branch>
+								<button
+									type="button"
+									class="pedigree-branch__toggle"
+									aria-expanded="false"
+									aria-controls={`pedigree-panel-${parent.id}`}
+									id={`pedigree-toggle-${parent.id}`}
+									data-pedigree-toggle
+								>
+									<span class="pedigree-branch__marker" aria-hidden="true">
+										▼
+									</span>
+									<span class="pedigree-branch__role">{parent.role}</span>
+									<span class="pedigree-branch__name">{parent.name}</span>
+								</button>
+								<div
+									class="pedigree-branch__panel"
+									id={`pedigree-panel-${parent.id}`}
+									role="region"
+									aria-labelledby={`pedigree-toggle-${parent.id}`}
+									hidden
+								>
+									<div class="pedigree-branch__panel-inner">
+										<ul class="pedigree-branch__grandparents">
+											{parent.grandparents.map((ancestor) => (
+												<li class="pedigree-ancestor">
+													<p class="pedigree-ancestor__role">{ancestor.role}</p>
+													<p class="pedigree-ancestor__name">{ancestor.name}</p>
+												</li>
+											))}
+										</ul>
+									</div>
+								</div>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="pedigree-section" aria-labelledby="pedigree-lines-heading">
+		<div class="container">
+			<header class="pedigree-section__header">
+				<p class="pedigree-eyebrow">Herkunft</p>
+				<h2 id="pedigree-lines-heading" class="pedigree-title">Bekannte Linien</h2>
+			</header>
+
+			<ul class="pedigree-lines">
+				{pedigreeLines.map((line) => <li class="pedigree-lines__item">{line}</li>)}
+			</ul>
+		</div>
+	</section>
+
+	<section class="pedigree-section" aria-labelledby="pedigree-pdf-heading">
+		<div class="container">
+			<div class="pedigree-pdf">
+				<header class="pedigree-section__header">
+					<p class="pedigree-eyebrow">Dokument</p>
+					<h2 id="pedigree-pdf-heading" class="pedigree-title">Vollständige Ahnentafel</h2>
+				</header>
+				<p class="pedigree-text pedigree-pdf__text">
+					Die vollständige Ahnentafel wird nach Fertigstellung als PDF bereitgestellt.
+				</p>
+				<button type="button" class="btn btn--primary" disabled>Ahnentafel folgt</button>
+			</div>
+		</div>
+	</section>
 </BaseLayout>
+
+<script>
+	const branches = document.querySelectorAll('[data-pedigree-branch]');
+
+	branches.forEach((branch) => {
+		const toggle = branch.querySelector<HTMLButtonElement>('[data-pedigree-toggle]');
+		const panel = branch.querySelector<HTMLElement>('.pedigree-branch__panel');
+
+		if (!toggle || !panel) return;
+
+		toggle.addEventListener('click', () => {
+			const isOpen = branch.classList.toggle('is-open');
+			toggle.setAttribute('aria-expanded', String(isOpen));
+			panel.hidden = !isOpen;
+		});
+	});
+</script>
