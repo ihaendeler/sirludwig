@@ -218,6 +218,55 @@ function displayValue(value: string): string {
 	return value || 'nicht angegeben';
 }
 
+function escapeHtml(value: string): string {
+	return value
+		.replace(/&/g, '&amp;')
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;')
+		.replace(/"/g, '&quot;');
+}
+
+export function formatInstagramProfile(value: string): {
+	display: string;
+	url: string;
+} | null {
+	const trimmed = value.trim();
+	if (!trimmed) return null;
+
+	const urlMatch = trimmed.match(
+		/(?:https?:\/\/)?(?:www\.)?instagram\.com\/([A-Za-z0-9._]+)\/?(?:\?.*)?$/i,
+	);
+	if (urlMatch) {
+		const username = urlMatch[1];
+		return {
+			display: `@${username}`,
+			url: `https://instagram.com/${username}`,
+		};
+	}
+
+	const username = trimmed.replace(/^@+/, '').replace(/\/$/, '');
+	if (!username) return null;
+
+	return {
+		display: trimmed.startsWith('@') ? trimmed : `@${username}`,
+		url: `https://instagram.com/${username}`,
+	};
+}
+
+function formatInstagramForText(value: string): string {
+	const profile = formatInstagramProfile(value);
+	if (!profile) return displayValue(value);
+
+	return `${profile.display} (${profile.url})`;
+}
+
+function formatInstagramForHtml(value: string): string {
+	const profile = formatInstagramProfile(value);
+	if (!profile) return escapeHtml(displayValue(value));
+
+	return `<a href="${escapeHtml(profile.url)}">${escapeHtml(profile.display)}</a>`;
+}
+
 function displayWithUnit(value: string, unit: string): string {
 	if (!value) return 'nicht angegeben';
 	return `${value} ${unit}`;
@@ -260,7 +309,7 @@ export function buildDeckanfrageEmailText(payload: DeckanfragePayload): string {
 		commLines.push(`WhatsApp-Nummer: ${displayValue(payload.commWhatsapp)}`);
 	}
 	if (payload.commPrefs.includes('instagram')) {
-		commLines.push(`Instagram-Profil: ${displayValue(payload.commInstagram)}`);
+		commLines.push(`Instagram-Profil: ${formatInstagramForText(payload.commInstagram)}`);
 	}
 
 	const sections = [
@@ -298,6 +347,65 @@ export function buildDeckanfrageEmailText(payload: DeckanfragePayload): string {
 	return sections.join('\n').trim();
 }
 
+function buildCommLinesHtml(payload: DeckanfragePayload): string[] {
+	const commLines = [`Bevorzugte Wege: ${escapeHtml(formatCommPrefs(payload.commPrefs))}`];
+
+	if (payload.commPrefs.includes('email')) {
+		commLines.push(`E-Mail-Adresse: ${escapeHtml(displayValue(payload.commEmail))}`);
+	}
+	if (payload.commPrefs.includes('phone')) {
+		commLines.push(`Telefonnummer: ${escapeHtml(displayValue(payload.commPhone))}`);
+	}
+	if (payload.commPrefs.includes('whatsapp')) {
+		commLines.push(`WhatsApp-Nummer: ${escapeHtml(displayValue(payload.commWhatsapp))}`);
+	}
+	if (payload.commPrefs.includes('instagram')) {
+		commLines.push(`Instagram-Profil: ${formatInstagramForHtml(payload.commInstagram)}`);
+	}
+
+	return commLines;
+}
+
+function sectionHtml(title: string, lines: string[]): string {
+	const items = lines.map((line) => `<li>${line}</li>`).join('');
+	return `<h2 style="margin:1.5rem 0 0.5rem;font-size:1rem;font-weight:600;">${escapeHtml(title)}</h2><ul style="margin:0 0 1rem;padding-left:1.25rem;">${items}</ul>`;
+}
+
+export function buildDeckanfrageEmailHtml(payload: DeckanfragePayload): string {
+	const sections = [
+		'<p style="margin:0 0 1rem;">Neue Deckanfrage über sirludwig.de</p>',
+		sectionHtml('Kontaktdaten', [
+			`Name: ${escapeHtml(displayValue(payload.contactName))}`,
+			`Ort / Stadt: ${escapeHtml(displayValue(payload.contactCity))}`,
+			`Bundesland: ${escapeHtml(labelForOption(federalStateOptions, payload.contactState))}`,
+		]),
+		sectionHtml('Kommunikation', buildCommLinesHtml(payload)),
+		sectionHtml('Hündin', [
+			`Name der Hündin: ${escapeHtml(displayValue(payload.bitchName))}`,
+			`Geburtsdatum: ${escapeHtml(formatBirthdate(payload.bitchBirthdate))}`,
+			`Alter: ${escapeHtml(calculateBitchAge(payload.bitchBirthdate))}`,
+			`Farbe: ${escapeHtml(displayValue(payload.bitchColor))}`,
+			`Größe: ${escapeHtml(displayWithUnit(payload.bitchSize, 'cm'))}`,
+			`Gewicht: ${escapeHtml(displayWithUnit(payload.bitchWeight, 'kg'))}`,
+			`Verein / Verband: ${escapeHtml(displayValue(payload.bitchClub))}`,
+		]),
+		sectionHtml('Gesundheit', [
+			`HD: ${escapeHtml(labelForOption(hdOptions, payload.healthHd))}`,
+			`ED: ${escapeHtml(labelForOption(edOptions, payload.healthEd))}`,
+			`Patella: ${escapeHtml(labelForOption(patellaOptions, payload.healthPatella))}`,
+			`Augenuntersuchung: ${escapeHtml(labelForOption(eyeOptions, payload.healthEyes))}`,
+			`DNA-Tests: ${escapeHtml(labelForOption(dnaOptions, payload.healthDna))}`,
+		]),
+		sectionHtml('Planung', [
+			`Geplanter Deckzeitraum: ${escapeHtml(displayValue(payload.planPeriod))}`,
+			`Bereits vorhandene Würfe: ${escapeHtml(labelForOption(existingLittersOptions, payload.planExistingLitters))}`,
+		]),
+		sectionHtml('Nachricht', [escapeHtml(displayValue(payload.message)).replace(/\n/g, '<br>')]),
+	];
+
+	return `<!DOCTYPE html><html lang="de"><body style="font-family:system-ui,sans-serif;color:#4a3428;line-height:1.5;">${sections.join('')}</body></html>`;
+}
+
 export function getReplyTo(payload: DeckanfragePayload): string | undefined {
 	if (payload.commEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.commEmail)) {
 		return payload.commEmail;
@@ -326,6 +434,7 @@ export async function sendDeckanfrageEmail(
 			to: [INQUIRY_RECIPIENT],
 			subject: buildDeckanfrageSubject(payload),
 			text: buildDeckanfrageEmailText(payload),
+			html: buildDeckanfrageEmailHtml(payload),
 			...(getReplyTo(payload) ? { reply_to: getReplyTo(payload) } : {}),
 		}),
 	});

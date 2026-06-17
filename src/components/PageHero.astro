@@ -25,9 +25,13 @@ const hasMedia = variant === 'media' && Astro.slots.has('media');
 			</div>
 		)
 	}
-	<div class="container page-hero__inner">
-		{label && <p class="page-hero__label">{label}</p>}
-		<h1 id={headingId} class="page-hero__title">{title}</h1>
-		<p class="page-hero__intro">{intro}</p>
+	<div class="page-hero__content">
+		<div class="container">
+			<div class="page-hero__inner">
+				{label && <p class="page-hero__label">{label}</p>}
+				<h1 id={headingId} class="page-hero__title">{title}</h1>
+				<p class="page-hero__intro">{intro}</p>
+			</div>
+		</div>
 	</div>
 </section>
