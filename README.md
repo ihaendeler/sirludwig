@@ -37,7 +37,7 @@ Der Build-Output liegt im Ordner `dist/`.
 | Build output directory | `dist` |
 | Node.js version | `22` oder höher |
 
-Der Deckanfrage-Versand läuft über eine **Cloudflare Pages Function** unter `functions/api/deckanfrage.ts` (Route: `/api/deckanfrage`). `RESEND_API_KEY` muss in Cloudflare gesetzt sein.
+Der Deckanfrage-Versand läuft über eine **Cloudflare Pages Function** unter `functions/api/deckanfrage.ts` (Route: `/api/deckanfrage`). Der Resend-Key wird als Cloudflare-Secret **`deckanfragen_send`** gelesen (alternativ `RESEND_API_KEY`).
 
 Optional: Environment Variables über das Cloudflare Pages Dashboard setzen (Settings → Variables & Secrets).
 
@@ -45,20 +45,22 @@ Optional: Environment Variables über das Cloudflare Pages Dashboard setzen (Set
 
 | Variable | Beschreibung |
 |----------|--------------|
-| `RESEND_API_KEY` | API-Schlüssel von [Resend](https://resend.com) für den Versand der Deckanfrage-E-Mails |
+| `deckanfragen_send` | Resend API-Schlüssel (Secret in Cloudflare Pages, Production) |
 
 In Cloudflare Pages unter **Settings → Variables and Secrets** hinterlegen:
 
-1. **Add** → **Secret** (empfohlen)
-2. Name exakt: `RESEND_API_KEY`
+1. **Add** → **Secret**
+2. Name: `deckanfragen_send`
 3. Wert: dein Resend-Key (`re_…`)
 4. Environment: **Production** (und optional Preview)
-5. Nach dem Speichern: **neuen Deploy** auslösen
+5. Nach dem Speichern: **Retry deployment** oder Push auf `main`
 
-Alternativ per CLI:
+Alternativ funktioniert auch der Name `RESEND_API_KEY`.
+
+CLI:
 
 ```bash
-npx wrangler pages secret put RESEND_API_KEY --project-name=sirludwig
+npx wrangler pages secret put deckanfragen_send --project-name=sirludwig
 ```
 
 Optional:
@@ -70,10 +72,10 @@ Optional:
 Lokal: `.dev.vars` anlegen (siehe `.dev.vars.example`):
 
 ```env
-RESEND_API_KEY=re_dein_key_hier
+deckanfragen_send=re_dein_key_hier
 ```
 
-Ohne gesetzten `RESEND_API_KEY` erscheint beim Absenden eine klare Hinweismeldung.
+Ohne gesetztes Secret erscheint beim Absenden eine klare Hinweismeldung.
 
 ## Projektstruktur
 

@@ -3,5 +3,4 @@ compatibility_date = "2026-04-15"
 pages_build_output_dir = "./dist"
 
 [vars]
-# Secrets wie RESEND_API_KEY gehören nicht hierher.
-# In Cloudflare unter Settings → Variables and Secrets als Secret setzen.
+# Secret deckanfragen_send in Cloudflare Pages setzen (Settings → Variables and Secrets).

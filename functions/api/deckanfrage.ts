@@ -1,10 +1,13 @@
-import { readEnvVar } from '../lib/env';
+import { readEnvVar, readFirstEnvVar } from '../lib/env';
 import { parseDeckanfrageFormData, sendDeckanfrageEmail } from '../../src/lib/deckanfrage/process';
 
 interface Env {
+	deckanfragen_send?: string;
 	RESEND_API_KEY?: string;
 	RESEND_FROM_EMAIL?: string;
 }
+
+const RESEND_KEY_VARS = ['deckanfragen_send', 'RESEND_API_KEY'];
 
 const DEFAULT_FROM = 'Sir Ludwig Website <noreply@sirludwig.de>';
 
@@ -19,7 +22,7 @@ function json(data: Record<string, unknown>, status = 200): Response {
 }
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
-	const apiKey = readEnvVar(context.env as Record<string, unknown>, 'RESEND_API_KEY');
+	const apiKey = readFirstEnvVar(context.env as Record<string, unknown>, RESEND_KEY_VARS);
 
 	if (!apiKey) {
 		return json(
@@ -27,7 +30,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 				ok: false,
 				code: 'missing_api_key',
 				message:
-					'E-Mail-Versand ist nicht konfiguriert. Bitte RESEND_API_KEY als Umgebungsvariable setzen.',
+					'E-Mail-Versand ist nicht konfiguriert. Bitte deckanfragen_send als Secret in Cloudflare setzen.',
 			},
 			503,
 		);

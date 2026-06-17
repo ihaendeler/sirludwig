@@ -11,3 +11,12 @@ export function readEnvVar(env: EnvRecord, key: string): string {
 	const processEnv = (globalThis as { process?: { env?: EnvRecord } }).process?.env;
 	return readString(processEnv?.[key]);
 }
+
+export function readFirstEnvVar(env: EnvRecord, keys: string[]): string {
+	for (const key of keys) {
+		const value = readEnvVar(env, key);
+		if (value) return value;
+	}
+
+	return '';
+}
