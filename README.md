@@ -47,7 +47,19 @@ Optional: Environment Variables über das Cloudflare Pages Dashboard setzen (Set
 |----------|--------------|
 | `RESEND_API_KEY` | API-Schlüssel von [Resend](https://resend.com) für den Versand der Deckanfrage-E-Mails |
 
-In Cloudflare Pages unter **Settings → Variables & Secrets** hinterlegen (Production und optional Preview).
+In Cloudflare Pages unter **Settings → Variables and Secrets** hinterlegen:
+
+1. **Add** → **Secret** (empfohlen)
+2. Name exakt: `RESEND_API_KEY`
+3. Wert: dein Resend-Key (`re_…`)
+4. Environment: **Production** (und optional Preview)
+5. Nach dem Speichern: **neuen Deploy** auslösen
+
+Alternativ per CLI:
+
+```bash
+npx wrangler pages secret put RESEND_API_KEY --project-name=sirludwig
+```
 
 Optional:
 
@@ -55,7 +67,13 @@ Optional:
 |----------|--------------|
 | `RESEND_FROM_EMAIL` | Verifizierte Absenderadresse in Resend (Standard: `Sir Ludwig Website <noreply@sirludwig.de>`) |
 
-Lokal: `.env` anlegen (siehe `.env.example`). Ohne gesetzten `RESEND_API_KEY` erscheint beim Absenden eine klare Hinweismeldung.
+Lokal: `.dev.vars` anlegen (siehe `.dev.vars.example`):
+
+```env
+RESEND_API_KEY=re_dein_key_hier
+```
+
+Ohne gesetzten `RESEND_API_KEY` erscheint beim Absenden eine klare Hinweismeldung.
 
 ## Projektstruktur
 

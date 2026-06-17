@@ -1,3 +1,4 @@
+import { readEnvVar } from '../lib/env';
 import { parseDeckanfrageFormData, sendDeckanfrageEmail } from '../../src/lib/deckanfrage/process';
 
 interface Env {
@@ -18,7 +19,7 @@ function json(data: Record<string, unknown>, status = 200): Response {
 }
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
-	const apiKey = context.env.RESEND_API_KEY?.trim();
+	const apiKey = readEnvVar(context.env as Record<string, unknown>, 'RESEND_API_KEY');
 
 	if (!apiKey) {
 		return json(
@@ -61,7 +62,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 		);
 	}
 
-	const fromEmail = context.env.RESEND_FROM_EMAIL?.trim() || DEFAULT_FROM;
+	const fromEmail =
+		readEnvVar(context.env as Record<string, unknown>, 'RESEND_FROM_EMAIL') || DEFAULT_FROM;
 	const sent = await sendDeckanfrageEmail(parsed.payload, apiKey, fromEmail);
 
 	if (!sent.ok) {
