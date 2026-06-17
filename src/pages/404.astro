@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCanonical } from '../config/site';
+import '../styles/404.css';
+---
+
+<BaseLayout
+	title="404 | SIR LUDWIG"
+	description="Seite nicht gefunden."
+	canonical={getCanonical('/404')}
+>
+	<section class="not-found" aria-labelledby="not-found-title">
+		<div class="container not-found__inner">
+			<p class="not-found__label">404</p>
+			<h1 id="not-found-title" class="not-found__title">Seite nicht gefunden</h1>
+			<p class="not-found__text">
+				Die angeforderte Seite konnte nicht gefunden werden oder wurde verschoben.
+			</p>
+			<p class="not-found__hint">
+				Nutzen Sie die Navigation oder kehren Sie direkt zur Startseite zurück.
+			</p>
+			<div class="not-found__actions">
+				<a href="/" class="btn btn--primary not-found__cta">Zur Startseite</a>
+				<a href="/deckanfrage" class="not-found__link">Deckanfrage</a>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
