@@ -126,7 +126,7 @@ export function parseDeckanfrageFormData(formData: FormData): ProcessResult {
 		commWhatsapp,
 		commInstagram,
 		bitchName: clean(formData.get('bitch-name')),
-		bitchBirthdate: clean(formData.get('bitch-birthdate')),
+		bitchBirthdate: normalizeBirthdate(clean(formData.get('bitch-birthdate'))),
 		bitchColor: clean(formData.get('bitch-color')),
 		bitchSize: clean(formData.get('bitch-size')),
 		bitchWeight: clean(formData.get('bitch-weight')),
@@ -155,6 +155,40 @@ function validationError(): ProcessResult {
 			'Die Anfrage konnte derzeit nicht übermittelt werden. Bitte versuchen Sie es später erneut.',
 		status: 400,
 	};
+}
+
+function normalizeBirthdate(value: string): string {
+	const trimmed = value.trim();
+	if (!trimmed) return '';
+
+	const isoMatch = trimmed.match(/^(\d{4}-\d{2}-\d{2})/);
+	if (isoMatch) return isoMatch[1];
+
+	const deMatch = trimmed.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
+	if (deMatch) {
+		const [, day, month, year] = deMatch;
+		return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+	}
+
+	return trimmed;
+}
+
+function isValidBirthdate(value: string): boolean {
+	if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+
+	const [yearStr, monthStr, dayStr] = value.split('-');
+	const year = Number(yearStr);
+	const month = Number(monthStr);
+	const day = Number(dayStr);
+
+	if (!Number.isInteger(year) || !Number.isInteger(month) || !Number.isInteger(day)) {
+		return false;
+	}
+
+	if (month < 1 || month > 12 || day < 1 || day > 31) return false;
+
+	const date = new Date(year, month - 1, day);
+	return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day;
 }
 
 function emptyPayload(): DeckanfragePayload {
@@ -188,16 +222,19 @@ function emptyPayload(): DeckanfragePayload {
 }
 
 export function calculateBitchAge(birthdate: string): string {
-	if (!birthdate) return 'nicht angegeben';
+	const normalized = normalizeBirthdate(birthdate);
+	if (!normalized || !isValidBirthdate(normalized)) return 'nicht angegeben';
 
-	const birth = new Date(`${birthdate}T00:00:00`);
-	if (Number.isNaN(birth.getTime())) return 'nicht angegeben';
+	const [yearStr, monthStr, dayStr] = normalized.split('-');
+	const birthYear = Number(yearStr);
+	const birthMonth = Number(monthStr);
+	const birthDay = Number(dayStr);
 
 	const now = new Date();
-	let years = now.getFullYear() - birth.getFullYear();
-	let months = now.getMonth() - birth.getMonth();
+	let years = now.getFullYear() - birthYear;
+	let months = now.getMonth() + 1 - birthMonth;
 
-	if (now.getDate() < birth.getDate()) {
+	if (now.getDate() < birthDay) {
 		months -= 1;
 	}
 
@@ -278,9 +315,11 @@ function formatCommPrefs(prefs: string[]): string {
 }
 
 function formatBirthdate(value: string): string {
-	if (!value) return 'nicht angegeben';
-	const [year, month, day] = value.split('-');
-	if (!year || !month || !day) return value;
+	const normalized = normalizeBirthdate(value);
+	if (!normalized) return 'nicht angegeben';
+	if (!isValidBirthdate(normalized)) return displayValue(value);
+
+	const [year, month, day] = normalized.split('-');
 	return `${day}.${month}.${year}`;
 }
 

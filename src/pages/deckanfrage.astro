@@ -236,7 +236,9 @@ const path = '/deckanfrage';
 								type="date"
 								id="bitch-birthdate"
 								name="bitch-birthdate"
+								data-bitch-birthdate
 							/>
+							<p class="inquiry-field__hint" data-bitch-age hidden></p>
 						</div>
 						<div class="inquiry-field">
 							<label class="inquiry-field__label" for="bitch-color">Farbe</label>
@@ -439,6 +441,8 @@ const path = '/deckanfrage';
 </BaseLayout>
 
 <script>
+	import { calculateBitchAge } from '../lib/deckanfrage/process';
+
 	const form = document.querySelector<HTMLFormElement>('[data-inquiry-form]');
 	const formSuccess = document.querySelector<HTMLElement>('[data-form-success]');
 	const commSection = document.querySelector<HTMLElement>('[data-comm-section]');
@@ -446,9 +450,25 @@ const path = '/deckanfrage';
 	const submitButton = form?.querySelector<HTMLButtonElement>('[data-inquiry-submit]');
 	const formError = form?.querySelector<HTMLElement>('[data-form-error]');
 	const formStartedAt = form?.querySelector<HTMLInputElement>('[data-form-started-at]');
+	const birthdateInput = form?.querySelector<HTMLInputElement>('[data-bitch-birthdate]');
+	const birthdateAgeHint = form?.querySelector<HTMLElement>('[data-bitch-age]');
 
 	const neutralError =
 		'Die Anfrage konnte derzeit nicht übermittelt werden. Bitte versuchen Sie es später erneut.';
+
+	function syncBirthdateAge() {
+		if (!birthdateAgeHint || !birthdateInput) return;
+
+		const value = birthdateInput.value.trim();
+		if (!value) {
+			birthdateAgeHint.textContent = '';
+			birthdateAgeHint.setAttribute('hidden', '');
+			return;
+		}
+
+		birthdateAgeHint.textContent = `Alter: ${calculateBitchAge(value)}`;
+		birthdateAgeHint.removeAttribute('hidden');
+	}
 
 	if (formStartedAt) {
 		formStartedAt.value = String(Date.now());
@@ -499,6 +519,9 @@ const path = '/deckanfrage';
 		});
 
 		consentCheckbox?.addEventListener('change', syncSubmitState);
+
+		birthdateInput?.addEventListener('change', syncBirthdateAge);
+		birthdateInput?.addEventListener('input', syncBirthdateAge);
 
 		form.querySelectorAll<HTMLAnchorElement>('[data-consent-link]').forEach((link) => {
 			link.addEventListener('click', (event) => {
