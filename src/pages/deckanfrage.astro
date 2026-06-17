@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
 import { siteConfig, getCanonical } from '../config/site';
 import '../styles/deckanfrage.css';
 
@@ -11,15 +12,12 @@ const path = '/deckanfrage';
 	description="Deckanfrage für Sir Ludwig — Formular zur ersten Einschätzung. Der Bereich wird schrittweise vorbereitet."
 	canonical={getCanonical(path)}
 >
-	<section class="inquiry-hero" aria-labelledby="inquiry-heading">
-		<div class="container inquiry-hero__inner">
-			<p class="inquiry-eyebrow">Deckanfrage</p>
-			<h1 id="inquiry-heading" class="inquiry-hero__heading">Deckanfrage</h1>
-			<p class="inquiry-hero__lead">
-				Informationen zur Hündin und zum geplanten Wurf helfen bei der ersten Einschätzung.
-			</p>
-		</div>
-	</section>
+	<PageHero
+		label="Deckanfrage"
+		title="Deckanfrage"
+		intro="Informationen zur Hündin und zum geplanten Wurf helfen bei der ersten Einschätzung."
+		headingId="inquiry-heading"
+	/>
 
 	<section class="inquiry-section" aria-labelledby="inquiry-form-heading">
 		<div class="container">

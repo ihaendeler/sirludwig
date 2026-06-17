@@ -40,38 +40,6 @@
 	border-top: var(--health-line);
 }
 
-/* ── Hero ────────────────────────────────────────────────────── */
-
-.health-hero {
-	padding-block: var(--space-2xl) var(--space-xl);
-}
-
-.health-hero__inner {
-	display: flex;
-	flex-direction: column;
-	gap: var(--space-sm);
-	max-width: 38rem;
-}
-
-.health-hero__heading {
-	margin: 0;
-	font-family: var(--font-display);
-	font-size: clamp(1.875rem, 6.5vw, 2.75rem);
-	font-weight: 400;
-	line-height: 1.1;
-	letter-spacing: -0.025em;
-	color: var(--color-black);
-}
-
-.health-hero__lead {
-	margin: 0;
-	max-width: 40ch;
-	padding-top: var(--space-xs);
-	font-size: var(--text-lg);
-	line-height: var(--leading-relaxed);
-	color: rgb(74 52 40 / 0.68);
-}
-
 /* ── Section header ──────────────────────────────────────────── */
 
 .health-section__header {
@@ -167,10 +135,6 @@
 }
 
 @media (min-width: 40rem) {
-	.health-hero {
-		padding-block: var(--space-3xl) var(--space-2xl);
-	}
-
 	.health-records--grid {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);

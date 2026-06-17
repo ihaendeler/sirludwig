@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
 import { siteConfig, getCanonical } from '../config/site';
 import '../styles/gesundheit.css';
 
@@ -28,19 +29,12 @@ const futureDocuments = ['DNA', 'HD / ED', 'Patella', 'DOK'];
 	description="Gesundheitsdokumentation für Sir Ludwig — Untersuchungen werden nach Abschluss transparent veröffentlicht."
 	canonical={getCanonical(path)}
 >
-	<!-- Hero -->
-	<section class="health-hero" aria-labelledby="health-heading">
-		<div class="container health-hero__inner">
-			<p class="health-eyebrow">Gesundheit</p>
-			<h1 id="health-heading" class="health-hero__heading">
-				Gesundheit transparent dokumentiert
-			</h1>
-			<p class="health-hero__lead">
-				Alle relevanten Untersuchungen werden hier nach Abschluss nachvollziehbar
-				dokumentiert.
-			</p>
-		</div>
-	</section>
+	<PageHero
+		label="Gesundheit"
+		title="Gesundheit transparent dokumentiert"
+		intro="Alle relevanten Untersuchungen werden hier nach Abschluss nachvollziehbar dokumentiert."
+		headingId="health-heading"
+	/>
 
 	<!-- DNA -->
 	<section class="health-section" aria-labelledby="health-dna-heading">

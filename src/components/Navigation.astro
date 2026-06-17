@@ -267,7 +267,7 @@ const navItems = mainNavigation;
 
 		.site-nav__list {
 			flex-direction: row;
-			gap: var(--space-2xs);
+			gap: var(--space-xs);
 		}
 
 		.site-nav__item + .site-nav__item {
@@ -276,22 +276,21 @@ const navItems = mainNavigation;
 
 		.site-nav__link {
 			min-height: var(--touch-min);
-			padding: var(--space-xs) var(--space-md);
-			font-family: var(--font-body);
-			font-size: var(--text-base);
-			font-weight: 500;
-			letter-spacing: 0;
-			color: var(--color-black);
-			border-radius: var(--radius-md);
-			transition:
-				background-color var(--transition-fast),
-				color var(--transition-fast);
+			padding: var(--space-xs) var(--space-sm);
+			font-family: var(--font-display);
+			font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
+			font-weight: 400;
+			line-height: 1.3;
+			letter-spacing: -0.01em;
+			color: rgb(74 52 40 / 0.82);
+			text-decoration: none;
+			transition: color var(--transition-fast);
 		}
 
 		.site-nav__link:hover,
 		.site-nav__link:focus-visible {
-			background-color: rgb(217 160 102 / 0.12);
-			color: var(--color-brown);
+			color: var(--color-apricot-dark);
+			background-color: transparent;
 		}
 	}
 </style>

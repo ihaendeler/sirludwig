@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCanonical } from '../config/site';
+import '../styles/page-hero.css';
 import '../styles/404.css';
 ---
 
@@ -11,9 +12,9 @@ import '../styles/404.css';
 >
 	<section class="not-found" aria-labelledby="not-found-title">
 		<div class="container not-found__inner">
-			<p class="not-found__label">404</p>
-			<h1 id="not-found-title" class="not-found__title">Seite nicht gefunden</h1>
-			<p class="not-found__text">
+			<p class="page-hero__label">404</p>
+			<h1 id="not-found-title" class="page-hero__title">Seite nicht gefunden</h1>
+			<p class="page-hero__intro">
 				Die angeforderte Seite konnte nicht gefunden werden oder wurde verschoben.
 			</p>
 			<p class="not-found__hint">

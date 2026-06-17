@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
 import { siteConfig, getCanonical } from '../config/site';
 import '../styles/ludwig.css';
 
@@ -23,9 +24,14 @@ const projectGoals = [
 	description="Sir Ludwig — Tuxedo Großpudel by Flying Royals. Herkunft, Charakter und Projektziel im Überblick."
 	canonical={getCanonical(path)}
 >
-	<!-- Hero -->
-	<section class="ludwig-hero" aria-labelledby="ludwig-heading">
-		<div class="ludwig-hero__media ludwig-media">
+	<PageHero
+		variant="media"
+		label="Ludwig"
+		title="Tuxedo Großpudel mit ruhiger Präsenz"
+		intro="Sir Ludwig steht für einen bewusst geführten Aufbau — dokumentiert, transparent und ohne Eile."
+		headingId="ludwig-heading"
+	>
+		<div slot="media" class="page-hero__media-frame">
 			<Image
 				src={heroImage}
 				alt="Sir Ludwig sitzt aufmerksam auf einer Wiese"
@@ -34,20 +40,9 @@ const projectGoals = [
 				loading="eager"
 				fetchpriority="high"
 				decoding="async"
-				class="ludwig-media__img"
 			/>
 		</div>
-		<div class="ludwig-hero__content container">
-			<p class="ludwig-eyebrow">Ludwig</p>
-			<h1 id="ludwig-heading" class="ludwig-hero__heading">
-				Tuxedo Großpudel mit ruhiger Präsenz
-			</h1>
-			<p class="ludwig-hero__lead">
-				Sir Ludwig steht für einen bewusst geführten Aufbau — dokumentiert, transparent
-				und ohne Eile.
-			</p>
-		</div>
-	</section>
+	</PageHero>
 
 	<!-- Herkunft -->
 	<section class="ludwig-section" aria-labelledby="ludwig-origin-heading">

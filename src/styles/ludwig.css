@@ -5,21 +5,6 @@
 	--ludwig-line: 1px solid rgb(74 52 40 / 0.12);
 }
 
-.ludwig-media {
-	position: relative;
-	overflow: hidden;
-	width: 100%;
-	background-color: rgb(74 52 40 / 0.05);
-}
-
-.ludwig-media__img {
-	display: block;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	object-position: var(--media-position, center center);
-}
-
 .ludwig-eyebrow {
 	margin: 0 0 var(--space-sm);
 	font-size: 0.8125rem;
@@ -53,45 +38,6 @@
 
 .ludwig-section + .ludwig-section {
 	border-top: var(--ludwig-line);
-}
-
-/* ── Hero ────────────────────────────────────────────────────── */
-
-.ludwig-hero {
-	display: flex;
-	flex-direction: column;
-}
-
-.ludwig-hero__media {
-	aspect-ratio: 4 / 5;
-	min-height: min(62dvh, 32rem);
-	--media-position: center 32%;
-}
-
-.ludwig-hero__content {
-	display: flex;
-	flex-direction: column;
-	gap: var(--space-sm);
-	padding-block: var(--space-xl) var(--space-lg);
-}
-
-.ludwig-hero__heading {
-	margin: 0;
-	font-family: var(--font-display);
-	font-size: clamp(1.875rem, 6.5vw, 2.75rem);
-	font-weight: 400;
-	line-height: 1.1;
-	letter-spacing: -0.025em;
-	color: var(--color-black);
-}
-
-.ludwig-hero__lead {
-	margin: 0;
-	max-width: 36ch;
-	padding-top: var(--space-xs);
-	font-size: var(--text-lg);
-	line-height: var(--leading-relaxed);
-	color: rgb(74 52 40 / 0.72);
 }
 
 /* ── Content sections ────────────────────────────────────────── */
@@ -151,37 +97,7 @@
 }
 
 @media (min-width: 48rem) {
-	.ludwig-hero {
-		display: grid;
-		grid-template-columns: 1.1fr 0.9fr;
-		align-items: end;
-		gap: var(--space-2xl);
-		min-height: calc(100dvh - var(--header-height));
-		padding-block: var(--space-2xl);
-	}
-
-	.ludwig-hero__media {
-		grid-row: 1;
-		grid-column: 1;
-		min-height: 100%;
-		aspect-ratio: auto;
-		height: 100%;
-	}
-
-	.ludwig-hero__content {
-		grid-row: 1;
-		grid-column: 2;
-		justify-content: flex-end;
-		padding: 0 var(--page-gutter) var(--space-xl) 0;
-	}
-
 	.ludwig-cta .btn {
 		width: auto;
-	}
-}
-
-@media (min-width: 64rem) {
-	.ludwig-hero__content {
-		padding-bottom: var(--space-2xl);
 	}
 }

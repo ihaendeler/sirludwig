@@ -1,0 +1,121 @@
+/* ── Shared page hero (mobile first) ─────────────────────────── */
+
+.page-hero {
+	padding-block: var(--space-2xl) var(--space-xl);
+}
+
+.page-hero__inner {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-sm);
+	max-width: 38rem;
+}
+
+.page-hero__label {
+	margin: 0;
+	font-size: 0.8125rem;
+	font-weight: 500;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: rgb(74 52 40 / 0.52);
+}
+
+.page-hero__title {
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: clamp(1.875rem, 6.5vw, 2.75rem);
+	font-weight: 400;
+	line-height: 1.1;
+	letter-spacing: -0.025em;
+	color: var(--color-black);
+}
+
+.page-hero__intro {
+	margin: 0;
+	max-width: 38ch;
+	font-size: var(--text-lg);
+	line-height: var(--leading-relaxed);
+	color: rgb(74 52 40 / 0.68);
+}
+
+/* ── Hero with image (Ludwig) ────────────────────────────────── */
+
+.page-hero--media {
+	display: flex;
+	flex-direction: column;
+	padding-block: 0;
+}
+
+.page-hero--media .page-hero__media {
+	aspect-ratio: 4 / 5;
+	min-height: min(62dvh, 32rem);
+	--media-position: center 32%;
+}
+
+.page-hero--media .page-hero__media-frame {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	background-color: rgb(74 52 40 / 0.05);
+}
+
+.page-hero--media .page-hero__media-frame img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: var(--media-position, center center);
+}
+
+.page-hero--media .page-hero__inner {
+	padding-block: var(--space-xl) var(--space-lg);
+}
+
+@media (min-width: 40rem) {
+	.page-hero {
+		padding-block: var(--space-2xl) var(--space-2xl);
+	}
+}
+
+@media (min-width: 48rem) {
+	.page-hero--media {
+		display: grid;
+		grid-template-columns: 1.1fr 0.9fr;
+		align-items: end;
+		gap: var(--space-2xl);
+		min-height: calc(100dvh - var(--header-height));
+		padding: var(--space-2xl) var(--page-gutter);
+		max-width: var(--site-max);
+		margin-inline: auto;
+		width: 100%;
+	}
+
+	.page-hero--media .page-hero__media {
+		grid-row: 1;
+		grid-column: 1;
+		min-height: 100%;
+		aspect-ratio: auto;
+		height: 100%;
+	}
+
+	.page-hero--media .page-hero__inner {
+		grid-row: 1;
+		grid-column: 2;
+		justify-content: flex-end;
+		max-width: none;
+		padding: 0 0 var(--space-xl);
+	}
+
+	.page-hero--media .page-hero__inner.container {
+		margin-inline: 0;
+		padding-inline: 0;
+		max-width: 34rem;
+	}
+}
+
+@media (min-width: 64rem) {
+	.page-hero--media .page-hero__inner {
+		padding-bottom: var(--space-2xl);
+	}
+}

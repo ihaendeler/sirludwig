@@ -1,0 +1,33 @@
+---
+import '../styles/page-hero.css';
+
+interface Props {
+	label: string;
+	title: string;
+	intro: string;
+	headingId: string;
+	variant?: 'default' | 'media';
+	class?: string;
+}
+
+const { label, title, intro, headingId, variant = 'default', class: className } = Astro.props;
+const hasMedia = variant === 'media' && Astro.slots.has('media');
+---
+
+<section
+	class:list={['page-hero', hasMedia && 'page-hero--media', className]}
+	aria-labelledby={headingId}
+>
+	{
+		hasMedia && (
+			<div class="page-hero__media">
+				<slot name="media" />
+			</div>
+		)
+	}
+	<div class="container page-hero__inner">
+		<p class="page-hero__label">{label}</p>
+		<h1 id={headingId} class="page-hero__title">{title}</h1>
+		<p class="page-hero__intro">{intro}</p>
+	</div>
+</section>
