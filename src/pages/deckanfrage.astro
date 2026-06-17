@@ -23,7 +23,7 @@ const path = '/deckanfrage';
 		<div class="container">
 			<h2 id="inquiry-form-heading" class="visually-hidden">Anfrageformular</h2>
 
-			<form class="inquiry-form" action="#" method="post" novalidate>
+			<form class="inquiry-form" action="#" method="post" novalidate data-inquiry-form>
 				<fieldset class="inquiry-form__group">
 					<legend class="inquiry-form__legend">Kontaktdaten</legend>
 					<div class="inquiry-form__grid">
@@ -58,6 +58,124 @@ const path = '/deckanfrage';
 							/>
 						</div>
 					</div>
+				</fieldset>
+
+				<fieldset class="inquiry-form__group" data-comm-section>
+					<legend class="inquiry-form__legend">Bevorzugte Kommunikation</legend>
+					<p class="inquiry-field__hint">
+						Wählen Sie, wie Sie kontaktiert werden möchten. E-Mail wird für die erste
+						Kontaktaufnahme empfohlen.
+					</p>
+
+					<div class="inquiry-comm__choices" role="group" aria-label="Bevorzugte Kommunikationswege">
+						<label class="inquiry-check">
+							<input
+								class="inquiry-check__input"
+								type="checkbox"
+								name="comm-pref"
+								value="email"
+								data-comm-toggle="email"
+							/>
+							<span class="inquiry-check__label">E-Mail</span>
+						</label>
+						<label class="inquiry-check">
+							<input
+								class="inquiry-check__input"
+								type="checkbox"
+								name="comm-pref"
+								value="phone"
+								data-comm-toggle="phone"
+							/>
+							<span class="inquiry-check__label">Telefon</span>
+						</label>
+						<label class="inquiry-check">
+							<input
+								class="inquiry-check__input"
+								type="checkbox"
+								name="comm-pref"
+								value="whatsapp"
+								data-comm-toggle="whatsapp"
+							/>
+							<span class="inquiry-check__label">WhatsApp</span>
+						</label>
+						<label class="inquiry-check">
+							<input
+								class="inquiry-check__input"
+								type="checkbox"
+								name="comm-pref"
+								value="instagram"
+								data-comm-toggle="instagram"
+							/>
+							<span class="inquiry-check__label">Instagram</span>
+						</label>
+					</div>
+
+					<p class="inquiry-comm__error" data-comm-error hidden>
+						Bitte mindestens einen Kommunikationsweg auswählen.
+					</p>
+
+					<div class="inquiry-form__grid inquiry-comm__fields">
+						<div class="inquiry-field inquiry-field--full inquiry-comm__field" data-comm-field="email">
+							<label class="inquiry-field__label" for="comm-email">E-Mail-Adresse</label>
+							<input
+								class="inquiry-field__input"
+								type="email"
+								id="comm-email"
+								name="comm-email"
+								autocomplete="email"
+								inputmode="email"
+								data-comm-input
+							/>
+						</div>
+						<div class="inquiry-field inquiry-field--full inquiry-comm__field" data-comm-field="phone">
+							<label class="inquiry-field__label" for="comm-phone">Telefonnummer</label>
+							<input
+								class="inquiry-field__input"
+								type="tel"
+								id="comm-phone"
+								name="comm-phone"
+								autocomplete="tel"
+								inputmode="tel"
+								data-comm-input
+							/>
+						</div>
+						<div
+							class="inquiry-field inquiry-field--full inquiry-comm__field"
+							data-comm-field="whatsapp"
+						>
+							<label class="inquiry-field__label" for="comm-whatsapp">WhatsApp-Nummer</label>
+							<input
+								class="inquiry-field__input"
+								type="tel"
+								id="comm-whatsapp"
+								name="comm-whatsapp"
+								autocomplete="tel"
+								inputmode="tel"
+								data-comm-input
+							/>
+							<p class="inquiry-field__hint">Kann mit der Telefonnummer identisch sein.</p>
+						</div>
+						<div
+							class="inquiry-field inquiry-field--full inquiry-comm__field"
+							data-comm-field="instagram"
+						>
+							<label class="inquiry-field__label" for="comm-instagram">Instagram-Profil</label>
+							<input
+								class="inquiry-field__input"
+								type="text"
+								id="comm-instagram"
+								name="comm-instagram"
+								autocomplete="off"
+								placeholder="@nutzername"
+								data-comm-input
+							/>
+						</div>
+					</div>
+
+					<p class="inquiry-field__hint inquiry-field__hint--privacy">
+						Für die Bearbeitung Ihrer Anfrage werden die angegebenen Kontaktdaten (E-Mail-Adresse,
+						Telefonnummer, WhatsApp-Nummer, Instagram-Profil) verarbeitet.
+					</p>
 				</fieldset>
 
 				<fieldset class="inquiry-form__group">
@@ -234,6 +352,101 @@ const path = '/deckanfrage';
 		</div>
 	</section>
 </BaseLayout>
+
+<script>
+	const form = document.querySelector<HTMLFormElement>('[data-inquiry-form]');
+	const commSection = document.querySelector<HTMLElement>('[data-comm-section]');
+
+	if (form && commSection) {
+		document.documentElement.classList.add('js');
+
+		const toggles = commSection.querySelectorAll<HTMLInputElement>('[data-comm-toggle]');
+		const fields = commSection.querySelectorAll<HTMLElement>('[data-comm-field]');
+		const commError = commSection.querySelector<HTMLElement>('[data-comm-error]');
+
+		function syncCommFields() {
+			toggles.forEach((toggle) => {
+				const key = toggle.dataset.commToggle;
+				const field = commSection.querySelector<HTMLElement>(`[data-comm-field="${key}"]`);
+				const input = field?.querySelector<HTMLInputElement>('[data-comm-input]');
+				const visible = toggle.checked;
+
+				field?.classList.toggle('is-visible', visible);
+
+				if (input) {
+					if (visible) {
+						input.removeAttribute('disabled');
+					} else {
+						input.setAttribute('disabled', 'disabled');
+						input.setCustomValidity('');
+					}
+				}
+			});
+		}
+
+		toggles.forEach((toggle) => {
+			toggle.addEventListener('change', () => {
+				commError?.setAttribute('hidden', '');
+				syncCommFields();
+			});
+		});
+
+		syncCommFields();
+
+		function validateCommunication(): boolean {
+			const selected = [...toggles].filter((toggle) => toggle.checked);
+
+			if (selected.length === 0) {
+				commError?.removeAttribute('hidden');
+				toggles[0]?.focus();
+				return false;
+			}
+
+			commError?.setAttribute('hidden', '');
+
+			let valid = true;
+
+			selected.forEach((toggle) => {
+				const key = toggle.dataset.commToggle;
+				const field = commSection.querySelector<HTMLElement>(`[data-comm-field="${key}"]`);
+				const input = field?.querySelector<HTMLInputElement>('[data-comm-input]');
+
+				if (!input) return;
+
+				const value = input.value.trim();
+
+				if (!value) {
+					input.setCustomValidity('Bitte Angabe ergänzen.');
+					valid = false;
+					return;
+				}
+
+				if (key === 'email' && !input.checkValidity()) {
+					input.setCustomValidity('Bitte gültige E-Mail-Adresse angeben.');
+					valid = false;
+					return;
+				}
+
+				input.setCustomValidity('');
+			});
+
+			if (!valid) {
+				const firstInvalid = commSection.querySelector<HTMLInputElement>(
+					'[data-comm-input]:invalid',
+				);
+				firstInvalid?.reportValidity();
+			}
+
+			return valid;
+		}
+
+		form.addEventListener('submit', (event) => {
+			if (!validateCommunication()) {
+				event.preventDefault();
+			}
+		});
+	}
+</script>
 
 <style>
 	.visually-hidden {

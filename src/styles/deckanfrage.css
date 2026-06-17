@@ -89,6 +89,71 @@
 	color: rgb(74 52 40 / 0.58);
 }
 
+.inquiry-field__hint {
+	margin: 0;
+	max-width: 42ch;
+	font-size: var(--text-sm);
+	line-height: var(--leading-relaxed);
+	color: rgb(74 52 40 / 0.52);
+}
+
+.inquiry-field__hint--privacy {
+	padding-top: var(--space-sm);
+	border-top: var(--inquiry-line);
+}
+
+/* ── Preferred communication ─────────────────────────────────── */
+
+.inquiry-comm__choices {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-xs);
+}
+
+.inquiry-check {
+	display: flex;
+	align-items: center;
+	gap: var(--space-sm);
+	min-height: var(--touch-min);
+	padding-block: var(--space-2xs);
+	cursor: pointer;
+}
+
+.inquiry-check__input {
+	flex-shrink: 0;
+	width: 1.125rem;
+	height: 1.125rem;
+	margin: 0;
+	accent-color: var(--color-apricot-dark);
+	cursor: pointer;
+}
+
+.inquiry-check__label {
+	font-size: var(--text-base);
+	line-height: var(--leading-normal);
+	color: var(--color-brown);
+}
+
+.inquiry-check__input:focus-visible {
+	outline: 2px solid var(--color-apricot);
+	outline-offset: 3px;
+}
+
+.inquiry-comm__error {
+	margin: 0;
+	font-size: var(--text-sm);
+	line-height: var(--leading-relaxed);
+	color: var(--color-apricot-dark);
+}
+
+.inquiry-comm__fields {
+	padding-top: var(--space-sm);
+}
+
+.js .inquiry-comm__field:not(.is-visible) {
+	display: none;
+}
+
 .inquiry-field__input,
 .inquiry-field__select,
 .inquiry-field__textarea {
