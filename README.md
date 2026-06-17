@@ -265,6 +265,32 @@ Die Marke folgt einem minimalistischen Premium-Ansatz — editorial, modern und 
 | **Bildsignatur** | `public/branding/signature.svg` — dezentes SL-Monogramm für Galerie, Ausstellungen, Nachzucht (siehe Abschnitt *Bildsignatur*) |
 | **Favicon** | `public/favicon.svg` — cremefarbener Hintergrund (`#F4F0E8`), Monogramm in Dunkelbraun (`#4A3428`) |
 
+### Favicon und App Icons
+
+Basis ist das bestehende **SL-Monogramm** in `public/favicon.svg` — unverändertes Branding, keine Neugestaltung.
+
+Alle Raster- und App-Icons werden daraus automatisch erzeugt und liegen in `public/`:
+
+| Datei | Verwendung |
+|-------|------------|
+| `favicon.svg` | Moderne Browser |
+| `favicon.ico` | Legacy-Browser (16 + 32 px) |
+| `favicon-16x16.png` / `favicon-32x32.png` | Tab-Icons |
+| `apple-touch-icon.png` | iOS / iPadOS (180×180) |
+| `android-chrome-192x192.png` / `android-chrome-512x512.png` | Android / PWA |
+| `site.webmanifest` | Web App Manifest |
+
+Generierung:
+
+```bash
+npm run generate:icons   # manuell
+npm run build            # automatisch via prebuild
+```
+
+Skript: `src/scripts/generate-favicons.ts`
+
+**Bei Änderungen am Favicon** zuerst `public/favicon.svg` anpassen, dann `npm run generate:icons` ausführen — alle Größen und `favicon.ico` werden neu erzeugt. Einbindung in `src/layouts/BaseLayout.astro`.
+
 ### Farben
 
 - Cream: `#F4F0E8`

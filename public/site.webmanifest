@@ -1,0 +1,20 @@
+{
+  "name": "SIR LUDWIG",
+  "short_name": "SIR LUDWIG",
+  "description": "Sir Ludwig — Tuxedo Großpudel by Flying Royals",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#F4F0E8",
+  "background_color": "#F4F0E8",
+  "display": "standalone"
+}
