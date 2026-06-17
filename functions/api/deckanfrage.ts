@@ -1,7 +1,9 @@
-import type { APIRoute } from 'astro';
-import { parseDeckanfrageFormData, sendDeckanfrageEmail } from '../../lib/deckanfrage/process';
+import { parseDeckanfrageFormData, sendDeckanfrageEmail } from '../../src/lib/deckanfrage/process';
 
-export const prerender = false;
+interface Env {
+	RESEND_API_KEY?: string;
+	RESEND_FROM_EMAIL?: string;
+}
 
 const DEFAULT_FROM = 'Sir Ludwig Website <noreply@sirludwig.de>';
 
@@ -15,8 +17,8 @@ function json(data: Record<string, unknown>, status = 200): Response {
 	});
 }
 
-export const POST: APIRoute = async ({ request }) => {
-	const apiKey = import.meta.env.RESEND_API_KEY?.trim();
+export const onRequestPost: PagesFunction<Env> = async (context) => {
+	const apiKey = context.env.RESEND_API_KEY?.trim();
 
 	if (!apiKey) {
 		return json(
@@ -33,7 +35,7 @@ export const POST: APIRoute = async ({ request }) => {
 	let formData: FormData;
 
 	try {
-		formData = await request.formData();
+		formData = await context.request.formData();
 	} catch {
 		return json(
 			{
@@ -59,7 +61,7 @@ export const POST: APIRoute = async ({ request }) => {
 		);
 	}
 
-	const fromEmail = import.meta.env.RESEND_FROM_EMAIL?.trim() || DEFAULT_FROM;
+	const fromEmail = context.env.RESEND_FROM_EMAIL?.trim() || DEFAULT_FROM;
 	const sent = await sendDeckanfrageEmail(parsed.payload, apiKey, fromEmail);
 
 	if (!sent.ok) {

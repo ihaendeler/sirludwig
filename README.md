@@ -37,7 +37,7 @@ Der Build-Output liegt im Ordner `dist/`.
 | Build output directory | `dist` |
 | Node.js version | `22` oder höher |
 
-Der Deckanfrage-Versand läuft über eine serverseitige API-Route (`/api/deckanfrage`) mit dem Cloudflare-Adapter. `RESEND_API_KEY` muss in Cloudflare gesetzt sein.
+Der Deckanfrage-Versand läuft über eine **Cloudflare Pages Function** unter `functions/api/deckanfrage.ts` (Route: `/api/deckanfrage`). `RESEND_API_KEY` muss in Cloudflare gesetzt sein.
 
 Optional: Environment Variables über das Cloudflare Pages Dashboard setzen (Settings → Variables & Secrets).
 
