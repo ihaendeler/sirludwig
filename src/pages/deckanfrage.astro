@@ -5,6 +5,59 @@ import { siteConfig, getCanonical } from '../config/site';
 import '../styles/deckanfrage.css';
 
 const path = '/deckanfrage';
+
+const selectPlaceholder = { value: '', label: 'Bitte wählen' };
+
+const hdOptions = [
+	selectPlaceholder,
+	{ value: 'nicht-untersucht', label: 'nicht untersucht' },
+	{ value: 'hd-a', label: 'HD A' },
+	{ value: 'hd-b', label: 'HD B' },
+	{ value: 'hd-c', label: 'HD C' },
+	{ value: 'hd-d', label: 'HD D' },
+	{ value: 'hd-e', label: 'HD E' },
+];
+
+const edOptions = [
+	selectPlaceholder,
+	{ value: 'nicht-untersucht', label: 'nicht untersucht' },
+	{ value: 'ed-0', label: 'ED 0' },
+	{ value: 'ed-1', label: 'ED 1' },
+	{ value: 'ed-2', label: 'ED 2' },
+	{ value: 'ed-3', label: 'ED 3' },
+];
+
+const patellaOptions = [
+	selectPlaceholder,
+	{ value: 'nicht-untersucht', label: 'nicht untersucht' },
+	{ value: 'grad-0', label: 'Grad 0' },
+	{ value: 'grad-1', label: 'Grad 1' },
+	{ value: 'grad-2', label: 'Grad 2' },
+	{ value: 'grad-3', label: 'Grad 3' },
+	{ value: 'grad-4', label: 'Grad 4' },
+];
+
+const eyeOptions = [
+	selectPlaceholder,
+	{ value: 'nicht-untersucht', label: 'nicht untersucht' },
+	{ value: 'ohne-befund', label: 'ohne Befund' },
+	{ value: 'mit-befund', label: 'mit Befund' },
+];
+
+const dnaOptions = [
+	selectPlaceholder,
+	{ value: 'nicht-untersucht', label: 'nicht untersucht' },
+	{ value: 'teilweise', label: 'teilweise vorhanden' },
+	{ value: 'vollstaendig', label: 'vollständig vorhanden' },
+];
+
+const existingLittersOptions = [
+	{ value: '', label: 'Bitte auswählen' },
+	{ value: 'keine', label: 'keine' },
+	{ value: '1', label: '1' },
+	{ value: '2', label: '2' },
+	{ value: '3-plus', label: '3 oder mehr' },
+];
 ---
 
 <BaseLayout
@@ -62,10 +115,7 @@ const path = '/deckanfrage';
 
 				<fieldset class="inquiry-form__group" data-comm-section>
 					<legend class="inquiry-form__legend">Bevorzugte Kommunikation</legend>
-					<p class="inquiry-field__hint">
-						Wählen Sie, wie Sie kontaktiert werden möchten. E-Mail wird für die erste
-						Kontaktaufnahme empfohlen.
-					</p>
+					<p class="inquiry-field__hint">Wählen Sie, wie Sie kontaktiert werden möchten.</p>
 
 					<div class="inquiry-comm__choices" role="group" aria-label="Bevorzugte Kommunikationswege">
 						<label class="inquiry-check">
@@ -171,11 +221,6 @@ const path = '/deckanfrage';
 							/>
 						</div>
 					</div>
-
-					<p class="inquiry-field__hint inquiry-field__hint--privacy">
-						Für die Bearbeitung Ihrer Anfrage werden die angegebenen Kontaktdaten (E-Mail-Adresse,
-						Telefonnummer, WhatsApp-Nummer, Instagram-Profil) verarbeitet.
-					</p>
 				</fieldset>
 
 				<fieldset class="inquiry-form__group">
@@ -210,21 +255,37 @@ const path = '/deckanfrage';
 						</div>
 						<div class="inquiry-field">
 							<label class="inquiry-field__label" for="bitch-size">Größe</label>
-							<input
-								class="inquiry-field__input"
-								type="text"
-								id="bitch-size"
-								name="bitch-size"
-							/>
+							<div class="inquiry-field__control inquiry-field__control--unit">
+								<input
+									class="inquiry-field__input"
+									type="number"
+									id="bitch-size"
+									name="bitch-size"
+									min="1"
+									max="99"
+									step="1"
+									inputmode="numeric"
+									placeholder="58"
+								/>
+								<span class="inquiry-field__unit" aria-hidden="true">cm</span>
+							</div>
 						</div>
 						<div class="inquiry-field">
 							<label class="inquiry-field__label" for="bitch-weight">Gewicht</label>
-							<input
-								class="inquiry-field__input"
-								type="text"
-								id="bitch-weight"
-								name="bitch-weight"
-							/>
+							<div class="inquiry-field__control inquiry-field__control--unit">
+								<input
+									class="inquiry-field__input"
+									type="number"
+									id="bitch-weight"
+									name="bitch-weight"
+									min="1"
+									max="99"
+									step="0.1"
+									inputmode="decimal"
+									placeholder="23"
+								/>
+								<span class="inquiry-field__unit" aria-hidden="true">kg</span>
+							</div>
 						</div>
 						<div class="inquiry-field inquiry-field--full">
 							<label class="inquiry-field__label" for="bitch-club">Verein / Verband</label>
@@ -243,38 +304,43 @@ const path = '/deckanfrage';
 					<div class="inquiry-form__grid">
 						<div class="inquiry-field">
 							<label class="inquiry-field__label" for="health-hd">HD</label>
-							<input class="inquiry-field__input" type="text" id="health-hd" name="health-hd" />
+							<select class="inquiry-field__select" id="health-hd" name="health-hd">
+								{hdOptions.map((option) => (
+									<option value={option.value}>{option.label}</option>
+								))}
+							</select>
 						</div>
 						<div class="inquiry-field">
 							<label class="inquiry-field__label" for="health-ed">ED</label>
-							<input class="inquiry-field__input" type="text" id="health-ed" name="health-ed" />
+							<select class="inquiry-field__select" id="health-ed" name="health-ed">
+								{edOptions.map((option) => (
+									<option value={option.value}>{option.label}</option>
+								))}
+							</select>
 						</div>
 						<div class="inquiry-field">
 							<label class="inquiry-field__label" for="health-patella">Patella</label>
-							<input
-								class="inquiry-field__input"
-								type="text"
-								id="health-patella"
-								name="health-patella"
-							/>
+							<select class="inquiry-field__select" id="health-patella" name="health-patella">
+								{patellaOptions.map((option) => (
+									<option value={option.value}>{option.label}</option>
+								))}
+							</select>
 						</div>
 						<div class="inquiry-field">
 							<label class="inquiry-field__label" for="health-eyes">Augenuntersuchung</label>
-							<input
-								class="inquiry-field__input"
-								type="text"
-								id="health-eyes"
-								name="health-eyes"
-							/>
+							<select class="inquiry-field__select" id="health-eyes" name="health-eyes">
+								{eyeOptions.map((option) => (
+									<option value={option.value}>{option.label}</option>
+								))}
+							</select>
 						</div>
 						<div class="inquiry-field inquiry-field--full">
 							<label class="inquiry-field__label" for="health-dna">DNA-Tests</label>
-							<input
-								class="inquiry-field__input"
-								type="text"
-								id="health-dna"
-								name="health-dna"
-							/>
+							<select class="inquiry-field__select" id="health-dna" name="health-dna">
+								{dnaOptions.map((option) => (
+									<option value={option.value}>{option.label}</option>
+								))}
+							</select>
 						</div>
 					</div>
 				</fieldset>
@@ -308,9 +374,9 @@ const path = '/deckanfrage';
 								id="plan-existing-litters"
 								name="plan-existing-litters"
 							>
-								<option value="">Bitte wählen</option>
-								<option value="ja">Ja</option>
-								<option value="nein">Nein</option>
+								{existingLittersOptions.map((option) => (
+									<option value={option.value}>{option.label}</option>
+								))}
 							</select>
 						</div>
 					</div>
@@ -334,6 +400,11 @@ const path = '/deckanfrage';
 					</button>
 					<p class="inquiry-form__note">Versand wird zu gegebener Zeit aktiviert.</p>
 				</div>
+
+				<p class="inquiry-form__privacy">
+					Die Angaben werden ausschließlich zur Bearbeitung der Deckanfrage verwendet.
+					<a class="inquiry-form__privacy-link" href="/datenschutz">Datenschutzerklärung</a>
+				</p>
 			</form>
 		</div>
 	</section>
@@ -361,7 +432,6 @@ const path = '/deckanfrage';
 		document.documentElement.classList.add('js');
 
 		const toggles = commSection.querySelectorAll<HTMLInputElement>('[data-comm-toggle]');
-		const fields = commSection.querySelectorAll<HTMLElement>('[data-comm-field]');
 		const commError = commSection.querySelector<HTMLElement>('[data-comm-error]');
 
 		function syncCommFields() {
