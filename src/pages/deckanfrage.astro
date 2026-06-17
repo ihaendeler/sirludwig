@@ -79,37 +79,15 @@ const existingLittersOptions = [
 			<form class="inquiry-form" action="#" method="post" novalidate data-inquiry-form>
 				<fieldset class="inquiry-form__group">
 					<legend class="inquiry-form__legend">Kontaktdaten</legend>
-					<div class="inquiry-form__grid">
-						<div class="inquiry-field inquiry-field--full">
-							<label class="inquiry-field__label" for="contact-name">Name</label>
-							<input
-								class="inquiry-field__input"
-								type="text"
-								id="contact-name"
-								name="contact-name"
-								autocomplete="name"
-							/>
-						</div>
-						<div class="inquiry-field">
-							<label class="inquiry-field__label" for="contact-email">E-Mail</label>
-							<input
-								class="inquiry-field__input"
-								type="email"
-								id="contact-email"
-								name="contact-email"
-								autocomplete="email"
-							/>
-						</div>
-						<div class="inquiry-field">
-							<label class="inquiry-field__label" for="contact-phone">Telefon</label>
-							<input
-								class="inquiry-field__input"
-								type="tel"
-								id="contact-phone"
-								name="contact-phone"
-								autocomplete="tel"
-							/>
-						</div>
+					<div class="inquiry-field">
+						<label class="inquiry-field__label" for="contact-name">Name</label>
+						<input
+							class="inquiry-field__input"
+							type="text"
+							id="contact-name"
+							name="contact-name"
+							autocomplete="name"
+						/>
 					</div>
 				</fieldset>
 
@@ -221,6 +199,11 @@ const existingLittersOptions = [
 							/>
 						</div>
 					</div>
+
+					<p class="inquiry-form__privacy">
+						Die Angaben werden ausschließlich zur Bearbeitung der Deckanfrage verwendet.
+						<a class="inquiry-form__privacy-link" href="/datenschutz">Datenschutzerklärung</a>
+					</p>
 				</fieldset>
 
 				<fieldset class="inquiry-form__group">
@@ -394,17 +377,44 @@ const existingLittersOptions = [
 					</div>
 				</fieldset>
 
+				<div class="inquiry-form__consent">
+					<div class="inquiry-consent">
+						<input
+							class="inquiry-consent__input"
+							type="checkbox"
+							id="privacy-consent"
+							name="privacy-consent"
+							value="yes"
+							required
+							data-privacy-consent
+						/>
+						<div class="inquiry-consent__content">
+							<label class="inquiry-consent__label" for="privacy-consent">
+								Ich habe die{' '}
+								<a class="inquiry-form__privacy-link" href="/datenschutz" data-consent-link>
+									Datenschutzerklärung
+								</a>{' '}
+								gelesen und bin damit einverstanden, dass meine Angaben zur Bearbeitung der
+								Deckanfrage verarbeitet werden.
+							</label>
+							<p class="inquiry-consent__hint">
+								Die Angaben werden ausschließlich zur Bearbeitung der Anfrage verwendet.
+							</p>
+						</div>
+					</div>
+				</div>
+
 				<div class="inquiry-form__actions">
-					<button type="submit" class="btn btn--primary inquiry-form__submit" disabled>
+					<button
+						type="submit"
+						class="btn btn--primary inquiry-form__submit"
+						disabled
+						data-inquiry-submit
+					>
 						Absenden — demnächst verfügbar
 					</button>
 					<p class="inquiry-form__note">Versand wird zu gegebener Zeit aktiviert.</p>
 				</div>
-
-				<p class="inquiry-form__privacy">
-					Die Angaben werden ausschließlich zur Bearbeitung der Deckanfrage verwendet.
-					<a class="inquiry-form__privacy-link" href="/datenschutz">Datenschutzerklärung</a>
-				</p>
 			</form>
 		</div>
 	</section>
@@ -427,10 +437,29 @@ const existingLittersOptions = [
 <script>
 	const form = document.querySelector<HTMLFormElement>('[data-inquiry-form]');
 	const commSection = document.querySelector<HTMLElement>('[data-comm-section]');
+	const consentCheckbox = form?.querySelector<HTMLInputElement>('[data-privacy-consent]');
+	const submitButton = form?.querySelector<HTMLButtonElement>('[data-inquiry-submit]');
 
-	if (form && commSection) {
+	if (form) {
 		document.documentElement.classList.add('js');
 
+		function syncSubmitState() {
+			if (submitButton && consentCheckbox) {
+				submitButton.disabled = !consentCheckbox.checked;
+			}
+		}
+
+		consentCheckbox?.addEventListener('change', syncSubmitState);
+		syncSubmitState();
+
+		form.querySelectorAll<HTMLAnchorElement>('[data-consent-link]').forEach((link) => {
+			link.addEventListener('click', (event) => {
+				event.stopPropagation();
+			});
+		});
+	}
+
+	if (form && commSection) {
 		const toggles = commSection.querySelectorAll<HTMLInputElement>('[data-comm-toggle]');
 		const commError = commSection.querySelector<HTMLElement>('[data-comm-error]');
 

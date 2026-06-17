@@ -80,6 +80,13 @@
 	display: flex;
 	flex-direction: column;
 	gap: var(--space-xs);
+	min-width: 0;
+}
+
+.inquiry-form__grid {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-xl);
 }
 
 .inquiry-field__label {
@@ -272,16 +279,97 @@
 	outline-offset: 4px;
 }
 
+@media (max-width: 39.99rem) {
+	.inquiry-form__grid {
+		gap: var(--space-2xl);
+	}
+
+	.inquiry-field__input:focus,
+	.inquiry-field__select:focus,
+	.inquiry-field__textarea:focus,
+	.inquiry-field__input:focus-visible,
+	.inquiry-field__select:focus-visible,
+	.inquiry-field__textarea:focus-visible {
+		outline: none;
+		box-shadow: none;
+		border-bottom-width: 2px;
+		border-bottom-color: var(--color-apricot-dark);
+		margin-bottom: -1px;
+	}
+
+	.inquiry-field__control:focus-within {
+		border-bottom-width: 2px;
+		border-bottom-color: var(--color-apricot-dark);
+		margin-bottom: -1px;
+	}
+
+	.inquiry-field__control:focus-within:has(.inquiry-field__input:focus-visible) {
+		outline: none;
+		box-shadow: none;
+	}
+}
+
 .inquiry-form__actions {
 	display: flex;
 	flex-direction: column;
 	gap: var(--space-sm);
+	padding-top: var(--space-xl);
+	border-top: var(--inquiry-line);
+}
+
+.inquiry-form__consent {
 	padding-top: var(--space-2xl);
 	border-top: var(--inquiry-line);
 }
 
+.inquiry-consent {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--space-md);
+}
+
+.inquiry-consent__input {
+	flex-shrink: 0;
+	width: 1.25rem;
+	height: 1.25rem;
+	margin-top: 0.2rem;
+	accent-color: var(--color-apricot-dark);
+	cursor: pointer;
+}
+
+.inquiry-consent__input:focus-visible {
+	outline: 2px solid var(--color-apricot);
+	outline-offset: 3px;
+}
+
+.inquiry-consent__content {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-sm);
+	min-width: 0;
+}
+
+.inquiry-consent__label {
+	font-size: var(--text-base);
+	line-height: var(--leading-relaxed);
+	color: rgb(74 52 40 / 0.72);
+	cursor: pointer;
+}
+
+.inquiry-consent__hint {
+	margin: 0;
+	font-size: var(--text-sm);
+	line-height: var(--leading-relaxed);
+	color: rgb(74 52 40 / 0.52);
+}
+
 .inquiry-form__submit {
 	width: 100%;
+}
+
+.inquiry-form__submit:disabled {
+	cursor: not-allowed;
+	opacity: 0.48;
 }
 
 .inquiry-form__note {
@@ -292,11 +380,13 @@
 }
 
 .inquiry-form__privacy {
-	margin: var(--space-xl) 0 0;
+	margin: 0;
+	padding-top: var(--space-md);
 	max-width: 42ch;
 	font-size: var(--text-sm);
 	line-height: var(--leading-relaxed);
 	color: rgb(74 52 40 / 0.52);
+	border-top: var(--inquiry-line);
 }
 
 .inquiry-form__privacy-link {
