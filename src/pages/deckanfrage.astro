@@ -471,6 +471,16 @@ const path = '/deckanfrage';
 		formError.removeAttribute('hidden');
 	}
 
+	function resetInquiryView() {
+		form?.removeAttribute('hidden');
+		formSuccess?.setAttribute('hidden', '');
+		hideFormError();
+		if (submitButton) {
+			submitButton.textContent = 'Anfrage absenden';
+		}
+		syncSubmitState();
+	}
+
 	function showFormSuccess() {
 		form?.setAttribute('hidden', '');
 		formSuccess?.removeAttribute('hidden');
@@ -480,7 +490,14 @@ const path = '/deckanfrage';
 	if (form) {
 		document.documentElement.classList.add('js');
 
-		syncSubmitState();
+		resetInquiryView();
+
+		window.addEventListener('pageshow', (event) => {
+			if (event.persisted) {
+				resetInquiryView();
+			}
+		});
+
 		consentCheckbox?.addEventListener('change', syncSubmitState);
 
 		form.querySelectorAll<HTMLAnchorElement>('[data-consent-link]').forEach((link) => {

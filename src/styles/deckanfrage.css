@@ -50,6 +50,10 @@
 	max-width: 42rem;
 }
 
+.inquiry-form[hidden] {
+	display: none !important;
+}
+
 .inquiry-form__group {
 	display: flex;
 	flex-direction: column;
@@ -385,7 +389,11 @@
 	margin: 0;
 }
 
-.inquiry-success {
+.inquiry-success[hidden] {
+	display: none !important;
+}
+
+.inquiry-success:not([hidden]) {
 	display: flex;
 	flex-direction: column;
 	gap: var(--space-md);
