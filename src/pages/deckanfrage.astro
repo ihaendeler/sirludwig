@@ -34,8 +34,8 @@ const path = '/deckanfrage';
 		<div class="container">
 			<h2 id="inquiry-form-heading" class="visually-hidden">Anfrageformular</h2>
 
-			<div class="inquiry-success" data-form-success hidden>
-				<p class="inquiry-success__headline">✓ Anfrage erfolgreich übermittelt</p>
+			<div class="inquiry-success" data-form-success hidden tabindex="-1">
+				<p class="inquiry-success__headline" data-form-success-target>✓ Anfrage erfolgreich übermittelt</p>
 				<p class="inquiry-success__lead">Vielen Dank für Ihre Deckanfrage.</p>
 				<p class="inquiry-success__text">
 					Die Angaben wurden erfolgreich übermittelt und werden geprüft.
@@ -501,10 +501,28 @@ const path = '/deckanfrage';
 		syncSubmitState();
 	}
 
+	function scrollToSuccess() {
+		const target =
+			formSuccess?.querySelector<HTMLElement>('[data-form-success-target]') ?? formSuccess;
+		if (!target) return;
+
+		const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		target.scrollIntoView({
+			behavior: prefersReducedMotion ? 'auto' : 'smooth',
+			block: 'start',
+		});
+	}
+
 	function showFormSuccess() {
 		form?.setAttribute('hidden', '');
 		formSuccess?.removeAttribute('hidden');
-		formSuccess?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		formSuccess?.focus({ preventScroll: true });
+
+		requestAnimationFrame(() => {
+			requestAnimationFrame(() => {
+				scrollToSuccess();
+			});
+		});
 	}
 
 	if (form) {

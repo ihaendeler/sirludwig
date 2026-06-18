@@ -35,6 +35,7 @@
 
 .inquiry-section {
 	padding-block: var(--inquiry-section-pad);
+	scroll-margin-top: calc(var(--header-height) + var(--space-sm));
 }
 
 .inquiry-section + .inquiry-section {
@@ -399,6 +400,7 @@
 	gap: var(--space-md);
 	max-width: 42rem;
 	padding-block: var(--space-sm);
+	scroll-margin-top: calc(var(--header-height) + var(--space-md));
 }
 
 .inquiry-success__headline {
@@ -407,6 +409,7 @@
 	font-weight: 500;
 	line-height: var(--leading-relaxed);
 	color: var(--color-brown);
+	scroll-margin-top: calc(var(--header-height) + var(--space-md));
 }
 
 .inquiry-success__lead {
