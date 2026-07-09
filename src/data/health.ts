@@ -27,33 +27,87 @@ export const healthCategoryLabels: Record<HealthCategory, string> = {
 	zuchtzulassung: 'Zuchtzulassung',
 };
 
-export interface HealthStatusItem {
+export type HealthPendingStatus = 'planned-growth' | 'planned-breeding';
+
+export interface HealthOverviewItem {
 	label: string;
 	completed: boolean;
-	targetId?: string;
+	targetId: string;
 }
 
-export interface HealthStatusGroup {
+export interface HealthOverviewSubsection {
+	title: string;
+	items: HealthOverviewItem[];
+}
+
+export interface HealthOverviewGroup {
 	id: string;
 	title: string;
-	items: HealthStatusItem[];
+	subsections?: HealthOverviewSubsection[];
+	items?: HealthOverviewItem[];
+	pendingStatus?: HealthPendingStatus;
 }
 
-export const healthStatusGroups: HealthStatusGroup[] = [
+export interface HealthDocumentationProgress {
+	id: string;
+	title: string;
+	completed: number;
+	total: number;
+}
+
+export const healthDocumentationProgress: HealthDocumentationProgress[] = [
+	{ id: 'genetik', title: 'Genetik', completed: 12, total: 12 },
+	{ id: 'orthopaedie', title: 'Orthopädie', completed: 0, total: 3 },
+	{ id: 'augen', title: 'Augen', completed: 0, total: 1 },
+	{
+		id: 'zuchtzulassung',
+		title: 'Identität & Zuchtzulassung',
+		completed: 0,
+		total: 3,
+	},
+];
+
+export const healthOverviewIntro =
+	'Alle Untersuchungsergebnisse werden nach Eingang veröffentlicht und mit dem jeweiligen Originalzertifikat dokumentiert. Bereits abgeschlossene Untersuchungen werden fortlaufend ergänzt. Altersabhängige Untersuchungen erfolgen nach Abschluss des Wachstums gemäß den zuchtrelevanten Empfehlungen.';
+
+export const healthPendingStatusLabels: Record<HealthPendingStatus, string> = {
+	'planned-growth': 'Geplant nach Abschluss des Wachstums',
+	'planned-breeding': 'Folgt im weiteren Zuchtverlauf',
+};
+
+export const healthOverviewGroups: HealthOverviewGroup[] = [
 	{
 		id: 'genetik',
 		title: 'Genetik',
-		items: [
-			{ label: 'DM', completed: true, targetId: 'dm' },
-			{ label: 'NEWS', completed: true, targetId: 'news' },
-			{ label: 'vWD', completed: true, targetId: 'vwd-typ-1' },
-			{ label: 'PRA', completed: true, targetId: 'prcd-pra' },
-			{ label: 'Farbgenetik', completed: true, targetId: 'b-lokus' },
+		subsections: [
+			{
+				title: 'Erbkrankheiten',
+				items: [
+					{ label: 'DM', completed: true, targetId: 'dm' },
+					{ label: 'NEWS', completed: true, targetId: 'news' },
+					{ label: 'vWD Typ I', completed: true, targetId: 'vwd-typ-1' },
+					{ label: 'prcd-PRA', completed: true, targetId: 'prcd-pra' },
+					{ label: 'rcd4-PRA', completed: true, targetId: 'rcd4-pra' },
+				],
+			},
+			{
+				title: 'Farbgenetik',
+				items: [
+					{ label: 'A-Lokus', completed: true, targetId: 'a-lokus' },
+					{ label: 'B-Lokus', completed: true, targetId: 'b-lokus' },
+					{ label: 'D-Lokus', completed: true, targetId: 'd-lokus' },
+					{ label: 'E-Lokus', completed: true, targetId: 'e-lokus' },
+					{ label: 'I-Lokus', completed: true, targetId: 'i-lokus' },
+					{ label: 'K-Lokus', completed: true, targetId: 'k-lokus' },
+					{ label: 'S-Lokus', completed: true, targetId: 's-lokus' },
+				],
+			},
 		],
 	},
 	{
 		id: 'orthopaedie',
 		title: 'Orthopädie',
+		pendingStatus: 'planned-growth',
 		items: [
 			{ label: 'HD', completed: false, targetId: 'hd' },
 			{ label: 'ED', completed: false, targetId: 'ed' },
@@ -63,18 +117,29 @@ export const healthStatusGroups: HealthStatusGroup[] = [
 	{
 		id: 'augen',
 		title: 'Augen',
+		pendingStatus: 'planned-growth',
 		items: [{ label: 'DOK', completed: false, targetId: 'dok' }],
 	},
 	{
 		id: 'zuchtzulassung',
-		title: 'Zuchtzulassung',
+		title: 'Identität & Zuchtzulassung',
+		pendingStatus: 'planned-breeding',
 		items: [
-			{ label: 'Register', completed: false, targetId: 'register' },
 			{ label: 'DNA-Profil', completed: false, targetId: 'dna-profil' },
-			{ label: 'ZTP', completed: false, targetId: 'ztp' },
+			{ label: 'Registereintragung', completed: false, targetId: 'register' },
+			{ label: 'Zuchttauglichkeitsprüfung (ZTP)', completed: false, targetId: 'ztp' },
 		],
 	},
 ];
+
+export function getHealthItemStatusLabel(
+	item: HealthOverviewItem,
+	pendingStatus?: HealthPendingStatus,
+): string {
+	if (item.completed) return 'Abgeschlossen';
+	if (pendingStatus) return healthPendingStatusLabels[pendingStatus];
+	return 'Folgt im weiteren Zuchtverlauf';
+}
 
 export const healthRecords: HealthRecord[] = [
 	{

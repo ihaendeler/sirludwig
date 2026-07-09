@@ -6,9 +6,13 @@ import PageHero from '../components/PageHero.astro';
 import { siteConfig, getCanonical } from '../config/site';
 import {
 	getCertificateUrl,
+	getHealthItemStatusLabel,
 	healthCategoryLabels,
+	healthDocumentationProgress,
+	healthOverviewGroups,
+	healthOverviewIntro,
+	healthPendingStatusLabels,
 	healthRecords,
-	healthStatusGroups,
 } from '../data/health';
 import '../styles/gesundheit.css';
 
@@ -30,48 +34,120 @@ const pageDescription =
 		<div class="container">
 			<header class="health-section__header">
 				<p class="health-eyebrow">Übersicht</p>
-				<h2 id="health-overview-heading" class="health-title">Statusübersicht</h2>
-				<p class="health-text">
-					Alle relevanten Untersuchungen auf einen Blick — abgeschlossen oder ausstehend.
-				</p>
+				<h2 id="health-overview-heading" class="health-title">Dokumentationsstand</h2>
+				<p class="health-text health-text--wide">{healthOverviewIntro}</p>
 			</header>
+
+			<div class="health-progress" aria-label="Fortschritt der Dokumentation">
+				{
+					healthDocumentationProgress.map((category) => {
+						const percent =
+							category.total > 0 ? Math.round((category.completed / category.total) * 100) : 0;
+
+						return (
+							<div class="health-progress__row">
+								<div class="health-progress__header">
+									<span class="health-progress__label">{category.title}</span>
+									<span class="health-progress__count">
+										{category.completed} von {category.total} Untersuchungen abgeschlossen
+									</span>
+								</div>
+								<div
+									class="health-progress__track"
+									role="progressbar"
+									aria-valuenow={category.completed}
+									aria-valuemin={0}
+									aria-valuemax={category.total}
+									aria-label={`${category.title}: ${category.completed} von ${category.total} abgeschlossen`}
+								>
+									<div class="health-progress__fill" style={`width: ${percent}%`} />
+								</div>
+							</div>
+						);
+					})
+				}
+			</div>
 
 			<div class="health-overview">
 				{
-					healthStatusGroups.map((group) => (
-						<section class="health-status-group" aria-label={group.title}>
-							<h3 class="health-status-group__title">{group.title}</h3>
-							<div class="health-status-group__rule" aria-hidden="true" />
-							<ul class="health-status-group__list">
-								{
-									group.items.map((item) => (
-										<li class="health-status-group__item">
-											<span
-												class:list={[
-													'health-status-group__icon',
-													item.completed && 'health-status-group__icon--done',
-												]}
-												aria-hidden="true"
-											>
-												{item.completed ? '✓' : '○'}
-											</span>
-											{item.targetId ? (
-												<a
-													class="health-status-group__label health-status-group__label--link"
-													href={`#health-${item.targetId}`}
-												>
-													{item.label}
-												</a>
-											) : (
-												<span class="health-status-group__label">{item.label}</span>
-											)}
-											<span class="visually-hidden">
-												{item.completed ? 'Abgeschlossen' : 'Ausstehend'}
-											</span>
-										</li>
+					healthOverviewGroups.map((group) => (
+						<section class="health-overview-group" aria-label={group.title}>
+							<h3 class="health-overview-group__title">{group.title}</h3>
+							<div class="health-overview-group__rule" aria-hidden="true" />
+
+							{
+								group.subsections ? (
+									group.subsections.map((subsection) => (
+										<div class="health-overview-subsection">
+											<h4 class="health-overview-subsection__title">{subsection.title}</h4>
+											<ul class="health-overview-list">
+												{
+													subsection.items.map((item) => (
+														<li class="health-overview-list__item">
+															<span
+																class:list={[
+																	'health-overview-list__icon',
+																	item.completed && 'health-overview-list__icon--done',
+																]}
+																aria-hidden="true"
+															>
+																{item.completed ? '✓' : '○'}
+															</span>
+															<a
+																class="health-overview-list__label health-overview-list__label--link"
+																href={`#health-${item.targetId}`}
+															>
+																{item.label}
+															</a>
+															<span class="visually-hidden">
+																{getHealthItemStatusLabel(item, group.pendingStatus)}
+															</span>
+														</li>
+													))
+												}
+											</ul>
+										</div>
 									))
-								}
-							</ul>
+								) : (
+									<ul class="health-overview-list">
+										{
+											group.items?.map((item) => (
+												<li class="health-overview-list__item">
+													<span
+														class:list={[
+															'health-overview-list__icon',
+															item.completed && 'health-overview-list__icon--done',
+														]}
+														aria-hidden="true"
+													>
+														{item.completed ? '✓' : '○'}
+													</span>
+													<a
+														class="health-overview-list__label health-overview-list__label--link"
+														href={`#health-${item.targetId}`}
+													>
+														{item.label}
+													</a>
+													<span class="visually-hidden">
+														{getHealthItemStatusLabel(item, group.pendingStatus)}
+													</span>
+												</li>
+											))
+										}
+									</ul>
+								)
+							}
+
+							{
+								group.pendingStatus && (
+									<p class="health-overview-group__status">
+										<span class="health-overview-group__status-label">Status</span>
+										<span class="health-overview-group__status-value">
+											○ {healthPendingStatusLabels[group.pendingStatus]}
+										</span>
+									</p>
+								)
+							}
 						</section>
 					))
 				}

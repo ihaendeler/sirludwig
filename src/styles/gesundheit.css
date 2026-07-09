@@ -33,6 +33,10 @@
 	color: rgb(74 52 40 / 0.68);
 }
 
+.health-text--wide {
+	max-width: 52ch;
+}
+
 .health-section {
 	padding-block: var(--health-section-pad);
 }
@@ -51,22 +55,75 @@
 	text-align: left;
 }
 
-/* ── Status overview groups ────────────────────────────────────── */
+/* ── Documentation progress ────────────────────────────────────── */
+
+.health-progress {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-lg);
+	margin-bottom: var(--space-3xl);
+	padding-bottom: var(--space-3xl);
+	border-bottom: var(--health-line);
+	max-width: 32rem;
+}
+
+.health-progress__row {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-sm);
+}
+
+.health-progress__header {
+	display: flex;
+	flex-direction: column;
+	gap: 0.125rem;
+}
+
+.health-progress__label {
+	font-family: var(--font-display);
+	font-size: clamp(1.0625rem, 3vw, 1.125rem);
+	font-weight: 400;
+	line-height: 1.25;
+	letter-spacing: -0.01em;
+	color: var(--color-black);
+}
+
+.health-progress__count {
+	font-size: var(--text-sm);
+	line-height: var(--leading-normal);
+	color: rgb(74 52 40 / 0.56);
+}
+
+.health-progress__track {
+	height: 2px;
+	background-color: rgb(74 52 40 / 0.1);
+	border-radius: 1px;
+	overflow: hidden;
+}
+
+.health-progress__fill {
+	height: 100%;
+	background-color: rgb(74 52 40 / 0.32);
+	border-radius: 1px;
+	transition: width 0.4s ease;
+}
+
+/* ── Category overview ─────────────────────────────────────────── */
 
 .health-overview {
 	display: flex;
 	flex-direction: column;
-	gap: var(--space-2xl);
-	max-width: 28rem;
+	gap: var(--space-3xl);
+	max-width: 32rem;
 }
 
-.health-status-group {
+.health-overview-group {
 	display: flex;
 	flex-direction: column;
-	gap: var(--space-md);
+	gap: var(--space-lg);
 }
 
-.health-status-group__title {
+.health-overview-group__title {
 	margin: 0;
 	font-family: var(--font-display);
 	font-size: clamp(1.1875rem, 3.5vw, 1.3125rem);
@@ -76,12 +133,33 @@
 	color: var(--color-black);
 }
 
-.health-status-group__rule {
+.health-overview-group__rule {
 	height: 1px;
 	background-color: rgb(74 52 40 / 0.14);
 }
 
-.health-status-group__list {
+.health-overview-subsection {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-sm);
+}
+
+.health-overview-subsection + .health-overview-subsection {
+	margin-top: var(--space-md);
+	padding-top: var(--space-lg);
+	border-top: var(--health-line);
+}
+
+.health-overview-subsection__title {
+	margin: 0;
+	font-size: var(--text-sm);
+	font-weight: 500;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: rgb(74 52 40 / 0.48);
+}
+
+.health-overview-list {
 	display: flex;
 	flex-direction: column;
 	gap: var(--space-sm);
@@ -90,13 +168,13 @@
 	list-style: none;
 }
 
-.health-status-group__item {
+.health-overview-list__item {
 	display: flex;
 	align-items: baseline;
 	gap: var(--space-sm);
 }
 
-.health-status-group__icon {
+.health-overview-list__icon {
 	flex-shrink: 0;
 	width: 1.25rem;
 	font-size: var(--text-base);
@@ -105,29 +183,51 @@
 	text-align: center;
 }
 
-.health-status-group__icon--done {
+.health-overview-list__icon--done {
 	color: var(--color-brown);
 }
 
-.health-status-group__label {
+.health-overview-list__label {
 	font-size: var(--text-base);
 	line-height: var(--leading-normal);
 	color: rgb(74 52 40 / 0.78);
 }
 
-.health-status-group__label--link {
+.health-overview-list__label--link {
 	color: var(--color-brown);
 	text-decoration: none;
 	transition: color var(--transition-fast);
 }
 
-.health-status-group__label--link:hover {
+.health-overview-list__label--link:hover {
 	color: var(--color-apricot-dark);
 }
 
-.health-status-group__label--link:focus-visible {
+.health-overview-list__label--link:focus-visible {
 	outline: 2px solid var(--color-apricot);
 	outline-offset: 4px;
+}
+
+.health-overview-group__status {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	margin: var(--space-sm) 0 0;
+	padding-top: var(--space-md);
+	border-top: var(--health-line);
+}
+
+.health-overview-group__status-label {
+	font-size: var(--text-sm);
+	font-weight: 500;
+	letter-spacing: 0.04em;
+	color: rgb(74 52 40 / 0.52);
+}
+
+.health-overview-group__status-value {
+	font-size: var(--text-base);
+	line-height: var(--leading-relaxed);
+	color: rgb(74 52 40 / 0.56);
 }
 
 /* ── Detail sections ───────────────────────────────────────────── */
