@@ -3,7 +3,7 @@ export type HealthCategory =
 	| 'farbgenetik'
 	| 'orthopaedie'
 	| 'augen'
-	| 'dna-identitaet';
+	| 'zuchtzulassung';
 
 export interface HealthRecord {
 	id: string;
@@ -24,8 +24,57 @@ export const healthCategoryLabels: Record<HealthCategory, string> = {
 	farbgenetik: 'Farbgenetik',
 	orthopaedie: 'Orthopädie',
 	augen: 'Augen',
-	'dna-identitaet': 'DNA & Identität',
+	zuchtzulassung: 'Zuchtzulassung',
 };
+
+export interface HealthStatusItem {
+	label: string;
+	completed: boolean;
+	targetId?: string;
+}
+
+export interface HealthStatusGroup {
+	id: string;
+	title: string;
+	items: HealthStatusItem[];
+}
+
+export const healthStatusGroups: HealthStatusGroup[] = [
+	{
+		id: 'genetik',
+		title: 'Genetik',
+		items: [
+			{ label: 'DM', completed: true, targetId: 'dm' },
+			{ label: 'NEWS', completed: true, targetId: 'news' },
+			{ label: 'vWD', completed: true, targetId: 'vwd-typ-1' },
+			{ label: 'PRA', completed: true, targetId: 'prcd-pra' },
+			{ label: 'Farbgenetik', completed: true, targetId: 'b-lokus' },
+		],
+	},
+	{
+		id: 'orthopaedie',
+		title: 'Orthopädie',
+		items: [
+			{ label: 'HD', completed: false, targetId: 'hd' },
+			{ label: 'ED', completed: false, targetId: 'ed' },
+			{ label: 'Patella', completed: false, targetId: 'patella' },
+		],
+	},
+	{
+		id: 'augen',
+		title: 'Augen',
+		items: [{ label: 'DOK', completed: false, targetId: 'dok' }],
+	},
+	{
+		id: 'zuchtzulassung',
+		title: 'Zuchtzulassung',
+		items: [
+			{ label: 'Register', completed: false, targetId: 'register' },
+			{ label: 'DNA-Profil', completed: false, targetId: 'dna-profil' },
+			{ label: 'ZTP', completed: false, targetId: 'ztp' },
+		],
+	},
+];
 
 export const healthRecords: HealthRecord[] = [
 	{
@@ -186,32 +235,6 @@ export const healthRecords: HealthRecord[] = [
 		completed: true,
 	},
 	{
-		id: 'dna-profil',
-		title: 'DNA-Profil',
-		label: 'DNA-Profil',
-		status: 'pending',
-		result: 'folgt',
-		summary: '',
-		breeding: '',
-		date: '',
-		pdf: 'dna-profil.pdf',
-		category: 'dna-identitaet',
-		completed: false,
-	},
-	{
-		id: 'dok',
-		title: 'DOK Augenuntersuchung',
-		label: 'DOK',
-		status: 'pending',
-		result: 'folgt',
-		summary: '',
-		breeding: '',
-		date: '',
-		pdf: 'dok.pdf',
-		category: 'augen',
-		completed: false,
-	},
-	{
 		id: 'hd',
 		title: 'Hüftdysplasie (HD)',
 		label: 'HD',
@@ -250,16 +273,60 @@ export const healthRecords: HealthRecord[] = [
 		category: 'orthopaedie',
 		completed: false,
 	},
+	{
+		id: 'dok',
+		title: 'DOK Augenuntersuchung',
+		label: 'DOK',
+		status: 'pending',
+		result: 'folgt',
+		summary: '',
+		breeding: '',
+		date: '',
+		pdf: 'dok.pdf',
+		category: 'augen',
+		completed: false,
+	},
+	{
+		id: 'register',
+		title: 'Register',
+		label: 'Register',
+		status: 'pending',
+		result: 'folgt',
+		summary: '',
+		breeding: '',
+		date: '',
+		pdf: 'register.pdf',
+		category: 'zuchtzulassung',
+		completed: false,
+	},
+	{
+		id: 'dna-profil',
+		title: 'DNA-Profil',
+		label: 'DNA-Profil',
+		status: 'pending',
+		result: 'folgt',
+		summary: '',
+		breeding: '',
+		date: '',
+		pdf: 'dna-profil.pdf',
+		category: 'zuchtzulassung',
+		completed: false,
+	},
+	{
+		id: 'ztp',
+		title: 'Zuchttauglichkeitsprüfung (ZTP)',
+		label: 'ZTP',
+		status: 'pending',
+		result: 'folgt',
+		summary: '',
+		breeding: '',
+		date: '',
+		pdf: 'ztp.pdf',
+		category: 'zuchtzulassung',
+		completed: false,
+	},
 ];
 
 export function getCertificateUrl(pdf: string): string {
 	return `/certificates/${pdf}`;
-}
-
-export function getOverviewResult(record: HealthRecord): string {
-	return record.completed ? record.result : 'folgt';
-}
-
-export function getOverviewStatusIcon(record: HealthRecord): string {
-	return record.completed ? '✓' : '○';
 }

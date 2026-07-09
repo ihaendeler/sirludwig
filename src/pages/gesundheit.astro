@@ -6,10 +6,9 @@ import PageHero from '../components/PageHero.astro';
 import { siteConfig, getCanonical } from '../config/site';
 import {
 	getCertificateUrl,
-	getOverviewResult,
-	getOverviewStatusIcon,
 	healthCategoryLabels,
 	healthRecords,
+	healthStatusGroups,
 } from '../data/health';
 import '../styles/gesundheit.css';
 
@@ -38,43 +37,44 @@ const pageDescription =
 			</header>
 
 			<div class="health-overview">
-				<table class="health-overview__table">
-					<thead>
-						<tr>
-							<th scope="col">Test</th>
-							<th scope="col">Ergebnis</th>
-							<th scope="col" class="health-overview__status-col">Status</th>
-						</tr>
-					</thead>
-					<tbody>
-						{
-							healthRecords.map((record) => (
-								<tr>
-									<th scope="row">
-										<a class="health-overview__link" href={`#health-${record.id}`}>
-											{record.label}
-										</a>
-									</th>
-									<td>{getOverviewResult(record)}</td>
-									<td class="health-overview__status-col">
-										<span
-											class:list={[
-												'health-overview__icon',
-												record.completed && 'health-overview__icon--done',
-											]}
-											aria-hidden="true"
-										>
-											{getOverviewStatusIcon(record)}
-										</span>
-										<span class="visually-hidden">
-											{record.completed ? 'Abgeschlossen' : 'Ausstehend'}
-										</span>
-									</td>
-								</tr>
-							))
-						}
-					</tbody>
-				</table>
+				{
+					healthStatusGroups.map((group) => (
+						<section class="health-status-group" aria-label={group.title}>
+							<h3 class="health-status-group__title">{group.title}</h3>
+							<div class="health-status-group__rule" aria-hidden="true" />
+							<ul class="health-status-group__list">
+								{
+									group.items.map((item) => (
+										<li class="health-status-group__item">
+											<span
+												class:list={[
+													'health-status-group__icon',
+													item.completed && 'health-status-group__icon--done',
+												]}
+												aria-hidden="true"
+											>
+												{item.completed ? '✓' : '○'}
+											</span>
+											{item.targetId ? (
+												<a
+													class="health-status-group__label health-status-group__label--link"
+													href={`#health-${item.targetId}`}
+												>
+													{item.label}
+												</a>
+											) : (
+												<span class="health-status-group__label">{item.label}</span>
+											)}
+											<span class="visually-hidden">
+												{item.completed ? 'Abgeschlossen' : 'Ausstehend'}
+											</span>
+										</li>
+									))
+								}
+							</ul>
+						</section>
+					))
+				}
 			</div>
 		</div>
 	</section>
