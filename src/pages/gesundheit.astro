@@ -4,131 +4,185 @@ export const prerender = true;
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import { siteConfig, getCanonical } from '../config/site';
+import {
+	getCertificateUrl,
+	getOverviewResult,
+	getOverviewStatusIcon,
+	healthCategoryLabels,
+	healthRecords,
+} from '../data/health';
 import '../styles/gesundheit.css';
 
 const path = '/gesundheit';
 
-const dnaRecords = [
-	{ name: 'Großes Pudelpaket', status: 'vorbereitet' },
-	{ name: 'DNA-Profil', status: 'folgt' },
-	{ name: 'Merle-Test', status: 'vorbereitet' },
-	{ name: 'VGL-Test', status: 'folgt' },
-];
-
-const orthoRecords = [
-	{ name: 'HD', status: 'folgt nach Auswertung' },
-	{ name: 'ED', status: 'folgt nach Auswertung' },
-	{ name: 'Patella', status: 'folgt nach Auswertung' },
-];
-
-const eyeRecords = [{ name: 'DOK Augenuntersuchung', status: 'geplant' }];
-
-const futureDocuments = ['DNA', 'HD / ED', 'Patella', 'DOK'];
+const pageTitle = `Gesundheit & Untersuchungen — ${siteConfig.brandName}`;
+const pageDescription =
+	'Transparente Übersicht der genetischen, orthopädischen und augenärztlichen Untersuchungen von Sir Ludwig — Ergebnisse verständlich erklärt, Originalzertifikate als offizieller Nachweis.';
 ---
 
-<BaseLayout
-	title={`Gesundheit — ${siteConfig.brandName}`}
-	description="Gesundheitsdokumentation für Sir Ludwig — Untersuchungen werden nach Abschluss transparent veröffentlicht."
-	canonical={getCanonical(path)}
->
+<BaseLayout title={pageTitle} description={pageDescription} canonical={getCanonical(path)}>
 	<PageHero
 		title="Gesundheit"
-		intro="Alle relevanten Untersuchungen werden hier nach Abschluss nachvollziehbar dokumentiert."
+		intro="Untersuchungsergebnisse werden hier verständlich eingeordnet. Originalzertifikate dienen als offizieller Nachweis."
 		headingId="health-heading"
 	/>
 
-	<!-- DNA -->
-	<section class="health-section" aria-labelledby="health-dna-heading">
+	<section class="health-section" aria-labelledby="health-overview-heading">
 		<div class="container">
 			<header class="health-section__header">
-				<p class="health-eyebrow">DNA</p>
-				<h2 id="health-dna-heading" class="health-title">Genetische Untersuchungen</h2>
+				<p class="health-eyebrow">Übersicht</p>
+				<h2 id="health-overview-heading" class="health-title">Statusübersicht</h2>
 				<p class="health-text">
-					Genetische Tests werden nach Durchführung mit Status und Ergebnissen dokumentiert.
+					Alle relevanten Untersuchungen auf einen Blick — abgeschlossen oder ausstehend.
 				</p>
 			</header>
 
-			<ul class="health-records health-records--grid">
-				{
-					dnaRecords.map((record) => (
-						<li class="health-records__item">
-							<p class="health-records__name">{record.name}</p>
-							<p class="health-records__status">{record.status}</p>
-						</li>
-					))
-				}
-			</ul>
+			<div class="health-overview">
+				<table class="health-overview__table">
+					<thead>
+						<tr>
+							<th scope="col">Test</th>
+							<th scope="col">Ergebnis</th>
+							<th scope="col" class="health-overview__status-col">Status</th>
+						</tr>
+					</thead>
+					<tbody>
+						{
+							healthRecords.map((record) => (
+								<tr>
+									<th scope="row">
+										<a class="health-overview__link" href={`#health-${record.id}`}>
+											{record.label}
+										</a>
+									</th>
+									<td>{getOverviewResult(record)}</td>
+									<td class="health-overview__status-col">
+										<span
+											class:list={[
+												'health-overview__icon',
+												record.completed && 'health-overview__icon--done',
+											]}
+											aria-hidden="true"
+										>
+											{getOverviewStatusIcon(record)}
+										</span>
+										<span class="visually-hidden">
+											{record.completed ? 'Abgeschlossen' : 'Ausstehend'}
+										</span>
+									</td>
+								</tr>
+							))
+						}
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</section>
 
-	<!-- Orthopädie -->
-	<section class="health-section" aria-labelledby="health-ortho-heading">
+	<section class="health-section" aria-labelledby="health-details-heading">
 		<div class="container">
 			<header class="health-section__header">
-				<p class="health-eyebrow">Orthopädie</p>
-				<h2 id="health-ortho-heading" class="health-title">Bewegungsapparat</h2>
+				<p class="health-eyebrow">Einzelergebnisse</p>
+				<h2 id="health-details-heading" class="health-title">Untersuchungen im Detail</h2>
 				<p class="health-text">
-					Orthopädische Untersuchungen werden nach Auswertung hier nachvollziehbar ergänzt.
+					Kurzbewertung und zuchtrelevante Einordnung — ergänzt durch die Originalzertifikate.
 				</p>
 			</header>
 
-			<ul class="health-records health-records--triple">
+			<div class="health-details">
 				{
-					orthoRecords.map((record) => (
-						<li class="health-records__item">
-							<p class="health-records__name">{record.name}</p>
-							<p class="health-records__status">{record.status}</p>
-						</li>
-					))
+					healthRecords.map((record, index) => {
+						const previousCategory = index > 0 ? healthRecords[index - 1].category : null;
+						const showCategory = record.category !== previousCategory;
+						const certificateUrl = getCertificateUrl(record.pdf);
+
+						return (
+							<article
+								class:list={['health-detail', !record.completed && 'health-detail--pending']}
+								id={`health-${record.id}`}
+								aria-labelledby={`health-${record.id}-title`}
+							>
+								{showCategory && (
+									<p class="health-detail__category">{healthCategoryLabels[record.category]}</p>
+								)}
+
+								<h3 class="health-detail__title" id={`health-${record.id}-title`}>
+									{record.title}
+								</h3>
+
+								{record.completed ? (
+									<>
+										<dl class="health-detail__meta">
+											<div class="health-detail__row">
+												<dt>Status</dt>
+												<dd>
+													<span class="health-detail__status health-detail__status--done">
+														✓ Abgeschlossen
+													</span>
+												</dd>
+											</div>
+											<div class="health-detail__row">
+												<dt>Ergebnis</dt>
+												<dd class="health-detail__result">{record.result}</dd>
+											</div>
+											<div class="health-detail__row">
+												<dt>Kurzbewertung</dt>
+												<dd>{record.summary}</dd>
+											</div>
+											<div class="health-detail__row">
+												<dt>Zuchtrelevanz</dt>
+												<dd>{record.breeding}</dd>
+											</div>
+											<div class="health-detail__row">
+												<dt>Untersuchungsdatum</dt>
+												<dd>{record.date}</dd>
+											</div>
+										</dl>
+
+										<div class="health-detail__actions">
+											<a
+												class="health-detail__link"
+												href={certificateUrl}
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												Originalzertifikat ansehen →
+											</a>
+											<a class="health-detail__link" href={certificateUrl} download>
+												PDF herunterladen
+											</a>
+										</div>
+									</>
+								) : (
+									<div class="health-detail__pending">
+										<p class="health-detail__pending-label">Status</p>
+										<p class="health-detail__status health-detail__status--pending">
+											○ Ausstehend
+										</p>
+										<p class="health-detail__pending-text">
+											Das Untersuchungsergebnis liegt derzeit noch nicht vor.
+										</p>
+									</div>
+								)}
+							</article>
+						);
+					})
 				}
-			</ul>
-		</div>
-	</section>
-
-	<!-- Augen -->
-	<section class="health-section" aria-labelledby="health-eyes-heading">
-		<div class="container">
-			<header class="health-section__header">
-				<p class="health-eyebrow">Augen</p>
-				<h2 id="health-eyes-heading" class="health-title">Augenuntersuchung</h2>
-				<p class="health-text">
-					Augenuntersuchungen werden nach Termin und Auswertung dokumentiert.
-				</p>
-			</header>
-
-			<ul class="health-records">
-				{
-					eyeRecords.map((record) => (
-						<li class="health-records__item">
-							<p class="health-records__name">{record.name}</p>
-							<p class="health-records__status">{record.status}</p>
-						</li>
-					))
-				}
-			</ul>
-		</div>
-	</section>
-
-	<!-- Downloads -->
-	<section class="health-section" aria-labelledby="health-downloads-heading">
-		<div class="container">
-			<div class="health-downloads">
-				<header class="health-section__header">
-					<p class="health-eyebrow">Dokumente</p>
-					<h2 id="health-downloads-heading" class="health-title">Downloads</h2>
-					<p class="health-text">
-						PDF-Dokumente werden nach Vorliegen der Ergebnisse ergänzt.
-					</p>
-				</header>
-
-				<ul class="health-downloads__list" aria-label="Geplante Dokumente">
-					{
-						futureDocuments.map((doc) => (
-							<li class="health-downloads__item">{doc}</li>
-						))
-					}
-				</ul>
 			</div>
 		</div>
 	</section>
 </BaseLayout>
+
+<style>
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+</style>
