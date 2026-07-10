@@ -180,7 +180,7 @@ const healthRecordsById: Record<string, HealthRecord> = {
 	},
 	's-lokus': {
 		id: 's-lokus',
-		title: 'S-Lokus (Parti / Weiß)',
+		title: 'Parti-Lokus (S-Lokus)',
 		navLabel: 'S-Lokus',
 		result: 'N/S',
 		summary: 'Ludwig ist heterozygot N/S für die getestete Variante der Weißscheckung.',
