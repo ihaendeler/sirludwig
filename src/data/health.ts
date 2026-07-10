@@ -8,8 +8,7 @@ export type HealthCategory =
 export interface HealthRecord {
 	id: string;
 	title: string;
-	label: string;
-	status: 'completed' | 'pending';
+	navLabel: string;
 	result: string;
 	summary: string;
 	breeding: string;
@@ -18,8 +17,6 @@ export interface HealthRecord {
 	category: HealthCategory;
 	completed: boolean;
 }
-
-export type HealthPendingStatus = 'planned-growth' | 'planned-breeding';
 
 export interface HealthReportSubsection {
 	title: string;
@@ -30,52 +27,28 @@ export interface HealthReportSection {
 	id: string;
 	title: string;
 	intro: string;
-	pendingStatus?: HealthPendingStatus;
+	pendingNotice?: string;
 	subsections?: HealthReportSubsection[];
 	recordIds?: string[];
 }
 
-export interface HealthOverviewItem {
-	label: string;
-	completed: boolean;
-	targetId: string;
-}
-
-export interface HealthOverviewSubsection {
+export interface HealthNavSubsection {
 	title: string;
-	items: HealthOverviewItem[];
+	items: { id: string; label: string }[];
 }
 
-export interface HealthOverviewGroup {
+export interface HealthNavGroup {
 	id: string;
 	title: string;
-	intro: string;
-	subsections?: HealthOverviewSubsection[];
-	items?: HealthOverviewItem[];
-	pendingStatus?: HealthPendingStatus;
+	subsections?: HealthNavSubsection[];
+	items?: { id: string; label: string }[];
 }
-
-export interface HealthDocumentationProgress {
-	id: string;
-	title: string;
-	completed: number;
-	total: number;
-}
-
-export const healthPendingStatusLabels: Record<HealthPendingStatus, string> = {
-	'planned-growth': 'Geplant nach Abschluss des Wachstums',
-	'planned-breeding': 'Folgt im weiteren Zuchtverlauf',
-};
-
-export const healthOverviewIntro =
-	'Alle Untersuchungsergebnisse werden nach Eingang veröffentlicht und mit dem jeweiligen Originalzertifikat dokumentiert. Bereits abgeschlossene Untersuchungen werden fortlaufend ergänzt. Altersabhängige Untersuchungen erfolgen nach Abschluss des Wachstums gemäß den zuchtrelevanten Empfehlungen.';
 
 const healthRecordsById: Record<string, HealthRecord> = {
 	dm: {
 		id: 'dm',
 		title: 'Degenerative Myelopathie (DM)',
-		label: 'DM',
-		status: 'completed',
+		navLabel: 'Degenerative Myelopathie (DM)',
 		result: 'N/N',
 		summary: 'Frei von der getesteten Mutation.',
 		breeding: 'Keine Weitergabe der getesteten Mutation.',
@@ -87,8 +60,7 @@ const healthRecordsById: Record<string, HealthRecord> = {
 	news: {
 		id: 'news',
 		title: 'Neonatal Encephalopathy with Seizures (NEWS)',
-		label: 'NEWS',
-		status: 'completed',
+		navLabel: 'Neonatale Enzephalopathie (NEWS)',
 		result: 'N/N',
 		summary: 'Frei von der getesteten Mutation.',
 		breeding: 'Keine Weitergabe der getesteten Mutation.',
@@ -100,8 +72,7 @@ const healthRecordsById: Record<string, HealthRecord> = {
 	'vwd-typ-1': {
 		id: 'vwd-typ-1',
 		title: 'Von-Willebrand-Syndrom Typ I (vWD Typ I)',
-		label: 'vWD Typ I',
-		status: 'completed',
+		navLabel: 'Von-Willebrand-Erkrankung Typ I',
 		result: 'N/N',
 		summary: 'Frei von der getesteten Mutation.',
 		breeding: 'Keine Weitergabe der getesteten Mutation.',
@@ -113,8 +84,7 @@ const healthRecordsById: Record<string, HealthRecord> = {
 	'prcd-pra': {
 		id: 'prcd-pra',
 		title: 'Progressive Rod-Cone Degeneration (prcd-PRA)',
-		label: 'prcd-PRA',
-		status: 'completed',
+		navLabel: 'prcd-PRA',
 		result: 'N/N',
 		summary: 'Frei von der getesteten Mutation.',
 		breeding: 'Keine Weitergabe der getesteten Mutation.',
@@ -126,8 +96,7 @@ const healthRecordsById: Record<string, HealthRecord> = {
 	'rcd4-pra': {
 		id: 'rcd4-pra',
 		title: 'Rod-Cone Dysplasia 4 (rcd4-PRA)',
-		label: 'rcd4-PRA',
-		status: 'completed',
+		navLabel: 'rcd4-PRA',
 		result: 'N/N',
 		summary: 'Frei von der getesteten Mutation.',
 		breeding: 'Keine Weitergabe der getesteten Mutation.',
@@ -139,11 +108,11 @@ const healthRecordsById: Record<string, HealthRecord> = {
 	'a-lokus': {
 		id: 'a-lokus',
 		title: 'Agouti-Lokus (A-Lokus)',
-		label: 'A-Lokus',
-		status: 'completed',
+		navLabel: 'A-Lokus',
 		result: 'DY/BB1',
-		summary: 'Heterozygot für DY und BB1 — Farbverteilung entsprechend dem ASIP-Haplotyp.',
-		breeding: 'Farbplanung und Paarung unter Berücksichtigung der Agouti-Varianten.',
+		summary: 'Für Ludwig wurde der ASIP-Haplotyp DY/BB1 ermittelt.',
+		breeding:
+			'Für die Farbplanung relevant; die sichtbare Ausprägung hängt vom Zusammenspiel mehrerer Farbloci ab.',
 		date: '09.07.2026',
 		pdf: 'a-lokus.pdf',
 		category: 'farbgenetik',
@@ -152,8 +121,7 @@ const healthRecordsById: Record<string, HealthRecord> = {
 	'b-lokus': {
 		id: 'b-lokus',
 		title: 'Braun-Lokus (B-Lokus)',
-		label: 'B-Lokus',
-		status: 'completed',
+		navLabel: 'B-Lokus',
 		result: 'N/bs',
 		summary: 'Ludwig trägt ein bs-Allel, ist selbst jedoch nicht braun.',
 		breeding: 'Braune Nachkommen sind nur möglich, wenn auch die Hündin ein entsprechendes Braun-Allel trägt.',
@@ -165,11 +133,10 @@ const healthRecordsById: Record<string, HealthRecord> = {
 	'd-lokus': {
 		id: 'd-lokus',
 		title: 'Dilution-Lokus (D-Lokus)',
-		label: 'D-Lokus',
-		status: 'completed',
+		navLabel: 'D-Lokus',
 		result: 'N/N',
-		summary: 'Kein Dilution-Allel nachweisbar.',
-		breeding: 'Keine Weitergabe von Dilution über diesen Lokus.',
+		summary: 'Kein d1-Allel nachgewiesen.',
+		breeding: 'Keine Weitergabe der getesteten d1-Variante.',
 		date: '09.07.2026',
 		pdf: 'd-lokus.pdf',
 		category: 'farbgenetik',
@@ -178,8 +145,7 @@ const healthRecordsById: Record<string, HealthRecord> = {
 	'e-lokus': {
 		id: 'e-lokus',
 		title: 'Extension-Lokus (E-Lokus)',
-		label: 'E-Lokus',
-		status: 'completed',
+		navLabel: 'E-Lokus',
 		result: 'e1/e1',
 		summary: 'e1/e1 bestätigt die apricot-/cremefarbene Pigmentierung.',
 		breeding: 'Ludwig gibt an diesem Lokus ausschließlich das e1-Allel weiter.',
@@ -191,8 +157,7 @@ const healthRecordsById: Record<string, HealthRecord> = {
 	'i-lokus': {
 		id: 'i-lokus',
 		title: 'Intensity-Lokus (I-Lokus)',
-		label: 'I-Lokus',
-		status: 'completed',
+		navLabel: 'I-Lokus',
 		result: 'N/i',
 		summary: 'Ludwig trägt ein i-Allel, das die Intensität des Phäomelanins beeinflussen kann.',
 		breeding: 'Relevant für die Einschätzung von Apricot-, Creme- und Rotintensität.',
@@ -204,8 +169,7 @@ const healthRecordsById: Record<string, HealthRecord> = {
 	'k-lokus': {
 		id: 'k-lokus',
 		title: 'Schwarz-Lokus (K-Lokus)',
-		label: 'K-Lokus',
-		status: 'completed',
+		navLabel: 'K-Lokus',
 		result: 'Kb/Kb',
 		summary: 'Kb/Kb liegt vor. Im Erscheinungsbild wird dieses Ergebnis durch e/e überlagert.',
 		breeding: 'Für die Farbvererbung relevant, insbesondere in Kombination mit dem E-Lokus der Hündin.',
@@ -217,12 +181,11 @@ const healthRecordsById: Record<string, HealthRecord> = {
 	's-lokus': {
 		id: 's-lokus',
 		title: 'S-Lokus (Parti / Weiß)',
-		label: 'S-Lokus',
-		status: 'completed',
+		navLabel: 'S-Lokus',
 		result: 'N/S',
-		summary: 'Heterozygot für Weißscheckung — semi-dominanter Erbgang.',
+		summary: 'Ludwig ist heterozygot N/S für die getestete Variante der Weißscheckung.',
 		breeding:
-			'Weißanteil in der Nachkommenschaft möglich; weitere Faktoren können die Ausprägung beeinflussen.',
+			'Die getestete Variante kann an Nachkommen weitergegeben werden. Weitere genetische Faktoren können die Ausprägung der Weißzeichnung beeinflussen.',
 		date: '09.07.2026',
 		pdf: 's-lokus.pdf',
 		category: 'farbgenetik',
@@ -231,9 +194,8 @@ const healthRecordsById: Record<string, HealthRecord> = {
 	hd: {
 		id: 'hd',
 		title: 'Hüftdysplasie (HD)',
-		label: 'HD',
-		status: 'pending',
-		result: 'folgt',
+		navLabel: 'HD',
+		result: '',
 		summary: '',
 		breeding: '',
 		date: '',
@@ -244,9 +206,8 @@ const healthRecordsById: Record<string, HealthRecord> = {
 	ed: {
 		id: 'ed',
 		title: 'Ellbogendysplasie (ED)',
-		label: 'ED',
-		status: 'pending',
-		result: 'folgt',
+		navLabel: 'ED',
+		result: '',
 		summary: '',
 		breeding: '',
 		date: '',
@@ -257,9 +218,8 @@ const healthRecordsById: Record<string, HealthRecord> = {
 	patella: {
 		id: 'patella',
 		title: 'Patellaluxation',
-		label: 'Patella',
-		status: 'pending',
-		result: 'folgt',
+		navLabel: 'Patella',
+		result: '',
 		summary: '',
 		breeding: '',
 		date: '',
@@ -270,9 +230,8 @@ const healthRecordsById: Record<string, HealthRecord> = {
 	dok: {
 		id: 'dok',
 		title: 'DOK Augenuntersuchung',
-		label: 'DOK',
-		status: 'pending',
-		result: 'folgt',
+		navLabel: 'DOK-Augenuntersuchung',
+		result: '',
 		summary: '',
 		breeding: '',
 		date: '',
@@ -283,9 +242,8 @@ const healthRecordsById: Record<string, HealthRecord> = {
 	'dna-profil': {
 		id: 'dna-profil',
 		title: 'DNA-Profil',
-		label: 'DNA-Profil',
-		status: 'pending',
-		result: 'folgt',
+		navLabel: 'DNA-Profil',
+		result: '',
 		summary: '',
 		breeding: '',
 		date: '',
@@ -296,9 +254,8 @@ const healthRecordsById: Record<string, HealthRecord> = {
 	register: {
 		id: 'register',
 		title: 'Registereintragung',
-		label: 'Registereintragung',
-		status: 'pending',
-		result: 'folgt',
+		navLabel: 'Registereintragung',
+		result: '',
 		summary: '',
 		breeding: '',
 		date: '',
@@ -309,9 +266,8 @@ const healthRecordsById: Record<string, HealthRecord> = {
 	ztp: {
 		id: 'ztp',
 		title: 'Zuchttauglichkeitsprüfung (ZTP)',
-		label: 'Zuchttauglichkeitsprüfung (ZTP)',
-		status: 'pending',
-		result: 'folgt',
+		navLabel: 'Zuchttauglichkeitsprüfung',
+		result: '',
 		summary: '',
 		breeding: '',
 		date: '',
@@ -321,7 +277,7 @@ const healthRecordsById: Record<string, HealthRecord> = {
 	},
 };
 
-/** Canonical section order — overview, details, anchors, and PDF sequence derive from this. */
+/** Canonical section order — navigation, details, anchors, and PDF sequence derive from this. */
 export const healthReportSections: HealthReportSection[] = [
 	{
 		id: 'genetik',
@@ -342,21 +298,22 @@ export const healthReportSections: HealthReportSection[] = [
 		id: 'orthopaedie',
 		title: 'Orthopädie',
 		intro: 'Orthopädische Untersuchungen des Bewegungsapparates.',
-		pendingStatus: 'planned-growth',
+		pendingNotice: 'HD, ED und Patella werden im vorgesehenen Untersuchungszeitraum ergänzt.',
 		recordIds: ['hd', 'ed', 'patella'],
 	},
 	{
 		id: 'augen',
 		title: 'Augen',
 		intro: 'Augenfachärztliche Untersuchungen zur Beurteilung der Zuchttauglichkeit.',
-		pendingStatus: 'planned-growth',
+		pendingNotice: 'Die DOK-Augenuntersuchung wird im weiteren Untersuchungsverlauf ergänzt.',
 		recordIds: ['dok'],
 	},
 	{
 		id: 'zuchtzulassung',
 		title: 'Identität & Zucht',
 		intro: 'Nachweise zur Identität und zuchtrelevanten Dokumentation.',
-		pendingStatus: 'planned-breeding',
+		pendingNotice:
+			'DNA-Profil, Registereintragung und Zuchttauglichkeitsprüfung werden nach Vorliegen dokumentiert.',
 		recordIds: ['dna-profil', 'register', 'ztp'],
 	},
 ];
@@ -368,56 +325,27 @@ function getSectionRecordIds(section: HealthReportSection): string[] {
 	return section.recordIds ?? [];
 }
 
-function toOverviewItem(recordId: string): HealthOverviewItem {
+function toNavItem(recordId: string): { id: string; label: string } {
 	const record = healthRecordsById[recordId];
-	return {
-		label: record.label,
-		completed: record.completed,
-		targetId: recordId,
-	};
+	return { id: recordId, label: record.navLabel };
 }
 
-export const healthOverviewGroups: HealthOverviewGroup[] = healthReportSections.map((section) => ({
+export const healthNavGroups: HealthNavGroup[] = healthReportSections.map((section) => ({
 	id: section.id,
 	title: section.title,
-	intro: section.intro,
-	pendingStatus: section.pendingStatus,
 	subsections: section.subsections?.map((subsection) => ({
 		title: subsection.title,
-		items: subsection.recordIds.map(toOverviewItem),
+		items: subsection.recordIds.map(toNavItem),
 	})),
-	items: section.recordIds?.map(toOverviewItem),
+	items: section.recordIds?.map(toNavItem),
 }));
 
 export const healthRecords: HealthRecord[] = healthReportSections.flatMap((section) =>
 	getSectionRecordIds(section).map((recordId) => healthRecordsById[recordId]),
 );
 
-export const healthDocumentationProgress: HealthDocumentationProgress[] = healthReportSections.map(
-	(section) => {
-		const recordIds = getSectionRecordIds(section);
-		const completed = recordIds.filter((id) => healthRecordsById[id].completed).length;
-
-		return {
-			id: section.id,
-			title: section.title,
-			completed,
-			total: recordIds.length,
-		};
-	},
-);
-
 export function getHealthRecord(id: string): HealthRecord {
 	return healthRecordsById[id];
-}
-
-export function getHealthItemStatusLabel(
-	item: HealthOverviewItem,
-	pendingStatus?: HealthPendingStatus,
-): string {
-	if (item.completed) return 'Abgeschlossen';
-	if (pendingStatus) return healthPendingStatusLabels[pendingStatus];
-	return 'Folgt im weiteren Zuchtverlauf';
 }
 
 export function getCertificateUrl(pdf: string): string {
