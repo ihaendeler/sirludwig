@@ -7,7 +7,6 @@ import { siteConfig, getCanonical } from '../config/site';
 import {
 	getCertificateUrl,
 	getHealthRecord,
-	healthNavGroups,
 	healthReportSections,
 } from '../data/health';
 import '../styles/gesundheit.css';
@@ -26,63 +25,8 @@ const pageDescription =
 		headingId="health-heading"
 	/>
 
-	<section class="health-section" aria-labelledby="health-nav-heading">
+	<section class="health-section" aria-label="Untersuchungsergebnisse">
 		<div class="container">
-			<header class="health-section__header">
-				<h2 id="health-nav-heading" class="health-title">Untersuchungsbereiche</h2>
-			</header>
-
-			<nav class="health-nav" aria-label="Untersuchungsbereiche">
-				{
-					healthNavGroups.map((group) => (
-						<div class="health-nav__group">
-							<h3 class="health-nav__group-title">{group.title}</h3>
-
-							{
-								group.subsections ? (
-									group.subsections.map((subsection) => (
-										<div class="health-nav__subsection">
-											<p class="health-nav__subsection-label">{subsection.title}:</p>
-											<ul class="health-nav__list">
-												{
-													subsection.items.map((item) => (
-														<li class="health-nav__item">
-															<a class="health-nav__link" href={`#health-${item.id}`}>
-																{item.label}
-															</a>
-														</li>
-													))
-												}
-											</ul>
-										</div>
-									))
-								) : (
-									<ul class="health-nav__list">
-										{
-											group.items?.map((item) => (
-												<li class="health-nav__item">
-													<a class="health-nav__link" href={`#health-${item.id}`}>
-														{item.label}
-													</a>
-												</li>
-											))
-										}
-									</ul>
-								)
-							}
-						</div>
-					))
-				}
-			</nav>
-		</div>
-	</section>
-
-	<section class="health-section" aria-labelledby="health-details-heading">
-		<div class="container">
-			<header class="health-section__header">
-				<h2 id="health-details-heading" class="health-title">Einzelergebnisse</h2>
-			</header>
-
 			<div class="health-report">
 				{
 					healthReportSections.map((section) => (
@@ -92,9 +36,9 @@ const pageDescription =
 							aria-labelledby={`health-report-${section.id}`}
 						>
 							<header class="health-area__header">
-								<h3 class="health-area__title" id={`health-report-${section.id}`}>
+								<h2 class="health-area__title" id={`health-report-${section.id}`}>
 									{section.title}
-								</h3>
+								</h2>
 								<p class="health-area__intro">{section.intro}</p>
 							</header>
 
@@ -118,7 +62,7 @@ const pageDescription =
 								) : (
 									section.subsections?.map((subsection) => (
 										<div class="health-area__subsection health-area__subsection--report">
-											<h4 class="health-area__subsection-title">{subsection.title}</h4>
+											<h3 class="health-area__subsection-title">{subsection.title}</h3>
 											<table class="health-table">
 												<thead>
 													<tr>
@@ -134,10 +78,7 @@ const pageDescription =
 
 															return (
 																<tr class="health-table__entry">
-																	<td
-																		colspan={2}
-																		class="health-table__entry-cell"
-																	>
+																	<td colspan={2} class="health-table__entry-cell">
 																		<details
 																			class="health-table__accordion"
 																			id={`health-${record.id}`}
@@ -174,15 +115,15 @@ const pageDescription =
 																					</dl>
 																					<div class="health-table__actions">
 																						<a
-																							class="health-table__link"
+																							class="health-table__action"
 																							href={certificateUrl}
 																							target="_blank"
 																							rel="noopener noreferrer"
 																						>
-																							Originalzertifikat ansehen →
+																							Originalzertifikat ansehen
 																						</a>
 																						<a
-																							class="health-table__button"
+																							class="health-table__action"
 																							href={certificateUrl}
 																							download={record.pdf}
 																						>
