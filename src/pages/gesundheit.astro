@@ -116,73 +116,143 @@ const pageDescription =
 										</ul>
 									</div>
 								) : (
-									section.subsections?.map((subsection) => (
-										<div class="health-area__subsection health-area__subsection--report">
-											<h4 class="health-area__subsection-title">{subsection.title}</h4>
-											<div class="health-report__entries">
-												{
-													subsection.recordIds.map((recordId) => {
-														const record = getHealthRecord(recordId);
-														const certificateUrl = getCertificateUrl(record.pdf);
+									<>
+										{
+											section.subsections?.map((subsection) => (
+												<div class="health-area__subsection health-area__subsection--report">
+													<h4 class="health-area__subsection-title">{subsection.title}</h4>
+													<table class="health-table">
+														<thead>
+															<tr>
+																<th scope="col">Untersuchung</th>
+																<th scope="col">Ergebnis</th>
+															</tr>
+														</thead>
+														<tbody>
+															{
+																subsection.recordIds.map((recordId) => {
+																	const record = getHealthRecord(recordId);
+																	const certificateUrl = getCertificateUrl(record.pdf);
 
-														return (
-															<article
-																class="health-detail"
-																id={`health-${record.id}`}
-																aria-labelledby={`health-${record.id}-title`}
-															>
-																<h5
-																	class="health-detail__title"
-																	id={`health-${record.id}-title`}
-																>
-																	{record.title}
-																</h5>
+																	return (
+																		<tr class="health-table__row">
+																			<th scope="row" class="health-table__name-cell">
+																				<a
+																					class="health-table__name"
+																					href={certificateUrl}
+																					target="_blank"
+																					rel="noopener noreferrer"
+																				>
+																					{record.tableLabel}
+																				</a>
+																			</th>
+																			<td class="health-table__result">
+																				{record.tableResult}
+																			</td>
+																		</tr>
+																	);
+																})
+															}
+														</tbody>
+													</table>
+												</div>
+											))
+										}
+										{
+											section.id === 'genetik' && (
+												<p class="health-table__note">
+													Untersuchungsdatum: 09.07.2026. Untersuchungsnamen verlinken auf
+													die jeweiligen Originalzertifikate.
+												</p>
+											)
+										}
+										{
+											section.id === 'genetik' && (
+												<div class="health-accordions">
+													<h4 class="health-accordions__heading">Erläuterungen</h4>
+													{
+														section.subsections?.map((subsection) => (
+															<div class="health-accordions__group">
+																<p class="health-accordions__group-title">
+																	{subsection.title}
+																</p>
+																<div class="health-accordions__list">
+																	{
+																		subsection.recordIds.map((recordId) => {
+																			const record = getHealthRecord(recordId);
+																			const certificateUrl = getCertificateUrl(
+																				record.pdf,
+																			);
 
-																<dl class="health-detail__meta">
-																	<div class="health-detail__row">
-																		<dt>Ergebnis</dt>
-																		<dd class="health-detail__result">{record.result}</dd>
-																	</div>
-																	<div class="health-detail__row">
-																		<dt>Kurzbewertung</dt>
-																		<dd>{record.summary}</dd>
-																	</div>
-																	<div class="health-detail__row">
-																		<dt>Zuchtrelevanz</dt>
-																		<dd>{record.breeding}</dd>
-																	</div>
-																	<div class="health-detail__row">
-																		<dt>Untersuchungsdatum</dt>
-																		<dd>{record.date}</dd>
-																	</div>
-																	<div class="health-detail__row">
-																		<dt>Zertifikat</dt>
-																		<dd class="health-detail__links">
-																			<a
-																				class="health-detail__link"
-																				href={certificateUrl}
-																				target="_blank"
-																				rel="noopener noreferrer"
-																			>
-																				Originalzertifikat ansehen →
-																			</a>
-																			<a
-																				class="health-detail__link"
-																				href={certificateUrl}
-																				download={record.pdf}
-																			>
-																				PDF herunterladen
-																			</a>
-																		</dd>
-																	</div>
-																</dl>
-															</article>
-														);
-													})
-												}
-											</div>
-										</div>
-									))
+																			return (
+																				<details
+																					class="health-accordion"
+																					id={`health-${record.id}`}
+																				>
+																					<summary class="health-accordion__summary">
+																						<span class="health-accordion__header">
+																							<span class="health-accordion__title">
+																								{record.tableLabel}
+																							</span>
+																							<span class="health-accordion__result">
+																								Ergebnis: {record.tableResult}
+																							</span>
+																						</span>
+																						<span
+																							class="health-accordion__icon"
+																							aria-hidden="true"
+																						/>
+																					</summary>
+																					<div class="health-accordion__content">
+																						<div class="health-accordion__content-inner">
+																							<dl class="health-accordion__meta">
+																								<div class="health-accordion__row">
+																									<dt>Kurzbewertung</dt>
+																									<dd>{record.summary}</dd>
+																								</div>
+																								<div class="health-accordion__row">
+																									<dt>Zuchtrelevanz</dt>
+																									<dd>{record.breeding}</dd>
+																								</div>
+																								<div class="health-accordion__row">
+																									<dt>Untersuchungsdatum</dt>
+																									<dd>{record.date}</dd>
+																								</div>
+																								<div class="health-accordion__row">
+																									<dt>Zertifikat</dt>
+																									<dd class="health-accordion__links">
+																										<a
+																											class="health-accordion__link"
+																											href={certificateUrl}
+																											target="_blank"
+																											rel="noopener noreferrer"
+																										>
+																											Originalzertifikat ansehen →
+																										</a>
+																										<a
+																											class="health-accordion__link"
+																											href={certificateUrl}
+																											download={record.pdf}
+																										>
+																											PDF herunterladen
+																										</a>
+																									</dd>
+																								</div>
+																							</dl>
+																						</div>
+																					</div>
+																				</details>
+																			);
+																		})
+																	}
+																</div>
+															</div>
+														))
+													}
+												</div>
+											)
+										}
+									</>
 								)
 							}
 						</section>
@@ -192,3 +262,19 @@ const pageDescription =
 		</div>
 	</section>
 </BaseLayout>
+
+<script>
+	function openHealthAccordionFromHash() {
+		const id = window.location.hash.slice(1);
+		if (!id.startsWith('health-')) return;
+
+		const target = document.getElementById(id);
+		if (!(target instanceof HTMLDetailsElement)) return;
+
+		target.open = true;
+		target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+	}
+
+	openHealthAccordionFromHash();
+	window.addEventListener('hashchange', openHealthAccordionFromHash);
+</script>
