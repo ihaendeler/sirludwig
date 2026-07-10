@@ -137,7 +137,7 @@ const healthRecordsById: Record<string, HealthRecord> = {
 		title: 'Braun-Lokus (B-Lokus)',
 		navLabel: 'B-Lokus',
 		tableLabel: 'B-Lokus',
-		tableResult: 'N/bs (Braunträger)',
+		tableResult: 'N/bs',
 		result: 'N/bs',
 		summary: 'Ludwig trägt ein bs-Allel, ist selbst jedoch nicht braun.',
 		breeding: 'Braune Nachkommen sind nur möglich, wenn auch die Hündin ein entsprechendes Braun-Allel trägt.',
@@ -207,7 +207,7 @@ const healthRecordsById: Record<string, HealthRecord> = {
 		title: 'Parti-Lokus (S-Lokus)',
 		navLabel: 'S-Lokus',
 		tableLabel: 'S-Lokus',
-		tableResult: 'N/S (Weißscheckung)',
+		tableResult: 'N/S',
 		result: 'N/S',
 		summary: 'Ludwig ist heterozygot N/S für die getestete Variante der Weißscheckung.',
 		breeding:
