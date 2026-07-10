@@ -7,12 +7,12 @@ import { siteConfig, getCanonical } from '../config/site';
 import {
 	getCertificateUrl,
 	getHealthItemStatusLabel,
-	healthCategoryLabels,
+	getHealthRecord,
 	healthDocumentationProgress,
 	healthOverviewGroups,
 	healthOverviewIntro,
 	healthPendingStatusLabels,
-	healthRecords,
+	healthReportSections,
 } from '../data/health';
 import '../styles/gesundheit.css';
 
@@ -71,15 +71,19 @@ const pageDescription =
 			<div class="health-overview">
 				{
 					healthOverviewGroups.map((group) => (
-						<section class="health-overview-group" aria-label={group.title}>
-							<h3 class="health-overview-group__title">{group.title}</h3>
-							<div class="health-overview-group__rule" aria-hidden="true" />
+						<section class="health-area" aria-labelledby={`health-overview-${group.id}`}>
+							<header class="health-area__header">
+								<h3 class="health-area__title" id={`health-overview-${group.id}`}>
+									{group.title}
+								</h3>
+								<p class="health-area__intro">{group.intro}</p>
+							</header>
 
 							{
 								group.subsections ? (
 									group.subsections.map((subsection) => (
-										<div class="health-overview-subsection">
-											<h4 class="health-overview-subsection__title">{subsection.title}</h4>
+										<div class="health-area__subsection">
+											<h4 class="health-area__subsection-title">{subsection.title}</h4>
 											<ul class="health-overview-list">
 												{
 													subsection.items.map((item) => (
@@ -140,9 +144,9 @@ const pageDescription =
 
 							{
 								group.pendingStatus && (
-									<p class="health-overview-group__status">
-										<span class="health-overview-group__status-label">Status</span>
-										<span class="health-overview-group__status-value">
+									<p class="health-area__status">
+										<span class="health-area__status-label">Status</span>
+										<span class="health-area__status-value">
 											○ {healthPendingStatusLabels[group.pendingStatus]}
 										</span>
 									</p>
@@ -165,84 +169,196 @@ const pageDescription =
 				</p>
 			</header>
 
-			<div class="health-details">
+			<div class="health-report">
 				{
-					healthRecords.map((record, index) => {
-						const previousCategory = index > 0 ? healthRecords[index - 1].category : null;
-						const showCategory = record.category !== previousCategory;
-						const certificateUrl = getCertificateUrl(record.pdf);
-
-						return (
-							<article
-								class:list={['health-detail', !record.completed && 'health-detail--pending']}
-								id={`health-${record.id}`}
-								aria-labelledby={`health-${record.id}-title`}
-							>
-								{showCategory && (
-									<p class="health-detail__category">{healthCategoryLabels[record.category]}</p>
-								)}
-
-								<h3 class="health-detail__title" id={`health-${record.id}-title`}>
-									{record.title}
+					healthReportSections.map((section) => (
+						<section
+							class="health-area health-area--report"
+							id={`health-area-${section.id}`}
+							aria-labelledby={`health-report-${section.id}`}
+						>
+							<header class="health-area__header">
+								<h3 class="health-area__title" id={`health-report-${section.id}`}>
+									{section.title}
 								</h3>
+								<p class="health-area__intro">{section.intro}</p>
+							</header>
 
-								{record.completed ? (
-									<>
-										<dl class="health-detail__meta">
-											<div class="health-detail__row">
-												<dt>Status</dt>
-												<dd>
-													<span class="health-detail__status health-detail__status--done">
-														✓ Abgeschlossen
-													</span>
-												</dd>
-											</div>
-											<div class="health-detail__row">
-												<dt>Ergebnis</dt>
-												<dd class="health-detail__result">{record.result}</dd>
-											</div>
-											<div class="health-detail__row">
-												<dt>Kurzbewertung</dt>
-												<dd>{record.summary}</dd>
-											</div>
-											<div class="health-detail__row">
-												<dt>Zuchtrelevanz</dt>
-												<dd>{record.breeding}</dd>
-											</div>
-											<div class="health-detail__row">
-												<dt>Untersuchungsdatum</dt>
-												<dd>{record.date}</dd>
-											</div>
-										</dl>
+							{
+								section.subsections ? (
+									section.subsections.map((subsection) => (
+										<div class="health-area__subsection health-area__subsection--report">
+											<h4 class="health-area__subsection-title">{subsection.title}</h4>
+											<div class="health-report__entries">
+												{
+													subsection.recordIds.map((recordId) => {
+														const record = getHealthRecord(recordId);
+														const certificateUrl = getCertificateUrl(record.pdf);
 
-										<div class="health-detail__actions">
-											<a
-												class="health-detail__link"
-												href={certificateUrl}
-												target="_blank"
-												rel="noopener noreferrer"
-											>
-												Originalzertifikat ansehen →
-											</a>
-											<a class="health-detail__link" href={certificateUrl} download>
-												PDF herunterladen
-											</a>
+														return (
+															<article
+																class:list={[
+																	'health-detail',
+																	!record.completed && 'health-detail--pending',
+																]}
+																id={`health-${record.id}`}
+																aria-labelledby={`health-${record.id}-title`}
+															>
+																<h5
+																	class="health-detail__title"
+																	id={`health-${record.id}-title`}
+																>
+																	{record.title}
+																</h5>
+
+																{record.completed ? (
+																	<>
+																		<dl class="health-detail__meta">
+																			<div class="health-detail__row">
+																				<dt>Status</dt>
+																				<dd>
+																					<span class="health-detail__status health-detail__status--done">
+																						✓ Abgeschlossen
+																					</span>
+																				</dd>
+																			</div>
+																			<div class="health-detail__row">
+																				<dt>Ergebnis</dt>
+																				<dd class="health-detail__result">{record.result}</dd>
+																			</div>
+																			<div class="health-detail__row">
+																				<dt>Kurzbewertung</dt>
+																				<dd>{record.summary}</dd>
+																			</div>
+																			<div class="health-detail__row">
+																				<dt>Zuchtrelevanz</dt>
+																				<dd>{record.breeding}</dd>
+																			</div>
+																			<div class="health-detail__row">
+																				<dt>Untersuchungsdatum</dt>
+																				<dd>{record.date}</dd>
+																			</div>
+																		</dl>
+
+																		<div class="health-detail__actions">
+																			<a
+																				class="health-detail__link"
+																				href={certificateUrl}
+																				target="_blank"
+																				rel="noopener noreferrer"
+																			>
+																				Originalzertifikat ansehen →
+																			</a>
+																			<a
+																				class="health-detail__link"
+																				href={certificateUrl}
+																				download
+																			>
+																				PDF herunterladen
+																			</a>
+																		</div>
+																	</>
+																) : (
+																	<div class="health-detail__pending">
+																		<p class="health-detail__pending-label">Status</p>
+																		<p class="health-detail__status health-detail__status--pending">
+																			○ Ausstehend
+																		</p>
+																		<p class="health-detail__pending-text">
+																			Das Untersuchungsergebnis liegt derzeit noch nicht vor.
+																		</p>
+																	</div>
+																)}
+															</article>
+														);
+													})
+												}
+											</div>
 										</div>
-									</>
+									))
 								) : (
-									<div class="health-detail__pending">
-										<p class="health-detail__pending-label">Status</p>
-										<p class="health-detail__status health-detail__status--pending">
-											○ Ausstehend
-										</p>
-										<p class="health-detail__pending-text">
-											Das Untersuchungsergebnis liegt derzeit noch nicht vor.
-										</p>
+									<div class="health-report__entries">
+										{
+											section.recordIds?.map((recordId) => {
+												const record = getHealthRecord(recordId);
+												const certificateUrl = getCertificateUrl(record.pdf);
+
+												return (
+													<article
+														class:list={[
+															'health-detail',
+															!record.completed && 'health-detail--pending',
+														]}
+														id={`health-${record.id}`}
+														aria-labelledby={`health-${record.id}-title`}
+													>
+														<h5 class="health-detail__title" id={`health-${record.id}-title`}>
+															{record.title}
+														</h5>
+
+														{record.completed ? (
+															<>
+																<dl class="health-detail__meta">
+																	<div class="health-detail__row">
+																		<dt>Status</dt>
+																		<dd>
+																			<span class="health-detail__status health-detail__status--done">
+																				✓ Abgeschlossen
+																			</span>
+																		</dd>
+																	</div>
+																	<div class="health-detail__row">
+																		<dt>Ergebnis</dt>
+																		<dd class="health-detail__result">{record.result}</dd>
+																	</div>
+																	<div class="health-detail__row">
+																		<dt>Kurzbewertung</dt>
+																		<dd>{record.summary}</dd>
+																	</div>
+																	<div class="health-detail__row">
+																		<dt>Zuchtrelevanz</dt>
+																		<dd>{record.breeding}</dd>
+																	</div>
+																	<div class="health-detail__row">
+																		<dt>Untersuchungsdatum</dt>
+																		<dd>{record.date}</dd>
+																	</div>
+																</dl>
+
+																<div class="health-detail__actions">
+																	<a
+																		class="health-detail__link"
+																		href={certificateUrl}
+																		target="_blank"
+																		rel="noopener noreferrer"
+																	>
+																		Originalzertifikat ansehen →
+																	</a>
+																	<a class="health-detail__link" href={certificateUrl} download>
+																		PDF herunterladen
+																	</a>
+																</div>
+															</>
+														) : (
+															<div class="health-detail__pending">
+																<p class="health-detail__pending-label">Status</p>
+																<p class="health-detail__status health-detail__status--pending">
+																	○ Ausstehend
+																</p>
+																<p class="health-detail__pending-text">
+																	Das Untersuchungsergebnis liegt derzeit noch nicht vor.
+																</p>
+															</div>
+														)}
+													</article>
+												);
+											})
+										}
 									</div>
-								)}
-							</article>
-						);
-					})
+								)
+							}
+						</section>
+					))
 				}
 			</div>
 		</div>
