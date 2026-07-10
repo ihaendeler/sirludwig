@@ -116,143 +116,91 @@ const pageDescription =
 										</ul>
 									</div>
 								) : (
-									<>
-										{
-											section.subsections?.map((subsection) => (
-												<div class="health-area__subsection health-area__subsection--report">
-													<h4 class="health-area__subsection-title">{subsection.title}</h4>
-													<table class="health-table">
-														<thead>
-															<tr>
-																<th scope="col">Untersuchung</th>
-																<th scope="col">Ergebnis</th>
-															</tr>
-														</thead>
-														<tbody>
-															{
-																subsection.recordIds.map((recordId) => {
-																	const record = getHealthRecord(recordId);
-																	const certificateUrl = getCertificateUrl(record.pdf);
-
-																	return (
-																		<tr class="health-table__row">
-																			<th scope="row" class="health-table__name-cell">
-																				<a
-																					class="health-table__name"
-																					href={certificateUrl}
-																					target="_blank"
-																					rel="noopener noreferrer"
-																				>
-																					{record.tableLabel}
-																				</a>
-																			</th>
-																			<td class="health-table__result">
-																				{record.tableResult}
-																			</td>
-																		</tr>
-																	);
-																})
-															}
-														</tbody>
-													</table>
-												</div>
-											))
-										}
-										{
-											section.id === 'genetik' && (
-												<p class="health-table__note">
-													Untersuchungsdatum: 09.07.2026. Untersuchungsnamen verlinken auf
-													die jeweiligen Originalzertifikate.
-												</p>
-											)
-										}
-										{
-											section.id === 'genetik' && (
-												<div class="health-accordions">
-													<h4 class="health-accordions__heading">Erläuterungen</h4>
+									section.subsections?.map((subsection) => (
+										<div class="health-area__subsection health-area__subsection--report">
+											<h4 class="health-area__subsection-title">{subsection.title}</h4>
+											<table class="health-table">
+												<thead>
+													<tr>
+														<th scope="col">Untersuchung</th>
+														<th scope="col">Ergebnis</th>
+													</tr>
+												</thead>
+												<tbody>
 													{
-														section.subsections?.map((subsection) => (
-															<div class="health-accordions__group">
-																<p class="health-accordions__group-title">
-																	{subsection.title}
-																</p>
-																<div class="health-accordions__list">
-																	{
-																		subsection.recordIds.map((recordId) => {
-																			const record = getHealthRecord(recordId);
-																			const certificateUrl = getCertificateUrl(
-																				record.pdf,
-																			);
+														subsection.recordIds.map((recordId) => {
+															const record = getHealthRecord(recordId);
+															const certificateUrl = getCertificateUrl(record.pdf);
 
-																			return (
-																				<details
-																					class="health-accordion"
-																					id={`health-${record.id}`}
-																				>
-																					<summary class="health-accordion__summary">
-																						<span class="health-accordion__header">
-																							<span class="health-accordion__title">
-																								{record.tableLabel}
-																							</span>
-																							<span class="health-accordion__result">
-																								Ergebnis: {record.tableResult}
-																							</span>
-																						</span>
-																						<span
-																							class="health-accordion__icon"
-																							aria-hidden="true"
-																						/>
-																					</summary>
-																					<div class="health-accordion__content">
-																						<div class="health-accordion__content-inner">
-																							<dl class="health-accordion__meta">
-																								<div class="health-accordion__row">
-																									<dt>Kurzbewertung</dt>
-																									<dd>{record.summary}</dd>
-																								</div>
-																								<div class="health-accordion__row">
-																									<dt>Zuchtrelevanz</dt>
-																									<dd>{record.breeding}</dd>
-																								</div>
-																								<div class="health-accordion__row">
-																									<dt>Untersuchungsdatum</dt>
-																									<dd>{record.date}</dd>
-																								</div>
-																								<div class="health-accordion__row">
-																									<dt>Zertifikat</dt>
-																									<dd class="health-accordion__links">
-																										<a
-																											class="health-accordion__link"
-																											href={certificateUrl}
-																											target="_blank"
-																											rel="noopener noreferrer"
-																										>
-																											Originalzertifikat ansehen →
-																										</a>
-																										<a
-																											class="health-accordion__link"
-																											href={certificateUrl}
-																											download={record.pdf}
-																										>
-																											PDF herunterladen
-																										</a>
-																									</dd>
-																								</div>
-																							</dl>
+															return (
+																<tr class="health-table__entry">
+																	<td
+																		colspan={2}
+																		class="health-table__entry-cell"
+																	>
+																		<details
+																			class="health-table__accordion"
+																			id={`health-${record.id}`}
+																		>
+																			<summary class="health-table__summary">
+																				<span class="health-table__summary-name">
+																					{record.tableLabel}
+																				</span>
+																				<span class="health-table__summary-result">
+																					<span class="health-table__result-text">
+																						{record.tableResult}
+																					</span>
+																					<span
+																						class="health-table__chevron"
+																						aria-hidden="true"
+																					/>
+																				</span>
+																			</summary>
+																			<div class="health-table__panel">
+																				<div class="health-table__panel-inner">
+																					<dl class="health-table__detail">
+																						<div class="health-table__detail-row">
+																							<dt>Kurzbewertung</dt>
+																							<dd>{record.summary}</dd>
 																						</div>
+																						<div class="health-table__detail-row">
+																							<dt>Zuchtrelevanz</dt>
+																							<dd>{record.breeding}</dd>
+																						</div>
+																						<div class="health-table__detail-row">
+																							<dt>Untersuchungsdatum</dt>
+																							<dd>{record.date}</dd>
+																						</div>
+																					</dl>
+																					<div class="health-table__actions">
+																						<a
+																							class="health-table__link"
+																							href={certificateUrl}
+																							target="_blank"
+																							rel="noopener noreferrer"
+																						>
+																							Originalzertifikat ansehen →
+																						</a>
+																						<a
+																							class="health-table__button"
+																							href={certificateUrl}
+																							download={record.pdf}
+																						>
+																							PDF herunterladen
+																						</a>
 																					</div>
-																				</details>
-																			);
-																		})
-																	}
-																</div>
-															</div>
-														))
+																				</div>
+																			</div>
+																		</details>
+																	</td>
+																</tr>
+															);
+														})
 													}
-												</div>
-											)
-										}
-									</>
+												</tbody>
+											</table>
+										</div>
+									))
 								)
 							}
 						</section>
