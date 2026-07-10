@@ -22,7 +22,7 @@
 	display: flex;
 	flex-direction: column;
 	gap: var(--space-xl);
-	padding-block: clamp(3.5rem, 9vw, 5.5rem);
+	padding-bottom: clamp(2.5rem, 7vw, 4rem);
 	border-top: var(--health-line);
 	scroll-margin-top: calc(var(--header-height) + var(--space-md));
 }
@@ -30,6 +30,10 @@
 .health-area--report:first-child {
 	padding-top: 0;
 	border-top: none;
+}
+
+.health-area--report + .health-area--report {
+	padding-top: clamp(2rem, 5vw, 3rem);
 }
 
 .health-area__header {
@@ -64,9 +68,7 @@
 }
 
 .health-area__subsection--report + .health-area__subsection--report {
-	margin-top: var(--space-2xl);
-	padding-top: clamp(2.5rem, 6vw, 3.5rem);
-	border-top: var(--health-line);
+	margin-top: var(--space-xl);
 }
 
 .health-area__subsection-title {
@@ -139,12 +141,7 @@
 
 .health-table__entry-cell {
 	padding: 0;
-	border-bottom: var(--health-line);
 	vertical-align: top;
-}
-
-.health-table__entry:last-child .health-table__entry-cell {
-	border-bottom: none;
 }
 
 .health-table__accordion {
@@ -157,6 +154,7 @@
 	gap: var(--space-sm) var(--space-md);
 	align-items: baseline;
 	padding: var(--space-sm) 0;
+	border-bottom: var(--health-line);
 	cursor: pointer;
 	list-style: none;
 }
@@ -213,6 +211,9 @@
 .health-table__panel-inner {
 	overflow: hidden;
 	min-height: 0;
+}
+
+.health-table__accordion[open] .health-table__panel-inner {
 	padding-bottom: var(--space-md);
 }
 
