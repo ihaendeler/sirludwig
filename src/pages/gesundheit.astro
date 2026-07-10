@@ -155,27 +155,27 @@ const pageDescription =
 																		<dt>Untersuchungsdatum</dt>
 																		<dd>{record.date}</dd>
 																	</div>
+																	<div class="health-detail__row">
+																		<dt>Zertifikat</dt>
+																		<dd class="health-detail__links">
+																			<a
+																				class="health-detail__link"
+																				href={certificateUrl}
+																				target="_blank"
+																				rel="noopener noreferrer"
+																			>
+																				Originalzertifikat ansehen →
+																			</a>
+																			<a
+																				class="health-detail__link"
+																				href={certificateUrl}
+																				download={record.pdf}
+																			>
+																				PDF herunterladen
+																			</a>
+																		</dd>
+																	</div>
 																</dl>
-
-																<div class="health-detail__rule" aria-hidden="true" />
-
-																<div class="health-detail__actions">
-																	<a
-																		class="health-detail__link"
-																		href={certificateUrl}
-																		target="_blank"
-																		rel="noopener noreferrer"
-																	>
-																		Originalzertifikat ansehen →
-																	</a>
-																	<a
-																		class="health-detail__link"
-																		href={certificateUrl}
-																		download={record.pdf}
-																	>
-																		PDF herunterladen
-																	</a>
-																</div>
 															</article>
 														);
 													})
