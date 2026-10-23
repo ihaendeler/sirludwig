@@ -110,7 +110,8 @@
 		animation: none;
 	}
 
-	[data-reveal] {
+	[data-reveal],
+	[data-reveal].reveal-ready {
 		opacity: 1;
 		transform: none;
 		transition: none;

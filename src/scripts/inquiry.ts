@@ -69,7 +69,11 @@ function initializeInquiry(form: HTMLFormElement) {
 		const json = JSON.stringify(snapshot());
 		try { sessionStorage.setItem(SESSION_DRAFT_KEY, json); } catch { /* The current form still works. */ }
 		if (saveDraft.checked) {
-			try { localStorage.setItem(SAVED_DRAFT_KEY, json); draftStatus.textContent = 'Entwurf auf diesem Gerät gespeichert. Die Zustimmung wird nicht gespeichert.'; }
+			try {
+				localStorage.setItem(SAVED_DRAFT_KEY, json);
+				const message = 'Entwurf auf diesem Gerät gespeichert. Die Zustimmung wird nicht gespeichert.';
+				if (draftStatus.textContent !== message) draftStatus.textContent = message;
+			}
 			catch { draftStatus.textContent = 'Der Browser erlaubt das Speichern nicht. Ihre Angaben bleiben auf dieser Seite erhalten.'; }
 		}
 	}
