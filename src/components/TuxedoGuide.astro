@@ -1,0 +1,88 @@
+---
+import { Image } from 'astro:assets';
+import ludwigImage from '../assets/images/hero/PXL_20260516_084223542.jpg';
+import { calculateColors, exampleScenario, formatProbability } from '../lib/color/model';
+
+interface Props { id: string; compact?: boolean }
+const { id, compact = false } = Astro.props;
+const Heading = compact ? 'h3' : 'h2';
+const Subheading = compact ? 'h4' : 'h3';
+const dams = [
+	{ s: 'NN', label: 'N/N', copies: 'Keine Kopie' },
+	{ s: 'NS', label: 'N/S', copies: 'Eine Kopie' },
+	{ s: 'SS', label: 'S/S', copies: 'Zwei Kopien' },
+] as const;
+// Binomial(6, 0.5): six independent transmissions, 64 equally likely combinations.
+const litterWeights = [1, 6, 15, 20, 15, 6, 1];
+---
+
+<section id={id} class:list={['tuxedo-guide', { 'tuxedo-guide--compact': compact }]} aria-labelledby={`${id}-title`}>
+	<div class="tuxedo-guide__intro">
+		{!compact && <figure class="tuxedo-guide__portrait">
+			<Image src={ludwigImage} alt="Ludwigs Tuxedo-Look mit apricotfarbenem Fell, weißer Brust und weißen Pfoten" width={480} height={600} fit="cover" loading="lazy" />
+			<figcaption>Apricot und Weiß. Ludwigs persönliche Zeichnung.</figcaption>
+		</figure>}
+		<div>
+			<p class="color-eyebrow">Ludwigs besonderer Look</p>
+			<Heading id={`${id}-title`}>Wie vererbt sich Tuxedo?</Heading>
+			<p>Apricotfarbenes Fell, eine weiße Brust und weiße Pfoten: Der Kontrast macht Ludwigs Tuxedo-Look aus. Tuxedo beschreibt die Zeichnung, nicht die Grundfarbe. Für die Nachkommen spielen deshalb sowohl die Farbvererbung als auch die Verteilung von Weiß eine Rolle.</p>
+			<p><strong>Ludwig hat am getesteten S-Lokus den Befund N/S.</strong> Jeder Welpe erhält dort eine Genkopie von ihm und eine von der Hündin. Ludwig gibt seine getestete S-Variante mit einer Wahrscheinlichkeit von 50 % pro Welpe weiter.</p>
+			<a class="color-text-link" href="/gesundheit#health-s-lokus">Ludwigs S-Lokus-Befund ansehen</a>
+		</div>
+	</div>
+
+	<div class="tuxedo-guide__pairing">
+		<Subheading>Was die Hündin beisteuert</Subheading>
+		<p>Mit ihrem S-Lokus-Befund lassen sich die möglichen Genkombinationen berechnen. Am Aussehen allein lässt sich der Genwert nicht zuverlässig ablesen. Hier steht S für die getestete Variante der Weißscheckung und N für deren Fehlen.</p>
+		<table class="tuxedo-pairings">
+			<caption>Ludwig N/S × Hündin: Wahrscheinlichkeit je Genotyp und Welpe</caption>
+			<thead><tr><th scope="col">S-Lokus der Hündin</th><th scope="col">Welpe N/N</th><th scope="col">Welpe N/S</th><th scope="col">Welpe S/S</th></tr></thead>
+			<tbody>
+				{dams.map((dam) => <tr>
+					<th scope="row">{dam.label}<span>{dam.copies} der getesteten S-Variante</span></th>
+					{calculateColors({ ...exampleScenario(), s: dam.s }).spotting.map((result) => <td>{formatProbability(result.probability)}</td>)}
+				</tr>)}
+			</tbody>
+		</table>
+		<p class="tuxedo-guide__key"><strong>Diese Prozente beschreiben Genkombinationen, keine Tuxedo-Quote.</strong> Für Welpen mit S/S müssen beide Eltern die getestete S-Variante weitergeben. Auch S/S legt aber keinen bestimmten Tuxedo-Look fest.</p>
+	</div>
+
+	<div class="tuxedo-guide__explain">
+		<div class="tuxedo-guide__questions">
+			<div>
+				<Subheading>Apricot-Weiß wie Ludwig?</Subheading>
+				<p>Für eine rotbasierte Grundfarbe wie bei Ludwig muss die Hündin ebenfalls e1 weitergeben. Mit e1/e1 bei beiden Eltern sind im E/e1-Modell alle Welpen rotbasiert; trägt die Hündin E/e1, sind es 50 %. Der genaue Apricotton und die Tuxedo-Zeichnung sind damit noch nicht festgelegt.</p>
+			</div>
+			<div>
+				<Subheading>Warum die Zeichnung individuell bleibt</Subheading>
+				<p>Der S-Test erfasst einen Baustein der Weißscheckung. Weitere genetische Faktoren beeinflussen, wie viel Weiß sichtbar wird und wo es liegt. Auch mit demselben S-Lokus-Befund können Geschwister unterschiedlich gezeichnet sein. Zwei Kopien können je nach genetischem Hintergrund mit größeren weißen Flächen einhergehen; sie bedeuten nicht automatisch mehr vom gewünschten Tuxedo-Look.</p>
+				<p>Weißzeichnungen können außerdem unabhängig von der getesteten Variante auftreten. Ludwigs sichtbarer Tuxedo-Look lässt sich deshalb nicht allein aus N/S erklären oder als feste Wahrscheinlichkeit für seine Nachkommen angeben.</p>
+			</div>
+			<div>
+				<Subheading>Welche Voraussetzungen helfen bei der Planung?</Subheading>
+				<p>Für die Genotyp-Berechnung ist ein passender S-Lokus-Test der Hündin hilfreich. Für den gewünschten Look lohnt sich zusätzlich der Blick auf die Zeichnung beider Eltern, ihrer Verwandten und bereits vorhandener Nachkommen. Solche Familienbeobachtungen können die Einschätzung ergänzen, liefern aber keine verlässliche Prozentzahl für Tuxedo-Welpen.</p>
+			</div>
+			<div>
+				<Subheading>Warum ein Wurf nicht genau aufgeht</Subheading>
+				<p>Welche Genkopie ein Welpe erhält, ist bei jeder Befruchtung neu zufällig. Ein vorheriger Welpe verändert die Chance des nächsten nicht. 50 % pro Welpe bedeutet deshalb nicht, dass in jedem Wurf genau die Hälfte die Variante erbt. Kleinere und größere Anteile sind möglich.</p>
+			</div>
+		</div>
+
+		<figure class="tuxedo-litter" aria-labelledby={`${id}-litter-title`}>
+			<p class="color-eyebrow">Festes Rechenbeispiel</p>
+			<Subheading id={`${id}-litter-title`}>Ein Wurf mit sechs Welpen</Subheading>
+			<p>Ludwig N/S × Hündin N/N: Jeder Welpe hat eine Chance von 50 % auf N/S. So verteilt sich die Wahrscheinlichkeit für die Anzahl der N/S-Welpen:</p>
+			<div class="tuxedo-litter__labels" aria-hidden="true"><span>Anzahl N/S-Welpen</span><span>Wahrscheinlichkeit</span></div>
+			<ol class="tuxedo-litter__distribution" aria-label="Wahrscheinlichkeit für genau null bis sechs Welpen mit N/S">
+				{litterWeights.map((weight, puppies) => <li>
+					<span>{puppies} {puppies === 1 ? 'Welpe' : 'Welpen'}</span>
+					<span class="tuxedo-litter__track" aria-hidden="true"><span style={`width: ${weight / 20 * 100}%`}></span></span>
+					<strong>{formatProbability({ min: weight / 64 * 100, max: weight / 64 * 100 })}</strong>
+				</li>)}
+			</ol>
+			<figcaption>Genau drei N/S-Welpen sind die wahrscheinlichste einzelne Aufteilung – ihre Chance beträgt trotzdem nur 31,25 %. Die übrigen Aufteilungen sind zusammen wahrscheinlicher. Gerundete Werte; gezählt werden N/S-Genotypen, keine Tuxedo-Welpen. Das Beispiel bleibt unabhängig von Ihren Eingaben im Rechner.</figcaption>
+		</figure>
+	</div>
+
+	<p class="tuxedo-guide__closing">Für Tuxedo-Interessenten heißt das: Die Eltern bringen die genetischen Voraussetzungen zusammen. Wie Brust, Pfoten und Gesicht eines Welpen am Ende gezeichnet sind, zeigt erst der einzelne Nachwuchs.</p>
+</section>

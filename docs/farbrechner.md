@@ -28,6 +28,17 @@ Die verwendeten Vererbungsregeln und die Grenzen der Interpretation wurden am 23
 
 Die Ergebnisse des Rüden sind mit den auf der Gesundheitsseite verlinkten Originalbefunden abgeglichen. Das ist keine externe fachliche Freigabe des Rechners.
 
+## Tuxedo verständlich erklären
+
+`TuxedoGuide.astro` erläutert Grundfarbe und Zeichnung, den dokumentierten N/S-Befund, den Beitrag der Hündin und die Grenzen einer Vorhersage des sichtbaren Looks. Die Erklärung ist auf der Rechnerseite sichtbar und innerhalb der Anfrage aufklappbar. Die Genotyp-Tabelle verwendet dasselbe Modell wie der Rechner. Es wird keine Tuxedo-Wahrscheinlichkeit aus der S-Variante abgeleitet. N/N schließt andere Ursachen weißer Abzeichen nicht aus; S/S definiert keine feste Weißverteilung. Der Vorschlag, Familienfotos und bekannte Nachkommen einzubeziehen, ist eine praktische ergänzende Einordnung und keine validierte quantitative Prognose.
+
+Zusätzliche Primärquellen (23.10.2026):
+
+- [Embark: White Spotting](https://embarkvet.com/blogs/resources/embark-for-breeders-dog-dna-test-includes-white-spotting) – getestete MITF-Variante, andere Weißzeichnungen und Irish Spotting.
+- [Schmutz et al. 2009: MITF and White Spotting in Dogs](https://doi.org/10.1093/jhered/esp029) – unterschiedliche Ausprägung und Vererbungsweisen in einer Untersuchung mehrerer Rassen. Aus diesen rasseübergreifenden Daten wird keine spezifische Quote für Ludwigs Tuxedo-Nachkommen abgeleitet.
+
+Das **feste**, von den aktuellen Eingaben unabhängige Wurfbeispiel gilt für Ludwig N/S × Hündin N/N bei sechs Welpen. Unter der mendelschen Annahme unabhängiger Weitergabe mit p = 0,5 gilt P(X=k) = C(6,k) / 64. Die Gewichte 1, 6, 15, 20, 15, 6, 1 ergeben zusammen 64. Für genau drei N/S-Welpen gilt 20/64 = 31,25 %. Der Erwartungswert ist drei, aber keine garantierte Wurfaufteilung. Gezählt werden ausschließlich Genotypen, keine Tuxedo-Welpen; Rundungen können die Summe der angezeigten Prozente geringfügig verändern.
+
 ## Szenarien und Übergänge
 
 Ein Szenario enthält nur die Version, den Modus, drei Genotypen und deren jeweilige Herkunft. Die Herkunft ist je Genwert `example`, `test`, `assumed` oder `unknown`. Ein selbst eingegebener Gentest wird als **Gentest laut Eingabe** bezeichnet und nicht als verifiziert ausgegeben. Beispielwerte bleiben im Formular und in beiden E-Mail-Formaten ausdrücklich als Simulation markiert.

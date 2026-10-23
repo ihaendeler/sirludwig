@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import TuxedoGuide from './TuxedoGuide.astro';
 import ludwigImage from '../assets/images/hero/PXL_20260516_084223542.jpg';
 import { calculateColors, exampleScenario, formatProbability, GENOTYPE_LABELS, LOCI, LOCUS_LABELS, PRESETS, VALUES, MODEL_NOTE } from '../lib/color/model';
 import '../styles/color-calculator.css';
@@ -83,11 +84,12 @@ const prefix = embedded ? 'inquiry-color' : 'color';
 			<p class="color-help">Berechnet E/e1 und die Braunvariante bs. Andere Varianten und der genaue Farbton bleiben offen.</p>
 			<p class="color-help" data-color-unknown hidden></p>
 			<div class="color-spotting">
-				<h3>Weißzeichnung separat betrachten</h3>
-				<p>Vererbung der getesteten S-Variante. Die genaue Verteilung weißer Flächen lässt sich daraus nicht berechnen.</p>
+				<h3>Tuxedo und Weißzeichnung</h3>
+				<p>Diese Werte zeigen die Vererbung der getesteten S-Variante. Sie geben keinen Anteil an Tuxedo-Welpen an.</p>
 				<dl class="color-spotting__grid">
 					{result.spotting.map((s) => <div><dt>{s.genotype}<span>{s.label}</span></dt><dd data-color-spotting={s.genotype}>{formatProbability(s.probability)}</dd></div>)}
 				</dl>
+				<a class="color-text-link" href={`#${prefix}-tuxedo`} data-color-guide>Tuxedo-Vererbung und Wurfverteilung verstehen</a>
 			</div>
 			<div class="color-result-actions">
 				{embedded ? <button type="button" class="btn btn--primary" data-color-apply>Für meine Anfrage übernehmen</button> : <a href="/deckanfrage" class="btn btn--primary" data-color-inquire>Mit dieser Kombination anfragen</a>}
@@ -100,6 +102,10 @@ const prefix = embedded ? 'inquiry-color' : 'color';
 			</div>
 		</section>
 	</div>
+	{embedded ? <details class="tuxedo-guide-disclosure" id={`${prefix}-tuxedo`}>
+		<summary>Wie sich Ludwigs Tuxedo-Look vererbt</summary>
+		<TuxedoGuide id={`${prefix}-tuxedo-guide`} compact />
+	</details> : <TuxedoGuide id={`${prefix}-tuxedo`} />}
 	<details class="color-method">
 		<summary>So funktioniert die Berechnung</summary>
 		<div>
@@ -112,6 +118,7 @@ const prefix = embedded ? 'inquiry-color' : 'color';
 				<li><a href="https://vgl.ucdavis.edu/test/brown-dog" target="_blank" rel="noopener noreferrer">UC Davis: Braunvererbung</a></li>
 				<li><a href="https://vgl.ucdavis.edu/test/dominant-black" target="_blank" rel="noopener noreferrer">UC Davis: K-Lokus</a></li>
 				<li><a href="https://vgl.ucdavis.edu/test/piebald-dog" target="_blank" rel="noopener noreferrer">UC Davis: Weißscheckung</a></li>
+				<li><a href="https://embarkvet.com/blogs/resources/embark-for-breeders-dog-dna-test-includes-white-spotting" target="_blank" rel="noopener noreferrer">Embark: Weißzeichnung und Grenzen des S-Lokus-Tests</a></li>
 			</ul>
 		</div>
 	</details>
