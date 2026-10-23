@@ -4,7 +4,7 @@
 	--color-cream: #f4f0e8;
 	--color-brown: #4a3428;
 	--color-apricot: #d9a066;
-	--color-apricot-dark: #b87842;
+	--color-apricot-dark: #8c542e;
 	--color-black: #1c1c1c;
 
 	--font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
@@ -107,7 +107,7 @@ a:hover {
 }
 
 :focus-visible {
-	outline: 2px solid var(--color-apricot);
+	outline: 2px solid var(--color-brown);
 	outline-offset: 3px;
 }
 
@@ -277,3 +277,5 @@ p {
 		--page-gutter: 2.5rem;
 	}
 }
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

@@ -20,7 +20,7 @@
 	max-width: 32rem;
 	font-size: var(--text-base);
 	line-height: var(--leading-relaxed);
-	color: rgb(74 52 40 / 0.58);
+	color: rgb(74 52 40 / 0.8);
 }
 
 .not-found__actions {

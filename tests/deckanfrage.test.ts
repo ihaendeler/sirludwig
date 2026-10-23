@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { afterEach, mock, test } from 'node:test';
 import {
 	buildDeckanfrageEmailHtml,
+	buildDeckanfrageEmailText,
 	calculateBitchAge,
 	formatInstagramProfile,
 	getReplyTo,
@@ -10,6 +11,7 @@ import {
 	SEND_ERROR,
 } from '../src/lib/deckanfrage/process';
 import { onRequestPost, MAX_REQUEST_BYTES } from '../functions/api/deckanfrage';
+import { exampleScenario, ownScenario } from '../src/lib/color/model';
 
 function validForm(): FormData {
 	const form = new FormData();
@@ -184,4 +186,56 @@ test('delivers a valid inquiry via a mocked provider', async () => {
 test('provider failures return a controlled gateway error', async () => {
 	mock.method(globalThis, 'fetch', async () => new Response('{}', { status: 500 }));
 	assert.equal((await handle(request(), { RESEND_API_KEY: 'test-key' })).status, 502);
+});
+
+test('inquiry remains valid without a color calculation', () => {
+	assert.equal(validPayload().colorScenario, null);
+	assert.ok(!buildDeckanfrageEmailHtml(validPayload()).includes('Beispielsimulation'));
+});
+
+test('API returns an actionable field error without contacting the provider', async () => {
+	const provider = mock.method(globalThis, 'fetch', async () => { throw new Error('Must not send'); });
+	const form = validForm(); form.set('comm-email', 'invalid');
+	const response = await handle(request(form), { RESEND_API_KEY: 'test-key' });
+	assert.equal(response.status, 400);
+	const body = await response.json();
+	assert.match(body.fields['comm-email'], /gültige E-Mail/);
+	assert.equal(provider.mock.callCount(), 0);
+});
+
+test('server recomputes shared simulation and strips supplied percentages and personal extras', () => {
+	const form = validForm();
+	form.set('color-scenario', JSON.stringify({ ...exampleScenario(), brown: 100, extraName: 'Injected person' }));
+	const parsed = parseDeckanfrageFormData(form);
+	assert.equal(parsed.ok, true);
+	if (!parsed.ok) throw new Error('Invalid fixture');
+	assert.deepEqual(parsed.payload.colorScenario, exampleScenario());
+	const html = buildDeckanfrageEmailHtml(parsed.payload);
+	const text = buildDeckanfrageEmailText(parsed.payload);
+	for (const email of [html, text]) {
+		assert.match(email, /Beispielsimulation/);
+		assert.match(email, /12,5 %/);
+		assert.ok(!email.includes('Injected person'));
+	}
+});
+
+test('server preserves unknown values and declared test provenance', () => {
+	const scenario = { ...ownScenario(), e: 'Ee', sourceE: 'test' };
+	const form = validForm(); form.set('color-scenario', JSON.stringify(scenario));
+	const parsed = parseDeckanfrageFormData(form);
+	assert.equal(parsed.ok, true);
+	if (!parsed.ok) throw new Error('Invalid fixture');
+	const text = buildDeckanfrageEmailText(parsed.payload);
+	assert.match(text, /nicht überprüft/);
+	assert.match(text, /Gentest laut Eingabe/);
+	assert.match(text, /Unbekannt/);
+});
+
+test('server rejects corrupt or mislabeled color scenarios', () => {
+	for (const value of ['{', JSON.stringify({ ...exampleScenario(), sourceB: 'test' }), JSON.stringify({ ...exampleScenario(), v: 99 })]) {
+		const form = validForm(); form.set('color-scenario', value);
+		const parsed = parseDeckanfrageFormData(form);
+		assert.equal(parsed.ok, false);
+		if (!parsed.ok) assert.match(parsed.fields?.['color-scenario'] ?? '', /erneut übernehmen/);
+	}
 });

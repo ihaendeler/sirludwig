@@ -32,11 +32,17 @@ Der Build-Output liegt im Ordner `dist/`.
 
 ```bash
 npm run check   # Astro/TypeScript und Cloudflare Pages Functions
-npm test        # Formularvalidierung, Versandfehler und ICO-Generierung
+npm test        # Farbvererbung, Szenarien, Entwürfe, Formular/API und ICO-Generierung
 npm audit      # Bekannte Schwachstellen der installierten Abhängigkeiten
 ```
 
 GitHub Actions führt diese Prüfungen sowie den Produktionsbuild bei Pull Requests und Pushes auf `main` aus. Die Versandtests verwenden einen simulierten E-Mail-Anbieter und verschicken keine Nachrichten.
+
+## Farbrechner und Deckanfrage
+
+Unter `/farbrechner` lassen sich anonyme Beispielkombinationen oder bekannte Genwerte einer Hündin mit Ludwig durchrechnen und per Link teilen. Derselbe Rechner ist optional in der Deckanfrage verfügbar. Die Anfrage bietet eine Prüfung vor dem Versand und auf Wunsch einen lokalen Entwurf für sieben Tage.
+
+Fachlicher Umfang, Quellen, Szenarioformat und Speicherverhalten sind in [docs/farbrechner.md](docs/farbrechner.md) beschrieben. Der Rechner berücksichtigt E/e1, die Braunvariante bs und die getestete S-Variante; er sagt keinen exakten Farbton oder Weißanteil voraus.
 
 ## Offene Inhalte
 

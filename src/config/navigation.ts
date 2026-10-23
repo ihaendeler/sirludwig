@@ -10,5 +10,6 @@ export const mainNavigation: NavItem[] = [
 	{ label: 'Gesundheit', href: '/gesundheit' },
 	{ label: 'Galerie', href: '/galerie' },
 	{ label: 'Nachzucht', href: '/nachzucht' },
+	{ label: 'Farbrechner', href: '/farbrechner' },
 	{ label: 'Deckanfrage', href: '/deckanfrage' },
 ];

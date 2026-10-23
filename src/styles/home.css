@@ -1,8 +1,8 @@
 /* ── Home page — editorial structure (mobile first) ──────────── */
 
 :root {
-	--home-section-pad: clamp(3.25rem, 10vw, 8rem);
-	--home-gap: clamp(2.25rem, 7vw, 5rem);
+	--home-section-pad: clamp(2.75rem, 6vw, 5rem);
+	--home-gap: clamp(1.75rem, 4vw, 3rem);
 	--home-line: 1px solid rgb(74 52 40 / 0.12);
 }
 
@@ -42,7 +42,7 @@
 	font-weight: 500;
 	letter-spacing: 0.2em;
 	text-transform: uppercase;
-	color: rgb(74 52 40 / 0.34);
+	color: rgb(74 52 40 / 0.8);
 }
 
 .section-eyebrow {
@@ -51,7 +51,7 @@
 	font-weight: 500;
 	letter-spacing: 0.18em;
 	text-transform: uppercase;
-	color: rgb(74 52 40 / 0.52);
+	color: rgb(74 52 40 / 0.8);
 }
 
 .section-title {
@@ -113,7 +113,7 @@
 	font-weight: 400;
 	font-style: italic;
 	line-height: 1.55;
-	color: rgb(74 52 40 / 0.62);
+	color: rgb(74 52 40 / 0.8);
 }
 
 .home-hero__intro {
@@ -122,7 +122,7 @@
 	padding-top: var(--space-sm);
 	font-size: var(--text-base);
 	line-height: var(--leading-relaxed);
-	color: rgb(74 52 40 / 0.68);
+	color: rgb(74 52 40 / 0.8);
 }
 
 /* ── 2. Feature areas ────────────────────────────────────────── */
@@ -137,7 +137,7 @@
 	max-width: 38ch;
 	font-size: var(--text-base);
 	line-height: var(--leading-relaxed);
-	color: rgb(74 52 40 / 0.68);
+	color: rgb(74 52 40 / 0.8);
 }
 
 .home-features__grid {
@@ -197,7 +197,7 @@
 	font-size: var(--text-sm);
 	font-style: italic;
 	line-height: var(--leading-relaxed);
-	color: rgb(74 52 40 / 0.52);
+	color: rgb(74 52 40 / 0.8);
 }
 
 .home-feature__teaser {
@@ -206,7 +206,7 @@
 	padding-top: var(--space-2xs);
 	font-size: var(--text-base);
 	line-height: var(--leading-relaxed);
-	color: rgb(74 52 40 / 0.65);
+	color: rgb(74 52 40 / 0.8);
 }
 
 .home-feature__link {
@@ -260,7 +260,7 @@
 	font-weight: 500;
 	letter-spacing: 0.2em;
 	text-transform: uppercase;
-	color: rgb(74 52 40 / 0.42);
+	color: rgb(74 52 40 / 0.8);
 }
 
 .home-profile__value {
@@ -340,7 +340,7 @@
 	font-weight: 500;
 	letter-spacing: 0.16em;
 	text-transform: uppercase;
-	color: rgb(74 52 40 / 0.48);
+	color: rgb(74 52 40 / 0.8);
 }
 
 .home-timeline__heading {
@@ -355,7 +355,7 @@
 	max-width: 34ch;
 	font-size: var(--text-base);
 	line-height: var(--leading-relaxed);
-	color: rgb(74 52 40 / 0.5);
+	color: rgb(74 52 40 / 0.8);
 }
 
 /* ── 5. Highlight ────────────────────────────────────────────── */
@@ -386,7 +386,7 @@
 	max-width: 34ch;
 	font-size: var(--text-lg);
 	line-height: var(--leading-relaxed);
-	color: rgb(74 52 40 / 0.68);
+	color: rgb(74 52 40 / 0.8);
 }
 
 /* ── 6. Call to action ───────────────────────────────────────── */
@@ -418,7 +418,7 @@
 	font-size: 0.8125rem;
 	letter-spacing: 0.18em;
 	text-transform: uppercase;
-	color: rgb(74 52 40 / 0.48);
+	color: rgb(74 52 40 / 0.8);
 }
 
 .home-cta__text {
@@ -426,7 +426,7 @@
 	max-width: 28ch;
 	font-size: var(--text-base);
 	line-height: var(--leading-relaxed);
-	color: rgb(74 52 40 / 0.62);
+	color: rgb(74 52 40 / 0.8);
 }
 
 .home-cta .btn {
@@ -648,4 +648,16 @@
 		margin-inline: 0;
 		width: 100%;
 	}
+}
+
+.home-hero__actions { display: flex; flex-wrap: wrap; gap: .75rem; padding-top: .5rem; }
+.home-hero__actions .btn { font-size: .9375rem; white-space: normal; }
+@media (max-width: 39.99rem) {
+ .home-hero { min-height: auto; }
+ .home-hero__media { min-height: 0; height: min(52dvh, 28rem); aspect-ratio: auto; flex: none; }
+ .home-hero__content { padding-block: 1.75rem 2.5rem; }
+}
+@media (min-width: 64rem) {
+ .home-hero__media { height: clamp(22rem, 65vh, 36rem); }
+ .home-profile__grid { gap: 3rem; }
 }

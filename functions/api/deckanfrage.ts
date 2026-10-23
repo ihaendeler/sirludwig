@@ -84,6 +84,7 @@ export const onRequestPost = async (context: RequestContext) => {
 				ok: false,
 				code: parsed.code,
 				message: parsed.message,
+				...(parsed.fields ? { fields: parsed.fields } : {}),
 			},
 			parsed.status,
 		);

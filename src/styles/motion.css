@@ -25,7 +25,7 @@
 
 /* ── Scroll reveal ───────────────────────────────────────────── */
 
-[data-reveal] {
+[data-reveal].reveal-ready {
 	opacity: 0;
 	transform: translate3d(0, 1.125rem, 0);
 	transition:
@@ -40,7 +40,7 @@
 
 /* ── Feature hover (desktop) ─────────────────────────────────── */
 
-@media (min-width: 64rem) and (hover: hover) {
+@media (min-width: 72rem) and (hover: hover) {
 	.home-feature__media .home-media__img {
 		transition: transform var(--motion-duration-hover) var(--motion-ease-out);
 	}
@@ -81,7 +81,7 @@
 	transform: translate3d(0, 0, 0);
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 72rem) {
 	.site-nav {
 		visibility: visible;
 		transition: none;

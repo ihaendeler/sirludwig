@@ -9,6 +9,7 @@ import {
 	labelForOption,
 	patellaOptions,
 } from '../../data/deckanfrage-options';
+import { decodeScenario, scenarioLines, type Scenario } from '../color/model';
 
 export const INQUIRY_RECIPIENT = 'deckanfrage@sirludwig.de';
 
@@ -17,7 +18,7 @@ export const MAX_SUBMIT_MS = 24 * 60 * 60 * 1_000;
 export const SEND_ERROR =
 	'Die Anfrage konnte derzeit nicht übermittelt werden. Bitte versuchen Sie es später erneut.';
 
-function isEmail(value: string): boolean {
+export function isEmail(value: string): boolean {
 	return value.length <= 254 && /^[^\s@\x00-\x1f\x7f]+@[^\s@\x00-\x1f\x7f]+\.[^\s@\x00-\x1f\x7f]+$/.test(value);
 }
 
@@ -47,11 +48,12 @@ export interface DeckanfragePayload {
 	privacyConsent: boolean;
 	honeypot: string;
 	formStartedAt: string;
+	colorScenario?: Scenario | null;
 }
 
 export type ProcessResult =
 	| { ok: true; payload: DeckanfragePayload }
-	| { ok: false; code: string; message: string; status: number };
+	| { ok: false; code: string; message: string; status: number; fields?: Record<string, string> };
 
 function clean(value: unknown): string {
 	return typeof value === 'string' ? value.trim() : '';
@@ -65,7 +67,7 @@ export function parseDeckanfrageFormData(formData: FormData): ProcessResult {
 	// Reject uploaded files, excessive text and duplicate scalar fields before building an email.
 	const seen = new Set<string>();
 	for (const [key, value] of formData) {
-		if (typeof value !== 'string' || value.length > (key === 'message' ? 5_000 : 300)) {
+		if (typeof value !== 'string' || value.length > (key === 'message' ? 5_000 : key === 'color-scenario' ? 1_000 : 300)) {
 			return validationError();
 		}
 		if (key !== 'comm-pref' && seen.has(key)) return validationError();
@@ -94,25 +96,13 @@ export function parseDeckanfrageFormData(formData: FormData): ProcessResult {
 
 	const privacyConsent = formData.get('privacy-consent') === 'yes';
 	if (!privacyConsent) {
-		return {
-			ok: false,
-			code: 'validation',
-			message:
-				'Die Anfrage konnte derzeit nicht übermittelt werden. Bitte versuchen Sie es später erneut.',
-			status: 400,
-		};
+		return validationError('privacy-consent', 'Bitte der Verarbeitung Ihrer Angaben zustimmen.');
 	}
 
 	const commPrefs = [...new Set(formData.getAll('comm-pref').map((entry) => clean(entry)))];
 
 	if (commPrefs.length === 0 || commPrefs.some((pref) => !Object.hasOwn(commPrefLabels, pref))) {
-		return {
-			ok: false,
-			code: 'validation',
-			message:
-				'Die Anfrage konnte derzeit nicht übermittelt werden. Bitte versuchen Sie es später erneut.',
-			status: 400,
-		};
+		return validationError('comm-pref', 'Bitte mindestens einen Kontaktweg auswählen.');
 	}
 
 	const commEmail = clean(formData.get('comm-email'));
@@ -122,18 +112,20 @@ export function parseDeckanfrageFormData(formData: FormData): ProcessResult {
 
 	if (hasCommPref(commPrefs, 'email')) {
 		if (!isEmail(commEmail)) {
-			return validationError();
+			return validationError('comm-email', 'Bitte eine gültige E-Mail-Adresse angeben.');
 		}
 	}
 
-	if (hasCommPref(commPrefs, 'phone') && !commPhone) return validationError();
-	if (hasCommPref(commPrefs, 'whatsapp') && !commWhatsapp) return validationError();
-	if (hasCommPref(commPrefs, 'instagram') && !commInstagram) return validationError();
-	if (hasCommPref(commPrefs, 'instagram') && !formatInstagramProfile(commInstagram)) return validationError();
-	if (commEmail && !isEmail(commEmail)) return validationError();
+	if (hasCommPref(commPrefs, 'phone') && !commPhone) return validationError('comm-phone', 'Bitte eine Telefonnummer angeben.');
+	if (hasCommPref(commPrefs, 'whatsapp') && !commWhatsapp) return validationError('comm-whatsapp', 'Bitte eine WhatsApp-Nummer angeben.');
+	if (hasCommPref(commPrefs, 'instagram') && !formatInstagramProfile(commInstagram)) return validationError('comm-instagram', 'Bitte einen gültigen Instagram-Namen oder Profillink angeben.');
+	if (commEmail && !isEmail(commEmail)) return validationError('comm-email', 'Bitte eine gültige E-Mail-Adresse angeben.');
 
 	const contactName = clean(formData.get('contact-name'));
-	if (!contactName) return validationError();
+	if (!contactName) return validationError('contact-name', 'Bitte Ihren Namen angeben.');
+	const colorRaw = clean(formData.get('color-scenario'));
+	const colorScenario = colorRaw ? decodeScenario(colorRaw) : null;
+	if (colorRaw && !colorScenario) return validationError('color-scenario', 'Bitte die Farbberechnung erneut übernehmen oder entfernen.');
 
 	const payload: DeckanfragePayload = {
 		contactName,
@@ -161,39 +153,40 @@ export function parseDeckanfrageFormData(formData: FormData): ProcessResult {
 		privacyConsent,
 		honeypot,
 		formStartedAt,
+		colorScenario,
 	};
 
 	const selects = [
-		[federalStateOptions, payload.contactState],
-		[hdOptions, payload.healthHd],
-		[edOptions, payload.healthEd],
-		[patellaOptions, payload.healthPatella],
-		[eyeOptions, payload.healthEyes],
-		[dnaOptions, payload.healthDna],
-		[existingLittersOptions, payload.planExistingLitters],
+		[federalStateOptions, payload.contactState, 'contact-state'],
+		[hdOptions, payload.healthHd, 'health-hd'],
+		[edOptions, payload.healthEd, 'health-ed'],
+		[patellaOptions, payload.healthPatella, 'health-patella'],
+		[eyeOptions, payload.healthEyes, 'health-eyes'],
+		[dnaOptions, payload.healthDna, 'health-dna'],
+		[existingLittersOptions, payload.planExistingLitters, 'plan-existing-litters'],
 	] as const;
-	if (selects.some(([options, value]) => !options.some((option) => option.value === value))) {
-		return validationError();
+	for (const [options, value, field] of selects) {
+		if (!options.some((option) => option.value === value)) return validationError(field, 'Bitte einen Eintrag aus der Liste auswählen.');
 	}
 	if (payload.bitchBirthdate && (!isValidBirthdate(payload.bitchBirthdate) ||
-		payload.bitchBirthdate > new Date().toISOString().slice(0, 10))) return validationError();
-	for (const [value, step] of [[payload.bitchSize, 1], [payload.bitchWeight, 0.1]] as const) {
+		payload.bitchBirthdate > new Date().toISOString().slice(0, 10))) return validationError('bitch-birthdate', 'Bitte ein gültiges Geburtsdatum angeben, das nicht in der Zukunft liegt.');
+	for (const [value, step, field] of [[payload.bitchSize, 1, 'bitch-size'], [payload.bitchWeight, 0.1, 'bitch-weight']] as const) {
 		if (value && (!/^\d+(?:\.\d+)?$/.test(value) || Number(value) < 1 || Number(value) > 99 ||
 			Math.abs(Number(value) / step - Math.round(Number(value) / step)) > 1e-8)) {
-			return validationError();
+			return validationError(field, 'Bitte einen Wert zwischen 1 und 99 im vorgesehenen Format angeben.');
 		}
 	}
 
 	return { ok: true, payload };
 }
 
-function validationError(): ProcessResult {
+function validationError(field?: string, fieldMessage?: string): ProcessResult {
 	return {
 		ok: false,
 		code: 'validation',
-		message:
-			'Die Anfrage konnte derzeit nicht übermittelt werden. Bitte versuchen Sie es später erneut.',
+		message: fieldMessage ?? 'Bitte prüfen Sie Ihre Angaben.',
 		status: 400,
+		...(field && fieldMessage ? { fields: { [field]: fieldMessage } } : {}),
 	};
 }
 
@@ -421,6 +414,7 @@ export function buildDeckanfrageEmailText(payload: DeckanfragePayload): string {
 			`Bereits vorhandene Würfe: ${labelForOption(existingLittersOptions, payload.planExistingLitters)}`,
 		]),
 		section('Nachricht', [displayValue(payload.message)]),
+		...(payload.colorScenario ? [section('Farbsimulation (aus den Eingaben neu berechnet)', scenarioLines(payload.colorScenario))] : []),
 	];
 
 	return sections.join('\n').trim();
@@ -480,6 +474,7 @@ export function buildDeckanfrageEmailHtml(payload: DeckanfragePayload): string {
 			`Bereits vorhandene Würfe: ${escapeHtml(labelForOption(existingLittersOptions, payload.planExistingLitters))}`,
 		]),
 		sectionHtml('Nachricht', [escapeHtml(displayValue(payload.message)).replace(/\n/g, '<br>')]),
+		...(payload.colorScenario ? [sectionHtml('Farbsimulation (aus den Eingaben neu berechnet)', scenarioLines(payload.colorScenario).map(escapeHtml))] : []),
 	];
 
 	return `<!DOCTYPE html><html lang="de"><body style="font-family:system-ui,sans-serif;color:#4a3428;line-height:1.5;">${sections.join('')}</body></html>`;

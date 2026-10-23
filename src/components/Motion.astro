@@ -25,7 +25,11 @@ import '../styles/motion.css';
 			{ threshold: 0.1, rootMargin: '0px 0px -4% 0px' },
 		);
 
-		targets.forEach((el) => observer.observe(el));
+		targets.forEach((el) => {
+			const rect = el.getBoundingClientRect();
+			if (rect.top < window.innerHeight) el.classList.add('is-visible');
+			else { el.classList.add('reveal-ready'); observer.observe(el); }
+		});
 	}
 
 	initScrollReveal();
