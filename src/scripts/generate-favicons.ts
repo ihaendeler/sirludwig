@@ -3,7 +3,7 @@
  * Run via `npm run generate:icons` or automatically before `npm run build`.
  */
 import sharp from 'sharp';
-import toIco from 'to-ico';
+import { encodeIco } from './ico';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -61,7 +61,7 @@ async function generateIcons(): Promise<void> {
 		console.log(`Icon: public/${filename} (${size}×${size})`);
 	}
 
-	const ico = await toIco([rendered.get(16)!, rendered.get(32)!]);
+	const ico = encodeIco([16, 32].map((size) => ({ size, png: rendered.get(size)! })));
 	writeFileSync(join(PUBLIC_DIR, 'favicon.ico'), ico);
 	console.log('Icon: public/favicon.ico (16, 32)');
 

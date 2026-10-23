@@ -4,12 +4,12 @@ Technisches Fundament für ein Astro-Projekt (TypeScript Strict), vorbereitet f�
 
 ## Voraussetzungen
 
-- [Node.js](https://nodejs.org/) >= 22.12.0 (siehe `package.json` → `engines`)
+- [Node.js](https://nodejs.org/) >= 22.23.4 (siehe `.node-version` und `package.json` → `engines`)
 
 ## Installation
 
 ```bash
-npm install
+npm ci
 ```
 
 ## Entwicklung
@@ -28,6 +28,22 @@ npm run build
 
 Der Build-Output liegt im Ordner `dist/`.
 
+## Prüfungen
+
+```bash
+npm run check   # Astro/TypeScript und Cloudflare Pages Functions
+npm test        # Formularvalidierung, Versandfehler und ICO-Generierung
+npm audit      # Bekannte Schwachstellen der installierten Abhängigkeiten
+```
+
+GitHub Actions führt diese Prüfungen sowie den Produktionsbuild bei Pull Requests und Pushes auf `main` aus. Die Versandtests verwenden einen simulierten E-Mail-Anbieter und verschicken keine Nachrichten.
+
+## Offene Inhalte
+
+- Die verlinkten Seiten `/impressum/` und `/datenschutz/` fehlen. Vor einer Veröffentlichung müssen sie mit bestätigten Betreiberangaben und Informationen zur tatsächlichen Datenverarbeitung ergänzt werden.
+- Galerie und Nachzucht sind noch Platzhalter.
+- `src/config/site.ts` verwendet weiterhin `https://sirludwig.pages.dev` als kanonische URL. Bei einem Domainwechsel muss diese Konfiguration angepasst werden.
+
 ## Cloudflare Pages – Build Settings
 
 | Einstellung | Wert |
@@ -35,7 +51,7 @@ Der Build-Output liegt im Ordner `dist/`.
 | Framework preset | Astro |
 | Build command | `npm run build` |
 | Build output directory | `dist` |
-| Node.js version | `22` oder höher |
+| Node.js version | `22.23.4` oder höher |
 
 Der Deckanfrage-Versand läuft über eine **Cloudflare Pages Function** unter `functions/api/deckanfrage.ts` (Route: `/api/deckanfrage`). Der Resend-Key wird als Cloudflare-Secret **`deckanfragen_send`** gelesen (alternativ `RESEND_API_KEY`).
 
@@ -75,7 +91,9 @@ Lokal: `.dev.vars` anlegen (siehe `.dev.vars.example`):
 deckanfragen_send=re_dein_key_hier
 ```
 
-Ohne gesetztes Secret erscheint beim Absenden eine klare Hinweismeldung.
+Ohne gesetztes Secret antwortet die API mit HTTP 503 und einer neutralen Fehlermeldung. Die Einrichtung des Secrets bleibt eine Betreiberaufgabe.
+
+Die API begrenzt Anfragen auf 64 KiB, prüft die Formulardaten und lehnt fremde Origins ab, wenn ein Origin-Header vorhanden ist. Der Versand hat ein Zeitlimit von zehn Sekunden. Honeypot und Mindest-Ausfüllzeit sind einfache Spamfilter; eine persistente Ratenbegrenzung ist nicht eingerichtet.
 
 ## Projektstruktur
 

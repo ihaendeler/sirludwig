@@ -14,6 +14,12 @@ export const INQUIRY_RECIPIENT = 'deckanfrage@sirludwig.de';
 
 export const MIN_SUBMIT_MS = 3_000;
 export const MAX_SUBMIT_MS = 24 * 60 * 60 * 1_000;
+export const SEND_ERROR =
+	'Die Anfrage konnte derzeit nicht übermittelt werden. Bitte versuchen Sie es später erneut.';
+
+function isEmail(value: string): boolean {
+	return value.length <= 254 && /^[^\s@\x00-\x1f\x7f]+@[^\s@\x00-\x1f\x7f]+\.[^\s@\x00-\x1f\x7f]+$/.test(value);
+}
 
 export interface DeckanfragePayload {
 	contactName: string;
@@ -47,7 +53,7 @@ export type ProcessResult =
 	| { ok: true; payload: DeckanfragePayload }
 	| { ok: false; code: string; message: string; status: number };
 
-function clean(value: FormDataEntryValue | null): string {
+function clean(value: unknown): string {
 	return typeof value === 'string' ? value.trim() : '';
 }
 
@@ -56,13 +62,24 @@ function hasCommPref(prefs: string[], key: string): boolean {
 }
 
 export function parseDeckanfrageFormData(formData: FormData): ProcessResult {
+	// Reject uploaded files, excessive text and duplicate scalar fields before building an email.
+	const seen = new Set<string>();
+	for (const [key, value] of formData) {
+		if (typeof value !== 'string' || value.length > (key === 'message' ? 5_000 : 300)) {
+			return validationError();
+		}
+		if (key !== 'comm-pref' && seen.has(key)) return validationError();
+		if (key !== 'message' && /[\x00-\x1f\x7f]/.test(value)) return validationError();
+		seen.add(key);
+	}
+
 	const honeypot = clean(formData.get('_honeypot'));
 	if (honeypot) {
 		return { ok: true, payload: emptyPayload() };
 	}
 
 	const formStartedAt = clean(formData.get('_form-started-at'));
-	const startedMs = Number(formStartedAt);
+	const startedMs = /^\d{13}$/.test(formStartedAt) ? Number(formStartedAt) : NaN;
 	const elapsed = Number.isFinite(startedMs) ? Date.now() - startedMs : NaN;
 
 	if (!Number.isFinite(elapsed) || elapsed < MIN_SUBMIT_MS || elapsed > MAX_SUBMIT_MS) {
@@ -86,9 +103,9 @@ export function parseDeckanfrageFormData(formData: FormData): ProcessResult {
 		};
 	}
 
-	const commPrefs = formData.getAll('comm-pref').map((entry) => clean(entry)).filter(Boolean);
+	const commPrefs = [...new Set(formData.getAll('comm-pref').map((entry) => clean(entry)))];
 
-	if (commPrefs.length === 0) {
+	if (commPrefs.length === 0 || commPrefs.some((pref) => !Object.hasOwn(commPrefLabels, pref))) {
 		return {
 			ok: false,
 			code: 'validation',
@@ -104,7 +121,7 @@ export function parseDeckanfrageFormData(formData: FormData): ProcessResult {
 	const commInstagram = clean(formData.get('comm-instagram'));
 
 	if (hasCommPref(commPrefs, 'email')) {
-		if (!commEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(commEmail)) {
+		if (!isEmail(commEmail)) {
 			return validationError();
 		}
 	}
@@ -112,6 +129,8 @@ export function parseDeckanfrageFormData(formData: FormData): ProcessResult {
 	if (hasCommPref(commPrefs, 'phone') && !commPhone) return validationError();
 	if (hasCommPref(commPrefs, 'whatsapp') && !commWhatsapp) return validationError();
 	if (hasCommPref(commPrefs, 'instagram') && !commInstagram) return validationError();
+	if (hasCommPref(commPrefs, 'instagram') && !formatInstagramProfile(commInstagram)) return validationError();
+	if (commEmail && !isEmail(commEmail)) return validationError();
 
 	const contactName = clean(formData.get('contact-name'));
 	if (!contactName) return validationError();
@@ -144,6 +163,27 @@ export function parseDeckanfrageFormData(formData: FormData): ProcessResult {
 		formStartedAt,
 	};
 
+	const selects = [
+		[federalStateOptions, payload.contactState],
+		[hdOptions, payload.healthHd],
+		[edOptions, payload.healthEd],
+		[patellaOptions, payload.healthPatella],
+		[eyeOptions, payload.healthEyes],
+		[dnaOptions, payload.healthDna],
+		[existingLittersOptions, payload.planExistingLitters],
+	] as const;
+	if (selects.some(([options, value]) => !options.some((option) => option.value === value))) {
+		return validationError();
+	}
+	if (payload.bitchBirthdate && (!isValidBirthdate(payload.bitchBirthdate) ||
+		payload.bitchBirthdate > new Date().toISOString().slice(0, 10))) return validationError();
+	for (const [value, step] of [[payload.bitchSize, 1], [payload.bitchWeight, 0.1]] as const) {
+		if (value && (!/^\d+(?:\.\d+)?$/.test(value) || Number(value) < 1 || Number(value) > 99 ||
+			Math.abs(Number(value) / step - Math.round(Number(value) / step)) > 1e-8)) {
+			return validationError();
+		}
+	}
+
 	return { ok: true, payload };
 }
 
@@ -161,7 +201,7 @@ function normalizeBirthdate(value: string): string {
 	const trimmed = value.trim();
 	if (!trimmed) return '';
 
-	const isoMatch = trimmed.match(/^(\d{4}-\d{2}-\d{2})/);
+	const isoMatch = trimmed.match(/^(\d{4}-\d{2}-\d{2})$/);
 	if (isoMatch) return isoMatch[1];
 
 	const deMatch = trimmed.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
@@ -271,7 +311,7 @@ export function formatInstagramProfile(value: string): {
 	if (!trimmed) return null;
 
 	const urlMatch = trimmed.match(
-		/(?:https?:\/\/)?(?:www\.)?instagram\.com\/([A-Za-z0-9._]+)\/?(?:\?.*)?$/i,
+		/^(?:https?:\/\/)?(?:www\.)?instagram\.com\/([A-Za-z0-9._]{1,30})\/?(?:\?[^\s#]*)?(?:#[^\s]*)?$/i,
 	);
 	if (urlMatch) {
 		const username = urlMatch[1];
@@ -282,7 +322,7 @@ export function formatInstagramProfile(value: string): {
 	}
 
 	const username = trimmed.replace(/^@+/, '').replace(/\/$/, '');
-	if (!username) return null;
+	if (!/^[A-Za-z0-9._]{1,30}$/.test(username)) return null;
 
 	return {
 		display: trimmed.startsWith('@') ? trimmed : `@${username}`,
@@ -446,7 +486,7 @@ export function buildDeckanfrageEmailHtml(payload: DeckanfragePayload): string {
 }
 
 export function getReplyTo(payload: DeckanfragePayload): string | undefined {
-	if (payload.commEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.commEmail)) {
+	if (payload.commPrefs.includes('email') && isEmail(payload.commEmail)) {
 		return payload.commEmail;
 	}
 
@@ -462,29 +502,34 @@ export async function sendDeckanfrageEmail(
 		return { ok: true };
 	}
 
-	const response = await fetch('https://api.resend.com/emails', {
-		method: 'POST',
-		headers: {
-			Authorization: `Bearer ${apiKey}`,
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({
-			from: fromEmail,
-			to: [INQUIRY_RECIPIENT],
-			subject: buildDeckanfrageSubject(payload),
-			text: buildDeckanfrageEmailText(payload),
-			html: buildDeckanfrageEmailHtml(payload),
-			...(getReplyTo(payload) ? { reply_to: getReplyTo(payload) } : {}),
-		}),
-	});
+	try {
+		const response = await fetch('https://api.resend.com/emails', {
+			method: 'POST',
+			headers: {
+				Authorization: `Bearer ${apiKey}`,
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				from: fromEmail,
+				to: [INQUIRY_RECIPIENT],
+				subject: buildDeckanfrageSubject(payload),
+				text: buildDeckanfrageEmailText(payload),
+				html: buildDeckanfrageEmailHtml(payload),
+				...(getReplyTo(payload) ? { reply_to: getReplyTo(payload) } : {}),
+			}),
+			signal: AbortSignal.timeout(10_000),
+		});
 
-	if (!response.ok) {
-		return {
-			ok: false,
-			message:
-				'Die Anfrage konnte derzeit nicht übermittelt werden. Bitte versuchen Sie es später erneut.',
-		};
+		if (!response.ok) {
+			return {
+				ok: false,
+				message:
+					'Die Anfrage konnte derzeit nicht übermittelt werden. Bitte versuchen Sie es später erneut.',
+			};
+		}
+
+		return { ok: true };
+	} catch {
+		return { ok: false, message: SEND_ERROR };
 	}
-
-	return { ok: true };
 }
