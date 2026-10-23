@@ -31,6 +31,10 @@ class ColorCalculator extends HTMLElement {
 			this.status('Die Kombination wurde für Ihre Anfrage übernommen.');
 		});
 		this.querySelector('[data-color-share]')?.addEventListener('click', () => void this.share());
+		this.querySelector('[data-color-guide]')?.addEventListener('click', () => {
+			const guide = this.querySelector<HTMLDetailsElement>('.tuxedo-guide-disclosure');
+			if (guide) guide.open = true;
+		});
 		this.render(false);
 		if (this.scenario.mode === 'own') this.querySelector<HTMLDetailsElement>('[data-color-genetics]')!.open = true;
 		if (new URLSearchParams(location.search).has('v') && !linked) {

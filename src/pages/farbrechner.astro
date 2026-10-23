@@ -4,12 +4,13 @@ import ColorCalculator from '../components/ColorCalculator.astro';
 import { getCanonical, siteConfig } from '../config/site';
 ---
 
-<BaseLayout title={`Farbrechner — ${siteConfig.brandName}`} description="Farbmöglichkeiten mit Sir Ludwig entdecken. Ohne Anmeldung mit Beispielen ausprobieren oder bekannte Genwerte der eigenen Hündin verwenden." canonical={getCanonical('/farbrechner')}>
+<BaseLayout title={`Farbrechner — ${siteConfig.brandName}`} description="Farbmöglichkeiten mit Sir Ludwig ausprobieren und seinen Tuxedo-Look verstehen: Eltern, Weißzeichnung und Wahrscheinlichkeiten innerhalb eines Wurfes einfach erklärt." canonical={getCanonical('/farbrechner')}>
 	<section class="color-page container" aria-labelledby="color-page-title">
 		<header class="color-page__header">
 			<p class="color-eyebrow">Farbvererbung entdecken</p>
 			<h1 id="color-page-title">Welche Farben sind möglich?</h1>
-			<p>Mit Ludwig und einer Beispielhündin direkt ausprobieren. Oder die bekannten Genwerte Ihrer Hündin einsetzen.</p>
+			<p>Ludwigs Tuxedo-Look verbindet Apricot mit markanten weißen Partien. Probieren Sie Farbgrundlagen direkt aus und erfahren Sie, was die Eltern zur Zeichnung beitragen.</p>
+			<a class="color-text-link" href="#color-tuxedo">Wie vererbt sich der Tuxedo-Look?</a>
 		</header>
 		<ColorCalculator />
 	</section>
