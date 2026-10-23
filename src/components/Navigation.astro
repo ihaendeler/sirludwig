@@ -3,6 +3,7 @@ import { mainNavigation } from '../config/navigation';
 import Brand from './Brand.astro';
 
 const navItems = mainNavigation;
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 
 <header class="site-header" data-site-header>
@@ -40,7 +41,7 @@ const navItems = mainNavigation;
 				{
 					navItems.map((item) => (
 						<li class="site-nav__item">
-							<a href={item.href} class="site-nav__link" data-nav-link>
+							<a href={item.href} class="site-nav__link" data-nav-link aria-current={currentPath === item.href ? 'page' : undefined}>
 								{item.label}
 							</a>
 						</li>
@@ -88,7 +89,7 @@ const navItems = mainNavigation;
 	}
 
 	.nav-toggle:focus-visible {
-		outline: 2px solid var(--color-apricot);
+		outline: 2px solid var(--color-brown);
 		outline-offset: 3px;
 	}
 
@@ -211,7 +212,7 @@ const navItems = mainNavigation;
 	}
 
 	.site-nav__link:focus-visible {
-		outline: 2px solid var(--color-apricot);
+		outline: 2px solid var(--color-brown);
 		outline-offset: 4px;
 		color: var(--color-black);
 	}
@@ -220,7 +221,7 @@ const navItems = mainNavigation;
 		visibility: hidden;
 	}
 
-	@media (min-width: 64rem) {
+	@media (min-width: 72rem) {
 		.nav-toggle,
 		.nav-overlay,
 		.site-nav__head {
@@ -267,7 +268,7 @@ const navItems = mainNavigation;
 
 		.site-nav__list {
 			flex-direction: row;
-			gap: var(--space-xs);
+			gap: .25rem;
 		}
 
 		.site-nav__item + .site-nav__item {
@@ -276,7 +277,7 @@ const navItems = mainNavigation;
 
 		.site-nav__link {
 			min-height: var(--touch-min);
-			padding: var(--space-xs) var(--space-sm);
+			padding: var(--space-xs) .65rem;
 			font-family: var(--font-display);
 			font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
 			font-weight: 400;
@@ -293,96 +294,10 @@ const navItems = mainNavigation;
 			background-color: transparent;
 		}
 	}
+
+ .site-nav__link[aria-current='page'] { color: var(--color-brown); text-decoration: underline; text-underline-offset: .4em; text-decoration-thickness: 1px; }
 </style>
 
 <script>
-	const header = document.querySelector('[data-site-header]');
-	const toggleOpen = document.querySelector('.nav-toggle--open');
-	const toggleClose = document.querySelector('.nav-toggle--close');
-	const nav = document.getElementById('site-nav');
-	const overlay = document.querySelector<HTMLElement>('[data-nav-overlay]');
-	const navLinks = document.querySelectorAll('[data-nav-link], .site-nav__brand');
-	const desktopQuery = window.matchMedia('(min-width: 64rem)');
-	const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-	const NAV_TRANSITION_MS = 380;
-
-	function setMenuOpen(open: boolean) {
-		if (!toggleOpen || !nav || !overlay || !header) return;
-
-		toggleOpen.setAttribute('aria-expanded', String(open));
-		header.classList.toggle('is-menu-open', open);
-
-		if (open) {
-			nav.hidden = false;
-			overlay.hidden = false;
-			document.body.style.overflow = 'hidden';
-
-			if (reducedMotionQuery.matches) {
-				nav.classList.add('is-open');
-				overlay.classList.add('is-visible');
-				return;
-			}
-
-			requestAnimationFrame(() => {
-				nav.classList.add('is-open');
-				overlay.classList.add('is-visible');
-			});
-			return;
-		}
-
-		nav.classList.remove('is-open');
-		overlay.classList.remove('is-visible');
-		document.body.style.overflow = '';
-
-		const hideNav = () => {
-			if (toggleOpen.getAttribute('aria-expanded') === 'true') return;
-			nav.hidden = true;
-			overlay.hidden = true;
-		};
-
-		if (reducedMotionQuery.matches) {
-			hideNav();
-			return;
-		}
-
-		window.setTimeout(hideNav, NAV_TRANSITION_MS);
-	}
-
-	function closeMenu() {
-		if (!desktopQuery.matches) setMenuOpen(false);
-	}
-
-	toggleOpen?.addEventListener('click', () => {
-		const isOpen = toggleOpen.getAttribute('aria-expanded') === 'true';
-		setMenuOpen(!isOpen);
-	});
-
-	toggleClose?.addEventListener('click', closeMenu);
-	overlay?.addEventListener('click', closeMenu);
-	navLinks.forEach((link) => link.addEventListener('click', closeMenu));
-
-	document.addEventListener('keydown', (event) => {
-		if (event.key === 'Escape') closeMenu();
-	});
-
-	function handleViewportChange() {
-		if (!nav || !overlay || !toggleOpen || !header) return;
-
-		if (desktopQuery.matches) {
-			nav.hidden = false;
-			overlay.hidden = true;
-			nav.classList.remove('is-open');
-			overlay.classList.remove('is-visible');
-			header.classList.remove('is-menu-open');
-			toggleOpen.setAttribute('aria-expanded', 'false');
-			document.body.style.overflow = '';
-		} else if (toggleOpen.getAttribute('aria-expanded') !== 'true') {
-			nav.hidden = true;
-			overlay.hidden = true;
-			header.classList.remove('is-menu-open');
-		}
-	}
-
-	desktopQuery.addEventListener('change', handleViewportChange);
-	handleViewportChange();
+	import '../scripts/navigation';
 </script>

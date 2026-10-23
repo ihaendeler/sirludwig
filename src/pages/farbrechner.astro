@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ColorCalculator from '../components/ColorCalculator.astro';
+import { getCanonical, siteConfig } from '../config/site';
+---
+
+<BaseLayout title={`Farbrechner — ${siteConfig.brandName}`} description="Farbmöglichkeiten mit Sir Ludwig entdecken. Ohne Anmeldung mit Beispielen ausprobieren oder bekannte Genwerte der eigenen Hündin verwenden." canonical={getCanonical('/farbrechner')}>
+	<section class="color-page container" aria-labelledby="color-page-title">
+		<header class="color-page__header">
+			<p class="color-eyebrow">Farbvererbung entdecken</p>
+			<h1 id="color-page-title">Welche Farben sind möglich?</h1>
+			<p>Mit Ludwig und einer Beispielhündin direkt ausprobieren. Oder die bekannten Genwerte Ihrer Hündin einsetzen.</p>
+		</header>
+		<ColorCalculator />
+	</section>
+</BaseLayout>

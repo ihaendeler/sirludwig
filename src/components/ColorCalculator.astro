@@ -1,0 +1,123 @@
+---
+import { Image } from 'astro:assets';
+import ludwigImage from '../assets/images/hero/PXL_20260516_084223542.jpg';
+import { calculateColors, exampleScenario, formatProbability, GENOTYPE_LABELS, LOCI, LOCUS_LABELS, PRESETS, VALUES, MODEL_NOTE } from '../lib/color/model';
+import '../styles/color-calculator.css';
+
+interface Props { embedded?: boolean }
+const { embedded = false } = Astro.props;
+const initial = exampleScenario();
+const result = calculateColors(initial);
+const prefix = embedded ? 'inquiry-color' : 'color';
+---
+
+<color-calculator class:list={['color-calculator', { 'color-calculator--embedded': embedded }]} data-embedded={String(embedded)}>
+	<div class="color-calculator__layout">
+		<div class="color-calculator__inputs">
+			<div class="color-sire">
+				<Image src={ludwigImage} alt="Sir Ludwig" width={88} height={104} fit="cover" class="color-sire__photo" />
+				<div>
+					<p class="color-eyebrow">Der Rüde</p>
+					<h2 class="color-sire__name">Sir Ludwig</h2>
+					<p class="color-sire__genes">e1/e1 · N/bs · Kb/Kb · N/S</p>
+					<a class="color-text-link" href="/gesundheit#health-e-lokus">Gentests ansehen</a>
+				</div>
+			</div>
+
+			<fieldset class="color-mode">
+				<legend>Mit welcher Hündin möchten Sie rechnen?</legend>
+				<div class="color-mode__choices">
+					<label><input type="radio" name={`${prefix}-mode`} value="example" checked data-color-mode /><span>Einfach ausprobieren</span></label>
+					<label><input type="radio" name={`${prefix}-mode`} value="own" data-color-mode /><span>Eigene Hündin</span></label>
+				</div>
+			</fieldset>
+
+			<div class="color-presets" data-color-presets>
+				<label class="color-field__label" for={`${prefix}-preset`}>Beispielkombination</label>
+				<select id={`${prefix}-preset`} data-color-preset>
+					{PRESETS.map((p) => <option value={p.id}>{p.label}</option>)}
+					<option value="custom" disabled>Individuelles Beispiel</option>
+				</select>
+				<p class="color-help" data-color-mode-hint>Frei ausprobieren. Es sind keine persönlichen Angaben nötig.</p>
+			</div>
+			<p class="color-help" data-color-own-hint hidden>Nur bekannte Genwerte eintragen. Ohne Gentest können Sie Annahmen testen oder Werte unbekannt lassen.</p>
+
+			<details class="color-genetics" data-color-genetics>
+				<summary>Genwerte ansehen und ändern</summary>
+				<div class="color-genetics__fields">
+					{LOCI.map((locus) => (
+						<div class="color-field">
+							<label class="color-field__label" for={`${prefix}-${locus}`}>{LOCUS_LABELS[locus]}</label>
+							<select id={`${prefix}-${locus}`} data-color-locus={locus}>
+								{VALUES[locus].map((value) => <option value={value} selected={initial[locus] === value}>{GENOTYPE_LABELS[locus][value]}</option>)}
+							</select>
+							<div class="color-field__source" data-color-source-field hidden>
+								<label for={`${prefix}-${locus}-source`}>Herkunft der Angabe</label>
+								<select id={`${prefix}-${locus}-source`} data-color-source={locus}>
+									<option value="unknown">Unbekannt</option>
+									<option value="assumed">Annahme zum Ausprobieren</option>
+									<option value="test">Aus einem Gentestergebnis</option>
+								</select>
+							</div>
+						</div>
+					))}
+				</div>
+			</details>
+			<p class="color-status" data-color-status role="status" aria-live="polite"></p>
+		</div>
+
+		<section class="color-results" aria-labelledby={`${prefix}-result-title`}>
+			<div class="color-results__head">
+				<div><p class="color-eyebrow" data-color-kind>Beispielsimulation</p><h2 id={`${prefix}-result-title`}>Was ist möglich?</h2></div>
+				<span class="color-results__live">Ludwig × Hündin</span>
+			</div>
+			<p class="color-results__intro">Grundfarben im Modell · Wahrscheinlichkeit pro Welpe</p>
+			<div class="color-results__colors" data-color-results>
+				{result.colors.map((color) => (
+					<div class="color-result" data-color-result={color.id}>
+						<span class:list={['color-swatch', `color-swatch--${color.id}`]} aria-hidden="true"></span>
+						<div class="color-result__label"><span>{color.label}</span><strong data-color-probability>{formatProbability(color.probability)}</strong></div>
+					</div>
+				))}
+			</div>
+			<p class="color-help">Berechnet E/e1 und die Braunvariante bs. Andere Varianten und der genaue Farbton bleiben offen.</p>
+			<p class="color-help" data-color-unknown hidden></p>
+			<div class="color-spotting">
+				<h3>Weißzeichnung separat betrachten</h3>
+				<p>Vererbung der getesteten S-Variante. Die genaue Verteilung weißer Flächen lässt sich daraus nicht berechnen.</p>
+				<dl class="color-spotting__grid">
+					{result.spotting.map((s) => <div><dt>{s.genotype}<span>{s.label}</span></dt><dd data-color-spotting={s.genotype}>{formatProbability(s.probability)}</dd></div>)}
+				</dl>
+			</div>
+			<div class="color-result-actions">
+				{embedded ? <button type="button" class="btn btn--primary" data-color-apply>Für meine Anfrage übernehmen</button> : <a href="/deckanfrage" class="btn btn--primary" data-color-inquire>Mit dieser Kombination anfragen</a>}
+				<button type="button" class="color-text-link" data-color-share>Szenario teilen</button>
+			</div>
+			<p class="color-help" data-color-share-note>Geteilt werden nur Genwerte und Annahmen, keine Namen oder Kontaktdaten.</p>
+			<div class="color-copy-fallback" data-color-copy hidden>
+				<label for={`${prefix}-share-url`}>Link zum Kopieren</label>
+				<input id={`${prefix}-share-url`} type="url" readonly data-color-share-url />
+			</div>
+		</section>
+	</div>
+	<details class="color-method">
+		<summary>So funktioniert die Berechnung</summary>
+		<div>
+			<p>{MODEL_NOTE}</p>
+			<p>Bei unbekannten Werten zeigt der Rechner die kleinste und größte Möglichkeit innerhalb des Modells. Die Spannen sind keine geschätzten Häufigkeiten und müssen zusammen nicht 100 % ergeben.</p>
+			<p>Ludwig gibt Kb an alle Nachkommen weiter. Im Modell bestimmt E/e1, ob eine rotbasierte Farbe sichtbar wird. Die Variante bs kann dunkles Pigment braun verändern. Die dargestellten Farbfelder sind Orientierungshilfen für Farbgruppen, keine Vorhersage eines einzelnen Welpen.</p>
+			<p>Beim B-Lokus steht N hier für das Fehlen der Variante bs. Das schließt andere Braunvarianten nicht aus. Gentest-Angaben zur Hündin stammen von der eingebenden Person und werden nicht automatisch verifiziert.</p>
+			<ul>
+				<li><a href="https://vgl.ucdavis.edu/test/mc1r-dog" target="_blank" rel="noopener noreferrer">UC Davis: E-Lokus</a></li>
+				<li><a href="https://vgl.ucdavis.edu/test/brown-dog" target="_blank" rel="noopener noreferrer">UC Davis: Braunvererbung</a></li>
+				<li><a href="https://vgl.ucdavis.edu/test/dominant-black" target="_blank" rel="noopener noreferrer">UC Davis: K-Lokus</a></li>
+				<li><a href="https://vgl.ucdavis.edu/test/piebald-dog" target="_blank" rel="noopener noreferrer">UC Davis: Weißscheckung</a></li>
+			</ul>
+		</div>
+	</details>
+	<noscript><p class="color-help">Hier sehen Sie eine feste Beispielrechnung. Zum Verändern und Übernehmen der Werte aktivieren Sie bitte JavaScript.</p></noscript>
+</color-calculator>
+
+<script>
+	import '../scripts/color-calculator';
+</script>
