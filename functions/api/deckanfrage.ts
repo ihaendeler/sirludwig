@@ -1,7 +1,8 @@
+import type { PagesFunction } from '@cloudflare/workers-types';
 import { readEnvVar, readFirstEnvVar } from '../lib/env';
-import { parseDeckanfrageFormData, sendDeckanfrageEmail } from '../../src/lib/deckanfrage/process';
+import { parseDeckanfrageFormData, sendDeckanfrageEmail, SEND_ERROR } from '../../src/lib/deckanfrage/process';
 
-interface Env {
+interface Env extends Record<string, unknown> {
 	deckanfragen_send?: string;
 	RESEND_API_KEY?: string;
 	RESEND_FROM_EMAIL?: string;
@@ -10,6 +11,7 @@ interface Env {
 const RESEND_KEY_VARS = ['deckanfragen_send', 'RESEND_API_KEY'];
 
 const DEFAULT_FROM = 'Sir Ludwig Website <noreply@sirludwig.de>';
+export const MAX_REQUEST_BYTES = 64 * 1024;
 
 function json(data: Record<string, unknown>, status = 200): Response {
 	return new Response(JSON.stringify(data), {
@@ -21,25 +23,47 @@ function json(data: Record<string, unknown>, status = 200): Response {
 	});
 }
 
-export const onRequestPost: PagesFunction<Env> = async (context) => {
-	const apiKey = readFirstEnvVar(context.env as Record<string, unknown>, RESEND_KEY_VARS);
+type RequestContext = Pick<Parameters<PagesFunction<Env>>[0], 'request' | 'env'>;
 
-	if (!apiKey) {
-		return json(
-			{
-				ok: false,
-				code: 'missing_api_key',
-				message:
-					'E-Mail-Versand ist nicht konfiguriert. Bitte deckanfragen_send als Secret in Cloudflare setzen.',
-			},
-			503,
-		);
+export const onRequestPost = async (context: RequestContext) => {
+	const { request } = context;
+	const origin = request.headers.get('Origin');
+	if (origin && origin !== new URL(request.url).origin) {
+		return json({ ok: false, code: 'invalid_origin', message: SEND_ERROR }, 403);
+	}
+	const contentType = request.headers.get('Content-Type') ?? '';
+	if (!/^(?:multipart\/form-data|application\/x-www-form-urlencoded)(?:;|$)/i.test(contentType)) {
+		return json({ ok: false, code: 'invalid_request', message: SEND_ERROR }, 415);
+	}
+	if (Number(request.headers.get('Content-Length')) > MAX_REQUEST_BYTES) {
+		return json({ ok: false, code: 'request_too_large', message: SEND_ERROR }, 413);
 	}
 
 	let formData: FormData;
 
 	try {
-		formData = await context.request.formData();
+		// Count streamed bytes too: Content-Length is optional and can be untrusted.
+		const reader = request.body?.getReader();
+		if (!reader) throw new Error('Missing request body');
+		const chunks: Uint8Array[] = [];
+		let length = 0;
+		while (true) {
+			const { done, value } = await reader.read();
+			if (done) break;
+			length += value.byteLength;
+			if (length > MAX_REQUEST_BYTES) {
+				await reader.cancel();
+				return json({ ok: false, code: 'request_too_large', message: SEND_ERROR }, 413);
+			}
+			chunks.push(value);
+		}
+		const body = new Uint8Array(length);
+		let offset = 0;
+		for (const chunk of chunks) {
+			body.set(chunk, offset);
+			offset += chunk.length;
+		}
+		formData = await new Response(body, { headers: { 'Content-Type': contentType } }).formData();
 	} catch {
 		return json(
 			{
@@ -63,6 +87,12 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 			},
 			parsed.status,
 		);
+	}
+
+	if (parsed.payload.honeypot) return json({ ok: true });
+	const apiKey = readFirstEnvVar(context.env as Record<string, unknown>, RESEND_KEY_VARS);
+	if (!apiKey) {
+		return json({ ok: false, code: 'missing_api_key', message: SEND_ERROR }, 503);
 	}
 
 	const fromEmail =

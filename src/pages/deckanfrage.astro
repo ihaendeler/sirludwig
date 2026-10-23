@@ -441,7 +441,7 @@ const path = '/deckanfrage';
 </BaseLayout>
 
 <script>
-	import { calculateBitchAge } from '../lib/deckanfrage/process';
+	import { calculateBitchAge, formatInstagramProfile } from '../lib/deckanfrage/process';
 
 	const form = document.querySelector<HTMLFormElement>('[data-inquiry-form]');
 	const formSuccess = document.querySelector<HTMLElement>('[data-form-success]');
@@ -469,6 +469,14 @@ const path = '/deckanfrage';
 		birthdateAgeHint.textContent = `Alter: ${calculateBitchAge(value)}`;
 		birthdateAgeHint.removeAttribute('hidden');
 	}
+
+	if (birthdateInput) birthdateInput.max = new Date().toISOString().slice(0, 10);
+
+	form?.querySelectorAll<HTMLInputElement>('input[type="text"], input[type="email"], input[type="tel"]').forEach((input) => {
+		input.maxLength = input.type === 'email' ? 254 : 300;
+	});
+	const messageInput = form?.querySelector<HTMLTextAreaElement>('[name="message"]');
+	if (messageInput) messageInput.maxLength = 5_000;
 
 	if (formStartedAt) {
 		formStartedAt.value = String(Date.now());
@@ -550,18 +558,19 @@ const path = '/deckanfrage';
 
 	if (form && commSection) {
 		const toggles = commSection.querySelectorAll<HTMLInputElement>('[data-comm-toggle]');
-		const commError = commSection.querySelector<HTMLElement>('[data-comm-error]');
+		const commError = commSection?.querySelector<HTMLElement>('[data-comm-error]');
 
 		function syncCommFields() {
 			toggles.forEach((toggle) => {
 				const key = toggle.dataset.commToggle;
-				const field = commSection.querySelector<HTMLElement>(`[data-comm-field="${key}"]`);
+				const field = commSection?.querySelector<HTMLElement>(`[data-comm-field="${key}"]`);
 				const input = field?.querySelector<HTMLInputElement>('[data-comm-input]');
 				const visible = toggle.checked;
 
 				field?.classList.toggle('is-visible', visible);
 
 				if (input) {
+					input.required = visible;
 					if (visible) {
 						input.removeAttribute('disabled');
 					} else {
@@ -571,6 +580,10 @@ const path = '/deckanfrage';
 				}
 			});
 		}
+
+		commSection.querySelectorAll<HTMLInputElement>('[data-comm-input]').forEach((input) => {
+			input.addEventListener('input', () => input.setCustomValidity(''));
+		});
 
 		toggles.forEach((toggle) => {
 			toggle.addEventListener('change', () => {
@@ -596,15 +609,22 @@ const path = '/deckanfrage';
 
 			selected.forEach((toggle) => {
 				const key = toggle.dataset.commToggle;
-				const field = commSection.querySelector<HTMLElement>(`[data-comm-field="${key}"]`);
+				const field = commSection?.querySelector<HTMLElement>(`[data-comm-field="${key}"]`);
 				const input = field?.querySelector<HTMLInputElement>('[data-comm-input]');
 
 				if (!input) return;
 
 				const value = input.value.trim();
+				input.setCustomValidity('');
 
 				if (!value) {
 					input.setCustomValidity('Bitte Angabe ergänzen.');
+					valid = false;
+					return;
+				}
+
+				if (key === 'instagram' && !formatInstagramProfile(value)) {
+					input.setCustomValidity('Bitte einen gültigen Instagram-Nutzernamen oder Profillink angeben.');
 					valid = false;
 					return;
 				}
@@ -619,7 +639,7 @@ const path = '/deckanfrage';
 			});
 
 			if (!valid) {
-				const firstInvalid = commSection.querySelector<HTMLInputElement>(
+				const firstInvalid = commSection?.querySelector<HTMLInputElement>(
 					'[data-comm-input]:invalid',
 				);
 				firstInvalid?.reportValidity();
