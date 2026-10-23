@@ -2,7 +2,7 @@ import { calculateBitchAge, formatInstagramProfile, isEmail, SEND_ERROR } from '
 import {
 	calculateColors, decodeScenario, exampleScenario, formatProbability, GENOTYPE_LABELS,
 	LOCI, LOCUS_LABELS, ORIGIN_LABELS, parseScenario,
-	scenarioFromQuery, SOURCE_KEYS, type Scenario,
+	scenarioFromQuery, scenarioQuery, SOURCE_KEYS, type Scenario,
 } from '../lib/color/model';
 import { DRAFT_FIELDS, readDraft, SAVED_DRAFT_KEY, SESSION_DRAFT_KEY, type InquiryDraft } from '../lib/deckanfrage/draft';
 
@@ -10,6 +10,7 @@ const form = document.querySelector<HTMLFormElement>('[data-inquiry-form]');
 if (form) initializeInquiry(form);
 
 function initializeInquiry(form: HTMLFormElement) {
+	const incoming = scenarioFromQuery(location.search);
 	const fields = form.querySelector<HTMLElement>('[data-inquiry-fields]')!;
 	const review = form.querySelector<HTMLElement>('[data-inquiry-review]')!;
 	const reviewContent = form.querySelector<HTMLElement>('[data-review-content]')!;
@@ -30,7 +31,7 @@ function initializeInquiry(form: HTMLFormElement) {
 
 	const field = (name: string) => form.querySelector<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(`[name="${CSS.escape(name)}"]`);
 	const scrollTo = (element: HTMLElement) => {
-		element.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+		element.scrollIntoView({ behavior: 'instant', block: 'start' });
 	};
 	const showMessage = (message: string) => { formError.textContent = message; formError.hidden = !message; };
 
@@ -38,6 +39,9 @@ function initializeInquiry(form: HTMLFormElement) {
 		attached = scenario;
 		colorInput.value = scenario ? JSON.stringify(scenario) : '';
 		colorSummary.hidden = !scenario;
+		const url = new URL(location.href);
+		url.search = scenario ? scenarioQuery(scenario) : '';
+		history.replaceState(null, '', url);
 		if (!scenario) return;
 		const kind = colorSummary.querySelector('[data-color-summary-kind]')!;
 		kind.textContent = scenario.mode === 'example' ? 'Beispielsimulation · keine Gentest-Angaben Ihrer Hündin' : 'Eigene Angaben · Herkunft je Genwert angegeben';
@@ -97,7 +101,6 @@ function initializeInquiry(form: HTMLFormElement) {
 		saveDraft.checked = Boolean(saved);
 		const consent = field('privacy-consent') as HTMLInputElement;
 		consent.checked = false;
-		const incoming = scenarioFromQuery(location.search);
 		if (incoming) attachColor(incoming, true);
 	}
 
@@ -138,7 +141,7 @@ function initializeInquiry(form: HTMLFormElement) {
 	function revealAndFocus(input: HTMLElement) {
 		let parent: HTMLElement | null = input.parentElement;
 		while (parent && parent !== form) { if (parent instanceof HTMLDetailsElement) parent.open = true; parent = parent.parentElement; }
-		input.focus(); scrollTo(input);
+		input.focus({ preventScroll: true }); scrollTo(input);
 	}
 
 	function validate(): boolean {
@@ -255,7 +258,10 @@ function initializeInquiry(form: HTMLFormElement) {
 			const response = await fetch('/api/deckanfrage', { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' }, signal: controller.signal });
 			const data = await response.json().catch(() => ({})) as { ok?: boolean; message?: string; fields?: Record<string, string> };
 			if (response.ok && data.ok === true) {
-				completed = true; clearStored(); form.hidden = true; success.hidden = false; success.focus(); scrollTo(success); return;
+				completed = true; clearStored(); form.hidden = true;
+				document.querySelector<HTMLElement>('.inquiry-draft-tools')!.hidden = true;
+				document.querySelector<HTMLElement>('.inquiry-form__intro')!.hidden = true;
+				success.hidden = false; success.focus(); scrollTo(success); return;
 			}
 			showFields(); showMessage(data.message || SEND_ERROR);
 			if (data.fields && typeof data.fields === 'object') {

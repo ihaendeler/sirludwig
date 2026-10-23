@@ -37,6 +37,7 @@ Ein Szenario enthält nur die Version, den Modus, drei Genotypen und deren jewei
 - Der Teilen-Link enthält ausschließlich die erlaubten Szenariofelder. Namen, Formulardaten und Kontaktdaten werden nicht übernommen.
 - „Mit dieser Kombination anfragen“ öffnet die Anfrage mit dem Szenario im Link.
 - Innerhalb der Anfrage bleibt der Rechner auf derselben Seite. Erst „Für meine Anfrage übernehmen“ hängt eine Berechnung an. Danach aktualisieren Änderungen die angehängte Berechnung; sie lässt sich vollständig entfernen.
+- Änderungen aktualisieren die anonymen Szenariowerte der aktuellen URL. Entfernen und Löschen entfernen sie ebenfalls. So überschreibt ein alter Link beim Neuladen keine später bearbeitete Berechnung.
 - Die API akzeptiert ein Szenario optional, validiert es und berechnet die E-Mail-Ergebnisse selbst. Mitgeschickte Prozentwerte werden ignoriert.
 
 Die Query-Version `v=1` und die Rechenmodell-Version `1.0.0` sind getrennt. Unbekannte Versionen, doppelte Query-Felder, nicht unterstützte Allele und widersprüchliche Herkunftsangaben werden abgewiesen.

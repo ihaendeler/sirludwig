@@ -32,6 +32,7 @@ class ColorCalculator extends HTMLElement {
 		});
 		this.querySelector('[data-color-share]')?.addEventListener('click', () => void this.share());
 		this.render(false);
+		if (this.scenario.mode === 'own') this.querySelector<HTMLDetailsElement>('[data-color-genetics]')!.open = true;
 		if (new URLSearchParams(location.search).has('v') && !linked) {
 			this.status('Der Link enthält kein gültiges Farbszenario. Sie können hier mit einem Beispiel starten.');
 		}
@@ -109,6 +110,10 @@ class ColorCalculator extends HTMLElement {
 		if (kind) kind.textContent = own ? 'Eigene Angaben' : 'Beispielsimulation';
 		const inquiry = this.querySelector<HTMLAnchorElement>('[data-color-inquire]');
 		if (inquiry) inquiry.href = `/deckanfrage?${scenarioQuery(this.scenario)}#color-inquiry`;
+		if (announce && this.dataset.embedded !== 'true') {
+			const url = new URL(location.href); url.search = scenarioQuery(this.scenario);
+			history.replaceState(null, '', url);
+		}
 		this.querySelector<HTMLElement>('[data-color-copy]')?.setAttribute('hidden', '');
 		try { sessionStorage.setItem(SCENARIO_STORAGE_KEY, JSON.stringify(this.scenario)); } catch { /* Calculator works without storage. */ }
 		document.dispatchEvent(new CustomEvent('color-scenario-change', { detail: this.scenario }));

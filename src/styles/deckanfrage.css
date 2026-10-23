@@ -477,7 +477,7 @@
 }
 
 /* Compact form, explicit states and an editable review without a page change. */
-.inquiry-form [hidden] { display: none !important; }
+.inquiry-section [hidden] { display: none !important; }
 .inquiry-form__intro { max-width: 65ch; margin-bottom: 1.5rem; font-size: .9375rem; color: #705e51; }
 .inquiry-section { padding-block: 1.5rem 3rem; }
 .inquiry-form { max-width: 46rem; }
