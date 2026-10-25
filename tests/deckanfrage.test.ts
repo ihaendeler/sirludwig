@@ -11,7 +11,9 @@ import {
 	SEND_ERROR,
 } from '../src/lib/deckanfrage/process';
 import { onRequestPost, MAX_REQUEST_BYTES } from '../functions/api/deckanfrage';
-import { exampleScenario, ownScenario } from '../src/lib/color/model';
+import { emptyScenario, type Scenario } from '../src/lib/color/model';
+
+const knownScenario = (): Scenario => ({ v: 2, e: 'Ee', b: 'Nbs', s: 'NS' });
 
 function validForm(): FormData {
 	const form = new FormData();
@@ -203,36 +205,37 @@ test('API returns an actionable field error without contacting the provider', as
 	assert.equal(provider.mock.callCount(), 0);
 });
 
-test('server recomputes shared simulation and strips supplied percentages and personal extras', () => {
+test('server recomputes color results and strips supplied percentages and personal extras', () => {
 	const form = validForm();
-	form.set('color-scenario', JSON.stringify({ ...exampleScenario(), brown: 100, extraName: 'Injected person' }));
+	form.set('color-scenario', JSON.stringify({ ...knownScenario(), brown: 100, extraName: 'Injected person' }));
 	const parsed = parseDeckanfrageFormData(form);
 	assert.equal(parsed.ok, true);
 	if (!parsed.ok) throw new Error('Invalid fixture');
-	assert.deepEqual(parsed.payload.colorScenario, exampleScenario());
+	assert.deepEqual(parsed.payload.colorScenario, knownScenario());
 	const html = buildDeckanfrageEmailHtml(parsed.payload);
 	const text = buildDeckanfrageEmailText(parsed.payload);
 	for (const email of [html, text]) {
-		assert.match(email, /Beispielsimulation/);
+		assert.match(email, /Farbberechnung/);
+		assert.doesNotMatch(email, /Beispielsimulation|Gentest laut Eingabe|nicht überprüft|Annahme/);
 		assert.match(email, /12,5 %/);
 		assert.ok(!email.includes('Injected person'));
 	}
 });
 
-test('server preserves unknown values and declared test provenance', () => {
-	const scenario = { ...ownScenario(), e: 'Ee', sourceE: 'test' };
+test('server preserves missing values without making assumptions', () => {
+	const scenario = { ...emptyScenario(), e: 'Ee' };
 	const form = validForm(); form.set('color-scenario', JSON.stringify(scenario));
 	const parsed = parseDeckanfrageFormData(form);
 	assert.equal(parsed.ok, true);
 	if (!parsed.ok) throw new Error('Invalid fixture');
 	const text = buildDeckanfrageEmailText(parsed.payload);
-	assert.match(text, /nicht überprüft/);
-	assert.match(text, /Gentest laut Eingabe/);
-	assert.match(text, /Unbekannt/);
+	assert.match(text, /Nicht angegeben/);
+	assert.match(text, /noch nicht vollständig angegeben/);
+	assert.doesNotMatch(text, /nicht überprüft|Gentest laut Eingabe|Annahme|0–100 %/);
 });
 
-test('server rejects corrupt or mislabeled color scenarios', () => {
-	for (const value of ['{', JSON.stringify({ ...exampleScenario(), sourceB: 'test' }), JSON.stringify({ ...exampleScenario(), v: 99 })]) {
+test('server rejects corrupt and unsupported color scenarios', () => {
+	for (const value of ['{', JSON.stringify({ ...knownScenario(), b: 'bb' }), JSON.stringify({ ...knownScenario(), v: 99 })]) {
 		const form = validForm(); form.set('color-scenario', value);
 		const parsed = parseDeckanfrageFormData(form);
 		assert.equal(parsed.ok, false);

@@ -1,8 +1,8 @@
 import { calculateBitchAge, formatInstagramProfile, isEmail, SEND_ERROR } from '../lib/deckanfrage/process';
 import {
-	calculateColors, decodeScenario, exampleScenario, formatProbability, GENOTYPE_LABELS,
-	LOCI, LOCUS_LABELS, ORIGIN_LABELS, parseScenario,
-	scenarioFromQuery, scenarioQuery, SOURCE_KEYS, type Scenario,
+	calculateColors, decodeScenario, emptyScenario, formatProbability, GENOTYPE_LABELS,
+	LOCI, LOCUS_LABELS, parseScenario,
+	scenarioFromQuery, scenarioQuery, type Scenario,
 } from '../lib/color/model';
 import { DRAFT_FIELDS, readDraft, SAVED_DRAFT_KEY, SESSION_DRAFT_KEY, type InquiryDraft } from '../lib/deckanfrage/draft';
 
@@ -43,13 +43,11 @@ function initializeInquiry(form: HTMLFormElement) {
 		url.search = scenario ? scenarioQuery(scenario) : '';
 		history.replaceState(null, '', url);
 		if (!scenario) return;
-		const kind = colorSummary.querySelector('[data-color-summary-kind]')!;
-		kind.textContent = scenario.mode === 'example' ? 'Beispielsimulation · keine Gentest-Angaben Ihrer Hündin' : 'Eigene Angaben · Herkunft je Genwert angegeben';
 		const list = colorSummary.querySelector('[data-color-summary-values]')!;
 		list.replaceChildren();
 		for (const locus of LOCI) {
 			const li = document.createElement('li');
-			li.textContent = `${LOCUS_LABELS[locus]}: ${GENOTYPE_LABELS[locus][scenario[locus]]} · ${ORIGIN_LABELS[scenario[SOURCE_KEYS[locus]]]}`;
+			li.textContent = `${LOCUS_LABELS[locus]}: ${GENOTYPE_LABELS[locus][scenario[locus]]}`;
 			list.append(li);
 		}
 		if (syncEditor) document.dispatchEvent(new CustomEvent('color-scenario-set', { detail: scenario }));
@@ -208,10 +206,11 @@ function initializeInquiry(form: HTMLFormElement) {
 		appendReviewGroup('Gesundheit', [['HD', value('health-hd')], ['ED', value('health-ed')], ['Patella', value('health-patella')], ['Augen', value('health-eyes')], ['DNA-Tests', value('health-dna')]]);
 		appendReviewGroup('Planung und Nachricht', [['Zeitraum', value('plan-period')], ['Bisherige Würfe', value('plan-existing-litters')], ['Nachricht', value('message')]]);
 		if (attached) {
-			appendReviewGroup('Farbsimulation', [
-				['Art', attached.mode === 'example' ? 'Beispielsimulation – keine Befunde Ihrer Hündin' : 'Eigene Angaben – nicht überprüft'],
-				...LOCI.map((locus) => [LOCUS_LABELS[locus], `${GENOTYPE_LABELS[locus][attached![locus]]} · ${ORIGIN_LABELS[attached![SOURCE_KEYS[locus]]]}`] as [string, string]),
-				...calculateColors(attached).colors.map((c) => [c.label, `${formatProbability(c.probability)} im Modell`] as [string, string]),
+			const result = calculateColors(attached);
+			appendReviewGroup('Farbberechnung', [
+				...LOCI.map((locus) => [LOCUS_LABELS[locus], GENOTYPE_LABELS[locus][attached![locus]]] as [string, string]),
+				...(result.colorsReady ? result.colors.map((c) => [c.label, `${formatProbability(c.probability)} im Modell`] as [string, string]) : []),
+				...(result.spottingReady ? result.spotting.map((s) => [`S-Lokus ${s.genotype}`, formatProbability(s.probability)] as [string, string]) : []),
 			]);
 		}
 		fields.hidden = true; review.hidden = false; reviewed = reviewFingerprint(); review.focus(); scrollTo(review);
@@ -247,7 +246,7 @@ function initializeInquiry(form: HTMLFormElement) {
 	document.querySelector('[data-clear-draft]')?.addEventListener('click', () => {
 		clearStored(); form.reset(); saveDraft.checked = false; attachColor(null); syncContacts(); showFields(); showMessage('');
 		form.querySelectorAll<HTMLElement>('[data-field-error]').forEach((el) => clearFieldError(el.dataset.fieldError!));
-		timestamp.value = String(Date.now()); document.dispatchEvent(new CustomEvent('color-scenario-set', { detail: exampleScenario() }));
+		timestamp.value = String(Date.now()); document.dispatchEvent(new CustomEvent('color-scenario-set', { detail: emptyScenario() }));
 		draftStatus.textContent = 'Entwurf und gespeicherte Angaben wurden gelöscht.';
 	});
 

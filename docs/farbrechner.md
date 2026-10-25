@@ -15,7 +15,7 @@ N beim B-Lokus bedeutet hier ausschließlich: keine Kopie von **bs**. Weitere Br
 
 Die dokumentierten Ergebnisse in `src/data/health.ts` sind die Grundlage für den Rüden. Ein Guard lässt Build und Tests fehlschlagen, wenn sich e1/e1, N/bs, Kb/Kb oder N/S ändern, damit die Interpretation nicht unbemerkt veraltet.
 
-Bei einem unbekannten Genwert werden alle drei unterstützten Genotypen durchgerechnet. Das Ergebnis zeigt je Kategorie Minimum und Maximum. Es werden keine Häufigkeiten aus dem Erscheinungsbild oder einer Population geschätzt. Deshalb müssen die ausgegebenen Spannen nicht zusammen 100 % ergeben. Bei vollständig bekannten Werten ergeben die Grundfarben zusammen 100 %. Wahrscheinlichkeiten gelten pro Welpe und sagen keine feste Zusammensetzung eines Wurfes voraus.
+Die Eingabe zeigt direkt drei Auswahlfelder für den Farbtest der Hündin. Es gibt keine Modusauswahl, Beispielvorlagen oder Herkunftsangaben. Der Rechner startet ohne vorausgewählte Werte. Grundfarben werden nach Auswahl von E- und B-Lokus angezeigt, die Verteilung der getesteten S-Variante nach Auswahl des S-Lokus. Fehlende Angaben bleiben in Oberfläche und Anfrage offen; es werden dort keine geschätzten Wahrscheinlichkeiten oder Spannen gezeigt. Der Rechenkern kann intern weiterhin mögliche Grenzen bestimmen. Bei vollständig ausgewählten Werten ergeben die Grundfarben zusammen 100 %. Wahrscheinlichkeiten gelten pro Welpe und sagen keine feste Zusammensetzung eines Wurfes voraus.
 
 ### Quellen
 
@@ -41,17 +41,17 @@ Das **feste**, von den aktuellen Eingaben unabhängige Wurfbeispiel gilt für Lu
 
 ## Szenarien und Übergänge
 
-Ein Szenario enthält nur die Version, den Modus, drei Genotypen und deren jeweilige Herkunft. Die Herkunft ist je Genwert `example`, `test`, `assumed` oder `unknown`. Ein selbst eingegebener Gentest wird als **Gentest laut Eingabe** bezeichnet und nicht als verifiziert ausgegeben. Beispielwerte bleiben im Formular und in beiden E-Mail-Formaten ausdrücklich als Simulation markiert.
+Ein Szenario enthält ausschließlich die Version und drei Farbwerte (`v`, `e`, `b`, `s`). Eine noch nicht getroffene Auswahl wird intern mit `unknown` gespeichert. Die Oberfläche zeigt dafür „Bitte wählen“, Zusammenfassungen „Nicht angegeben“. Es gibt keine Einstufung als geprüft, Beispiel, angenommen oder eigener Befund.
 
-- Der Einstieg öffnet ein vollständiges Beispiel ohne Eingabe persönlicher Daten.
-- „Eigene Hündin“ startet mit unbekannten Werten. Das Aussehen der Hündin erzeugt keine automatischen Genotypen.
+- Alle drei Eingabefelder sind direkt sichtbar. Das Aussehen der Hündin erzeugt keine automatischen Werte.
 - Der Teilen-Link enthält ausschließlich die erlaubten Szenariofelder. Namen, Formulardaten und Kontaktdaten werden nicht übernommen.
-- „Mit dieser Kombination anfragen“ öffnet die Anfrage mit dem Szenario im Link.
+- „Mit dieser Kombination anfragen“ öffnet die Anfrage mit den ausgewählten Werten im Link.
 - Innerhalb der Anfrage bleibt der Rechner auf derselben Seite. Erst „Für meine Anfrage übernehmen“ hängt eine Berechnung an. Danach aktualisieren Änderungen die angehängte Berechnung; sie lässt sich vollständig entfernen.
 - Änderungen aktualisieren die anonymen Szenariowerte der aktuellen URL. Entfernen und Löschen entfernen sie ebenfalls. So überschreibt ein alter Link beim Neuladen keine später bearbeitete Berechnung.
-- Die API akzeptiert ein Szenario optional, validiert es und berechnet die E-Mail-Ergebnisse selbst. Mitgeschickte Prozentwerte werden ignoriert.
+- Die API akzeptiert ein Szenario optional, validiert es und berechnet die E-Mail-Ergebnisse selbst. Mitgeschickte Prozentwerte und zusätzliche Metadaten werden ignoriert.
+- Zusammenfassung und E-Mail enthalten die ausgewählten Farbwerte und berechenbaren Ergebnisse. Fehlende Werte werden ausdrücklich als fehlend angegeben.
 
-Die Query-Version `v=1` und die Rechenmodell-Version `1.0.0` sind getrennt. Unbekannte Versionen, doppelte Query-Felder, nicht unterstützte Allele und widersprüchliche Herkunftsangaben werden abgewiesen.
+Neue Links verwenden `v=2`. Gültige bisherige `v=1`-Links und gespeicherte Szenarien werden unter Beibehaltung ihrer drei Farbwerte in das neue Format überführt; die bisherigen Modus- und Herkunftsfelder entfallen dabei. Der bestehende Session-Speicherschlüssel bleibt für diese Migration erhalten. Die Rechenmodell-Version bleibt `1.0.0`, da die Vererbungsregeln unverändert sind. Unbekannte Versionen, doppelte relevante Query-Felder und nicht unterstützte Allele werden abgewiesen. Alte Szenarien müssen auch ihre bisherigen Formatregeln erfüllen.
 
 ## Entwürfe und Versand
 
@@ -63,6 +63,6 @@ Der erste Formularschritt validiert die Angaben und zeigt eine bearbeitbare Zusa
 
 ## Prüfung
 
-`npm test` prüft bekannte Kreuzungen, die Maskierung durch e1/e1, S-Vererbung, unbekannte Werte, Serialisierung und Herkunft, Entwurfsgrenzen sowie API-Validierung und serverseitige E-Mail-Ergebnisse. Versandtests verwenden einen simulierten Anbieter und versenden keine echte Nachricht. `npm run check` prüft Astro, Client-TypeScript und die Cloudflare Function; `npm run build` erzeugt die statische Website.
+`npm test` prüft bekannte Kreuzungen, die Maskierung durch e1/e1, S-Vererbung, unbekannte Werte, Serialisierung, Übernahme alter Links und Wegfall der Herkunftsangaben, Entwurfsgrenzen sowie API-Validierung und serverseitige E-Mail-Ergebnisse. Versandtests verwenden einen simulierten Anbieter und versenden keine echte Nachricht. `npm run check` prüft Astro, Client-TypeScript und die Cloudflare Function; `npm run build` erzeugt die statische Website.
 
 Bei Änderungen an der Bedienung zusätzlich den Weg Rechner → Anfrage → Bearbeiten, den eingebetteten Rechner, Feldfehler, Kontaktwechsel, Entwurf wiederherstellen/löschen, die erneute Zustimmung und die mobile Navigation im Browser prüfen.

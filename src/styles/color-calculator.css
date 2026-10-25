@@ -13,19 +13,13 @@
 .color-sire__name { font-size: 1.65rem; margin-block: .35rem; }
 .color-sire__genes { font-size: .875rem; margin-bottom: .3rem; }
 .color-text-link { color: var(--color-brown); font: inherit; font-size: .875rem; text-decoration: underline; text-underline-offset: .22em; min-height: 44px; display: inline-flex; align-items: center; }
-.color-mode { border: 0; padding: 0; margin: 0 0 1.5rem; min-width: 0; }
-.color-mode legend { padding: 0; font-weight: 600; margin-bottom: .8rem; font-size: .9375rem; }
-.color-mode__choices { display: flex; flex-wrap: wrap; gap: .65rem 1.1rem; }
-.color-mode__choices label { cursor: pointer; display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; }
-.color-mode__choices input { accent-color: var(--color-brown); width: 18px; height: 18px; }
 .color-calculator select, .color-copy-fallback input { width: 100%; min-height: 46px; padding: .65rem .8rem; background: #faf7f1; color: var(--color-brown); border: 1px solid #a3907f; border-radius: .25rem; font: inherit; font-size: .9375rem; }
 .color-field__label { display: block; font-size: .875rem; font-weight: 600; margin-bottom: .45rem; }
 .color-help { font-size: .875rem; line-height: 1.6; color: #705e51; max-width: 65ch; margin-top: .65rem; }
-.color-genetics { border-top: var(--color-calc-line); margin-top: 1.5rem; padding-top: .35rem; }
-.color-genetics > summary, .color-method > summary { cursor: pointer; min-height: 48px; padding-block: .75rem; font-weight: 600; font-size: .9375rem; }
+.color-genetics { border: 0; padding: 0; margin: 0; min-width: 0; }
+.color-genetics > legend { font-family: var(--font-display); font-size: 1.35rem; padding: 0; margin-bottom: .75rem; }
+.color-method > summary { cursor: pointer; min-height: 48px; padding-block: .75rem; font-weight: 600; font-size: .9375rem; }
 .color-genetics__fields { display: grid; gap: 1.25rem; padding-block: .5rem 1rem; }
-.color-field__source { margin-top: .5rem; }
-.color-field__source > label { display: block; font-size: .8125rem; margin-bottom: .3rem; color: #705e51; }
 .color-results { border-top: 2px solid var(--color-brown); padding-top: 1.5rem; min-width: 0; }
 .color-results__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
 .color-results__head h2 { font-size: clamp(1.6rem, 3vw, 2rem); margin-top: .5rem; }

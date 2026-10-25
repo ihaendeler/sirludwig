@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import ludwigImage from '../assets/images/hero/PXL_20260516_084223542.jpg';
-import { calculateColors, exampleScenario, formatProbability } from '../lib/color/model';
+import { calculateColors, emptyScenario, formatProbability } from '../lib/color/model';
 
 interface Props { id: string; compact?: boolean }
 const { id, compact = false } = Astro.props;
@@ -40,7 +40,7 @@ const litterWeights = [1, 6, 15, 20, 15, 6, 1];
 			<tbody>
 				{dams.map((dam) => <tr>
 					<th scope="row">{dam.label}<span>{dam.copies} der getesteten S-Variante</span></th>
-					{calculateColors({ ...exampleScenario(), s: dam.s }).spotting.map((result) => <td>{formatProbability(result.probability)}</td>)}
+					{calculateColors({ ...emptyScenario(), s: dam.s }).spotting.map((result) => <td>{formatProbability(result.probability)}</td>)}
 				</tr>)}
 			</tbody>
 		</table>

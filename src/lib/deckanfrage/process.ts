@@ -414,7 +414,7 @@ export function buildDeckanfrageEmailText(payload: DeckanfragePayload): string {
 			`Bereits vorhandene Würfe: ${labelForOption(existingLittersOptions, payload.planExistingLitters)}`,
 		]),
 		section('Nachricht', [displayValue(payload.message)]),
-		...(payload.colorScenario ? [section('Farbsimulation (aus den Eingaben neu berechnet)', scenarioLines(payload.colorScenario))] : []),
+		...(payload.colorScenario ? [section('Farbberechnung', scenarioLines(payload.colorScenario))] : []),
 	];
 
 	return sections.join('\n').trim();
@@ -474,7 +474,7 @@ export function buildDeckanfrageEmailHtml(payload: DeckanfragePayload): string {
 			`Bereits vorhandene Würfe: ${escapeHtml(labelForOption(existingLittersOptions, payload.planExistingLitters))}`,
 		]),
 		sectionHtml('Nachricht', [escapeHtml(displayValue(payload.message)).replace(/\n/g, '<br>')]),
-		...(payload.colorScenario ? [sectionHtml('Farbsimulation (aus den Eingaben neu berechnet)', scenarioLines(payload.colorScenario).map(escapeHtml))] : []),
+		...(payload.colorScenario ? [sectionHtml('Farbberechnung', scenarioLines(payload.colorScenario).map(escapeHtml))] : []),
 	];
 
 	return `<!DOCTYPE html><html lang="de"><body style="font-family:system-ui,sans-serif;color:#4a3428;line-height:1.5;">${sections.join('')}</body></html>`;
