@@ -13,7 +13,7 @@
 .color-sire__name { font-size: 1.65rem; margin-block: .35rem; }
 .color-sire__genes { font-size: .875rem; margin-bottom: .3rem; }
 .color-text-link { color: var(--color-brown); font: inherit; font-size: .875rem; text-decoration: underline; text-underline-offset: .22em; min-height: 44px; display: inline-flex; align-items: center; }
-.color-calculator select, .color-copy-fallback input { width: 100%; min-height: 46px; padding: .65rem .8rem; background: #faf7f1; color: var(--color-brown); border: 1px solid #a3907f; border-radius: .25rem; font: inherit; font-size: .9375rem; }
+.color-calculator select { width: 100%; min-height: 46px; padding: .65rem .8rem; background: #faf7f1; color: var(--color-brown); border: 1px solid #a3907f; border-radius: .25rem; font: inherit; font-size: .9375rem; }
 .color-field__label { display: block; font-size: .875rem; font-weight: 600; margin-bottom: .45rem; }
 .color-help { font-size: .875rem; line-height: 1.6; color: #705e51; max-width: 65ch; margin-top: .65rem; }
 .color-genetics { border: 0; padding: 0; margin: 0; min-width: 0; }
@@ -50,10 +50,6 @@
 .color-method ul { margin: 0; padding-left: 1.25rem; font-size: .875rem; }
 .color-method li { margin-block: .5rem; }
 .color-status { min-height: 1.6em; font-size: .875rem; margin-top: .65rem; color: #4a3428; }
-.color-copy-fallback { margin-top: 1rem; }
-.color-copy-fallback label { display: block; margin-bottom: .4rem; font-size: .875rem; }
-.color-calculator--embedded .color-sire__photo { width: 64px; height: 76px; }
-.color-calculator--embedded .color-results__live { display: none; }
 .tuxedo-guide { border-top: 1px solid #bcae9f; margin-top: 3rem; padding-top: 2rem; scroll-margin-top: calc(var(--header-height) + 1rem); }
 .tuxedo-guide__intro { display: grid; gap: 1.5rem; align-items: center; }
 .tuxedo-guide h2 { font-size: clamp(1.75rem, 3vw, 2.25rem); margin-block: .6rem 1rem; }
@@ -87,19 +83,13 @@
 .tuxedo-litter__track { display: block; background: #e9e1d6; height: .5rem; }
 .tuxedo-litter__track > span { display: block; background: #8c542e; height: 100%; }
 .tuxedo-guide .tuxedo-guide__closing { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid #d8cfc3; font-family: var(--font-display); font-size: 1.2rem; max-width: 75ch; }
-.tuxedo-guide-disclosure { margin-top: 1.5rem; border-top: 1px solid #d8cfc3; scroll-margin-top: calc(var(--header-height) + 1rem); }
-.tuxedo-guide-disclosure > summary { cursor: pointer; min-height: 48px; padding-block: .9rem; font-weight: 600; font-size: .9375rem; }
-.tuxedo-guide--compact { margin-top: 0; border-top: 0; padding-top: .5rem; }
-.tuxedo-guide--compact .tuxedo-guide__intro { display: block; }
-.tuxedo-guide--compact .tuxedo-guide__intro h3 { margin-block: .5rem .75rem; }
-.tuxedo-guide--compact .tuxedo-guide__explain { grid-template-columns: minmax(0,1fr); }
 @media (min-width: 40rem) {
 	.tuxedo-guide__intro { grid-template-columns: minmax(10rem, .65fr) minmax(0,1.35fr); gap: 2rem; }
 }
 @media (min-width: 56rem) {
-	.color-calculator:not(.color-calculator--embedded) .color-calculator__layout { grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); gap: clamp(2rem,5vw,5rem); align-items: start; }
-	.color-calculator:not(.color-calculator--embedded) .color-results { position: sticky; top: calc(var(--header-height) + 1.5rem); }
-	.tuxedo-guide:not(.tuxedo-guide--compact) .tuxedo-guide__explain { grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 3rem; }
+	.color-calculator .color-calculator__layout { grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); gap: clamp(2rem,5vw,5rem); align-items: start; }
+	.color-calculator .color-results { position: sticky; top: calc(var(--header-height) + 1.5rem); }
+	.tuxedo-guide .tuxedo-guide__explain { grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 3rem; }
 }
 @media (max-width: 25rem) {
 	.color-result__label { flex-direction: column; gap: .2rem; }

@@ -1,6 +1,12 @@
 # Noch offene Arbeiten
 
-Stand der Besprechung vom 25.10.2026.
+Stand der Besprechung vom 26.10.2026.
+
+## Umgesetzt am 26.10.2026
+
+- DNA-Profil unter „Identität & Zucht“ als vorhanden gekennzeichnet: ISAG 2020 · Premium SNP · Panel 1 + 2, entsprechend dem bestehenden Deckrüden-Steckbrief. Registereintragung und ZTP bleiben offen. Ein Originalzertifikat wird erst verlinkt, wenn die passende Datei eindeutig zugeordnet ist.
+- „Szenario teilen“ einschließlich Hinweis, Kopierfeld und Teilen-/Clipboard-Logik entfernt.
+- Vollständigen Rechner und Erklärungen aus der Deckanfrage entfernt. Das Formular enthält einen Link zur Rechnerseite beziehungsweise eine kompakte Zusammenfassung mit Ändern und Entfernen. Beim Seitenwechsel bleiben die Formularangaben über den bestehenden Entwurf im Browser-Tab erhalten.
 
 ## Fotos
 

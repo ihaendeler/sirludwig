@@ -497,10 +497,8 @@
 .inquiry-draft-tools input { width: 18px; height: 18px; accent-color: var(--color-brown); }
 .inquiry-draft-tools > p { flex-basis: 100%; }
 .inquiry-color { margin-top: 1.25rem; scroll-margin-top: calc(var(--header-height) + 1rem); }
-.inquiry-color__editor { border-top: 1px solid #bcae9f; border-bottom: 1px solid #bcae9f; }
-.inquiry-color__editor > summary, .inquiry-optional > summary { min-height: 52px; cursor: pointer; padding-block: .9rem; font-weight: 600; font-size: .9375rem; }
-.inquiry-color__editor > summary > span, .inquiry-optional > summary > span { display: block; font-size: .8125rem; color: #705e51; font-weight: 400; margin-top: .25rem; }
-.inquiry-color__editor color-calculator { padding-block: 1rem 1.5rem; }
+.inquiry-optional > summary { min-height: 52px; cursor: pointer; padding-block: .9rem; font-weight: 600; font-size: .9375rem; }
+.inquiry-optional > summary > span { display: block; font-size: .8125rem; color: #705e51; font-weight: 400; margin-top: .25rem; }
 .inquiry-color__summary { border-left: 2px solid #8c542e; padding: .75rem 0 .75rem 1.25rem; margin-bottom: 1.25rem; }
 .inquiry-color__summary h3 { font-size: 1.25rem; }
 .inquiry-color__summary p, .inquiry-color__summary li { font-size: .875rem; max-width: none; }
@@ -566,3 +564,7 @@
 		max-width: 46rem;
 	}
 }
+
+.inquiry-color__link { display: inline-flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: none; color: var(--color-brown); font: inherit; font-size: .875rem; text-decoration: underline; text-underline-offset: .22em; cursor: pointer; }
+.inquiry-color__entry { border-top: 1px solid #d8cfc3; padding-top: .5rem; }
+.inquiry-color__entry > span { margin-left: .75rem; }

@@ -1,6 +1,6 @@
 # Farbrechner und Anfrage
 
-`/farbrechner` und der aufklappbare Rechner unter `/deckanfrage` verwenden dieselbe Komponente und dasselbe Rechenmodell. Es werden keine zusätzlichen Dienste, Konten oder Abhängigkeiten benötigt.
+`/farbrechner` enthält den Rechner und die Erklärungen. `/deckanfrage` verlinkt darauf und zeigt übernommene Farbwerte als kompakte Zusammenfassung. Beide verwenden dasselbe Datenformat und Rechenmodell. Es werden keine zusätzlichen Dienste, Konten oder Abhängigkeiten benötigt.
 
 ## Fachlicher Umfang
 
@@ -30,7 +30,7 @@ Die Ergebnisse des Rüden sind mit den auf der Gesundheitsseite verlinkten Origi
 
 ## Tuxedo verständlich erklären
 
-`TuxedoGuide.astro` erläutert Grundfarbe und Zeichnung, den dokumentierten N/S-Befund, den Beitrag der Hündin und die Grenzen einer Vorhersage des sichtbaren Looks. Die Erklärung ist auf der Rechnerseite sichtbar und innerhalb der Anfrage aufklappbar. Die Genotyp-Tabelle verwendet dasselbe Modell wie der Rechner. Es wird keine Tuxedo-Wahrscheinlichkeit aus der S-Variante abgeleitet. N/N schließt andere Ursachen weißer Abzeichen nicht aus; S/S definiert keine feste Weißverteilung. Der Vorschlag, Familienfotos und bekannte Nachkommen einzubeziehen, ist eine praktische ergänzende Einordnung und keine validierte quantitative Prognose.
+`TuxedoGuide.astro` erläutert Grundfarbe und Zeichnung, den dokumentierten N/S-Befund, den Beitrag der Hündin und die Grenzen einer Vorhersage des sichtbaren Looks. Die Erklärung ist ausschließlich auf der Rechnerseite enthalten. Das Anfrageformular verlinkt dorthin. Die Genotyp-Tabelle verwendet dasselbe Modell wie der Rechner. Es wird keine Tuxedo-Wahrscheinlichkeit aus der S-Variante abgeleitet. N/N schließt andere Ursachen weißer Abzeichen nicht aus; S/S definiert keine feste Weißverteilung. Der Vorschlag, Familienfotos und bekannte Nachkommen einzubeziehen, ist eine praktische ergänzende Einordnung und keine validierte quantitative Prognose.
 
 Zusätzliche Primärquellen (23.10.2026):
 
@@ -44,9 +44,10 @@ Das **feste**, von den aktuellen Eingaben unabhängige Wurfbeispiel gilt für Lu
 Ein Szenario enthält ausschließlich die Version und drei Farbwerte (`v`, `e`, `b`, `s`). Eine noch nicht getroffene Auswahl wird intern mit `unknown` gespeichert. Die Oberfläche zeigt dafür „Bitte wählen“, Zusammenfassungen „Nicht angegeben“. Es gibt keine Einstufung als geprüft, Beispiel, angenommen oder eigener Befund.
 
 - Alle drei Eingabefelder sind direkt sichtbar. Das Aussehen der Hündin erzeugt keine automatischen Werte.
-- Der Teilen-Link enthält ausschließlich die erlaubten Szenariofelder. Namen, Formulardaten und Kontaktdaten werden nicht übernommen.
+- Es gibt keine Teilen-Funktion. Die URL-Parameter dienen weiterhin der Übergabe zwischen Rechner und Anfrage sowie dem Öffnen bisheriger Links. Sie enthalten ausschließlich die drei Farbwerte und die Version.
 - „Mit dieser Kombination anfragen“ öffnet die Anfrage mit den ausgewählten Werten im Link.
-- Innerhalb der Anfrage bleibt der Rechner auf derselben Seite. Erst „Für meine Anfrage übernehmen“ hängt eine Berechnung an. Danach aktualisieren Änderungen die angehängte Berechnung; sie lässt sich vollständig entfernen.
+- Das Formular enthält den Link „Zum Farbrechner und zur Erklärung“. Eine übernommene Berechnung zeigt nur die drei Farbwerte sowie „Berechnung ändern“ und „Berechnung entfernen“. „Berechnung ändern“ öffnet den eigenständigen Rechner mit den aktuellen Farbwerten. Die Rückkehr über dessen Anfrage-Schaltfläche übernimmt die geänderte Berechnung. Das Formular bleibt ohne Farbberechnung nutzbar.
+- Formulareingaben werden vor dem Öffnen des Rechners und beim Verlassen der Anfrage zusätzlich im bestehenden Entwurf des Browser-Tabs gesichert. Beim Zurückwechseln werden die Angaben wiederhergestellt; persönliche Angaben gelangen dabei nicht in die URL. Eine neue Seitennavigation stellt die Zustimmung nicht wieder her.
 - Änderungen aktualisieren die anonymen Szenariowerte der aktuellen URL. Entfernen und Löschen entfernen sie ebenfalls. So überschreibt ein alter Link beim Neuladen keine später bearbeitete Berechnung.
 - Die API akzeptiert ein Szenario optional, validiert es und berechnet die E-Mail-Ergebnisse selbst. Mitgeschickte Prozentwerte und zusätzliche Metadaten werden ignoriert.
 - Zusammenfassung und E-Mail enthalten die ausgewählten Farbwerte und berechenbaren Ergebnisse. Fehlende Werte werden ausdrücklich als fehlend angegeben.
@@ -65,4 +66,4 @@ Der erste Formularschritt validiert die Angaben und zeigt eine bearbeitbare Zusa
 
 `npm test` prüft bekannte Kreuzungen, die Maskierung durch e1/e1, S-Vererbung, unbekannte Werte, Serialisierung, Übernahme alter Links und Wegfall der Herkunftsangaben, Entwurfsgrenzen sowie API-Validierung und serverseitige E-Mail-Ergebnisse. Versandtests verwenden einen simulierten Anbieter und versenden keine echte Nachricht. `npm run check` prüft Astro, Client-TypeScript und die Cloudflare Function; `npm run build` erzeugt die statische Website.
 
-Bei Änderungen an der Bedienung zusätzlich den Weg Rechner → Anfrage → Bearbeiten, den eingebetteten Rechner, Feldfehler, Kontaktwechsel, Entwurf wiederherstellen/löschen, die erneute Zustimmung und die mobile Navigation im Browser prüfen.
+Bei Änderungen an der Bedienung zusätzlich den Weg Rechner → Anfrage → Bearbeiten, den Weg Anfrage → Rechner → Anfrage mit erhaltenen Formulareingaben, Feldfehler, Kontaktwechsel, Entwurf wiederherstellen/löschen, die erneute Zustimmung und die mobile Navigation im Browser prüfen.

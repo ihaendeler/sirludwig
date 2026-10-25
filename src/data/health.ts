@@ -278,14 +278,14 @@ const healthRecordsById: Record<string, HealthRecord> = {
 		title: 'DNA-Profil',
 		navLabel: 'DNA-Profil',
 		tableLabel: 'DNA-Profil',
-		tableResult: '',
-		result: '',
-		summary: '',
+		tableResult: 'Vorhanden · ISAG 2020',
+		result: 'ISAG 2020',
+		summary: 'DNA-Profil nach ISAG 2020: Premium SNP, Panel 1 + 2.',
 		breeding: '',
 		date: '',
-		pdf: 'dna-profil.pdf',
+		pdf: '',
 		category: 'zuchtzulassung',
-		completed: false,
+		completed: true,
 	},
 	register: {
 		id: 'register',
@@ -353,16 +353,17 @@ export const healthReportSections: HealthReportSection[] = [
 		title: 'Identität & Zucht',
 		intro: 'Nachweise zur Identität und zuchtrelevanten Dokumentation.',
 		pendingNotice:
-			'DNA-Profil, Registereintragung und Zuchttauglichkeitsprüfung werden nach Vorliegen dokumentiert.',
-		recordIds: ['dna-profil', 'register', 'ztp'],
+			'Registereintragung und Zuchttauglichkeitsprüfung werden nach Vorliegen dokumentiert.',
+		subsections: [{ title: 'DNA-Profil', recordIds: ['dna-profil'] }],
+		recordIds: ['register', 'ztp'],
 	},
 ];
 
 function getSectionRecordIds(section: HealthReportSection): string[] {
-	if (section.subsections) {
-		return section.subsections.flatMap((subsection) => subsection.recordIds);
-	}
-	return section.recordIds ?? [];
+	return [
+		...(section.subsections?.flatMap((subsection) => subsection.recordIds) ?? []),
+		...(section.recordIds ?? []),
+	];
 }
 
 function toNavItem(recordId: string): { id: string; label: string } {

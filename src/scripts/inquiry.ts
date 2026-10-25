@@ -1,7 +1,7 @@
 import { calculateBitchAge, formatInstagramProfile, isEmail, SEND_ERROR } from '../lib/deckanfrage/process';
 import {
-	calculateColors, decodeScenario, emptyScenario, formatProbability, GENOTYPE_LABELS,
-	LOCI, LOCUS_LABELS, parseScenario,
+	calculateColors, decodeScenario, formatProbability, GENOTYPE_LABELS,
+	LOCI, LOCUS_LABELS,
 	scenarioFromQuery, scenarioQuery, type Scenario,
 } from '../lib/color/model';
 import { DRAFT_FIELDS, readDraft, SAVED_DRAFT_KEY, SESSION_DRAFT_KEY, type InquiryDraft } from '../lib/deckanfrage/draft';
@@ -20,7 +20,9 @@ function initializeInquiry(form: HTMLFormElement) {
 	const timestamp = form.querySelector<HTMLInputElement>('[data-form-started-at]')!;
 	const colorInput = form.querySelector<HTMLInputElement>('[data-color-scenario]')!;
 	const colorSummary = form.querySelector<HTMLElement>('[data-color-summary]')!;
-	const colorEditor = form.querySelector<HTMLDetailsElement>('[data-inquiry-color-editor]')!;
+	const colorEntry = form.querySelector<HTMLElement>('[data-color-entry]')!;
+	const colorEdit = form.querySelector<HTMLAnchorElement>('[data-color-edit]')!;
+	const colorOpen = form.querySelector<HTMLAnchorElement>('[data-color-entry] [data-color-open]')!;
 	const saveDraft = document.querySelector<HTMLInputElement>('[data-save-draft]')!;
 	const draftStatus = document.querySelector<HTMLElement>('[data-draft-status]')!;
 	let attached: Scenario | null = null;
@@ -35,10 +37,12 @@ function initializeInquiry(form: HTMLFormElement) {
 	};
 	const showMessage = (message: string) => { formError.textContent = message; formError.hidden = !message; };
 
-	function attachColor(scenario: Scenario | null, syncEditor = false) {
+	function attachColor(scenario: Scenario | null) {
 		attached = scenario;
 		colorInput.value = scenario ? JSON.stringify(scenario) : '';
 		colorSummary.hidden = !scenario;
+		colorEntry.hidden = Boolean(scenario);
+		colorEdit.href = scenario ? `/farbrechner/?${scenarioQuery(scenario)}` : '/farbrechner/';
 		const url = new URL(location.href);
 		url.search = scenario ? scenarioQuery(scenario) : '';
 		history.replaceState(null, '', url);
@@ -50,7 +54,6 @@ function initializeInquiry(form: HTMLFormElement) {
 			li.textContent = `${LOCUS_LABELS[locus]}: ${GENOTYPE_LABELS[locus][scenario[locus]]}`;
 			list.append(li);
 		}
-		if (syncEditor) document.dispatchEvent(new CustomEvent('color-scenario-set', { detail: scenario }));
 	}
 
 	function snapshot(): InquiryDraft {
@@ -97,13 +100,13 @@ function initializeInquiry(form: HTMLFormElement) {
 				} else if (typeof value === 'string' && field(name)) field(name)!.value = value;
 			}
 			const storedColor = decodeScenario(String(draft.fields['color-scenario'] ?? ''));
-			attachColor(storedColor, true);
+			attachColor(storedColor);
 			draftStatus.textContent = 'Ihr Entwurf wurde wiederhergestellt. Bitte die Zustimmung vor dem Absenden erneut erteilen.';
 		}
 		saveDraft.checked = Boolean(saved);
 		const consent = field('privacy-consent') as HTMLInputElement;
 		consent.checked = false;
-		if (incoming) attachColor(incoming, true);
+		if (incoming) attachColor(incoming);
 	}
 
 	function syncContacts() {
@@ -218,16 +221,10 @@ function initializeInquiry(form: HTMLFormElement) {
 
 	form.querySelector('[data-review-button]')?.addEventListener('click', openReview);
 	form.querySelector('[data-review-edit]')?.addEventListener('click', () => { showFields(); form.querySelector<HTMLElement>('[data-review-button]')?.focus(); });
-	form.querySelector('[data-color-edit]')?.addEventListener('click', () => { colorEditor.open = true; colorEditor.querySelector<HTMLElement>('summary')?.focus(); scrollTo(colorEditor); });
-	form.querySelector('[data-color-remove]')?.addEventListener('click', () => { attachColor(null); persist(); colorEditor.querySelector<HTMLElement>('summary')?.focus(); });
-	document.addEventListener('color-scenario-apply', (event) => {
-		const next = parseScenario((event as CustomEvent).detail); if (!next) return;
-		attachColor(next); colorEditor.open = false; persist(); colorSummary.focus(); scrollTo(colorSummary);
-	});
-	document.addEventListener('color-scenario-change', (event) => {
-		const next = parseScenario((event as CustomEvent).detail);
-		if (attached && next) { attachColor(next); persist(); }
-	});
+	form.querySelectorAll('[data-color-open]').forEach((link) => link.addEventListener('click', persist));
+	form.querySelector('[data-color-remove]')?.addEventListener('click', () => { attachColor(null); persist(); colorOpen.focus(); });
+	window.addEventListener('pagehide', persist);
+
 	form.addEventListener('input', (event) => {
 		const target = event.target;
 		if (target instanceof HTMLInputElement || target instanceof HTMLSelectElement || target instanceof HTMLTextAreaElement) clearFieldError(target.name);
@@ -246,7 +243,7 @@ function initializeInquiry(form: HTMLFormElement) {
 	document.querySelector('[data-clear-draft]')?.addEventListener('click', () => {
 		clearStored(); form.reset(); saveDraft.checked = false; attachColor(null); syncContacts(); showFields(); showMessage('');
 		form.querySelectorAll<HTMLElement>('[data-field-error]').forEach((el) => clearFieldError(el.dataset.fieldError!));
-		timestamp.value = String(Date.now()); document.dispatchEvent(new CustomEvent('color-scenario-set', { detail: emptyScenario() }));
+		timestamp.value = String(Date.now());
 		draftStatus.textContent = 'Entwurf und gespeicherte Angaben wurden gelöscht.';
 	});
 
@@ -268,7 +265,7 @@ function initializeInquiry(form: HTMLFormElement) {
 			}
 			showFields(); showMessage(data.message || SEND_ERROR);
 			if (data.fields && typeof data.fields === 'object') {
-				if (data.fields['color-scenario']) { colorEditor.open = true; colorEditor.querySelector<HTMLElement>('summary')?.focus(); }
+				if (data.fields['color-scenario']) { (attached ? colorEdit : colorOpen).focus(); }
 				for (const [name, message] of Object.entries(data.fields)) if (typeof message === 'string') fieldError(name, message);
 				const invalid = form.querySelector<HTMLElement>('[aria-invalid="true"]'); if (invalid) revealAndFocus(invalid);
 			}

@@ -5,14 +5,12 @@ import ludwigImage from '../assets/images/hero/PXL_20260516_084223542.jpg';
 import { calculateColors, emptyScenario, GENOTYPE_LABELS, LOCI, LOCUS_LABELS, VALUES, MODEL_NOTE } from '../lib/color/model';
 import '../styles/color-calculator.css';
 
-interface Props { embedded?: boolean }
-const { embedded = false } = Astro.props;
 const initial = emptyScenario();
 const result = calculateColors(initial);
-const prefix = embedded ? 'inquiry-color' : 'color';
+const prefix = 'color';
 ---
 
-<color-calculator class:list={['color-calculator', { 'color-calculator--embedded': embedded }]} data-embedded={String(embedded)}>
+<color-calculator class="color-calculator">
 	<div class="color-calculator__layout">
 		<div class="color-calculator__inputs">
 			<div class="color-sire">
@@ -67,20 +65,11 @@ const prefix = embedded ? 'inquiry-color' : 'color';
 				<a class="color-text-link" href={`#${prefix}-tuxedo`} data-color-guide>Tuxedo-Vererbung und Wurfverteilung verstehen</a>
 			</div>
 			<div class="color-result-actions">
-				{embedded ? <button type="button" class="btn btn--primary" data-color-apply>Für meine Anfrage übernehmen</button> : <a href="/deckanfrage" class="btn btn--primary" data-color-inquire>Mit dieser Kombination anfragen</a>}
-				<button type="button" class="color-text-link" data-color-share>Szenario teilen</button>
-			</div>
-			<p class="color-help">Der Link enthält nur die ausgewählten Farbwerte.</p>
-			<div class="color-copy-fallback" data-color-copy hidden>
-				<label for={`${prefix}-share-url`}>Link zum Kopieren</label>
-				<input id={`${prefix}-share-url`} type="url" readonly data-color-share-url />
+				<a href="/deckanfrage/" class="btn btn--primary" data-color-inquire>Mit dieser Kombination anfragen</a>
 			</div>
 		</section>
 	</div>
-	{embedded ? <details class="tuxedo-guide-disclosure" id={`${prefix}-tuxedo`}>
-		<summary>Wie sich Ludwigs Tuxedo-Look vererbt</summary>
-		<TuxedoGuide id={`${prefix}-tuxedo-guide`} compact />
-	</details> : <TuxedoGuide id={`${prefix}-tuxedo`} />}
+	<TuxedoGuide id={`${prefix}-tuxedo`} />
 	<details class="color-method">
 		<summary>So funktioniert die Berechnung</summary>
 		<div>

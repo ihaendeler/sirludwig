@@ -3,7 +3,6 @@ export const prerender = true;
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
-import ColorCalculator from '../components/ColorCalculator.astro';
 import { siteConfig, getCanonical } from '../config/site';
 import {
 	dnaOptions,
@@ -21,7 +20,7 @@ const path = '/deckanfrage';
 
 <BaseLayout
 	title={`Deckanfrage — ${siteConfig.brandName}`}
-	description="Deckanfrage für Sir Ludwig. Kontaktweg wählen, die Hündin vorstellen und auf Wunsch ein Farbszenario übernehmen. Alle Angaben vor dem Versand prüfen."
+	description="Deckanfrage für Sir Ludwig. Kontaktweg wählen, die Hündin vorstellen und auf Wunsch eine Farbberechnung übernehmen. Alle Angaben vor dem Versand prüfen."
 	canonical={getCanonical(path)}
 >
 	<PageHero
@@ -309,14 +308,14 @@ const path = '/deckanfrage';
 							<h3>Ihre ausgewählte Kombination</h3>
 							<ul data-color-summary-values></ul>
 							<div class="inquiry-color__actions">
-								<button type="button" class="color-text-link" data-color-edit>Angaben ändern</button>
-								<button type="button" class="color-text-link" data-color-remove>Berechnung entfernen</button>
+								<a href="/farbrechner/" class="inquiry-color__link" data-color-edit data-color-open>Berechnung ändern</a>
+								<button type="button" class="inquiry-color__link" data-color-remove>Berechnung entfernen</button>
 							</div>
 						</div>
-						<details class="inquiry-color__editor" data-inquiry-color-editor>
-							<summary>Farbrechner <span>Optional</span></summary>
-							<ColorCalculator embedded />
-						</details>
+						<p class="inquiry-color__entry" data-color-entry>
+							<a href="/farbrechner/" class="inquiry-color__link" data-color-open>Zum Farbrechner und zur Erklärung</a>
+							<span class="inquiry-field__hint">Optional</span>
+						</p>
 					</div>
 				</fieldset>
 
