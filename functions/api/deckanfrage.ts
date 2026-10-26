@@ -1,3 +1,4 @@
+import { translator, type Locale } from '../../src/i18n';
 import type { PagesFunction } from '@cloudflare/workers-types';
 import { readEnvVar, readFirstEnvVar } from '../lib/env';
 import { parseDeckanfrageFormData, sendDeckanfrageEmail, SEND_ERROR } from '../../src/lib/deckanfrage/process';
@@ -27,16 +28,27 @@ type RequestContext = Pick<Parameters<PagesFunction<Env>>[0], 'request' | 'env'>
 
 export const onRequestPost = async (context: RequestContext) => {
 	const { request } = context;
+	let locale: Locale = request.headers.get('X-Site-Language') === 'en' ? 'en' : 'de';
+	const reply = (data: Record<string, unknown>, status = 200) => {
+		const t = translator(locale);
+		return json({
+			...data,
+			...(typeof data.message === 'string' ? { message: t(data.message) } : {}),
+			...(data.fields ? { fields: Object.fromEntries(
+				Object.entries(data.fields as Record<string, string>).map(([key, message]) => [key, t(message)]),
+			) } : {}),
+		}, status);
+	};
 	const origin = request.headers.get('Origin');
 	if (origin && origin !== new URL(request.url).origin) {
-		return json({ ok: false, code: 'invalid_origin', message: SEND_ERROR }, 403);
+		return reply({ ok: false, code: 'invalid_origin', message: SEND_ERROR }, 403);
 	}
 	const contentType = request.headers.get('Content-Type') ?? '';
 	if (!/^(?:multipart\/form-data|application\/x-www-form-urlencoded)(?:;|$)/i.test(contentType)) {
-		return json({ ok: false, code: 'invalid_request', message: SEND_ERROR }, 415);
+		return reply({ ok: false, code: 'invalid_request', message: SEND_ERROR }, 415);
 	}
 	if (Number(request.headers.get('Content-Length')) > MAX_REQUEST_BYTES) {
-		return json({ ok: false, code: 'request_too_large', message: SEND_ERROR }, 413);
+		return reply({ ok: false, code: 'request_too_large', message: SEND_ERROR }, 413);
 	}
 
 	let formData: FormData;
@@ -53,7 +65,7 @@ export const onRequestPost = async (context: RequestContext) => {
 			length += value.byteLength;
 			if (length > MAX_REQUEST_BYTES) {
 				await reader.cancel();
-				return json({ ok: false, code: 'request_too_large', message: SEND_ERROR }, 413);
+				return reply({ ok: false, code: 'request_too_large', message: SEND_ERROR }, 413);
 			}
 			chunks.push(value);
 		}
@@ -65,7 +77,7 @@ export const onRequestPost = async (context: RequestContext) => {
 		}
 		formData = await new Response(body, { headers: { 'Content-Type': contentType } }).formData();
 	} catch {
-		return json(
+		return reply(
 			{
 				ok: false,
 				code: 'invalid_request',
@@ -76,10 +88,11 @@ export const onRequestPost = async (context: RequestContext) => {
 		);
 	}
 
+	if (formData.get('language') === 'en') locale = 'en';
 	const parsed = parseDeckanfrageFormData(formData);
 
 	if (!parsed.ok) {
-		return json(
+		return reply(
 			{
 				ok: false,
 				code: parsed.code,
@@ -90,10 +103,10 @@ export const onRequestPost = async (context: RequestContext) => {
 		);
 	}
 
-	if (parsed.payload.honeypot) return json({ ok: true });
+	if (parsed.payload.honeypot) return reply({ ok: true });
 	const apiKey = readFirstEnvVar(context.env as Record<string, unknown>, RESEND_KEY_VARS);
 	if (!apiKey) {
-		return json({ ok: false, code: 'missing_api_key', message: SEND_ERROR }, 503);
+		return reply({ ok: false, code: 'missing_api_key', message: SEND_ERROR }, 503);
 	}
 
 	const fromEmail =
@@ -101,7 +114,7 @@ export const onRequestPost = async (context: RequestContext) => {
 	const sent = await sendDeckanfrageEmail(parsed.payload, apiKey, fromEmail);
 
 	if (!sent.ok) {
-		return json(
+		return reply(
 			{
 				ok: false,
 				code: 'send_failed',
@@ -111,7 +124,7 @@ export const onRequestPost = async (context: RequestContext) => {
 		);
 	}
 
-	return json({
+	return reply({
 		ok: true,
 		message: 'Vielen Dank. Ihre Anfrage wurde erfolgreich übermittelt.',
 	});

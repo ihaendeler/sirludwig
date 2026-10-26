@@ -1,8 +1,12 @@
+import { getLocale, translator, localizedHref } from '../i18n';
 import {
 	calculateColors, decodeScenario, emptyScenario, formatProbability, LOCI,
 	parseScenario, SCENARIO_STORAGE_KEY, scenarioFromQuery, scenarioQuery,
 	type Locus, type Scenario,
 } from '../lib/color/model';
+
+const locale = getLocale(location.pathname);
+const t = translator(locale);
 
 function readColorSession(): Scenario | null {
 	try { return decodeScenario(sessionStorage.getItem(SCENARIO_STORAGE_KEY) ?? ''); } catch { return null; }
@@ -39,7 +43,7 @@ class ColorCalculator extends HTMLElement {
 
 	private status(message: string) {
 		const target = this.querySelector('[data-color-status]');
-		if (target) target.textContent = message;
+		if (target) target.textContent = t(message);
 	}
 
 	private render(announce: boolean) {
@@ -52,18 +56,18 @@ class ColorCalculator extends HTMLElement {
 			const row = this.querySelector<HTMLElement>(`[data-color-result="${color.id}"]`);
 			if (row) row.dataset.zero = String(!result.colorsReady || color.probability.max === 0);
 			const value = row?.querySelector('[data-color-probability]');
-			if (value) value.textContent = result.colorsReady ? formatProbability(color.probability) : '—';
+			if (value) value.textContent = result.colorsReady ? formatProbability(color.probability, locale) : '—';
 		}
 		for (const spot of result.spotting) {
 			const value = this.querySelector(`[data-color-spotting="${spot.genotype}"]`);
-			if (value) value.textContent = result.spottingReady ? formatProbability(spot.probability) : '—';
+			if (value) value.textContent = result.spottingReady ? formatProbability(spot.probability, locale) : '—';
 		}
 		const colorsPending = this.querySelector<HTMLElement>('[data-color-pending]');
 		if (colorsPending) colorsPending.hidden = result.colorsReady;
 		const spottingPending = this.querySelector<HTMLElement>('[data-spotting-pending]');
 		if (spottingPending) spottingPending.hidden = result.spottingReady;
 		const inquiry = this.querySelector<HTMLAnchorElement>('[data-color-inquire]');
-		if (inquiry) inquiry.href = `/deckanfrage/?${scenarioQuery(this.scenario)}#color-inquiry`;
+		if (inquiry) inquiry.href = localizedHref(`/deckanfrage/?${scenarioQuery(this.scenario)}#color-inquiry`, locale)!;
 		if (announce) {
 			const url = new URL(location.href); url.search = scenarioQuery(this.scenario);
 			history.replaceState(null, '', url);

@@ -1,4 +1,7 @@
 ---
+import { getLocale, translator, localizedHref } from '../i18n';
+const locale = getLocale(Astro.url.pathname);
+const t = translator(locale);
 import { siteConfig } from '../config/site';
 import Brand from './Brand.astro';
 
@@ -18,19 +21,19 @@ const footerLinks = [
 	<div class="site-footer__inner container">
 		<Brand class="site-footer__brand" />
 
-		<nav class="site-footer__nav" aria-label="Footer-Navigation">
+		<nav class="site-footer__nav" aria-label={t("Footer-Navigation")}>
 			<ul class="site-footer__list">
 				{
 					footerLinks.map((item) => (
 						<li>
 							<a
-								href={item.href}
+								href={localizedHref(item.href, locale)}
 								class="site-footer__link"
 								{...(item.external
 									? { target: '_blank', rel: 'noopener noreferrer' }
 									: {})}
 							>
-								{item.label}
+								{t(item.label)}
 							</a>
 						</li>
 					))

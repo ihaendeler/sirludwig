@@ -1,4 +1,7 @@
 ---
+import { getLocale, translator, localizedHref } from '../i18n';
+const locale = getLocale(Astro.url.pathname);
+const t = translator(locale);
 import { siteConfig } from '../config/site';
 
 interface Props {
@@ -13,19 +16,19 @@ const Element = href ? 'a' : 'div';
 ---
 
 <Element
-	href={href}
+	href={localizedHref(href, locale)}
 	class:list={['brand', `brand--${variant}`, className]}
-	aria-label={href ? 'Zur Startseite' : undefined}
+	aria-label={t(href ? 'Zur Startseite' : undefined)}
 >
 	{
 		variant === 'monogram' ? (
 			<span class="brand__monogram" aria-hidden="true">
-				{siteConfig.brandMonogram}
+				{t(siteConfig.brandMonogram)}
 			</span>
 		) : (
 			<>
-				<span class="brand__name">{siteConfig.brandName}</span>
-				<span class="brand__tagline">{siteConfig.brandTagline}</span>
+				<span class="brand__name">{t(siteConfig.brandName)}</span>
+				<span class="brand__tagline">{t(siteConfig.brandTagline)}</span>
 			</>
 		)
 	}

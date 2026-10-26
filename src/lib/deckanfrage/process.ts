@@ -1,3 +1,4 @@
+import { translator, type Locale } from '../../i18n';
 import {
 	commPrefLabels,
 	dnaOptions,
@@ -254,9 +255,10 @@ function emptyPayload(): DeckanfragePayload {
 	};
 }
 
-export function calculateBitchAge(birthdate: string): string {
+export function calculateBitchAge(birthdate: string, locale: Locale = 'de'): string {
+	const t = translator(locale);
 	const normalized = normalizeBirthdate(birthdate);
-	if (!normalized || !isValidBirthdate(normalized)) return 'nicht angegeben';
+	if (!normalized || !isValidBirthdate(normalized)) return t('nicht angegeben');
 
 	const [yearStr, monthStr, dayStr] = normalized.split('-');
 	const birthYear = Number(yearStr);
@@ -276,12 +278,12 @@ export function calculateBitchAge(birthdate: string): string {
 		months += 12;
 	}
 
-	if (years < 0) return 'nicht angegeben';
+	if (years < 0) return t('nicht angegeben');
 
 	const yearLabel = years === 1 ? 'Jahr' : 'Jahre';
 	const monthLabel = months === 1 ? 'Monat' : 'Monate';
 
-	return `${years} ${yearLabel}, ${months} ${monthLabel}`;
+	return `${years} ${t(yearLabel)}, ${months} ${t(monthLabel)}`;
 }
 
 function displayValue(value: string): string {

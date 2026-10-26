@@ -1,5 +1,7 @@
 # build output
 dist/
+# English share image is generated together with the German image on every build.
+/public/og-en.jpg
 .wrangler/
 # generated types
 .astro/

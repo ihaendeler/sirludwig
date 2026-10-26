@@ -1,16 +1,19 @@
 ---
+import { getLocale, translator } from '../i18n';
+const locale = getLocale(Astro.url.pathname);
+const t = translator(locale);
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ColorCalculator from '../components/ColorCalculator.astro';
 import { getCanonical, siteConfig } from '../config/site';
 ---
 
-<BaseLayout title={`Farbrechner — ${siteConfig.brandName}`} description="Farbmöglichkeiten mit Sir Ludwig ausprobieren und seinen Tuxedo-Look verstehen: Eltern, Weißzeichnung und Wahrscheinlichkeiten innerhalb eines Wurfes einfach erklärt." canonical={getCanonical('/farbrechner')}>
+<BaseLayout title={t(`Farbrechner — ${siteConfig.brandName}`)} description={t("Farbmöglichkeiten mit Sir Ludwig ausprobieren und seinen Tuxedo-Look verstehen: Eltern, Weißzeichnung und Wahrscheinlichkeiten innerhalb eines Wurfes einfach erklärt.")} canonical={getCanonical('/farbrechner')}>
 	<section class="color-page container" aria-labelledby="color-page-title">
 		<header class="color-page__header">
-			<p class="color-eyebrow">Farbvererbung entdecken</p>
-			<h1 id="color-page-title">Welche Farben sind möglich?</h1>
-			<p>Ludwigs Tuxedo-Look verbindet Apricot mit markanten weißen Partien. Probieren Sie Farbgrundlagen direkt aus und erfahren Sie, was die Eltern zur Zeichnung beitragen.</p>
-			<a class="color-text-link" href="#color-tuxedo">Wie vererbt sich der Tuxedo-Look?</a>
+			<p class="color-eyebrow">{t("Farbvererbung entdecken")}</p>
+			<h1 id="color-page-title">{t("Welche Farben sind möglich?")}</h1>
+			<p>{t("Ludwigs Tuxedo-Look verbindet Apricot mit markanten weißen Partien. Probieren Sie Farbgrundlagen direkt aus und erfahren Sie, was die Eltern zur Zeichnung beitragen.")}</p>
+			<a class="color-text-link" href="#color-tuxedo">{t("Wie vererbt sich der Tuxedo-Look?")}</a>
 		</header>
 		<ColorCalculator />
 	</section>

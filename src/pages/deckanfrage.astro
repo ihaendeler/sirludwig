@@ -1,4 +1,7 @@
 ---
+import { getLocale, translator, localizedHref } from '../i18n';
+const locale = getLocale(Astro.url.pathname);
+const t = translator(locale);
 export const prerender = true;
 
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -19,37 +22,37 @@ const path = '/deckanfrage';
 ---
 
 <BaseLayout
-	title={`Deckanfrage — ${siteConfig.brandName}`}
-	description="Deckanfrage für Sir Ludwig. Kontaktweg wählen, die Hündin vorstellen und auf Wunsch eine Farbberechnung übernehmen. Alle Angaben vor dem Versand prüfen."
+	title={t(`Deckanfrage — ${siteConfig.brandName}`)}
+	description={t("Deckanfrage für Sir Ludwig. Kontaktweg wählen, die Hündin vorstellen und auf Wunsch eine Farbberechnung übernehmen. Alle Angaben vor dem Versand prüfen.")}
 	canonical={getCanonical(path)}
 >
 	<PageHero
-		label="Deckanfrage"
-		title="Deckanfrage"
-		intro="Ihre Hündin, Ihre Planung, Ihr Kontaktweg. Die wichtigsten Angaben reichen für eine erste Anfrage."
+		label={t("Deckanfrage")}
+		title={t("Deckanfrage")}
+		intro={t("Ihre Hündin, Ihre Planung, Ihr Kontaktweg. Die wichtigsten Angaben reichen für eine erste Anfrage.")}
 		headingId="inquiry-heading"
 	/>
 
 	<section class="inquiry-section" aria-labelledby="inquiry-form-heading">
 		<div class="container">
-			<h2 id="inquiry-form-heading" class="visually-hidden">Anfrageformular</h2>
+			<h2 id="inquiry-form-heading" class="visually-hidden">{t("Anfrageformular")}</h2>
 
 			<div class="inquiry-success" data-form-success hidden tabindex="-1">
-				<p class="inquiry-success__headline" data-form-success-target>✓ Anfrage erfolgreich übermittelt</p>
-				<p class="inquiry-success__lead">Vielen Dank für Ihre Deckanfrage.</p>
+				<p class="inquiry-success__headline" data-form-success-target>{t("✓ Anfrage erfolgreich übermittelt")}</p>
+				<p class="inquiry-success__lead">{t("Vielen Dank für Ihre Deckanfrage.")}</p>
 				<p class="inquiry-success__text">
-					Die Angaben wurden erfolgreich übermittelt und werden geprüft.
+					{t("Die Angaben wurden erfolgreich übermittelt und werden geprüft.")}
 				</p>
-				<a href="/" class="btn btn--primary inquiry-success__cta">Zur Startseite</a>
+				<a href={localizedHref("/", locale)} class="btn btn--primary inquiry-success__cta">{t("Zur Startseite")}</a>
 			</div>
 
 			<div class="inquiry-draft-tools">
-				<label><input type="checkbox" data-save-draft /> Entwurf für später auf diesem Gerät speichern</label>
-				<button type="button" class="color-text-link" data-clear-draft>Entwurf löschen</button>
+				<label><input type="checkbox" data-save-draft /> {t("Entwurf für später auf diesem Gerät speichern")}</label>
+				<button type="button" class="color-text-link" data-clear-draft>{t("Entwurf löschen")}</button>
 				<p data-draft-status role="status" class="inquiry-field__hint"></p>
 			</div>
-			<p class="inquiry-form__intro">Mit <span aria-hidden="true">*</span> markierte Angaben sind erforderlich. Alles Weitere ist freiwillig. Ein gespeicherter Entwurf bleibt sieben Tage auf diesem Gerät.</p>
-			<noscript><p>Für das interaktive Formular aktivieren Sie bitte JavaScript. Sie erreichen uns auch unter <a href="mailto:deckanfrage@sirludwig.de">deckanfrage@sirludwig.de</a>.</p></noscript>
+			<p class="inquiry-form__intro">{t("Mit")} <span aria-hidden="true">*</span> {t("markierte Angaben sind erforderlich. Alles Weitere ist freiwillig. Ein gespeicherter Entwurf bleibt sieben Tage auf diesem Gerät.")}</p>
+			<noscript><p>{t("Für das interaktive Formular aktivieren Sie bitte JavaScript. Sie erreichen uns auch unter")} <a href="mailto:deckanfrage@sirludwig.de">{t("deckanfrage@sirludwig.de")}</a>.</p></noscript>
 			<form
 				class="inquiry-form"
 				action="/api/deckanfrage"
@@ -57,12 +60,13 @@ const path = '/deckanfrage';
 				novalidate
 				data-inquiry-form
 			>
+				<input type="hidden" name="language" value={locale} />
 				<input type="hidden" name="_form-started-at" value="" data-form-started-at />
 				<input type="hidden" name="color-scenario" value="" data-color-scenario />
 				<div data-inquiry-fields>
 
 				<div class="inquiry-form__honeypot" aria-hidden="true">
-					<label class="inquiry-field__label" for="_honeypot">Website</label>
+					<label class="inquiry-field__label" for="_honeypot">{t("Website")}</label>
 					<input
 						class="inquiry-field__input"
 						type="text"
@@ -73,10 +77,10 @@ const path = '/deckanfrage';
 					/>
 				</div>
 				<fieldset class="inquiry-form__group">
-					<legend class="inquiry-form__legend">Kontaktdaten</legend>
+					<legend class="inquiry-form__legend">{t("Kontaktdaten")}</legend>
 					<div class="inquiry-form__grid">
 						<div class="inquiry-field inquiry-field--full">
-							<label class="inquiry-field__label" for="contact-name">Name <span aria-hidden="true">*</span></label>
+							<label class="inquiry-field__label" for="contact-name">{t("Name")} <span aria-hidden="true">*</span></label>
 							<input
 								class="inquiry-field__input"
 								type="text"
@@ -87,7 +91,7 @@ const path = '/deckanfrage';
 							/>
 						</div>
 						<div class="inquiry-field">
-							<label class="inquiry-field__label" for="contact-city">Ort / Stadt</label>
+							<label class="inquiry-field__label" for="contact-city">{t("Ort / Stadt")}</label>
 							<input
 								class="inquiry-field__input"
 								type="text"
@@ -97,7 +101,7 @@ const path = '/deckanfrage';
 							/>
 						</div>
 						<div class="inquiry-field">
-							<label class="inquiry-field__label" for="contact-state">Bundesland</label>
+							<label class="inquiry-field__label" for="contact-state">{t("Bundesland")}</label>
 							<select
 								class="inquiry-field__select"
 								id="contact-state"
@@ -105,7 +109,7 @@ const path = '/deckanfrage';
 								autocomplete="address-level1"
 							>
 								{federalStateOptions.map((option) => (
-									<option value={option.value}>{option.label}</option>
+									<option value={option.value}>{t(option.label)}</option>
 								))}
 							</select>
 						</div>
@@ -113,10 +117,10 @@ const path = '/deckanfrage';
 				</fieldset>
 
 				<fieldset class="inquiry-form__group" data-comm-section>
-					<legend class="inquiry-form__legend">Bevorzugte Kommunikation <span aria-hidden="true">*</span></legend>
-					<p class="inquiry-field__hint">Wählen Sie, wie Sie kontaktiert werden möchten.</p>
+					<legend class="inquiry-form__legend">{t("Bevorzugte Kommunikation")} <span aria-hidden="true">*</span></legend>
+					<p class="inquiry-field__hint">{t("Wählen Sie, wie Sie kontaktiert werden möchten.")}</p>
 
-					<div class="inquiry-comm__choices" role="group" aria-label="Bevorzugte Kommunikationswege">
+					<div class="inquiry-comm__choices" role="group" aria-label={t("Bevorzugte Kommunikationswege")}>
 						<label class="inquiry-check">
 							<input
 								class="inquiry-check__input"
@@ -125,7 +129,7 @@ const path = '/deckanfrage';
 								value="email"
 								data-comm-toggle="email"
 							/>
-							<span class="inquiry-check__label">E-Mail</span>
+							<span class="inquiry-check__label">{t("E-Mail")}</span>
 						</label>
 						<label class="inquiry-check">
 							<input
@@ -135,7 +139,7 @@ const path = '/deckanfrage';
 								value="phone"
 								data-comm-toggle="phone"
 							/>
-							<span class="inquiry-check__label">Telefon</span>
+							<span class="inquiry-check__label">{t("Telefon")}</span>
 						</label>
 						<label class="inquiry-check">
 							<input
@@ -145,7 +149,7 @@ const path = '/deckanfrage';
 								value="whatsapp"
 								data-comm-toggle="whatsapp"
 							/>
-							<span class="inquiry-check__label">WhatsApp</span>
+							<span class="inquiry-check__label">{t("WhatsApp")}</span>
 						</label>
 						<label class="inquiry-check">
 							<input
@@ -155,17 +159,17 @@ const path = '/deckanfrage';
 								value="instagram"
 								data-comm-toggle="instagram"
 							/>
-							<span class="inquiry-check__label">Instagram</span>
+							<span class="inquiry-check__label">{t("Instagram")}</span>
 						</label>
 					</div>
 
 					<p class="inquiry-comm__error" data-comm-error hidden>
-						Bitte mindestens einen Kommunikationsweg auswählen.
+						{t("Bitte mindestens einen Kommunikationsweg auswählen.")}
 					</p>
 
 					<div class="inquiry-form__grid inquiry-comm__fields">
 						<div class="inquiry-field inquiry-field--full inquiry-comm__field" data-comm-field="email">
-							<label class="inquiry-field__label" for="comm-email">E-Mail-Adresse</label>
+							<label class="inquiry-field__label" for="comm-email">{t("E-Mail-Adresse")}</label>
 							<input
 								class="inquiry-field__input"
 								type="email"
@@ -177,7 +181,7 @@ const path = '/deckanfrage';
 							/>
 						</div>
 						<div class="inquiry-field inquiry-field--full inquiry-comm__field" data-comm-field="phone">
-							<label class="inquiry-field__label" for="comm-phone">Telefonnummer</label>
+							<label class="inquiry-field__label" for="comm-phone">{t("Telefonnummer")}</label>
 							<input
 								class="inquiry-field__input"
 								type="tel"
@@ -192,7 +196,7 @@ const path = '/deckanfrage';
 							class="inquiry-field inquiry-field--full inquiry-comm__field"
 							data-comm-field="whatsapp"
 						>
-							<label class="inquiry-field__label" for="comm-whatsapp">WhatsApp-Nummer</label>
+							<label class="inquiry-field__label" for="comm-whatsapp">{t("WhatsApp-Nummer")}</label>
 							<input
 								class="inquiry-field__input"
 								type="tel"
@@ -202,36 +206,36 @@ const path = '/deckanfrage';
 								inputmode="tel"
 								data-comm-input
 							/>
-							<p class="inquiry-field__hint">Kann mit der Telefonnummer identisch sein.</p>
+							<p class="inquiry-field__hint">{t("Kann mit der Telefonnummer identisch sein.")}</p>
 						</div>
 						<div
 							class="inquiry-field inquiry-field--full inquiry-comm__field"
 							data-comm-field="instagram"
 						>
-							<label class="inquiry-field__label" for="comm-instagram">Instagram-Profil</label>
+							<label class="inquiry-field__label" for="comm-instagram">{t("Instagram-Profil")}</label>
 							<input
 								class="inquiry-field__input"
 								type="text"
 								id="comm-instagram"
 								name="comm-instagram"
 								autocomplete="off"
-								placeholder="@nutzername"
+								placeholder={t("@nutzername")}
 								data-comm-input
 							/>
 						</div>
 					</div>
 
 					<p class="inquiry-form__privacy">
-						Die Angaben werden ausschließlich zur Bearbeitung der Deckanfrage verwendet.
-						<a class="inquiry-form__privacy-link" href="/datenschutz">Datenschutzerklärung</a>
+						{t("Die Angaben werden ausschließlich zur Bearbeitung der Deckanfrage verwendet.")}
+						<a class="inquiry-form__privacy-link" href={localizedHref("/datenschutz", locale)}>{t("Datenschutzerklärung")}</a>
 					</p>
 				</fieldset>
 
 				<fieldset class="inquiry-form__group">
-					<legend class="inquiry-form__legend">Hündin</legend>
+					<legend class="inquiry-form__legend">{t("Hündin")}</legend>
 					<div class="inquiry-form__grid">
 						<div class="inquiry-field inquiry-field--full">
-							<label class="inquiry-field__label" for="bitch-name">Name der Hündin</label>
+							<label class="inquiry-field__label" for="bitch-name">{t("Name der Hündin")}</label>
 							<input
 								class="inquiry-field__input"
 								type="text"
@@ -240,7 +244,7 @@ const path = '/deckanfrage';
 							/>
 						</div>
 						<div class="inquiry-field">
-							<label class="inquiry-field__label" for="bitch-birthdate">Geburtsdatum</label>
+							<label class="inquiry-field__label" for="bitch-birthdate">{t("Geburtsdatum")}</label>
 							<input
 								class="inquiry-field__input"
 								type="date"
@@ -251,7 +255,7 @@ const path = '/deckanfrage';
 							<p class="inquiry-field__hint" data-bitch-age hidden></p>
 						</div>
 						<div class="inquiry-field">
-							<label class="inquiry-field__label" for="bitch-color">Farbe</label>
+							<label class="inquiry-field__label" for="bitch-color">{t("Farbe")}</label>
 							<input
 								class="inquiry-field__input"
 								type="text"
@@ -260,7 +264,7 @@ const path = '/deckanfrage';
 							/>
 						</div>
 						<div class="inquiry-field">
-							<label class="inquiry-field__label" for="bitch-size">Größe</label>
+							<label class="inquiry-field__label" for="bitch-size">{t("Größe")}</label>
 							<div class="inquiry-field__control inquiry-field__control--unit">
 								<input
 									class="inquiry-field__input"
@@ -271,13 +275,13 @@ const path = '/deckanfrage';
 									max="99"
 									step="1"
 									inputmode="numeric"
-									placeholder="58"
+									placeholder={t("58")}
 								/>
-								<span class="inquiry-field__unit" aria-hidden="true">cm</span>
+								<span class="inquiry-field__unit" aria-hidden="true">{t("cm")}</span>
 							</div>
 						</div>
 						<div class="inquiry-field">
-							<label class="inquiry-field__label" for="bitch-weight">Gewicht</label>
+							<label class="inquiry-field__label" for="bitch-weight">{t("Gewicht")}</label>
 							<div class="inquiry-field__control inquiry-field__control--unit">
 								<input
 									class="inquiry-field__input"
@@ -288,13 +292,13 @@ const path = '/deckanfrage';
 									max="99"
 									step="0.1"
 									inputmode="decimal"
-									placeholder="23"
+									placeholder={t("23")}
 								/>
-								<span class="inquiry-field__unit" aria-hidden="true">kg</span>
+								<span class="inquiry-field__unit" aria-hidden="true">{t("kg")}</span>
 							</div>
 						</div>
 						<div class="inquiry-field inquiry-field--full">
-							<label class="inquiry-field__label" for="bitch-club">Verein / Verband</label>
+							<label class="inquiry-field__label" for="bitch-club">{t("Verein / Verband")}</label>
 							<input
 								class="inquiry-field__input"
 								type="text"
@@ -305,62 +309,62 @@ const path = '/deckanfrage';
 					</div>
 				<div class="inquiry-color" id="color-inquiry">
 						<div class="inquiry-color__summary" data-color-summary hidden tabindex="-1">
-							<h3>Ihre ausgewählte Kombination</h3>
+							<h3>{t("Ihre ausgewählte Kombination")}</h3>
 							<ul data-color-summary-values></ul>
 							<div class="inquiry-color__actions">
-								<a href="/farbrechner/" class="inquiry-color__link" data-color-edit data-color-open>Berechnung ändern</a>
-								<button type="button" class="inquiry-color__link" data-color-remove>Berechnung entfernen</button>
+								<a href={localizedHref("/farbrechner/", locale)} class="inquiry-color__link" data-color-edit data-color-open>{t("Berechnung ändern")}</a>
+								<button type="button" class="inquiry-color__link" data-color-remove>{t("Berechnung entfernen")}</button>
 							</div>
 						</div>
 						<p class="inquiry-color__entry" data-color-entry>
-							<a href="/farbrechner/" class="inquiry-color__link" data-color-open>Zum Farbrechner und zur Erklärung</a>
-							<span class="inquiry-field__hint">Optional</span>
+							<a href={localizedHref("/farbrechner/", locale)} class="inquiry-color__link" data-color-open>{t("Zum Farbrechner und zur Erklärung")}</a>
+							<span class="inquiry-field__hint">{t("Optional")}</span>
 						</p>
 					</div>
 				</fieldset>
 
 				<details class="inquiry-optional">
-					<summary>Gesundheitsangaben ergänzen <span>Optional</span></summary>
+					<summary>{t("Gesundheitsangaben ergänzen")} <span>{t("Optional")}</span></summary>
 					<fieldset class="inquiry-form__group">
-					<legend class="visually-hidden">Gesundheit</legend>
+					<legend class="visually-hidden">{t("Gesundheit")}</legend>
 					<div class="inquiry-form__grid">
 						<div class="inquiry-field">
-							<label class="inquiry-field__label" for="health-hd">HD</label>
+							<label class="inquiry-field__label" for="health-hd">{t("HD")}</label>
 							<select class="inquiry-field__select" id="health-hd" name="health-hd">
 								{hdOptions.map((option) => (
-									<option value={option.value}>{option.label}</option>
+									<option value={option.value}>{t(option.label)}</option>
 								))}
 							</select>
 						</div>
 						<div class="inquiry-field">
-							<label class="inquiry-field__label" for="health-ed">ED</label>
+							<label class="inquiry-field__label" for="health-ed">{t("ED")}</label>
 							<select class="inquiry-field__select" id="health-ed" name="health-ed">
 								{edOptions.map((option) => (
-									<option value={option.value}>{option.label}</option>
+									<option value={option.value}>{t(option.label)}</option>
 								))}
 							</select>
 						</div>
 						<div class="inquiry-field">
-							<label class="inquiry-field__label" for="health-patella">Patella</label>
+							<label class="inquiry-field__label" for="health-patella">{t("Patella")}</label>
 							<select class="inquiry-field__select" id="health-patella" name="health-patella">
 								{patellaOptions.map((option) => (
-									<option value={option.value}>{option.label}</option>
+									<option value={option.value}>{t(option.label)}</option>
 								))}
 							</select>
 						</div>
 						<div class="inquiry-field">
-							<label class="inquiry-field__label" for="health-eyes">Augenuntersuchung</label>
+							<label class="inquiry-field__label" for="health-eyes">{t("Augenuntersuchung")}</label>
 							<select class="inquiry-field__select" id="health-eyes" name="health-eyes">
 								{eyeOptions.map((option) => (
-									<option value={option.value}>{option.label}</option>
+									<option value={option.value}>{t(option.label)}</option>
 								))}
 							</select>
 						</div>
 						<div class="inquiry-field inquiry-field--full">
-							<label class="inquiry-field__label" for="health-dna">DNA-Tests</label>
+							<label class="inquiry-field__label" for="health-dna">{t("DNA-Tests")}</label>
 							<select class="inquiry-field__select" id="health-dna" name="health-dna">
 								{dnaOptions.map((option) => (
-									<option value={option.value}>{option.label}</option>
+									<option value={option.value}>{t(option.label)}</option>
 								))}
 							</select>
 						</div>
@@ -369,10 +373,10 @@ const path = '/deckanfrage';
 				</details>
 
 				<fieldset class="inquiry-form__group">
-					<legend class="inquiry-form__legend">Planung</legend>
+					<legend class="inquiry-form__legend">{t("Planung")}</legend>
 					<div class="inquiry-form__grid">
 						<div class="inquiry-field inquiry-field--full">
-							<label class="inquiry-field__label" for="plan-period">Geplanter Deckzeitraum</label>
+							<label class="inquiry-field__label" for="plan-period">{t("Geplanter Deckzeitraum")}</label>
 							<input
 								class="inquiry-field__input"
 								type="text"
@@ -382,7 +386,7 @@ const path = '/deckanfrage';
 						</div>
 						<div class="inquiry-field">
 							<label class="inquiry-field__label" for="plan-existing-litters"
-								>Bereits vorhandene Würfe?</label
+								>{t("Bereits vorhandene Würfe?")}</label
 							>
 							<select
 								class="inquiry-field__select"
@@ -390,7 +394,7 @@ const path = '/deckanfrage';
 								name="plan-existing-litters"
 							>
 								{existingLittersOptions.map((option) => (
-									<option value={option.value}>{option.label}</option>
+									<option value={option.value}>{t(option.label)}</option>
 								))}
 							</select>
 						</div>
@@ -398,9 +402,9 @@ const path = '/deckanfrage';
 				</fieldset>
 
 				<fieldset class="inquiry-form__group">
-					<legend class="inquiry-form__legend">Nachricht</legend>
+					<legend class="inquiry-form__legend">{t("Nachricht")}</legend>
 					<div class="inquiry-field">
-						<label class="inquiry-field__label" for="message">Freitextfeld</label>
+						<label class="inquiry-field__label" for="message">{t("Freitextfeld")}</label>
 						<textarea
 							class="inquiry-field__textarea"
 							id="message"
@@ -422,32 +426,31 @@ const path = '/deckanfrage';
 						/>
 						<div class="inquiry-consent__content">
 							<label class="inquiry-consent__label" for="privacy-consent">
-								Ich habe die{' '}
-								<a class="inquiry-form__privacy-link" href="/datenschutz" data-consent-link>
-									Datenschutzerklärung
-								</a>{' '}
-								gelesen und bin damit einverstanden, dass meine Angaben zur Bearbeitung der
-								Deckanfrage verarbeitet werden.
+								{t("Ich habe die")}{t(' ')}
+								<a class="inquiry-form__privacy-link" href={localizedHref("/datenschutz", locale)} data-consent-link>
+									{t("Datenschutzerklärung")}
+								</a>{t(' ')}
+								{t("gelesen und bin damit einverstanden, dass meine Angaben zur Bearbeitung der Deckanfrage verarbeitet werden.")}
 							</label>
 							<p class="inquiry-consent__hint">
-								Die Angaben werden ausschließlich zur Bearbeitung der Anfrage verwendet.
+								{t("Die Angaben werden ausschließlich zur Bearbeitung der Anfrage verwendet.")}
 							</p>
 						</div>
 					</div>
 				</div>
 
 				<div class="inquiry-form__actions">
-					<button type="button" class="btn btn--primary inquiry-form__submit" data-review-button>Angaben prüfen</button>
+					<button type="button" class="btn btn--primary inquiry-form__submit" data-review-button>{t("Angaben prüfen")}</button>
 				</div>
 				</div>
 				<p class="inquiry-form__status inquiry-form__status--error" data-form-error hidden role="alert"></p>
 				<section class="inquiry-review" data-inquiry-review hidden aria-labelledby="inquiry-review-title" tabindex="-1">
-					<p class="inquiry-eyebrow">Vor dem Absenden</p>
-					<h2 id="inquiry-review-title">Ihre Anfrage im Überblick</h2>
+					<p class="inquiry-eyebrow">{t("Vor dem Absenden")}</p>
+					<h2 id="inquiry-review-title">{t("Ihre Anfrage im Überblick")}</h2>
 					<div data-review-content></div>
 					<div class="inquiry-review__actions">
-						<button type="button" class="btn btn--secondary" data-review-edit>Angaben bearbeiten</button>
-						<button type="submit" class="btn btn--primary" data-inquiry-submit>Anfrage absenden</button>
+						<button type="button" class="btn btn--secondary" data-review-edit>{t("Angaben bearbeiten")}</button>
+						<button type="submit" class="btn btn--primary" data-inquiry-submit>{t("Anfrage absenden")}</button>
 					</div>
 				</section>
 			</form>
@@ -457,12 +460,10 @@ const path = '/deckanfrage';
 	<section class="inquiry-notice" aria-labelledby="inquiry-notice-heading">
 		<div class="container">
 			<div class="inquiry-notice__inner">
-				<p class="inquiry-eyebrow">Hinweis</p>
-				<h2 id="inquiry-notice-heading" class="inquiry-title">Aktueller Stand</h2>
+				<p class="inquiry-eyebrow">{t("Hinweis")}</p>
+				<h2 id="inquiry-notice-heading" class="inquiry-title">{t("Aktueller Stand")}</h2>
 				<p class="inquiry-text">
-					Ludwig befindet sich aktuell im Aufbau als zukünftiger Deckrüde. Die Seite dient der
-					Dokumentation seiner Entwicklung. Verfügbarkeiten und Voraussetzungen werden zu
-					gegebener Zeit veröffentlicht.
+					{t("Ludwig befindet sich aktuell im Aufbau als zukünftiger Deckrüde. Die Seite dient der Dokumentation seiner Entwicklung. Verfügbarkeiten und Voraussetzungen werden zu gegebener Zeit veröffentlicht.")}
 				</p>
 			</div>
 		</div>

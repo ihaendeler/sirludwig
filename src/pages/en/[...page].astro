@@ -1,0 +1,23 @@
+---
+import Home from '../index.astro';
+import Ludwig from '../ludwig.astro';
+import Pedigree from '../stammbaum.astro';
+import Health from '../gesundheit.astro';
+import Gallery from '../galerie.astro';
+import Offspring from '../nachzucht.astro';
+import Calculator from '../farbrechner.astro';
+import Inquiry from '../deckanfrage.astro';
+import Recommendations from '../empfehlungen.astro';
+import NotFound from '../404.astro';
+import { routes } from '../../i18n';
+
+export function getStaticPaths() {
+	const pages = [Home, Ludwig, Pedigree, Health, Gallery, Offspring, Calculator, Inquiry, Recommendations, NotFound];
+	return routes.map((route, index) => ({
+		params: { page: route[1].slice('/en/'.length).replace(/\/$/, '') || undefined },
+		props: { Page: pages[index] },
+	}));
+}
+const { Page } = Astro.props;
+---
+<Page />

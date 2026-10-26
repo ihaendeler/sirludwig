@@ -5,7 +5,7 @@ const opener = document.querySelector<HTMLButtonElement>('.nav-toggle--open');
 const closer = document.querySelector<HTMLButtonElement>('.nav-toggle--close');
 const nav = document.getElementById('site-nav');
 const overlay = document.querySelector<HTMLElement>('[data-nav-overlay]');
-const desktop = matchMedia('(min-width: 72rem)');
+const desktop = matchMedia('(min-width: 80rem)');
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 let hideTimer: number | undefined;
 let open = false;
@@ -40,7 +40,7 @@ document.addEventListener('keydown', (event) => {
 	if (!open || !nav) return;
 	if (event.key === 'Escape') { event.preventDefault(); setMenu(false); return; }
 	if (event.key !== 'Tab') return;
-	const focusable = [...nav.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')].filter((el) => el.getClientRects().length);
+	const focusable = [...nav.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), select:not([disabled])')].filter((el) => el.getClientRects().length);
 	const first = focusable[0]; const last = focusable[focusable.length - 1];
 	if (event.shiftKey && (document.activeElement === first || !nav.contains(document.activeElement))) { event.preventDefault(); last?.focus(); }
 	else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }

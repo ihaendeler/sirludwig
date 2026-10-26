@@ -185,6 +185,15 @@ test('delivers a valid inquiry via a mocked provider', async () => {
 	assert.deepEqual(sent.to, ['deckanfrage@sirludwig.de']);
 });
 
+test('English enquiry delivery returns an English success message', async () => {
+	const provider = mock.method(globalThis, 'fetch', async () => new Response('{}', { status: 200 }));
+	const form = validForm(); form.set('language', 'en');
+	const response = await handle(request(form), { RESEND_API_KEY: 'test-key' });
+	assert.equal(response.status, 200);
+	assert.deepEqual(await response.json(), { ok: true, message: 'Thank you. Your enquiry has been sent successfully.' });
+	assert.equal(provider.mock.callCount(), 1);
+});
+
 test('provider failures return a controlled gateway error', async () => {
 	mock.method(globalThis, 'fetch', async () => new Response('{}', { status: 500 }));
 	assert.equal((await handle(request(), { RESEND_API_KEY: 'test-key' })).status, 502);
@@ -203,6 +212,28 @@ test('API returns an actionable field error without contacting the provider', as
 	const body = await response.json();
 	assert.match(body.fields['comm-email'], /gültige E-Mail/);
 	assert.equal(provider.mock.callCount(), 0);
+});
+
+test('English enquiries receive English validation errors without sending email', async () => {
+	const provider = mock.method(globalThis, 'fetch', async () => { throw new Error('Must not send'); });
+	const form = validForm(); form.set('language', 'en'); form.set('comm-email', 'invalid');
+	const response = await handle(request(form), { RESEND_API_KEY: 'test-key' });
+	assert.equal(response.status, 400);
+	const body = await response.json();
+	assert.equal(body.message, 'Please enter a valid email address.');
+	assert.equal(body.fields['comm-email'], body.message);
+	assert.equal(provider.mock.callCount(), 0);
+});
+
+test('English service and pre-parse errors are localised too', async () => {
+	const req = request(); req.headers.set('X-Site-Language', 'en');
+	const response = await handle(req);
+	assert.equal(response.status, 503);
+	assert.equal((await response.json()).message, 'Your enquiry could not be sent at the moment. Please try again later.');
+	const invalid = request(); invalid.headers.set('X-Site-Language', 'en'); invalid.headers.set('Origin', 'https://other.example');
+	const denied = await handle(invalid);
+	assert.equal(denied.status, 403);
+	assert.equal((await denied.json()).message, 'Your enquiry could not be sent at the moment. Please try again later.');
 });
 
 test('server recomputes color results and strips supplied percentages and personal extras', () => {

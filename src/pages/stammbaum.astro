@@ -1,4 +1,7 @@
 ---
+import { getLocale, translator } from '../i18n';
+const locale = getLocale(Astro.url.pathname);
+const t = translator(locale);
 export const prerender = true;
 
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -11,28 +14,28 @@ const path = '/stammbaum';
 ---
 
 <BaseLayout
-	title={`Stammbaum — ${siteConfig.brandName}`}
-	description="Abstammung und Linien von Sir Ludwig — dokumentiert und schrittweise ergänzt."
+	title={t(`Stammbaum — ${siteConfig.brandName}`)}
+	description={t("Abstammung und Linien von Sir Ludwig — dokumentiert und schrittweise ergänzt.")}
 	canonical={getCanonical(path)}
 >
 	<PageHero
-		label="Stammbaum"
-		title="Abstammung und Linien"
-		intro="Die Abstammung von Ludwig wird hier fortlaufend dokumentiert."
+		label={t("Stammbaum")}
+		title={t("Abstammung und Linien")}
+		intro={t("Die Abstammung von Ludwig wird hier fortlaufend dokumentiert.")}
 		headingId="pedigree-heading"
 	/>
 
 	<section class="pedigree-section" aria-labelledby="pedigree-tree-heading">
 		<div class="container">
 			<header class="pedigree-section__header">
-				<p class="pedigree-eyebrow">Ahnen</p>
-				<h2 id="pedigree-tree-heading" class="pedigree-title">Stammbaum</h2>
+				<p class="pedigree-eyebrow">{t("Ahnen")}</p>
+				<h2 id="pedigree-tree-heading" class="pedigree-title">{t("Stammbaum")}</h2>
 			</header>
 
 			<div class="pedigree-tree" data-pedigree-tree>
 				<div class="pedigree-tree__subject">
-					<p class="pedigree-tree__role">{pedigreeSubject.role}</p>
-					<p class="pedigree-tree__name">{pedigreeSubject.name}</p>
+					<p class="pedigree-tree__role">{t(pedigreeSubject.role)}</p>
+					<p class="pedigree-tree__name">{t(pedigreeSubject.name)}</p>
 				</div>
 
 				<ul class="pedigree-tree__branches">
@@ -50,8 +53,8 @@ const path = '/stammbaum';
 									<span class="pedigree-branch__marker" aria-hidden="true">
 										▼
 									</span>
-									<span class="pedigree-branch__role">{parent.role}</span>
-									<span class="pedigree-branch__name">{parent.name}</span>
+									<span class="pedigree-branch__role">{t(parent.role)}</span>
+									<span class="pedigree-branch__name">{t(parent.name)}</span>
 								</button>
 								<div
 									class="pedigree-branch__panel"
@@ -64,8 +67,8 @@ const path = '/stammbaum';
 										<ul class="pedigree-branch__grandparents">
 											{parent.grandparents.map((ancestor) => (
 												<li class="pedigree-ancestor">
-													<p class="pedigree-ancestor__role">{ancestor.role}</p>
-													<p class="pedigree-ancestor__name">{ancestor.name}</p>
+													<p class="pedigree-ancestor__role">{t(ancestor.role)}</p>
+													<p class="pedigree-ancestor__name">{t(ancestor.name)}</p>
 												</li>
 											))}
 										</ul>
@@ -82,12 +85,12 @@ const path = '/stammbaum';
 	<section class="pedigree-section" aria-labelledby="pedigree-lines-heading">
 		<div class="container">
 			<header class="pedigree-section__header">
-				<p class="pedigree-eyebrow">Herkunft</p>
-				<h2 id="pedigree-lines-heading" class="pedigree-title">Bekannte Linien</h2>
+				<p class="pedigree-eyebrow">{t("Herkunft")}</p>
+				<h2 id="pedigree-lines-heading" class="pedigree-title">{t("Bekannte Linien")}</h2>
 			</header>
 
 			<ul class="pedigree-lines">
-				{pedigreeLines.map((line) => <li class="pedigree-lines__item">{line}</li>)}
+				{pedigreeLines.map((line) => <li class="pedigree-lines__item">{t(line)}</li>)}
 			</ul>
 		</div>
 	</section>
@@ -96,13 +99,13 @@ const path = '/stammbaum';
 		<div class="container">
 			<div class="pedigree-pdf">
 				<header class="pedigree-section__header">
-					<p class="pedigree-eyebrow">Dokument</p>
-					<h2 id="pedigree-pdf-heading" class="pedigree-title">Vollständige Ahnentafel</h2>
+					<p class="pedigree-eyebrow">{t("Dokument")}</p>
+					<h2 id="pedigree-pdf-heading" class="pedigree-title">{t("Vollständige Ahnentafel")}</h2>
 				</header>
 				<p class="pedigree-text pedigree-pdf__text">
-					Die vollständige Ahnentafel wird nach Fertigstellung als PDF bereitgestellt.
+					{t("Die vollständige Ahnentafel wird nach Fertigstellung als PDF bereitgestellt.")}
 				</p>
-				<button type="button" class="btn btn--primary" disabled>Ahnentafel folgt</button>
+				<button type="button" class="btn btn--primary" disabled>{t("Ahnentafel folgt")}</button>
 			</div>
 		</div>
 	</section>

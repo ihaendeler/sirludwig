@@ -1,4 +1,7 @@
 ---
+import { getLocale, translator } from '../i18n';
+const locale = getLocale(Astro.url.pathname);
+const t = translator(locale);
 export const prerender = true;
 
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -11,14 +14,14 @@ const placeholderIntro =
 ---
 
 <BaseLayout
-	title="Nachzucht — Platzhalter"
-	description="Bereich Nachzucht — in Vorbereitung."
+	title={t("Nachzucht — Platzhalter")}
+	description={t("Bereich Nachzucht — in Vorbereitung.")}
 	canonical={getCanonical(path)}
 >
 	<PageHero
-		label="Bereich"
-		title="Nachzucht"
-		intro={placeholderIntro}
+		label={t("Bereich")}
+		title={t("Nachzucht")}
+		intro={t(placeholderIntro)}
 		headingId="page-heading"
 	/>
 </BaseLayout>

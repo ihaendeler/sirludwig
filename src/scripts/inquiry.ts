@@ -1,3 +1,4 @@
+import { getLocale, translator, localizedHref } from '../i18n';
 import { calculateBitchAge, formatInstagramProfile, isEmail, SEND_ERROR } from '../lib/deckanfrage/process';
 import {
 	calculateColors, decodeScenario, formatProbability, GENOTYPE_LABELS,
@@ -5,6 +6,9 @@ import {
 	scenarioFromQuery, scenarioQuery, type Scenario,
 } from '../lib/color/model';
 import { DRAFT_FIELDS, readDraft, SAVED_DRAFT_KEY, SESSION_DRAFT_KEY, type InquiryDraft } from '../lib/deckanfrage/draft';
+
+const locale = getLocale(location.pathname);
+const t = translator(locale);
 
 const form = document.querySelector<HTMLFormElement>('[data-inquiry-form]');
 if (form) initializeInquiry(form);
@@ -35,14 +39,14 @@ function initializeInquiry(form: HTMLFormElement) {
 	const scrollTo = (element: HTMLElement) => {
 		element.scrollIntoView({ behavior: 'instant', block: 'start' });
 	};
-	const showMessage = (message: string) => { formError.textContent = message; formError.hidden = !message; };
+	const showMessage = (message: string) => { formError.textContent = t(message); formError.hidden = !message; };
 
 	function attachColor(scenario: Scenario | null) {
 		attached = scenario;
 		colorInput.value = scenario ? JSON.stringify(scenario) : '';
 		colorSummary.hidden = !scenario;
 		colorEntry.hidden = Boolean(scenario);
-		colorEdit.href = scenario ? `/farbrechner/?${scenarioQuery(scenario)}` : '/farbrechner/';
+		colorEdit.href = localizedHref(scenario ? `/farbrechner/?${scenarioQuery(scenario)}` : '/farbrechner/', locale)!;
 		const url = new URL(location.href);
 		url.search = scenario ? scenarioQuery(scenario) : '';
 		history.replaceState(null, '', url);
@@ -51,7 +55,7 @@ function initializeInquiry(form: HTMLFormElement) {
 		list.replaceChildren();
 		for (const locus of LOCI) {
 			const li = document.createElement('li');
-			li.textContent = `${LOCUS_LABELS[locus]}: ${GENOTYPE_LABELS[locus][scenario[locus]]}`;
+			li.textContent = `${t(LOCUS_LABELS[locus])}: ${t(GENOTYPE_LABELS[locus][scenario[locus]])}`;
 			list.append(li);
 		}
 	}
@@ -72,10 +76,10 @@ function initializeInquiry(form: HTMLFormElement) {
 		if (saveDraft.checked) {
 			try {
 				localStorage.setItem(SAVED_DRAFT_KEY, json);
-				const message = 'Entwurf auf diesem Gerät gespeichert. Die Zustimmung wird nicht gespeichert.';
+				const message = t('Entwurf auf diesem Gerät gespeichert. Die Zustimmung wird nicht gespeichert.');
 				if (draftStatus.textContent !== message) draftStatus.textContent = message;
 			}
-			catch { draftStatus.textContent = 'Der Browser erlaubt das Speichern nicht. Ihre Angaben bleiben auf dieser Seite erhalten.'; }
+			catch { draftStatus.textContent = t('Der Browser erlaubt das Speichern nicht. Ihre Angaben bleiben auf dieser Seite erhalten.'); }
 		}
 	}
 
@@ -101,7 +105,7 @@ function initializeInquiry(form: HTMLFormElement) {
 			}
 			const storedColor = decodeScenario(String(draft.fields['color-scenario'] ?? ''));
 			attachColor(storedColor);
-			draftStatus.textContent = 'Ihr Entwurf wurde wiederhergestellt. Bitte die Zustimmung vor dem Absenden erneut erteilen.';
+			draftStatus.textContent = t('Ihr Entwurf wurde wiederhergestellt. Bitte die Zustimmung vor dem Absenden erneut erteilen.');
 		}
 		saveDraft.checked = Boolean(saved);
 		const consent = field('privacy-consent') as HTMLInputElement;
@@ -136,11 +140,11 @@ function initializeInquiry(form: HTMLFormElement) {
 		const input = field(name);
 		if (!input || input.type === 'hidden') return;
 		const error = document.createElement('p');
-		error.className = 'inquiry-field__error'; error.id = `error-${name}`; error.dataset.fieldError = name; error.textContent = message;
+		error.className = 'inquiry-field__error'; error.id = `error-${name}`; error.dataset.fieldError = name; error.textContent = t(message);
 		const parent = name === 'comm-pref' ? form.querySelector('[data-comm-section]') : input.closest('.inquiry-field, .inquiry-consent') ?? input.parentElement;
 		parent?.append(error);
 		input.setAttribute('aria-invalid', 'true'); input.setAttribute('aria-describedby', `${input.getAttribute('aria-describedby') ?? ''} ${error.id}`.trim());
-		input.setCustomValidity(message);
+		input.setCustomValidity(t(message));
 	}
 
 	function revealAndFocus(input: HTMLElement) {
@@ -187,11 +191,11 @@ function initializeInquiry(form: HTMLFormElement) {
 		const filled = entries.filter(([, value]) => value.trim());
 		if (!filled.length) return;
 		const group = document.createElement('section');
-		const heading = document.createElement('h3'); heading.textContent = title;
+		const heading = document.createElement('h3'); heading.textContent = t(title);
 		const dl = document.createElement('dl');
 		for (const [label, value] of filled) {
 			const row = document.createElement('div'); const dt = document.createElement('dt'); const dd = document.createElement('dd');
-			dt.textContent = label; dd.textContent = value; row.append(dt, dd); dl.append(row);
+			dt.textContent = t(label); dd.textContent = value; row.append(dt, dd); dl.append(row);
 		}
 		group.append(heading, dl); reviewContent.append(group);
 	}
@@ -211,9 +215,9 @@ function initializeInquiry(form: HTMLFormElement) {
 		if (attached) {
 			const result = calculateColors(attached);
 			appendReviewGroup('Farbberechnung', [
-				...LOCI.map((locus) => [LOCUS_LABELS[locus], GENOTYPE_LABELS[locus][attached![locus]]] as [string, string]),
-				...(result.colorsReady ? result.colors.map((c) => [c.label, `${formatProbability(c.probability)} im Modell`] as [string, string]) : []),
-				...(result.spottingReady ? result.spotting.map((s) => [`S-Lokus ${s.genotype}`, formatProbability(s.probability)] as [string, string]) : []),
+				...LOCI.map((locus) => [LOCUS_LABELS[locus], t(GENOTYPE_LABELS[locus][attached![locus]])] as [string, string]),
+				...(result.colorsReady ? result.colors.map((c) => [c.label, `${formatProbability(c.probability, locale)} ${t('im Modell')}`] as [string, string]) : []),
+				...(result.spottingReady ? result.spotting.map((s) => [s.genotype, formatProbability(s.probability, locale)] as [string, string]) : []),
 			]);
 		}
 		fields.hidden = true; review.hidden = false; reviewed = reviewFingerprint(); review.focus(); scrollTo(review);
@@ -224,6 +228,7 @@ function initializeInquiry(form: HTMLFormElement) {
 	form.querySelectorAll('[data-color-open]').forEach((link) => link.addEventListener('click', persist));
 	form.querySelector('[data-color-remove]')?.addEventListener('click', () => { attachColor(null); persist(); colorOpen.focus(); });
 	window.addEventListener('pagehide', persist);
+	document.addEventListener('language-changing', persist);
 
 	form.addEventListener('input', (event) => {
 		const target = event.target;
@@ -238,13 +243,13 @@ function initializeInquiry(form: HTMLFormElement) {
 	});
 	saveDraft.addEventListener('change', () => {
 		if (saveDraft.checked) persist();
-		else { try { localStorage.removeItem(SAVED_DRAFT_KEY); } catch { /* Optional storage. */ } draftStatus.textContent = 'Dauerhaft gespeicherter Entwurf entfernt. Ihre aktuellen Angaben bleiben erhalten.'; }
+		else { try { localStorage.removeItem(SAVED_DRAFT_KEY); } catch { /* Optional storage. */ } draftStatus.textContent = t('Dauerhaft gespeicherter Entwurf entfernt. Ihre aktuellen Angaben bleiben erhalten.'); }
 	});
 	document.querySelector('[data-clear-draft]')?.addEventListener('click', () => {
 		clearStored(); form.reset(); saveDraft.checked = false; attachColor(null); syncContacts(); showFields(); showMessage('');
 		form.querySelectorAll<HTMLElement>('[data-field-error]').forEach((el) => clearFieldError(el.dataset.fieldError!));
 		timestamp.value = String(Date.now());
-		draftStatus.textContent = 'Entwurf und gespeicherte Angaben wurden gelöscht.';
+		draftStatus.textContent = t('Entwurf und gespeicherte Angaben wurden gelöscht.');
 	});
 
 	form.addEventListener('submit', async (event) => {
@@ -252,10 +257,10 @@ function initializeInquiry(form: HTMLFormElement) {
 		if (sending || completed) return;
 		if (review.hidden || reviewFingerprint() !== reviewed) { showFields(); openReview(); return; }
 		if (!validate()) { showFields(); return; }
-		sending = true; submit.disabled = true; submit.textContent = 'Wird übermittelt …';
+		sending = true; submit.disabled = true; submit.textContent = t('Wird übermittelt …');
 		const controller = new AbortController(); const timeout = window.setTimeout(() => controller.abort(), 20_000);
 		try {
-			const response = await fetch('/api/deckanfrage', { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' }, signal: controller.signal });
+			const response = await fetch('/api/deckanfrage', { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json', 'X-Site-Language': locale }, signal: controller.signal });
 			const data = await response.json().catch(() => ({})) as { ok?: boolean; message?: string; fields?: Record<string, string> };
 			if (response.ok && data.ok === true) {
 				completed = true; clearStored(); form.hidden = true;
@@ -270,14 +275,14 @@ function initializeInquiry(form: HTMLFormElement) {
 				const invalid = form.querySelector<HTMLElement>('[aria-invalid="true"]'); if (invalid) revealAndFocus(invalid);
 			}
 		} catch { showMessage(SEND_ERROR); }
-		finally { clearTimeout(timeout); sending = false; submit.disabled = false; submit.textContent = 'Anfrage absenden'; }
+		finally { clearTimeout(timeout); sending = false; submit.disabled = false; submit.textContent = t('Anfrage absenden'); }
 	});
 
 	form.querySelectorAll<HTMLInputElement>('input[type="text"], input[type="email"], input[type="tel"]').forEach((input) => input.maxLength = input.type === 'email' ? 254 : 300);
 	const message = field('message') as HTMLTextAreaElement; message.maxLength = 5_000;
 	const birthdate = field('bitch-birthdate') as HTMLInputElement;
 	birthdate.max = new Date().toISOString().slice(0, 10);
-	const syncAge = () => { const hint = form.querySelector<HTMLElement>('[data-bitch-age]')!; hint.hidden = !birthdate.value; hint.textContent = birthdate.value ? `Alter: ${calculateBitchAge(birthdate.value)}` : ''; };
+	const syncAge = () => { const hint = form.querySelector<HTMLElement>('[data-bitch-age]')!; hint.hidden = !birthdate.value; hint.textContent = birthdate.value ? `${t('Alter')}: ${calculateBitchAge(birthdate.value, locale)}` : ''; };
 	birthdate.addEventListener('input', syncAge);
 	document.documentElement.classList.add('js');
 	restore(); syncContacts(); syncAge();

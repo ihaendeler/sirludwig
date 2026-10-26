@@ -1,4 +1,7 @@
 ---
+import { getLocale, translator, localizedHref } from '../i18n';
+const locale = getLocale(Astro.url.pathname);
+const t = translator(locale);
 export const prerender = true;
 
 import { Image } from 'astro:assets';
@@ -72,8 +75,8 @@ const timelineEntries = [
 ---
 
 <BaseLayout
-	title={defaultTitle}
-	description={defaultDescription}
+	title={t(defaultTitle)}
+	description={t(defaultDescription)}
 	canonical={getCanonical('/')}
 >
 	<!-- 1. Hero -->
@@ -81,7 +84,7 @@ const timelineEntries = [
 		<div class="home-hero__media home-media">
 			<Image
 				src={heroImage}
-				alt="Sir Ludwig sitzt aufmerksam auf einer Wiese"
+				alt={t("Sir Ludwig sitzt aufmerksam auf einer Wiese")}
 				widths={mobileWidths}
 				sizes="(min-width: 64rem) 30rem, 100vw"
 				loading="eager"
@@ -91,15 +94,14 @@ const timelineEntries = [
 			/>
 		</div>
 		<div class="home-hero__content container">
-			<h1 id="home-hero-brand" class="home-hero__brand">{siteConfig.brandName}</h1>
-			<p class="home-hero__subtitle">{siteConfig.heroSubtitle}</p>
+			<h1 id="home-hero-brand" class="home-hero__brand">{t(siteConfig.brandName)}</h1>
+			<p class="home-hero__subtitle">{t(siteConfig.heroSubtitle)}</p>
 			<p class="home-hero__intro">
-				Tuxedo Großpudel aus ausgewählten Linien. Dokumentation von Entwicklung,
-				Gesundheit und zukünftigem Zuchteinsatz.
+				{t("Tuxedo Großpudel aus ausgewählten Linien. Dokumentation von Entwicklung, Gesundheit und zukünftigem Zuchteinsatz.")}
 			</p>
 			<div class="home-hero__actions">
-				<a class="btn btn--primary" href="/farbrechner">Farbmöglichkeiten entdecken</a>
-				<a class="btn btn--secondary" href="/deckanfrage">Deckanfrage</a>
+				<a class="btn btn--primary" href={localizedHref("/farbrechner", locale)}>{t("Farbmöglichkeiten entdecken")}</a>
+				<a class="btn btn--secondary" href={localizedHref("/deckanfrage", locale)}>{t("Deckanfrage")}</a>
 			</div>
 		</div>
 	</section>
@@ -108,10 +110,10 @@ const timelineEntries = [
 	<section class="home-section home-features" aria-labelledby="features-heading" data-reveal>
 		<div class="container">
 			<header class="home-features__intro">
-				<p class="section-eyebrow">Sir Ludwig</p>
-				<h2 id="features-heading" class="section-title">Überblick</h2>
+				<p class="section-eyebrow">{t("Sir Ludwig")}</p>
+				<h2 id="features-heading" class="section-title">{t("Überblick")}</h2>
 				<p class="home-section__lead">
-					Die wesentlichen Bereiche — sachlich dokumentiert und schrittweise ergänzt.
+					{t("Die wesentlichen Bereiche — sachlich dokumentiert und schrittweise ergänzt.")}
 				</p>
 			</header>
 
@@ -125,7 +127,7 @@ const timelineEntries = [
 							>
 								<Image
 									src={item.image}
-									alt={item.alt}
+									alt={t(item.alt)}
 									widths={mobileWidths}
 									sizes={item.sizes}
 									loading="lazy"
@@ -136,12 +138,12 @@ const timelineEntries = [
 							<div class="home-feature__body">
 								<hr class="home-feature__line" />
 								<h3 class="home-feature__title">
-									<a href={item.href} class="home-feature__link">
-										{item.title}
+									<a href={localizedHref(item.href, locale)} class="home-feature__link">
+										{t(item.title)}
 									</a>
 								</h3>
-								<p class="home-feature__tagline">{item.tagline}</p>
-								<p class="home-feature__teaser">{item.teaser}</p>
+								<p class="home-feature__tagline">{t(item.tagline)}</p>
+								<p class="home-feature__teaser">{t(item.teaser)}</p>
 							</div>
 						</article>
 					))
@@ -154,10 +156,10 @@ const timelineEntries = [
 	<section class="home-section home-profile" aria-labelledby="profile-heading" data-reveal>
 		<div class="container">
 			<header class="home-profile__header">
-				<p class="section-eyebrow">Daten</p>
-				<h2 id="profile-heading" class="section-title">Steckbrief</h2>
+				<p class="section-eyebrow">{t("Daten")}</p>
+				<h2 id="profile-heading" class="section-title">{t("Steckbrief")}</h2>
 				<p class="home-section__lead">
-					Aktuelle Eckdaten. Offene Felder werden ergänzt, sobald die Werte vorliegen.
+					{t("Aktuelle Eckdaten. Offene Felder werden ergänzt, sobald die Werte vorliegen.")}
 				</p>
 			</header>
 
@@ -165,8 +167,8 @@ const timelineEntries = [
 				{
 					profileFields.map((field) => (
 						<div class="home-profile__cell">
-							<dt class="home-profile__label">{field.label}</dt>
-							<dd class="home-profile__value">{field.value}</dd>
+							<dt class="home-profile__label">{t(field.label)}</dt>
+							<dd class="home-profile__value">{t(field.value)}</dd>
 						</div>
 					))
 				}
@@ -178,10 +180,10 @@ const timelineEntries = [
 	<section class="home-section home-timeline" aria-labelledby="timeline-heading" data-reveal>
 		<div class="container">
 			<header class="home-timeline__header">
-				<p class="section-eyebrow">Werdegang</p>
-				<h2 id="timeline-heading" class="section-title">Entwicklung</h2>
+				<p class="section-eyebrow">{t("Werdegang")}</p>
+				<h2 id="timeline-heading" class="section-title">{t("Entwicklung")}</h2>
 				<p class="home-section__lead">
-					Geplanter Werdegang — ohne verbindliche Zusage zu einzelnen Terminen.
+					{t("Geplanter Werdegang — ohne verbindliche Zusage zu einzelnen Terminen.")}
 				</p>
 			</header>
 
@@ -191,8 +193,8 @@ const timelineEntries = [
 						<li class="home-timeline__entry">
 							<span class="home-timeline__marker" aria-hidden="true" />
 							<div class="home-timeline__body">
-								<p class="home-timeline__phase">{entry.phase}</p>
-								<h3 class="home-timeline__heading">{entry.heading}</h3>
+								<p class="home-timeline__phase">{t(entry.phase)}</p>
+								<h3 class="home-timeline__heading">{t(entry.heading)}</h3>
 							</div>
 						</li>
 					))
@@ -205,10 +207,9 @@ const timelineEntries = [
 	<section class="home-section home-trust" aria-labelledby="trust-heading" data-reveal>
 		<div class="container">
 			<div class="home-trust__inner">
-				<h2 id="trust-heading" class="section-title">Dokumentation statt Versprechen</h2>
+				<h2 id="trust-heading" class="section-title">{t("Dokumentation statt Versprechen")}</h2>
 				<p class="home-trust__text">
-					Gesundheit, Abstammung und Entwicklung werden Schritt für Schritt dokumentiert.
-					Ergebnisse und Unterlagen werden nach Vorliegen veröffentlicht.
+					{t("Gesundheit, Abstammung und Entwicklung werden Schritt für Schritt dokumentiert. Ergebnisse und Unterlagen werden nach Vorliegen veröffentlicht.")}
 				</p>
 			</div>
 		</div>
@@ -228,7 +229,7 @@ const timelineEntries = [
 				>
 					<Image
 						src={highlightImage}
-						alt="Sir Ludwig entspannt im Sonnenlicht auf einer Decke"
+						alt={t("Sir Ludwig entspannt im Sonnenlicht auf einer Decke")}
 						widths={mobileWidths}
 						sizes="(min-width: 64rem) 50vw, 100vw"
 						loading="lazy"
@@ -237,11 +238,10 @@ const timelineEntries = [
 					/>
 				</div>
 				<div class="home-highlight__content">
-					<p class="section-eyebrow">Einblick</p>
-					<h2 id="highlight-heading" class="section-title">Ruhe und Präsenz</h2>
+					<p class="section-eyebrow">{t("Einblick")}</p>
+					<h2 id="highlight-heading" class="section-title">{t("Ruhe und Präsenz")}</h2>
 					<p class="home-highlight__text">
-						Ausgeglichene Haltung, aufmerksames Wesen — Eigenschaften, die in der
-						weiteren Entwicklung beobachtet und dokumentiert werden.
+						{t("Ausgeglichene Haltung, aufmerksames Wesen — Eigenschaften, die in der weiteren Entwicklung beobachtet und dokumentiert werden.")}
 					</p>
 				</div>
 			</div>
@@ -252,12 +252,12 @@ const timelineEntries = [
 	<section class="home-section home-cta" aria-labelledby="cta-heading" data-reveal>
 		<div class="container">
 			<div class="home-cta__inner">
-				<p class="home-cta__note">Kontakt</p>
-				<h2 id="cta-heading" class="home-cta__title">Deckanfrage</h2>
+				<p class="home-cta__note">{t("Kontakt")}</p>
+				<h2 id="cta-heading" class="home-cta__title">{t("Deckanfrage")}</h2>
 				<p class="home-cta__text">
-					Für spätere Anfragen — der Bereich wird vorbereitet.
+					{t("Für spätere Anfragen — der Bereich wird vorbereitet.")}
 				</p>
-				<a href="/deckanfrage" class="btn btn--primary">Deckanfrage vorbereiten</a>
+				<a href={localizedHref("/deckanfrage", locale)} class="btn btn--primary">{t("Deckanfrage vorbereiten")}</a>
 			</div>
 		</div>
 	</section>
@@ -267,15 +267,14 @@ const timelineEntries = [
 		<div class="container">
 			<div class="home-instagram__inner">
 				<div>
-					<p class="section-eyebrow">Dokumentation</p>
-					<h2 id="instagram-heading" class="section-title">Aktuelle Entwicklung</h2>
+					<p class="section-eyebrow">{t("Dokumentation")}</p>
+					<h2 id="instagram-heading" class="section-title">{t("Aktuelle Entwicklung")}</h2>
 				</div>
 				<p class="home-instagram__text">
-					Neue Eindrücke, Trainingseinheiten und Entwicklungen werden fortlaufend
-					dokumentiert.
+					{t("Neue Eindrücke, Trainingseinheiten und Entwicklungen werden fortlaufend dokumentiert.")}
 				</p>
 				<a
-					href={siteConfig.social.instagram}
+					href={localizedHref(siteConfig.social.instagram, locale)}
 					class="btn btn--pill"
 					target="_blank"
 					rel="noopener noreferrer"
@@ -292,7 +291,7 @@ const timelineEntries = [
 						<circle cx="12" cy="12" r="4" />
 						<circle cx="17.5" cy="6.5" r="0.75" fill="currentColor" stroke="none" />
 					</svg>
-					Instagram folgen
+					{t("Instagram folgen")}
 				</a>
 			</div>
 		</div>

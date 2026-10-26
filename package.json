@@ -14,7 +14,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check && tsc --noEmit && tsc -p functions/tsconfig.json",
-    "test": "node --import tsx --test tests/*.test.ts"
+    "test": "node --import tsx --test tests/*.test.ts",
+    "postbuild": "node --import tsx src/scripts/check-locales.ts"
   },
   "dependencies": {
     "astro": "7.4.2"

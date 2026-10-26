@@ -1,4 +1,7 @@
 ---
+import { getLocale, translator, localizedHref } from '../i18n';
+const locale = getLocale(Astro.url.pathname);
+const t = translator(locale);
 export const prerender = true;
 
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -11,18 +14,18 @@ const path = '/empfehlungen';
 ---
 
 <BaseLayout
-	title={`Empfehlungen — ${siteConfig.brandName}`}
-	description="Ausgewählte Hinweise rund um Ludwig, Pflege, Alltag und das Rudel FlyingRoyals von Reckewitz."
+	title={t(`Empfehlungen — ${siteConfig.brandName}`)}
+	description={t("Ausgewählte Hinweise rund um Ludwig, Pflege, Alltag und das Rudel FlyingRoyals von Reckewitz.")}
 	canonical={getCanonical(path)}
 >
 	<PageHero
-		label="Empfehlungen"
-		title="Links und Empfehlungen"
-		intro="Ausgewählte Hinweise rund um Ludwig, Pflege, Alltag und das Rudel FlyingRoyals von Reckewitz."
+		label={t("Empfehlungen")}
+		title={t("Links und Empfehlungen")}
+		intro={t("Ausgewählte Hinweise rund um Ludwig, Pflege, Alltag und das Rudel FlyingRoyals von Reckewitz.")}
 		headingId="recommendations-heading"
 	/>
 
-	<section class="rec-section" aria-label="Empfehlungen">
+	<section class="rec-section" aria-label={t("Empfehlungen")}>
 		<div class="container">
 			<ul class="rec-list">
 				{
@@ -31,18 +34,18 @@ const path = '/empfehlungen';
 
 						return (
 							<li class="rec-item">
-								<h3 class="rec-item__title">{item.title}</h3>
-								<p class="rec-item__text">{item.text}</p>
+								<h3 class="rec-item__title">{t(item.title)}</h3>
+								<p class="rec-item__text">{t(item.text)}</p>
 								{pending ? (
-									<p class="rec-item__pending">Link folgt</p>
+									<p class="rec-item__pending">{t("Link folgt")}</p>
 								) : (
 									<a
-										href={item.url}
+										href={localizedHref(item.url, locale)}
 										class="rec-item__link"
 										target="_blank"
 										rel="noopener noreferrer"
 									>
-										{item.linkLabel}
+										{t(item.linkLabel)}
 									</a>
 								)}
 							</li>

@@ -1,4 +1,7 @@
 ---
+import { getLocale, translator, localizedHref } from '../i18n';
+const locale = getLocale(Astro.url.pathname);
+const t = translator(locale);
 import {
 	siteUrl,
 	siteName,
@@ -18,27 +21,36 @@ interface Props {
 }
 
 const {
-	title = defaultTitle,
-	description = defaultDescription,
+	title: rawTitle = defaultTitle,
+	description: rawDescription = defaultDescription,
 	canonical,
-	image = defaultOgImage,
+	image = locale === 'en' ? '/og-en.jpg' : defaultOgImage,
 	type = 'website',
 } = Astro.props;
 
-const pageUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).href;
+const title = t(rawTitle);
+const description = t(rawDescription);
+const pagePath = new URL(canonical ?? Astro.url.pathname, siteUrl).pathname;
+const pageUrl = new URL(localizedHref(pagePath, locale)!, siteUrl).href;
+const germanUrl = new URL(localizedHref(pagePath, 'de')!, siteUrl).href;
+const englishUrl = new URL(localizedHref(pagePath, 'en')!, siteUrl).href;
 const ogImage = getOgImageUrl(image);
 ---
 
 <title>{title}</title>
 <meta name="description" content={description} />
-{canonical && <link rel="canonical" href={canonical} />}
+<link rel="canonical" href={pageUrl} />
+<link rel="alternate" hreflang="de" href={germanUrl} />
+<link rel="alternate" hreflang="en" href={englishUrl} />
+<link rel="alternate" hreflang="x-default" href={germanUrl} />
+<meta property="og:locale" content={locale === 'en' ? 'en_GB' : 'de_DE'} />
 
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImage} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content={defaultOgImageAlt} />
+<meta property="og:image:alt" content={t(defaultOgImageAlt)} />
 <meta property="og:url" content={pageUrl} />
 <meta property="og:type" content={type} />
 <meta property="og:site_name" content={siteName} />

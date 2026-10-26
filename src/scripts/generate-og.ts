@@ -30,7 +30,7 @@ const APRICOT = '#D9A066';
 /** Vertical focal point — matches hero object-position (center 32%). */
 const FOCAL_Y_RATIO = 0.32;
 
-function buildOverlaySvg(): string {
+function buildOverlaySvg(descriptor = BRAND_DESCRIPTOR): string {
 	const padX = 72;
 	const padBottom = 76;
 
@@ -78,7 +78,7 @@ function buildOverlaySvg(): string {
     font-style="italic"
     fill="${BROWN}"
     opacity="0.76"
-  >${BRAND_DESCRIPTOR}</text>
+  >${descriptor}</text>
 </svg>`;
 }
 
@@ -111,15 +111,15 @@ async function cropHeroPhoto(): Promise<Buffer> {
 
 async function generateOgImage(): Promise<void> {
 	const photo = await cropHeroPhoto();
-	const overlay = Buffer.from(buildOverlaySvg());
-
-	await sharp(photo)
-		.composite([{ input: overlay, top: 0, left: 0 }])
-		.jpeg({ quality: 88, mozjpeg: true })
-		.toFile(OUTPUT);
-
-	const output = await sharp(OUTPUT).metadata();
-	console.log(`OG image: ${OUTPUT} (${output.width}×${output.height})`);
+	for (const [file, descriptor] of [[OUTPUT, BRAND_DESCRIPTOR], [join(ROOT, 'public/og-en.jpg'), 'Tuxedo Standard Poodle']]) {
+		const overlay = Buffer.from(buildOverlaySvg(descriptor));
+		await sharp(photo)
+			.composite([{ input: overlay, top: 0, left: 0 }])
+			.jpeg({ quality: 88, mozjpeg: true })
+			.toFile(file);
+		const output = await sharp(file).metadata();
+		console.log(`OG image: ${file} (${output.width}×${output.height})`);
+	}
 }
 
 generateOgImage().catch((error: unknown) => {

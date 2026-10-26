@@ -150,9 +150,10 @@ export function calculateColors(scenario: Scenario): ColorResult {
 	};
 }
 
-export function formatProbability(value: Probability): string {
-	const f = (n: number) => n.toLocaleString('de-DE', { maximumFractionDigits: 2 });
-	return value.min === value.max ? `${f(value.min)} %` : `${f(value.min)}–${f(value.max)} %`;
+export function formatProbability(value: Probability, locale: 'de' | 'en' = 'de'): string {
+	const f = (n: number) => n.toLocaleString(locale === 'en' ? 'en-GB' : 'de-DE', { maximumFractionDigits: 2 });
+	const unit = locale === 'en' ? '%' : ' %';
+	return value.min === value.max ? `${f(value.min)}${unit}` : `${f(value.min)}–${f(value.max)}${unit}`;
 }
 
 export function scenarioLines(scenario: Scenario): string[] {

@@ -1,21 +1,26 @@
 ---
+import { getLocale, translator, localizedHref } from '../i18n';
+const locale = getLocale(Astro.url.pathname);
+const t = translator(locale);
 import { mainNavigation } from '../config/navigation';
 import Brand from './Brand.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
 
 const navItems = mainNavigation;
-const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const currentPath = localizedHref(Astro.url.pathname, 'de')!.replace(/\/$/, '') || '/';
 ---
 
 <header class="site-header" data-site-header>
 	<div class="site-header__inner container">
-		<Brand href="/" class="site-header__brand" />
+		<Brand href={localizedHref("/", locale)} class="site-header__brand" />
+		<LanguageSwitcher />
 
 		<button
 			type="button"
 			class="nav-toggle nav-toggle--open"
 			aria-expanded="false"
 			aria-controls="site-nav"
-			aria-label="Menü öffnen"
+			aria-label={t("Menü öffnen")}
 		>
 			<span class="nav-toggle__bar" aria-hidden="true"></span>
 			<span class="nav-toggle__bar" aria-hidden="true"></span>
@@ -25,11 +30,12 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 	<div class="nav-overlay" data-nav-overlay hidden></div>
 
-	<nav id="site-nav" class="site-nav" aria-label="Hauptnavigation" hidden>
+	<nav id="site-nav" class="site-nav" aria-label={t("Hauptnavigation")} hidden>
 		<div class="site-nav__head container">
-			<Brand href="/" class="site-nav__brand" />
+			<Brand href={localizedHref("/", locale)} class="site-nav__brand" />
+			<LanguageSwitcher />
 
-			<button type="button" class="nav-toggle nav-toggle--close" aria-label="Menü schließen">
+			<button type="button" class="nav-toggle nav-toggle--close" aria-label={t("Menü schließen")}>
 				<span class="nav-toggle__bar" aria-hidden="true"></span>
 				<span class="nav-toggle__bar" aria-hidden="true"></span>
 				<span class="nav-toggle__bar" aria-hidden="true"></span>
@@ -41,8 +47,8 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 				{
 					navItems.map((item) => (
 						<li class="site-nav__item">
-							<a href={item.href} class="site-nav__link" data-nav-link aria-current={currentPath === item.href ? 'page' : undefined}>
-								{item.label}
+							<a href={localizedHref(item.href, locale)} class="site-nav__link" data-nav-link aria-current={currentPath === item.href ? 'page' : undefined}>
+								{t(item.label)}
 							</a>
 						</li>
 					))
@@ -67,12 +73,20 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		gap: .75rem;
 		height: 100%;
 	}
 
 	.site-header__brand {
 		min-height: var(--touch-min);
 		padding-inline: var(--space-2xs);
+	}
+
+	@media (max-width: 30rem) {
+		.site-header__inner, .site-nav__head { gap: .5rem; }
+		.site-header__brand, .site-nav__brand { width: 8rem; min-width: 0; padding-inline: 0; }
+		:is(.site-header__brand, .site-nav__brand) :global(.brand__name) { font-size: 1.05rem; }
+		:is(.site-header__brand, .site-nav__brand) :global(.brand__tagline) { max-width: 7.5rem; font-size: .6rem; }
 	}
 
 	.nav-toggle {
@@ -162,6 +176,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 	.site-nav__head {
 		display: flex;
+		gap: .75rem;
 		align-items: center;
 		justify-content: space-between;
 		flex-shrink: 0;
@@ -221,7 +236,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 		visibility: hidden;
 	}
 
-	@media (min-width: 72rem) {
+	@media (min-width: 80rem) {
 		.nav-toggle,
 		.nav-overlay,
 		.site-nav__head {

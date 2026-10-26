@@ -38,6 +38,14 @@ npm audit      # Bekannte Schwachstellen der installierten Abhängigkeiten
 
 GitHub Actions führt diese Prüfungen sowie den Produktionsbuild bei Pull Requests und Pushes auf `main` aus. Die Versandtests verwenden einen simulierten E-Mail-Anbieter und verschicken keine Nachrichten.
 
+## Deutsch und Englisch
+
+Deutsch ist die Standardsprache unter `/`. Über das Sprach-Dropdown im Kopfbereich und im mobilen Menü führt der Wechsel auf die entsprechende Seite unter `/en/`. Es gibt keine automatische Umleitung anhand der Browsersprache. Unterseiten, Farbrechner-Werte und Formularentwürfe bleiben beim Wechsel erhalten.
+
+Beide Sprachversionen verwenden dieselben Astro-Vorlagen und werden bei jedem `npm run build` gemeinsam erstellt und veröffentlicht. Die Routen stehen in `src/i18n/index.ts`, die englischen Texte in `src/i18n/en.json`. Neue Texte werden mit `t(...)` eingebunden; Namen, Genotypen und Formulardaten behalten ihre Originalwerte. Deutsche Laborzertifikate bleiben Originale und sind auf Englisch entsprechend gekennzeichnet. Auch das Vorschaubild für geteilte Links wird in beiden Sprachen erzeugt.
+
+Fehlende Übersetzungen stoppen den Build. Die anschließende Prüfung vergleicht alle deutschen und englischen Seiten auf vollständige Routen, übersetzte Inhalte, interne Links, Sprachkennzeichnung, Canonicals und `hreflang`. Neue Seiten müssen im Routenverzeichnis und in `src/pages/en/[...page].astro` ergänzt werden. Die bestehende GitHub-/Cloudflare-Pipeline veröffentlicht immer das gemeinsame `dist/`.
+
 ## Farbrechner und Deckanfrage
 
 Unter `/farbrechner` lassen sich die Farbtest-Werte einer Hündin direkt auswählen, mit Ludwig durchrechnen und in die Deckanfrage übernehmen. Es gibt keine zusätzliche Modus- oder Herkunftsauswahl. Die Deckanfrage verlinkt auf den Rechner und zeigt übernommene Farbwerte kompakt an. Die Anfrage bietet eine Prüfung vor dem Versand und auf Wunsch einen lokalen Entwurf für sieben Tage.

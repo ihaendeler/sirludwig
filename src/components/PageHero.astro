@@ -1,4 +1,7 @@
 ---
+import { getLocale, translator } from '../i18n';
+const locale = getLocale(Astro.url.pathname);
+const t = translator(locale);
 import '../styles/page-hero.css';
 
 interface Props {
@@ -28,9 +31,9 @@ const hasMedia = variant === 'media' && Astro.slots.has('media');
 	<div class="page-hero__content">
 		<div class="container">
 			<div class="page-hero__inner">
-				{label && <p class="page-hero__label">{label}</p>}
-				<h1 id={headingId} class="page-hero__title">{title}</h1>
-				<p class="page-hero__intro">{intro}</p>
+				{label && <p class="page-hero__label">{t(label)}</p>}
+				<h1 id={headingId} class="page-hero__title">{t(title)}</h1>
+				<p class="page-hero__intro">{t(intro)}</p>
 			</div>
 		</div>
 	</div>
