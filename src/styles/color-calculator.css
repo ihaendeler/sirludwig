@@ -50,16 +50,6 @@
 .color-method ul { margin: 0; padding-left: 1.25rem; font-size: .875rem; }
 .color-method li { margin-block: .5rem; }
 .color-status { min-height: 1.6em; font-size: .875rem; margin-top: .65rem; color: #4a3428; }
-.color-litter { border-top: var(--color-calc-line); margin-top: 2rem; }
-.color-litter > summary { cursor: pointer; min-height: 48px; padding-block: 1rem; font-size: .9375rem; font-weight: 600; }
-.color-litter__content { display: grid; gap: 1.5rem; align-items: start; padding-block: .75rem 1.5rem; }
-.color-litter h2 { font-size: clamp(1.5rem, 2.5vw, 1.85rem); margin-block: .5rem .75rem; }
-.color-litter__content > div > p:not(.color-eyebrow) { font-size: .875rem; color: #705e51; max-width: 55ch; }
-.color-litter label { margin-top: 1.25rem; }
-.color-litter select { max-width: 28rem; }
-.color-litter__chart { margin: 0; padding: 1.25rem; border: var(--color-calc-line); background: #faf7f1; min-width: 0; }
-.color-litter__chart h3 { font-size: 1.2rem; }
-.color-litter__chart figcaption { font-size: .8125rem; line-height: 1.65; color: #705e51; margin-top: 1rem; }
 .tuxedo-guide { border-top: 1px solid #bcae9f; margin-top: 3rem; padding-top: 2rem; scroll-margin-top: calc(var(--header-height) + 1rem); }
 .tuxedo-guide__intro { display: grid; gap: 1.5rem; align-items: center; }
 .tuxedo-guide h2 { font-size: clamp(1.75rem, 3vw, 2.25rem); margin-block: .6rem 1rem; }
@@ -84,6 +74,8 @@
 .tuxedo-guide__explain { display: grid; gap: 2rem; align-items: start; margin-top: 2rem; }
 .tuxedo-guide__questions { display: grid; gap: 1.75rem; min-width: 0; }
 .tuxedo-litter { margin: 0; padding: 1.25rem; background: #faf7f1; border: 1px solid #d8cfc3; min-width: 0; }
+.tuxedo-litter > summary { cursor: pointer; min-height: 44px; padding-block: .65rem; font-weight: 600; font-size: .9375rem; }
+.tuxedo-litter > figure { margin: 1rem 0 0; }
 .tuxedo-litter h3, .tuxedo-litter h4 { margin-top: .5rem; }
 .tuxedo-litter p { font-size: .875rem; }
 .tuxedo-guide .tuxedo-guide__closing { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid #d8cfc3; font-family: var(--font-display); font-size: 1.2rem; max-width: 75ch; }
@@ -93,8 +85,7 @@
 @media (min-width: 56rem) {
 	.color-calculator .color-calculator__layout { grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); gap: clamp(2rem,5vw,5rem); align-items: start; }
 	.color-calculator .color-results { position: sticky; top: calc(var(--header-height) + 1.5rem); }
-	.color-litter__content { grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); gap: clamp(2rem,5vw,5rem); }
-	.tuxedo-guide .tuxedo-guide__explain { grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 3rem; }
+	.tuxedo-guide .tuxedo-guide__questions { grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 2rem 3rem; }
 }
 @media (max-width: 25rem) {
 	.color-result__label { flex-direction: column; gap: .2rem; }

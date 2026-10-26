@@ -72,13 +72,15 @@ const litterProbabilities = litterDistribution(50);
 			</div>
 		</div>
 
-		<figure class="tuxedo-litter" aria-labelledby={`${id}-litter-title`}>
-			<p class="color-eyebrow">{t("Festes Rechenbeispiel")}</p>
-			<Subheading id={`${id}-litter-title`}>{t("Ein Wurf mit sechs Welpen")}</Subheading>
-			<p>{t("Ludwig N/S × Hündin N/N: Jeder Welpe hat eine Chance von 50 % auf N/S. So verteilt sich die Wahrscheinlichkeit für die Anzahl der N/S-Welpen:")}</p>
-			<LitterDistribution probabilities={litterProbabilities} label="Wahrscheinlichkeit für genau null bis sechs Welpen mit N/S" countLabel="Anzahl N/S-Welpen" />
-			<figcaption>{t("Genau drei N/S-Welpen sind die wahrscheinlichste einzelne Aufteilung – ihre Chance beträgt trotzdem nur 31,25 %. Die übrigen Aufteilungen sind zusammen wahrscheinlicher. Gerundete Werte; gezählt werden N/S-Genotypen, keine Tuxedo-Welpen. Das Beispiel bleibt unabhängig von Ihren Eingaben im Rechner.")}</figcaption>
-		</figure>
+		<details class="tuxedo-litter">
+			<summary>{t("Festes Rechenbeispiel: ein Wurf mit sechs Welpen")}</summary>
+			<figure aria-labelledby={`${id}-litter-title`}>
+				<Subheading id={`${id}-litter-title`}>{t("Ein Wurf mit sechs Welpen")}</Subheading>
+				<p>{t("Ludwig N/S × Hündin N/N: Jeder Welpe hat eine Chance von 50 % auf N/S. So verteilt sich die Wahrscheinlichkeit für die Anzahl der N/S-Welpen:")}</p>
+				<LitterDistribution probabilities={litterProbabilities} label="Wahrscheinlichkeit für genau null bis sechs Welpen mit N/S" countLabel="Anzahl N/S-Welpen" />
+				<figcaption>{t("Genau drei N/S-Welpen sind die wahrscheinlichste einzelne Aufteilung – ihre Chance beträgt trotzdem nur 31,25 %. Die übrigen Aufteilungen sind zusammen wahrscheinlicher. Gerundete Werte; gezählt werden N/S-Genotypen, keine Tuxedo-Welpen. Das Beispiel bleibt unabhängig von Ihren Eingaben im Rechner.")}</figcaption>
+			</figure>
+		</details>
 	</div>
 
 	<p class="tuxedo-guide__closing">{t("Für Tuxedo-Interessenten heißt das: Die Eltern bringen die genetischen Voraussetzungen zusammen. Wie Brust, Pfoten und Gesicht eines Welpen am Ende gezeichnet sind, zeigt erst der einzelne Nachwuchs.")}</p>

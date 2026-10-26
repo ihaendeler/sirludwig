@@ -2,30 +2,30 @@
 import { getLocale, translator } from '../i18n';
 import { formatLitterProbability } from '../lib/color/litter';
 
-interface Props { probabilities: number[]; label: string; countLabel?: string; live?: boolean }
-const { probabilities, label, countLabel = 'Anzahl Welpen', live = false } = Astro.props;
+interface Props { probabilities: number[]; label: string; countLabel?: string }
+const { probabilities, label, countLabel = 'Anzahl N/S-Welpen' } = Astro.props;
 const locale = getLocale(Astro.url.pathname);
 const t = translator(locale);
-const maximum = Math.max(...probabilities, 1);
 ---
 <div class="litter-distribution__labels" aria-hidden="true">
-	<span>{t(countLabel)}</span><span>{t('Wahrscheinlichkeit')}</span>
+	<span>{t(countLabel)}</span><span>{t('Wahrscheinlichkeit (0–100 %)')}</span>
 </div>
 <ol class="litter-distribution" aria-label={t(label)}>
 	{probabilities.map((probability, puppies) => <li>
-		<span>{puppies} {t(puppies === 1 ? 'Welpe' : 'Welpen')}</span>
+		<span>{t(`${puppies} ${puppies === 1 ? 'Welpe' : 'Welpen'} mit N/S`)}</span>
 		<span class="litter-distribution__track" aria-hidden="true">
-			<span style={`width: ${probability / maximum * 100}%`} data-litter-bar={live ? puppies : undefined}></span>
+			<span style={`width: ${probability}%`}></span>
 		</span>
-		<strong data-litter-probability={live ? puppies : undefined}>{live ? '—' : formatLitterProbability(probability, locale)}</strong>
+		<strong>{formatLitterProbability(probability, locale)}</strong>
 	</li>)}
 </ol>
 
 <style>
 	.litter-distribution__labels { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1.25rem; font-size: .6875rem; color: #705e51; }
 	.litter-distribution { list-style: none; padding: 0; margin: .75rem 0 0; display: grid; gap: .8rem; }
-	li { display: grid; grid-template-columns: 4.3rem minmax(0,1fr) 4.5rem; gap: .65rem; align-items: center; font-size: .8125rem; font-variant-numeric: tabular-nums; }
+	li { display: grid; grid-template-columns: 10rem minmax(0,1fr) 4.5rem; gap: .65rem; align-items: center; font-size: .8125rem; font-variant-numeric: tabular-nums; }
 	strong { font-weight: 500; text-align: right; white-space: nowrap; }
 	.litter-distribution__track { display: block; background: #e9e1d6; height: .5rem; }
 	.litter-distribution__track > span { display: block; background: #8c542e; height: 100%; }
+	@media (max-width: 30rem) { li { grid-template-columns: 6.5rem minmax(0,1fr) 4.5rem; } }
 </style>

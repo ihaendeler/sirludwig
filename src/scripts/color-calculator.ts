@@ -2,9 +2,8 @@ import { getLocale, translator, localizedHref } from '../i18n';
 import {
 	calculateColors, decodeScenario, emptyScenario, formatProbability, LOCI,
 	parseScenario, SCENARIO_STORAGE_KEY, scenarioFromQuery, scenarioQuery,
-	type ColorResult, type Locus, type Scenario,
+	type Locus, type Scenario,
 } from '../lib/color/model';
-import { litterDistribution, formatLitterProbability } from '../lib/color/litter';
 
 const locale = getLocale(location.pathname);
 const t = translator(locale);
@@ -31,10 +30,6 @@ class ColorCalculator extends HTMLElement {
 	private onChange(event: Event) {
 		const target = event.target;
 		if (!(target instanceof HTMLInputElement || target instanceof HTMLSelectElement)) return;
-		if (target.matches('[data-litter-trait]')) {
-			this.renderLitter(calculateColors(this.scenario));
-			return;
-		}
 		if (target.matches('[data-color-locus]')) {
 			const locus = target.dataset.colorLocus as Locus;
 			if (!LOCI.includes(locus)) return;
@@ -51,38 +46,12 @@ class ColorCalculator extends HTMLElement {
 		if (target) target.textContent = t(message);
 	}
 
-	private renderLitter(result: ColorResult) {
-		const panel = this.querySelector<HTMLElement>('[data-live-litter]');
-		const select = panel?.querySelector<HTMLSelectElement>('[data-litter-trait]');
-		if (!panel || !select) return;
-		panel.hidden = !result.colorsReady && !result.spottingReady;
-		for (const option of select.options) {
-			option.disabled = option.value.startsWith('color-') ? !result.colorsReady : !result.spottingReady;
-		}
-		if (panel.hidden) return;
-		if (!select.selectedOptions.length || select.selectedOptions[0].disabled) {
-			select.value = [...select.options].find((option) => !option.disabled)!.value;
-		}
-		const color = result.colors.find((item) => `color-${item.id}` === select.value);
-		const spot = result.spotting.find((item) => `spotting-${item.genotype}` === select.value);
-		const probability = (color ?? spot)!.probability;
-		const probabilities = litterDistribution(probability.min);
-		const maximum = Math.max(...probabilities);
-		panel.querySelector('[data-litter-title]')!.textContent = color ? t(color.label) : `${t('S-Lokus')} ${spot!.genotype}`;
-		panel.querySelector('[data-litter-summary]')!.textContent = `${formatProbability(probability, locale)} ${t('pro Welpe')} · ${t('Beispiel mit sechs Welpen')}`;
-		probabilities.forEach((value, count) => {
-			panel.querySelector<HTMLElement>(`[data-litter-bar="${count}"]`)!.style.width = `${value / maximum * 100}%`;
-			panel.querySelector(`[data-litter-probability="${count}"]`)!.textContent = formatLitterProbability(value, locale);
-		});
-	}
-
 	private render(announce: boolean) {
 		for (const locus of LOCI) {
 			const field = this.querySelector<HTMLSelectElement>(`[data-color-locus="${locus}"]`);
 			if (field) field.value = this.scenario[locus];
 		}
 		const result = calculateColors(this.scenario);
-		this.renderLitter(result);
 		for (const color of result.colors) {
 			const row = this.querySelector<HTMLElement>(`[data-color-result="${color.id}"]`);
 			if (row) row.dataset.zero = String(!result.colorsReady || color.probability.max === 0);
