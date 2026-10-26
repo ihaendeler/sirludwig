@@ -440,5 +440,18 @@
   "Welpen": "puppies",
   "SL": "SL",
   "Sprache": "Language",
-  "Vielen Dank. Ihre Anfrage wurde erfolgreich übermittelt.": "Thank you. Your enquiry has been sent successfully."
+  "Vielen Dank. Ihre Anfrage wurde erfolgreich übermittelt.": "Thank you. Your enquiry has been sent successfully.",
+  "Wurfverteilung für Ihre Eingaben": "Litter probabilities for your selections",
+  "Optionaler Blick auf einen Wurf": "Optional litter view",
+  "Wie könnten sich sechs Welpen verteilen?": "How might six puppies be distributed?",
+  "Wählen Sie eine Farbgruppe oder einen S-Genotyp. Das Diagramm zeigt die Wahrscheinlichkeit für genau null bis sechs Welpen mit diesem Merkmal.": "Choose a colour group or an S-locus genotype. The chart shows the probability of exactly zero to six puppies with that trait.",
+  "Verteilung anzeigen für": "Show the distribution for",
+  "Grundfarbe": "Base colour",
+  "Sechs Welpen dienen nur als Beispiel, nicht als Vorhersage der Wurfgröße. Jedes Merkmal wird einzeln betrachtet.": "Six puppies are an example, not a prediction of litter size. Each trait is considered separately.",
+  "Verteilung der Welpenzahl": "Distribution of puppy counts",
+  "Anzahl Welpen": "Number of puppies",
+  "Wahrscheinlichkeit für null bis sechs Welpen mit dem ausgewählten Merkmal": "Probability of zero to six puppies with the selected trait",
+  "Wahrscheinlichkeiten im Modell, kein festes Wurfverhältnis und keine Tuxedo-Prognose. Gerundete Werte.": "Probabilities within the model, not a fixed litter ratio or a prediction of tuxedo markings. Values are rounded.",
+  "pro Welpe": "per puppy",
+  "Beispiel mit sechs Welpen": "Example with six puppies"
 }

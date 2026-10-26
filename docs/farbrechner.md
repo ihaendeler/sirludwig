@@ -39,6 +39,10 @@ Zusätzliche Primärquellen (23.10.2026):
 
 Das **feste**, von den aktuellen Eingaben unabhängige Wurfbeispiel gilt für Ludwig N/S × Hündin N/N bei sechs Welpen. Unter der mendelschen Annahme unabhängiger Weitergabe mit p = 0,5 gilt P(X=k) = C(6,k) / 64. Die Gewichte 1, 6, 15, 20, 15, 6, 1 ergeben zusammen 64. Für genau drei N/S-Welpen gilt 20/64 = 31,25 %. Der Erwartungswert ist drei, aber keine garantierte Wurfaufteilung. Gezählt werden ausschließlich Genotypen, keine Tuxedo-Welpen; Rundungen können die Summe der angezeigten Prozente geringfügig verändern.
 
+Zusätzlich erscheint beim Rechner **„Wurfverteilung für Ihre Eingaben“**, sobald mindestens eine Ergebnisgruppe berechnet werden kann. Dieser Bereich ist zunächst zugeklappt. Ein Auswahlfeld zeigt jeweils eine der berechenbaren Farbgruppen oder einen S-Genotyp, statt sechs Diagramme gleichzeitig anzuzeigen. Nicht berechenbare Gruppen bleiben deaktiviert. Das Diagramm aktualisiert sich mit den drei Farbwerten; seine Merkmalsauswahl verändert weder das Szenario noch die Anfrage.
+
+Für den Vergleich bleibt die Beispielgröße bei sechs Welpen. `src/lib/color/litter.ts` berechnet P(X=k) = C(6,k) p^k (1-p)^(6-k) anhand der jeweiligen Einzelwelpen-Wahrscheinlichkeit aus dem bestehenden Modell. Farben und S-Genotypen werden einzeln betrachtet; es wird keine gemeinsame Verteilung von Farbe und Zeichnung oder Tuxedo-Quote berechnet. Das feste Beispiel und der dynamische Bereich verwenden dieselbe Diagrammkomponente. Balken werden auf den jeweiligen Höchstwert skaliert; die Prozentwerte stehen vollständig daneben.
+
 ## Szenarien und Übergänge
 
 Ein Szenario enthält ausschließlich die Version und drei Farbwerte (`v`, `e`, `b`, `s`). Eine noch nicht getroffene Auswahl wird intern mit `unknown` gespeichert. Die Oberfläche zeigt dafür „Bitte wählen“, Zusammenfassungen „Nicht angegeben“. Es gibt keine Einstufung als geprüft, Beispiel, angenommen oder eigener Befund.

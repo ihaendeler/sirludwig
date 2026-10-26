@@ -50,6 +50,16 @@
 .color-method ul { margin: 0; padding-left: 1.25rem; font-size: .875rem; }
 .color-method li { margin-block: .5rem; }
 .color-status { min-height: 1.6em; font-size: .875rem; margin-top: .65rem; color: #4a3428; }
+.color-litter { border-top: var(--color-calc-line); margin-top: 2rem; }
+.color-litter > summary { cursor: pointer; min-height: 48px; padding-block: 1rem; font-size: .9375rem; font-weight: 600; }
+.color-litter__content { display: grid; gap: 1.5rem; align-items: start; padding-block: .75rem 1.5rem; }
+.color-litter h2 { font-size: clamp(1.5rem, 2.5vw, 1.85rem); margin-block: .5rem .75rem; }
+.color-litter__content > div > p:not(.color-eyebrow) { font-size: .875rem; color: #705e51; max-width: 55ch; }
+.color-litter label { margin-top: 1.25rem; }
+.color-litter select { max-width: 28rem; }
+.color-litter__chart { margin: 0; padding: 1.25rem; border: var(--color-calc-line); background: #faf7f1; min-width: 0; }
+.color-litter__chart h3 { font-size: 1.2rem; }
+.color-litter__chart figcaption { font-size: .8125rem; line-height: 1.65; color: #705e51; margin-top: 1rem; }
 .tuxedo-guide { border-top: 1px solid #bcae9f; margin-top: 3rem; padding-top: 2rem; scroll-margin-top: calc(var(--header-height) + 1rem); }
 .tuxedo-guide__intro { display: grid; gap: 1.5rem; align-items: center; }
 .tuxedo-guide h2 { font-size: clamp(1.75rem, 3vw, 2.25rem); margin-block: .6rem 1rem; }
@@ -76,12 +86,6 @@
 .tuxedo-litter { margin: 0; padding: 1.25rem; background: #faf7f1; border: 1px solid #d8cfc3; min-width: 0; }
 .tuxedo-litter h3, .tuxedo-litter h4 { margin-top: .5rem; }
 .tuxedo-litter p { font-size: .875rem; }
-.tuxedo-litter__labels { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1.25rem; font-size: .6875rem; color: #705e51; }
-.tuxedo-litter__distribution { list-style: none; padding: 0; margin: .75rem 0 0; display: grid; gap: .8rem; }
-.tuxedo-litter__distribution li { display: grid; grid-template-columns: 4.3rem minmax(0,1fr) 4.5rem; gap: .65rem; align-items: center; font-size: .8125rem; font-variant-numeric: tabular-nums; }
-.tuxedo-litter__distribution strong { font-weight: 500; text-align: right; white-space: nowrap; }
-.tuxedo-litter__track { display: block; background: #e9e1d6; height: .5rem; }
-.tuxedo-litter__track > span { display: block; background: #8c542e; height: 100%; }
 .tuxedo-guide .tuxedo-guide__closing { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid #d8cfc3; font-family: var(--font-display); font-size: 1.2rem; max-width: 75ch; }
 @media (min-width: 40rem) {
 	.tuxedo-guide__intro { grid-template-columns: minmax(10rem, .65fr) minmax(0,1.35fr); gap: 2rem; }
@@ -89,6 +93,7 @@
 @media (min-width: 56rem) {
 	.color-calculator .color-calculator__layout { grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); gap: clamp(2rem,5vw,5rem); align-items: start; }
 	.color-calculator .color-results { position: sticky; top: calc(var(--header-height) + 1.5rem); }
+	.color-litter__content { grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); gap: clamp(2rem,5vw,5rem); }
 	.tuxedo-guide .tuxedo-guide__explain { grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 3rem; }
 }
 @media (max-width: 25rem) {

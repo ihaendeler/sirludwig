@@ -4,6 +4,7 @@ const locale = getLocale(Astro.url.pathname);
 const t = translator(locale);
 import { Image } from 'astro:assets';
 import TuxedoGuide from './TuxedoGuide.astro';
+import LitterDistribution from './LitterDistribution.astro';
 import ludwigImage from '../assets/images/hero/PXL_20260516_084223542.jpg';
 import { calculateColors, emptyScenario, GENOTYPE_LABELS, LOCI, LOCUS_LABELS, VALUES, MODEL_NOTE } from '../lib/color/model';
 import '../styles/color-calculator.css';
@@ -72,6 +73,32 @@ const prefix = 'color';
 			</div>
 		</section>
 	</div>
+	<details class="color-litter" data-live-litter hidden>
+		<summary>{t('Wurfverteilung für Ihre Eingaben')}</summary>
+		<div class="color-litter__content">
+			<div>
+				<p class="color-eyebrow">{t('Optionaler Blick auf einen Wurf')}</p>
+				<h2>{t('Wie könnten sich sechs Welpen verteilen?')}</h2>
+				<p>{t('Wählen Sie eine Farbgruppe oder einen S-Genotyp. Das Diagramm zeigt die Wahrscheinlichkeit für genau null bis sechs Welpen mit diesem Merkmal.')}</p>
+				<label class="color-field__label" for={`${prefix}-litter-trait`}>{t('Verteilung anzeigen für')}</label>
+				<select id={`${prefix}-litter-trait`} data-litter-trait>
+					<optgroup label={t('Grundfarbe')}>
+						{result.colors.map((color) => <option value={`color-${color.id}`}>{t(color.label)}</option>)}
+					</optgroup>
+					<optgroup label={t('S-Lokus')}>
+						{result.spotting.map((spot) => <option value={`spotting-${spot.genotype}`}>{spot.genotype}</option>)}
+					</optgroup>
+				</select>
+				<p class="color-help">{t('Sechs Welpen dienen nur als Beispiel, nicht als Vorhersage der Wurfgröße. Jedes Merkmal wird einzeln betrachtet.')}</p>
+			</div>
+			<figure class="color-litter__chart">
+				<h3 data-litter-title>{t('Verteilung der Welpenzahl')}</h3>
+				<p class="color-help" data-litter-summary></p>
+				<LitterDistribution probabilities={Array(7).fill(0)} label="Wahrscheinlichkeit für null bis sechs Welpen mit dem ausgewählten Merkmal" live />
+				<figcaption>{t('Wahrscheinlichkeiten im Modell, kein festes Wurfverhältnis und keine Tuxedo-Prognose. Gerundete Werte.')}</figcaption>
+			</figure>
+		</div>
+	</details>
 	<TuxedoGuide id={`${prefix}-tuxedo`} />
 	<details class="color-method">
 		<summary>{t("So funktioniert die Berechnung")}</summary>

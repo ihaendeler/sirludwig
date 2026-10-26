@@ -5,6 +5,8 @@ const t = translator(locale);
 import { Image } from 'astro:assets';
 import ludwigImage from '../assets/images/hero/PXL_20260516_084223542.jpg';
 import { calculateColors, emptyScenario, formatProbability } from '../lib/color/model';
+import { litterDistribution } from '../lib/color/litter';
+import LitterDistribution from './LitterDistribution.astro';
 
 interface Props { id: string; compact?: boolean }
 const { id, compact = false } = Astro.props;
@@ -15,8 +17,7 @@ const dams = [
 	{ s: 'NS', label: 'N/S', copies: 'Eine Kopie der getesteten S-Variante' },
 	{ s: 'SS', label: 'S/S', copies: 'Zwei Kopien der getesteten S-Variante' },
 ] as const;
-// Binomial(6, 0.5): six independent transmissions, 64 equally likely combinations.
-const litterWeights = [1, 6, 15, 20, 15, 6, 1];
+const litterProbabilities = litterDistribution(50);
 ---
 
 <section id={id} class:list={['tuxedo-guide', { 'tuxedo-guide--compact': compact }]} aria-labelledby={`${id}-title`}>
@@ -75,14 +76,7 @@ const litterWeights = [1, 6, 15, 20, 15, 6, 1];
 			<p class="color-eyebrow">{t("Festes Rechenbeispiel")}</p>
 			<Subheading id={`${id}-litter-title`}>{t("Ein Wurf mit sechs Welpen")}</Subheading>
 			<p>{t("Ludwig N/S × Hündin N/N: Jeder Welpe hat eine Chance von 50 % auf N/S. So verteilt sich die Wahrscheinlichkeit für die Anzahl der N/S-Welpen:")}</p>
-			<div class="tuxedo-litter__labels" aria-hidden="true"><span>{t("Anzahl N/S-Welpen")}</span><span>{t("Wahrscheinlichkeit")}</span></div>
-			<ol class="tuxedo-litter__distribution" aria-label={t("Wahrscheinlichkeit für genau null bis sechs Welpen mit N/S")}>
-				{litterWeights.map((weight, puppies) => <li>
-					<span>{t(puppies)} {t(puppies === 1 ? 'Welpe' : 'Welpen')}</span>
-					<span class="tuxedo-litter__track" aria-hidden="true"><span style={`width: ${weight / 20 * 100}%`}></span></span>
-					<strong>{t(formatProbability({ min: weight / 64 * 100, max: weight / 64 * 100 }, locale))}</strong>
-				</li>)}
-			</ol>
+			<LitterDistribution probabilities={litterProbabilities} label="Wahrscheinlichkeit für genau null bis sechs Welpen mit N/S" countLabel="Anzahl N/S-Welpen" />
 			<figcaption>{t("Genau drei N/S-Welpen sind die wahrscheinlichste einzelne Aufteilung – ihre Chance beträgt trotzdem nur 31,25 %. Die übrigen Aufteilungen sind zusammen wahrscheinlicher. Gerundete Werte; gezählt werden N/S-Genotypen, keine Tuxedo-Welpen. Das Beispiel bleibt unabhängig von Ihren Eingaben im Rechner.")}</figcaption>
 		</figure>
 	</div>
