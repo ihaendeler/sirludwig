@@ -9,14 +9,13 @@ import { fileURLToPath } from 'node:url';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '../..');
 
 /** Hero source — keep in sync with src/pages/index.astro */
-export const HERO_IMAGE_REL = 'src/assets/images/hero/PXL_20260516_084223542.jpg';
+export const HERO_IMAGE_REL = 'src/assets/images/autumn/blickkontakt.jpg';
 
 const HERO_IMAGE = join(ROOT, HERO_IMAGE_REL);
 const OUTPUT = join(ROOT, 'public/og.jpg');
 
 const WIDTH = 1200;
 const HEIGHT = 630;
-const ASPECT = WIDTH / HEIGHT;
 
 const BRAND_NAME = 'SIR LUDWIG';
 const BRAND_TAGLINE = 'by FlyingRoyals von Reckewitz';
@@ -27,8 +26,6 @@ const BROWN = '#4A3428';
 const BLACK = '#1C1C1C';
 const APRICOT = '#D9A066';
 
-/** Vertical focal point — matches hero object-position (center 32%). */
-const FOCAL_Y_RATIO = 0.32;
 
 function buildOverlaySvg(descriptor = BRAND_DESCRIPTOR): string {
 	const padX = 72;
@@ -40,15 +37,6 @@ function buildOverlaySvg(descriptor = BRAND_DESCRIPTOR): string {
 	const yLine = yBrand - 30;
 
 	return `<svg width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="${CREAM}" stop-opacity="0.97"/>
-      <stop offset="42%" stop-color="${CREAM}" stop-opacity="0.88"/>
-      <stop offset="68%" stop-color="${CREAM}" stop-opacity="0.45"/>
-      <stop offset="100%" stop-color="${CREAM}" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
-  <rect width="760" height="${HEIGHT}" fill="url(#fade)"/>
   <rect x="${padX}" y="${yLine}" width="40" height="2" fill="${APRICOT}"/>
   <text
     x="${padX}"
@@ -83,30 +71,11 @@ function buildOverlaySvg(descriptor = BRAND_DESCRIPTOR): string {
 }
 
 async function cropHeroPhoto(): Promise<Buffer> {
-	const meta = await sharp(HERO_IMAGE).metadata();
-	const width = meta.width ?? 0;
-	const height = meta.height ?? 0;
-
-	if (!width || !height) {
-		throw new Error(`Could not read dimensions from ${HERO_IMAGE}`);
-	}
-
-	let cropWidth = Math.round(height * ASPECT);
-	let cropHeight = height;
-
-	if (cropWidth > width) {
-		cropWidth = width;
-		cropHeight = Math.round(width / ASPECT);
-	}
-
-	const focalY = height * FOCAL_Y_RATIO;
-	const left = width - cropWidth;
-	const top = Math.round(Math.max(0, Math.min(focalY - cropHeight / 2, height - cropHeight)));
-
-	return sharp(HERO_IMAGE)
-		.extract({ left, top, width: cropWidth, height: cropHeight })
-		.resize(WIDTH, HEIGHT, { fit: 'fill' })
-		.toBuffer();
+	// Keep the entire portrait next to the brand instead of cropping it to a banner.
+	const portrait = await sharp(HERO_IMAGE).resize({ height: HEIGHT }).toBuffer();
+	const { width = 0 } = await sharp(portrait).metadata();
+	return sharp({ create: { width: WIDTH, height: HEIGHT, channels: 3, background: CREAM } })
+		.composite([{ input: portrait, top: 0, left: WIDTH - width }]).png().toBuffer();
 }
 
 async function generateOgImage(): Promise<void> {

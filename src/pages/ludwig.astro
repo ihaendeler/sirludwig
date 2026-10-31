@@ -10,7 +10,7 @@ import PageHero from '../components/PageHero.astro';
 import { siteConfig, getCanonical } from '../config/site';
 import '../styles/ludwig.css';
 
-import heroImage from '../assets/images/ludwig/PXL_20260516_084223542.jpg';
+import { photos } from '../data/photos';
 
 const path = '/ludwig';
 const imageWidths = [480, 640, 828, 1080, 1280, 1920];
@@ -31,6 +31,7 @@ const projectGoals = [
 >
 	<PageHero
 		variant="media"
+		class="ludwig-hero"
 		label={t("Ludwig")}
 		title={t("Tuxedo Großpudel mit ruhiger Präsenz")}
 		intro={t("Sir Ludwig steht für einen bewusst geführten Aufbau — dokumentiert, transparent und ohne Eile.")}
@@ -38,8 +39,9 @@ const projectGoals = [
 	>
 		<div slot="media" class="page-hero__media-frame">
 			<Image
-				src={heroImage}
-				alt={t("Sir Ludwig sitzt aufmerksam auf einer Wiese")}
+				src={photos.nahportraet.image}
+				alt={t(photos.nahportraet.alt)}
+				format="webp"
 				widths={imageWidths}
 				sizes="(min-width: 48rem) 55vw, 100vw"
 				loading="eager"
@@ -78,12 +80,16 @@ const projectGoals = [
 	<!-- Charakter -->
 	<section class="ludwig-section" aria-labelledby="ludwig-character-heading">
 		<div class="container">
-			<div class="ludwig-section__inner">
-				<p class="ludwig-eyebrow">{t("Charakter")}</p>
-				<h2 id="ludwig-character-heading" class="ludwig-title">{t("Beobachtung")}</h2>
-				<p class="ludwig-text">
-					{t("Ludwig wirkt ruhig und aufmerksam. Er ist menschenbezogen und zeigt ein klares, ausgeglichenes Wesen — ohne Hast, mit Präsenz.")}
-				</p>
+			<div class="ludwig-story">
+				<Image src={photos.alltagStock.image} alt={t(photos.alltagStock.alt)}
+					format="webp" widths={imageWidths} sizes="(min-width: 48rem) 42vw, 100vw" loading="lazy" />
+				<div class="ludwig-section__inner">
+					<p class="ludwig-eyebrow">{t("Charakter")}</p>
+					<h2 id="ludwig-character-heading" class="ludwig-title">{t("Beobachtung")}</h2>
+					<p class="ludwig-text">
+						{t("Ludwig wirkt ruhig und aufmerksam. Er ist menschenbezogen und zeigt ein klares, ausgeglichenes Wesen — ohne Hast, mit Präsenz.")}
+					</p>
+				</div>
 			</div>
 		</div>
 	</section>

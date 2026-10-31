@@ -1,27 +1,59 @@
 ---
 import { getLocale, translator } from '../i18n';
-const locale = getLocale(Astro.url.pathname);
-const t = translator(locale);
-export const prerender = true;
-
+import { Image, getImage } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import { getCanonical } from '../config/site';
-
-const path = '/galerie';
-const placeholderIntro =
-	'Dieser Bereich ist vorbereitet und wird in einer späteren Phase ausgearbeitet.';
+import { galleryPhotos } from '../data/photos';
+import '../styles/gallery.css';
+export const prerender = true;
+const locale = getLocale(Astro.url.pathname);
+const t = translator(locale);
+const pictures = await Promise.all(galleryPhotos.map(async (photo) => ({ ...photo,
+  large: await getImage({ src: photo.image, width: 1920, format: 'webp', quality: 88 }),
+})));
 ---
 
-<BaseLayout
-	title={t("Galerie — Platzhalter")}
-	description={t("Bereich Galerie — in Vorbereitung.")}
-	canonical={getCanonical(path)}
->
-	<PageHero
-		label={t("Bereich")}
-		title={t("Galerie")}
-		intro={t(placeholderIntro)}
-		headingId="page-heading"
-	/>
+<BaseLayout title={t('Galerie — SIR LUDWIG')}
+  description={t('Sir Ludwig in Bildern: Porträts, Bewegung und kleine Pausen draußen in der Natur.')}
+  canonical={getCanonical('/galerie')}>
+  <PageHero label={t('Einblicke')} title={t('Unterwegs mit Ludwig')}
+    intro={t('Ein wacher Blick, fliegende Ohren, ein guter Fund am Wegesrand. Ludwig draußen in seinem Element.')}
+    headingId="gallery-heading" />
+  <section class="gallery-section" aria-labelledby="gallery-series">
+    <div class="container">
+      <header class="gallery-series">
+        <h2 id="gallery-series">{t('Herbstmomente')}</h2>
+        <p>{t('Oktober 2026')}</p>
+      </header>
+      <div class="gallery-grid">
+        {pictures.map((photo, index) => (
+          <figure class="gallery-item">
+            <a href={photo.large.src} data-gallery-open data-gallery-index={index}
+              data-caption={t(photo.title)} aria-label={`${t('Foto vergrößern')}: ${t(photo.title)}`}>
+              <Image src={photo.image} alt={t(photo.alt)} format="webp"
+                widths={[480, 640, 828, 1080, 1440]} sizes="(min-width: 72rem) 30vw, (min-width: 40rem) 46vw, 100vw"
+                loading="lazy" decoding="async" />
+              <span class="gallery-item__expand" aria-hidden="true">↗</span>
+            </a>
+            <figcaption><span>{t(photo.title)}</span><span class="gallery-item__number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span></figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+  <dialog class="photo-viewer" aria-labelledby="photo-caption" data-photo-viewer>
+    <button type="button" class="photo-viewer__close" data-photo-close autofocus aria-label={t('Bildansicht schließen')}>×</button>
+    <div class="photo-viewer__stage">
+      <button type="button" class="photo-viewer__previous" data-photo-previous aria-label={t('Vorheriges Foto')}>←</button>
+      <figure>
+        <img data-photo-image alt="" width="1446" height="1920" />
+        <figcaption id="photo-caption" data-photo-caption aria-live="polite"></figcaption>
+      </figure>
+      <button type="button" class="photo-viewer__next" data-photo-next aria-label={t('Nächstes Foto')}>→</button>
+    </div>
+  </dialog>
 </BaseLayout>
+<script>
+  import '../scripts/gallery';
+</script>

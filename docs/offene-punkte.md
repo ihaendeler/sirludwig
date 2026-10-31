@@ -10,7 +10,11 @@ Stand der Besprechung vom 26.10.2026.
 
 ## Fotos
 
-Der vereinbarte Fototermin liefert das neue Bildmaterial. Motivliste und Gestaltung stehen in [fotobriefing.md](fotobriefing.md). Der Bildtausch erfolgt nach Lieferung.
+Am 31.10.2026 wurden zehn klassisch bearbeitete Aufnahmen aus dem gelieferten
+Oktober-Ordner in Startseite, Ludwig-Seite und Galerie eingebaut. Die Galerie
+ersetzt den Platzhalter. Bildzuordnung und Herkunft stehen in
+[bildauswahl-2026-10.md](bildauswahl-2026-10.md). Das vorhandene Material ist die
+Grundlage der aktuellen Website; zusätzliche Aufnahmen sind keine Voraussetzung.
 
 ## E-Mail
 

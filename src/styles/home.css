@@ -79,10 +79,10 @@
 }
 
 .home-hero__media {
-	flex: 1 1 auto;
-	aspect-ratio: 4 / 5;
-	min-height: min(68dvh, 34rem);
-	--media-position: center 32%;
+	flex: none;
+	aspect-ratio: 3 / 4;
+	min-height: 0;
+	--media-position: center center;
 	border: none;
 }
 
@@ -481,9 +481,9 @@
 
 @media (min-width: 40rem) {
 	.home-hero__media {
-		aspect-ratio: 16 / 10;
-		min-height: 52vh;
-		--media-position: center 28%;
+		aspect-ratio: 3 / 4;
+		max-width: 32rem;
+		margin-inline: auto;
 	}
 
 	.home-feature__media,
@@ -532,7 +532,7 @@
 	}
 
 	.home-feature__media {
-		aspect-ratio: 3 / 2;
+		aspect-ratio: 3 / 4;
 	}
 
 	.home-features__grid {
@@ -582,13 +582,13 @@
 		flex: none;
 		width: 100%;
 		max-width: 30rem;
-		height: clamp(22rem, 74vh, 40rem);
-		max-height: 78vh;
+		height: auto;
+		max-height: none;
 		min-height: 0;
-		aspect-ratio: 4 / 5;
+		aspect-ratio: 3 / 4;
 		justify-self: start;
 		align-self: center;
-		--media-position: center 26%;
+		--media-position: center center;
 	}
 
 	.home-feature__body {
@@ -654,10 +654,10 @@
 .home-hero__actions .btn { font-size: .9375rem; white-space: normal; }
 @media (max-width: 39.99rem) {
  .home-hero { min-height: auto; }
- .home-hero__media { min-height: 0; height: min(52dvh, 28rem); aspect-ratio: auto; flex: none; }
+ .home-hero__media { min-height: 0; height: auto; aspect-ratio: 3 / 4; flex: none; }
  .home-hero__content { padding-block: 1.75rem 2.5rem; }
 }
 @media (min-width: 64rem) {
- .home-hero__media { height: clamp(22rem, 65vh, 36rem); }
+ .home-hero__media { height: auto; }
  .home-profile__grid { gap: 3rem; }
 }

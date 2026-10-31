@@ -9,15 +9,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { defaultDescription, defaultTitle, getCanonical, siteConfig } from '../config/site';
 import '../styles/home.css';
 
-import heroImage from '../assets/images/hero/PXL_20260516_084223542.jpg';
-// Profilansicht — ruhiger Zuschnitt für Stammbaum-Teaser
-import stammbaumImage from '../assets/images/ludwig/PXL_20260516_084222134.jpg';
-// Liegt entspannt; bei 5:6-Zuschnitt können Vorderläufe abgeschnitten werden — ggf. eigenes Crop
-import gesundheitImage from '../assets/images/ludwig/PXL_20260516_085447844.jpg';
-// Mit Betreuerin; bei schmalem Viewport Schultern/Haaransatz im Blick behalten (center 24%)
-import galerieImage from '../assets/images/galerie/PXL_20260516_084843156.jpg';
-// Sonnenlicht, entspannt — bewusst anderes Motiv als Hero
-import highlightImage from '../assets/images/ausstellungen/PXL_20260516_085447844.jpg';
+import { photos } from '../data/photos';
 
 const mobileWidths = [480, 640, 828, 1080, 1280, 1920];
 
@@ -28,9 +20,9 @@ const features = [
 		href: '/stammbaum',
 		teaser:
 			'Abstammung und Linienführung im Überblick. Die Dokumentation wird mit dem Registerprojekt ergänzt.',
-		image: stammbaumImage,
-		alt: 'Sir Ludwig im Profil auf einer Wiese',
-		position: 'center 30%',
+		image: photos.standGegenlicht.image,
+		alt: photos.standGegenlicht.alt,
+		position: 'center center',
 		sizes: '(min-width: 64rem) 30vw, 100vw',
 	},
 	{
@@ -39,9 +31,9 @@ const features = [
 		href: '/gesundheit',
 		teaser:
 			'Untersuchungen und Gesundheitsüberwachung im Rahmen der Entwicklung. Ergebnisse folgen nach Abschluss.',
-		image: gesundheitImage,
-		alt: 'Sir Ludwig entspannt auf einer Decke im Gras',
-		position: 'center 38%',
+		image: photos.ruhe.image,
+		alt: photos.ruhe.alt,
+		position: 'center center',
 		sizes: '(min-width: 64rem) 30vw, 100vw',
 	},
 	{
@@ -50,9 +42,9 @@ const features = [
 		href: '/galerie',
 		teaser:
 			'Einblicke in Typ, Haltung und Alltag — visuell dokumentiert, ohne Übertreibung.',
-		image: galerieImage,
-		alt: 'Sir Ludwig mit Betreuerin auf einer Sommerwiese',
-		position: 'center 24%',
+		image: photos.bewegung.image,
+		alt: photos.bewegung.alt,
+		position: 'center center',
 		sizes: '(min-width: 64rem) 30vw, 100vw',
 	},
 ];
@@ -83,8 +75,9 @@ const timelineEntries = [
 	<section class="home-hero" aria-labelledby="home-hero-brand">
 		<div class="home-hero__media home-media">
 			<Image
-				src={heroImage}
-				alt={t("Sir Ludwig sitzt aufmerksam auf einer Wiese")}
+				src={photos.blickkontakt.image}
+				alt={t(photos.blickkontakt.alt)}
+				format="webp"
 				widths={mobileWidths}
 				sizes="(min-width: 64rem) 30rem, 100vw"
 				loading="eager"
@@ -128,6 +121,7 @@ const timelineEntries = [
 								<Image
 									src={item.image}
 									alt={t(item.alt)}
+									format="webp"
 									widths={mobileWidths}
 									sizes={item.sizes}
 									loading="lazy"
@@ -225,11 +219,12 @@ const timelineEntries = [
 			<div class="home-highlight__layout">
 				<div
 					class="home-highlight__media home-media"
-					style="--media-position: center 38%"
+					style="--media-position: center center"
 				>
 					<Image
-						src={highlightImage}
-						alt={t("Sir Ludwig entspannt im Sonnenlicht auf einer Decke")}
+						src={photos.sitzprofil.image}
+						alt={t(photos.sitzprofil.alt)}
+						format="webp"
 						widths={mobileWidths}
 						sizes="(min-width: 64rem) 50vw, 100vw"
 						loading="lazy"

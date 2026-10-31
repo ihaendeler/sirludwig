@@ -1,0 +1,191 @@
+{
+  "date": "2026-10-31",
+  "method": "Conventional photographic adjustments, no generative AI, no watermark, no reshaping or recolouring.",
+  "source": "Pixel JPEGs, not RAW files. Originals stay in the separate Ludwig folder.",
+  "files": [
+    {
+      "asset": "blickkontakt.jpg",
+      "source": "PXL_20261027_145233615.RAW-01.jpg",
+      "source_sha256": "be040da08f08fcd84a84d466e7c9b67761a9c6eec08111a6e7a510b2ea809007",
+      "recipe": {
+        "index": 14,
+        "name": "01-Portraet-Blickkontakt",
+        "ev": 0.08,
+        "wb": [
+          0.997,
+          1,
+          1.008
+        ],
+        "shadows": 0.025,
+        "highlights": 0.018,
+        "use": "Favorit fuer Ueber Ludwig und ein hohes Startseitenmotiv.",
+        "note": "Starker direkter Blick, schoene Fellzeichnung. Einzelne Halme vor Brust und Gesicht bleiben erhalten."
+      }
+    },
+    {
+      "asset": "stand-gegenlicht.jpg",
+      "source": "PXL_20261027_145308805.RAW-01.jpg",
+      "source_sha256": "99671e50016e313f3f67fac65233eabefc7a34b4c1769bb4788c154bab1ec75f",
+      "recipe": {
+        "index": 22,
+        "name": "02-Standbild-Gegenlicht",
+        "ev": 0.16,
+        "wb": [
+          1,
+          1,
+          1
+        ],
+        "shadows": 0.035,
+        "highlights": 0.025,
+        "use": "Bevorzugtes seitliches Ganzkoerperbild; Profil und mobile Startseite.",
+        "note": "Koerper und Rute im Bild, schoene Lichtkante. Schattenseite und schraeger Boden begrenzen die Beurteilung des Koerperbaus."
+      }
+    },
+    {
+      "asset": "stand-sonne.jpg",
+      "source": "PXL_20261027_145446631.RAW-01.MP.jpg",
+      "source_sha256": "4245df8494080717e34402479118f1fe7dcced693792ad39fe766f546bb02af9",
+      "recipe": {
+        "index": 27,
+        "name": "03-Standbild-Sonnenlicht",
+        "ev": -0.03,
+        "wb": [
+          0.994,
+          1,
+          1.012
+        ],
+        "shadows": 0.016,
+        "highlights": 0.025,
+        "use": "Ergaenzende Galerieaufnahme zum Vergleich des Looks im Sonnenlicht.",
+        "note": "Gute Fellstruktur und Seitenansicht. Rute am linken Originalrand angeschnitten; deshalb kein bevorzugtes Zuchtprofil."
+      }
+    },
+    {
+      "asset": "nahportraet.jpg",
+      "source": "PXL_20261027_150141496.RAW-01.MP.jpg",
+      "source_sha256": "aa9174d7321a2e330dbda77e9c5a072ed99e2d672ff6e4348adc77efff0d3717",
+      "recipe": {
+        "index": 70,
+        "name": "04-Nahportraet-Wiese",
+        "ev": 0.08,
+        "wb": [
+          0.998,
+          1,
+          1.006
+        ],
+        "shadows": 0.025,
+        "highlights": 0.02,
+        "use": "Emotionales Nahportraet fuer Portraetbereich oder Galerie.",
+        "note": "Schoenes Auge und Fellstruktur. Halme kreuzen Schnauze und Brust; sie werden nicht entfernt."
+      }
+    },
+    {
+      "asset": "bewegung.jpg",
+      "source": "PXL_20261027_150646104.RAW-01.jpg",
+      "source_sha256": "0dd5d0c83829a5050070c0132329da266a3c5504170aebc64a2739a9e0ed06da",
+      "recipe": {
+        "index": 83,
+        "name": "05-Bewegung",
+        "ev": 0.1,
+        "wb": [
+          1.025,
+          1,
+          0.965
+        ],
+        "shadows": 0.018,
+        "highlights": 0.02,
+        "use": "Charakter und Lebensfreude; Bewegungsfoto in der Galerie.",
+        "note": "Lebendiger Blick, fliegende Ohren. Frontal und nah aufgenommen, deshalb kein Nachweis der Koerperproportionen; Bewegung begrenzt feinste Schaerfe."
+      }
+    },
+    {
+      "asset": "alltag-stock.jpg",
+      "source": "PXL_20261027_151434408.RAW-01.jpg",
+      "source_sha256": "60aa6c1bce71711707be4b8e34585ad875e289aecc8353765a200ed68a9106b3",
+      "recipe": {
+        "index": 90,
+        "name": "06-Alltag-mit-Stock",
+        "ev": 0.07,
+        "wb": [
+          1.025,
+          1,
+          0.965
+        ],
+        "shadows": 0.012,
+        "highlights": 0.018,
+        "use": "Alltag, Wesen und persoenliche Geschichte.",
+        "note": "Freundlicher Ausdruck mit Stock. Koerper am rechten Originalrand angeschnitten; fuer Galerie, weniger fuer formales Profil."
+      }
+    },
+    {
+      "asset": "ruhe.jpg",
+      "source": "PXL_20261027_152112472.RAW-01.MP.jpg",
+      "source_sha256": "1b3fdc0014635bc73905cac4a355860bfee63666b3af44eff79cda7a9c258a2e",
+      "recipe": {
+        "index": 100,
+        "name": "07-Ruhiges-Portraet",
+        "ev": 0.06,
+        "wb": [
+          1.03,
+          1,
+          0.955
+        ],
+        "shadows": 0.018,
+        "highlights": 0.02,
+        "use": "Ruhiges alternatives Portraet im Schatten; zweiter Weissabgleichstest.",
+        "note": "Schoener Seitenblick; steiniger Hintergrund wirkt sachlicher als die Wiese. Auge liegt teilweise im Schatten."
+      }
+    },
+    {
+      "asset": "sitzprofil.jpg",
+      "source": "PXL_20261027_144834579.RAW-01.MP.jpg",
+      "source_sha256": "58ca51faac730f9fcca0c8f94bfc1ce7b50f32f6047a66a2dbb48fa343d95ca0",
+      "recipe": {
+        "index": 1,
+        "name": "sitzprofil",
+        "ev": 0.08,
+        "wb": [
+          1,
+          1,
+          1
+        ],
+        "shadows": 0.03,
+        "highlights": 0.025
+      }
+    },
+    {
+      "asset": "aufmerksam.jpg",
+      "source": "PXL_20261027_145510516.RAW-01.MP.jpg",
+      "source_sha256": "c2c1e0b48a0afbbfd9895188a395dbac2294dd6c2235fbfa0bc924c4c4aedbc0",
+      "recipe": {
+        "index": 35,
+        "name": "aufmerksam",
+        "ev": -0.02,
+        "wb": [
+          0.994,
+          1,
+          1.012
+        ],
+        "shadows": 0.016,
+        "highlights": 0.025
+      }
+    },
+    {
+      "asset": "spielpause.jpg",
+      "source": "PXL_20261027_151420794.RAW-01.MP.jpg",
+      "source_sha256": "58c87eb36a58d0b43354f911b0b4f76bfcbd2b39f936ad2d208f013b79dce224",
+      "recipe": {
+        "index": 85,
+        "name": "spielpause",
+        "ev": 0.08,
+        "wb": [
+          1.025,
+          1,
+          0.965
+        ],
+        "shadows": 0.015,
+        "highlights": 0.02
+      }
+    }
+  ]
+}

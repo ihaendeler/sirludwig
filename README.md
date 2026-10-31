@@ -55,7 +55,7 @@ Fachlicher Umfang, Quellen, Szenarioformat und Speicherverhalten sind in [docs/f
 ## Offene Inhalte
 
 - Die verlinkten Seiten `/impressum/` und `/datenschutz/` fehlen. Vor einer Veröffentlichung müssen sie mit bestätigten Betreiberangaben und Informationen zur tatsächlichen Datenverarbeitung ergänzt werden.
-- Galerie und Nachzucht sind noch Platzhalter.
+- Die Galerie enthält zehn Oktober-Aufnahmen mit Großansicht; Nachzucht ist noch ein Platzhalter.
 - `src/config/site.ts` verwendet weiterhin `https://sirludwig.pages.dev` als kanonische URL. Bei einem Domainwechsel muss diese Konfiguration angepasst werden.
 
 ## Cloudflare Pages – Build Settings
@@ -191,7 +191,7 @@ Das Share-Bild für WhatsApp, Facebook, Telegram, LinkedIn und X wird beim Build
 
 ### Hero-Quelle
 
-- Pfad: `src/assets/images/hero/PXL_20260516_084223542.jpg`
+- Pfad: `src/assets/images/autumn/blickkontakt.jpg`
 - Verwendung auf der Startseite als Hero-Foto
 
 ### Generierung
@@ -203,8 +203,8 @@ npm run build         # läuft automatisch via prebuild-Hook
 
 Skript: `src/scripts/generate-og.ts`
 
-- Zuschnitt **1200 × 630 px** (Landscape) aus dem Hero-Bild
-- Hund rechts, Markentext links unten auf dezentem Cream-Verlauf
+- Layout **1200 × 630 px** mit vollständig erhaltenem Hochformat rechts
+- Markentext links auf der Cream-Fläche, Foto ohne Wasserzeichen
 - Ausgabe: `public/og.jpg` (stabile URL, kein Hash im Dateinamen)
 
 SEO-Metadaten (`og:image`, `twitter:image`) verweisen über `defaultOgImage` in `src/config/site.ts` auf `/og.jpg`.
@@ -215,7 +215,7 @@ SEO-Metadaten (`og:image`, `twitter:image`) verweisen über `defaultOgImage` in 
 |----------|-----|
 | Anderes Quellfoto | `HERO_IMAGE_REL` in `src/scripts/generate-og.ts` |
 | Texte / Farben | Konstanten am Anfang von `generate-og.ts` |
-| Bildausschnitt | `FOCAL_Y_RATIO` oder Crop-Logik in `cropHeroPhoto()` |
+| Bildanordnung | Layout-Logik in `cropHeroPhoto()` |
 | Overlay-Layout | Funktion `buildOverlaySvg()` |
 
 Nach Änderungen `npm run generate:og` ausführen und `public/og.jpg` prüfen.

@@ -13,7 +13,8 @@ const textNodes = (html: string) => html.replace(/<(script|style)\b[^>]*>[\s\S]*
 const htmlFile = (path: string) => path === '/404/' ? 'dist/404.html' : `dist${path}index.html`;
 
 // A newly added German page must have an English route in the same deployment.
-for (const file of await readdir('src/pages', { recursive: true })) {
+for (const entry of await readdir('src/pages', { recursive: true })) {
+	const file = entry.replaceAll('\\', '/');
 	if (!file.endsWith('.astro') || file.startsWith('en/')) continue;
 	const path = file === 'index.astro' ? '/' : `/${file.replace(/\.astro$/, '').replace(/\/index$/, '')}/`;
 	assert.ok(routes.some(([de]) => de === path), `Missing English route for ${path}`);

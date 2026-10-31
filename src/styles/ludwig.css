@@ -102,3 +102,9 @@
 		width: auto;
 	}
 }
+
+.ludwig-hero.page-hero--media .page-hero__media { width: 100%; aspect-ratio: 3 / 4; height: auto; min-height: 0; --media-position: center center; }
+.ludwig-hero.page-hero--media { min-height: 0; align-items: center; }
+.ludwig-story { display: grid; gap: var(--space-2xl); align-items: center; }
+.ludwig-story > img { display: block; width: 100%; height: auto; }
+@media (min-width: 48rem) { .ludwig-story { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-3xl); } }
