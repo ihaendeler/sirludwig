@@ -1,7 +1,7 @@
 {
   "reviewed": 104,
-  "used_october": 20,
-  "used_may": 4,
+  "used_october": 18,
+  "used_may": 0,
   "method": "Visual review on 13 sheets with eight images each, additional larger review of selected images; no claim of 100-percent pixel inspection for every file.",
   "photos": [
     {
@@ -316,8 +316,8 @@
       "index": 45,
       "file": "PXL_20261027_145659511.RAW-01.MP.jpg",
       "sha256": "f9414672d97824ce63232050e1c21419b8b8ac91c162a480666d98f5e81748a1",
-      "status": "verwendet",
-      "reason": "Spielserie: 045 für die deutlich erkennbare aufgerichtete Bewegung gewählt; ähnliche Momente als Reserve."
+      "status": "ausgeschlossen",
+      "reason": "Auf Nutzerwunsch aus der Website entfernt: sichtbare Hände, Arme oder Personenteile."
     },
     {
       "index": 46,
@@ -379,8 +379,8 @@
       "index": 54,
       "file": "PXL_20261027_145921204.RAW-01.MP.jpg",
       "sha256": "101927aa43fbe157a38dbce6279668ac4c238cec5a85fb5331295f49df1ae6eb",
-      "status": "verwendet",
-      "reason": "Seiten-/Beschäftigungsserie: 054 mit Belohnung und 058 als klare Seitenansicht gewählt; Serienvarianten als Reserve."
+      "status": "ausgeschlossen",
+      "reason": "Auf Nutzerwunsch aus der Website entfernt: sichtbare Hände, Arme oder Personenteile."
     },
     {
       "index": 55,
@@ -732,5 +732,6 @@
       "status": "Reserve",
       "reason": "Ruheserie: 100 als nahes Porträt, 101 für die Umgebung gewählt; übrige Bilder mit ähnlicher Pose oder viel Vordergrund als Reserve."
     }
-  ]
+  ],
+  "may_files": "Placeholders only, removed on explicit user correction; they do not document Ludwig development."
 }

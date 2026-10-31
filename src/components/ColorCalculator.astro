@@ -4,7 +4,7 @@ const locale = getLocale(Astro.url.pathname);
 const t = translator(locale);
 import { Image } from 'astro:assets';
 import TuxedoGuide from './TuxedoGuide.astro';
-import ludwigImage from '../assets/images/hero/PXL_20260516_084223542.jpg';
+import { photos } from '../data/photos';
 import { calculateColors, emptyScenario, GENOTYPE_LABELS, LOCI, LOCUS_LABELS, VALUES, MODEL_NOTE } from '../lib/color/model';
 import '../styles/color-calculator.css';
 
@@ -17,7 +17,7 @@ const prefix = 'color';
 	<div class="color-calculator__layout">
 		<div class="color-calculator__inputs">
 			<div class="color-sire">
-				<Image src={ludwigImage} alt={t("Sir Ludwig")} width={88} height={104} fit="cover" class="color-sire__photo" />
+				<Image src={photos.blickkontakt.image} alt={t("Sir Ludwig")} format="webp" width={88} height={104} fit="cover" class="color-sire__photo" />
 				<div>
 					<p class="color-eyebrow">{t("Der Rüde")}</p>
 					<h2 class="color-sire__name">{t("Sir Ludwig")}</h2>

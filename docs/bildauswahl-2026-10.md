@@ -1,6 +1,6 @@
 # Bildauswahl Oktober 2026
 
-Nach der erneuten Sichtung aller 104 Fotos bilden 20 Motive aus dem gelieferten
+Nach der erneuten Sichtung aller 104 Fotos bilden 18 Motive aus dem gelieferten
 Ordner „Ludwig“ die Oktober-Serie. Alle Dateien wurden erneut dekodiert und mit
 den ursprünglichen SHA-256-Prüfsummen abgeglichen. Die visuelle Sichtung erfolgte
 auf 13 größeren Bögen mit je acht Fotos, ergänzt durch größere Ansichten der
@@ -21,10 +21,11 @@ Originaldateien bleiben außerhalb des Repositorys unverändert erhalten.
 | Ludwig Hauptbild | nahportraet.jpg |
 | Ludwig Charakter | alltag-stock.jpg |
 | Startseite Landschaft | talblick-quer.jpg, klassischer 3:2-Ausschnitt aus Aufnahme 101 |
-| Ludwig Herkunft | vorhandenes Porträt vom 16. Mai 2026 |
+| Ludwig Herkunft | frontal-im-gras.jpg, echte Aufnahme aus Oktober |
 | Ludwig Auswahl | seitenstand.jpg, Aufnahme 058 |
-| Ludwig Spiel & Konzentration | gemeinsame-beschaeftigung.jpg und spielerischer-sprung.jpg |
-| Galerie | 20 Oktober-Motive plus vier vorhandene Mai-Fotos, 24 insgesamt |
+| Ludwig Spiel & Konzentration | kleine-pfote.jpg und bewegung.jpg |
+| Farbrechner und Tuxedo-Erklärung | blickkontakt.jpg |
+| Galerie | 18 echte Oktober-Motive ohne sichtbare Personen oder Körperteile |
 | Geteilte Links DE/EN | blickkontakt.jpg, vollständiges Hochformat neben Markentext |
 
 Die Galerie behält die vollständigen Bildausschnitte und bietet eine
@@ -43,11 +44,21 @@ stand-gegenlicht.jpg verwendet. Perspektive und Boden sind dort nicht
 standardisiert; es ist keine eigens angefertigte Exterieur-Dokumentation.
 
 Galeriebereiche: Porträts & Ausdruck (7), Typ & Erscheinung (5), Spiel & Alltag
-(8), Frühere Eindrücke (4). Die Gesamtzählung und die Großansicht reichen über
+(6). Die Gesamtzählung und die Großansicht reichen über
 alle Themenbereiche; direkte Sprunglinks erhalten ihren Anker beim Sprachwechsel.
 
-Die vier vorhandenen Mai-Aufnahmen werden als eigener früherer Entwicklungsstand
-gezeigt. Die Bildunterschriften kennzeichnen Mai beziehungsweise Oktober 2026.
+Die Mai-Dateien waren nach ausdrücklicher Korrektur des Nutzers ausschließlich
+Platzhalter, keine früheren Fotos von Ludwig. Sie sind aus allen Komponenten,
+der Galerie und den Bildordnern entfernt. Sie dürfen nicht erneut eingesetzt oder
+als Entwicklungsdokumentation eingeordnet werden.
+
+Die Aufnahmen 045 (spielerischer-sprung.jpg) und 054
+(gemeinsame-beschaeftigung.jpg) sind wegen sichtbarer Hände, Arme oder weiterer
+Personenteile aus der Website entfernt. Ihre Originale bleiben im gelieferten
+Ordner unangetastet. Künftig nur Fotos ohne Menschen und sichtbare Körperteile
+verwenden; ein klassischer Zuschnitt ist möglich, wenn er alle Personenteile
+entfernt und Ludwig sinnvoll im Bild erhält. Keine generative Entfernung.
+
 Nahezu identische Serienvarianten bleiben als Reserve erhalten. Eine Begründung
 für jede der 104 Oktober-Dateien steht in fotosichtung-gesamt.json.
 

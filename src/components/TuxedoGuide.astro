@@ -3,7 +3,7 @@ import { getLocale, translator, localizedHref } from '../i18n';
 const locale = getLocale(Astro.url.pathname);
 const t = translator(locale);
 import { Image } from 'astro:assets';
-import ludwigImage from '../assets/images/hero/PXL_20260516_084223542.jpg';
+import { photos } from '../data/photos';
 import { calculateColors, emptyScenario, formatProbability } from '../lib/color/model';
 import { litterDistribution } from '../lib/color/litter';
 import LitterDistribution from './LitterDistribution.astro';
@@ -23,7 +23,7 @@ const litterProbabilities = litterDistribution(50);
 <section id={id} class:list={['tuxedo-guide', { 'tuxedo-guide--compact': compact }]} aria-labelledby={`${id}-title`}>
 	<div class="tuxedo-guide__intro">
 		{!compact && <figure class="tuxedo-guide__portrait">
-			<Image src={ludwigImage} alt={t("Ludwigs Tuxedo-Look mit apricotfarbenem Fell, weißer Brust und weißen Pfoten")} width={480} height={600} fit="cover" loading="lazy" />
+			<Image src={photos.blickkontakt.image} alt={t("Ludwigs Tuxedo-Look mit apricotfarbenem Fell, weißer Brust und weißen Pfoten")} format="webp" width={480} height={600} fit="cover" loading="lazy" />
 			<figcaption>{t("Apricot und Weiß. Ludwigs persönliche Zeichnung.")}</figcaption>
 		</figure>}
 		<div>

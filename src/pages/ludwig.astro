@@ -56,9 +56,9 @@ const projectGoals = [
 		<div class="container">
 			<div class="ludwig-story">
 				<figure class="ludwig-photo">
-					<Image src={photos.fruehesPortraet.image} alt={t(photos.fruehesPortraet.alt)}
+					<Image src={photos.frontalImGras.image} alt={t(photos.frontalImGras.alt)}
 						format="webp" widths={imageWidths} sizes="(min-width: 48rem) 42vw, 100vw" loading="lazy" />
-					<figcaption>{t('Mai 2026')}</figcaption>
+					<figcaption>{t(photos.frontalImGras.title)}</figcaption>
 				</figure>
 			<div class="ludwig-section__inner">
 				<p class="ludwig-eyebrow">{t("Herkunft")}</p>
@@ -66,7 +66,7 @@ const projectGoals = [
 				<p class="ludwig-text">
 					{t("Ludwig gehört zum Rudel FlyingRoyals von Reckewitz und wird als eigenständiger zukünftiger Deckrüde präsentiert.")}
 				</p>
-				<a class="ludwig-gallery-link" href={localizedHref('/galerie#early', locale)}>{t('Frühere Eindrücke ansehen')}</a>
+				<a class="ludwig-gallery-link" href={localizedHref('/galerie#portraits', locale)}>{t('Weitere Porträts ansehen')}</a>
 			</div>
 			</div>
 		</div>
@@ -111,18 +111,18 @@ const projectGoals = [
 			<div class="ludwig-section__inner">
 				<p class="ludwig-eyebrow">{t('Alltag')}</p>
 				<h2 id="ludwig-everyday-heading" class="ludwig-title">{t('Spiel & Konzentration')}</h2>
-				<p class="ludwig-text">{t('Ein Blickkontakt, eine kleine Belohnung, ein spielerischer Moment – Eindrücke vom gemeinsamen Unterwegssein.')}</p>
+				<p class="ludwig-text">{t('Ein wacher Blick, eine kleine Geste, Freude an Bewegung – Eindrücke von Ludwig unterwegs.')}</p>
 			</div>
 			<div class="ludwig-moments">
 				<figure class="ludwig-photo">
-					<Image src={photos.gemeinsameBeschaeftigung.image} alt={t(photos.gemeinsameBeschaeftigung.alt)}
+					<Image src={photos.kleinePfote.image} alt={t(photos.kleinePfote.alt)}
 						format="webp" widths={imageWidths} sizes="(min-width: 48rem) 45vw, 100vw" loading="lazy" />
-					<figcaption>{t(photos.gemeinsameBeschaeftigung.title)}</figcaption>
+					<figcaption>{t(photos.kleinePfote.title)}</figcaption>
 				</figure>
 				<figure class="ludwig-photo">
-					<Image src={photos.spielerischerSprung.image} alt={t(photos.spielerischerSprung.alt)}
+					<Image src={photos.bewegung.image} alt={t(photos.bewegung.alt)}
 						format="webp" widths={imageWidths} sizes="(min-width: 48rem) 45vw, 100vw" loading="lazy" />
-					<figcaption>{t(photos.spielerischerSprung.title)}</figcaption>
+					<figcaption>{t(photos.bewegung.title)}</figcaption>
 				</figure>
 			</div>
 			<a class="ludwig-gallery-link" href={localizedHref('/galerie#everyday', locale)}>{t('Mehr aus dem Alltag ansehen')}</a>

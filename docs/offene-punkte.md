@@ -10,11 +10,12 @@ Stand der Besprechung vom 26.10.2026.
 
 ## Fotos
 
-Am 31.10.2026 wurden nach einer erneuten vollständigen Sichtung aller 104
-Oktober-Fotos insgesamt 20 Motive ausgewählt und klassisch bearbeitet.
-Die Galerie umfasst zusammen mit den vier vorhandenen Mai-Aufnahmen 24 Bilder
-in vier Themenbereichen. Startseite und Ludwig-Seite zeigen zusätzliche
-Aufnahmen von Umgebung, Herkunft, Seitenansicht und gemeinsamer Beschäftigung.
+Nach der vollständigen Sichtung aller 104 Oktober-Fotos und der anschließenden
+Korrektur durch den Nutzer umfasst die Galerie 18 echte Fotos in drei Bereichen.
+Die Mai-Dateien waren ausschließlich Platzhalter und sind vollständig entfernt,
+auch aus Farbrechner und Tuxedo-Erklärung. Zwei Spielaufnahmen mit sichtbaren
+Händen/Armen/Personenteilen sind ebenfalls aus der Website entfernt.
+Startseite und Ludwig-Seite verwenden nur echte Oktober-Fotos ohne Personen.
 Bildzuordnung und Herkunft stehen in
 [bildauswahl-2026-10.md](bildauswahl-2026-10.md). Das vorhandene Material ist die
 Grundlage der aktuellen Website; zusätzliche Aufnahmen sind keine Voraussetzung.
