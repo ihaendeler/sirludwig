@@ -40,7 +40,7 @@ GitHub Actions führt diese Prüfungen sowie den Produktionsbuild bei Pull Reque
 
 ## Deutsch und Englisch
 
-Deutsch ist die Standardsprache unter `/`. Über das Sprach-Dropdown im Kopfbereich und im mobilen Menü führt der Wechsel auf die entsprechende Seite unter `/en/`. Es gibt keine automatische Umleitung anhand der Browsersprache. Unterseiten, Farbrechner-Werte und Formularentwürfe bleiben beim Wechsel erhalten.
+Deutsch ist die Standardsprache unter `/`. Eine kleine Flagge rechts neben der Desktop-Navigation wechselt zur entsprechenden Seite unter `/en/` beziehungsweise zurück. Auf Mobilgeräten liegt die Sprachwahl unten im geöffneten Menü, mit Abstand zum Schriftzug. Der Link ist für Screenreader eindeutig beschriftet. Es gibt keine automatische Umleitung anhand der Browsersprache. Unterseiten, Farbrechner-Werte und Formularentwürfe bleiben beim Wechsel erhalten.
 
 Beide Sprachversionen verwenden dieselben Astro-Vorlagen und werden bei jedem `npm run build` gemeinsam erstellt und veröffentlicht. Die Routen stehen in `src/i18n/index.ts`, die englischen Texte in `src/i18n/en.json`. Neue Texte werden mit `t(...)` eingebunden; Namen, Genotypen und Formulardaten behalten ihre Originalwerte. Deutsche Laborzertifikate bleiben Originale und sind auf Englisch entsprechend gekennzeichnet. Auch das Vorschaubild für geteilte Links wird in beiden Sprachen erzeugt.
 

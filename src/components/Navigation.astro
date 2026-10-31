@@ -13,7 +13,6 @@ const currentPath = localizedHref(Astro.url.pathname, 'de')!.replace(/\/$/, '') 
 <header class="site-header" data-site-header>
 	<div class="site-header__inner container">
 		<Brand href={localizedHref("/", locale)} class="site-header__brand" />
-		<LanguageSwitcher />
 
 		<button
 			type="button"
@@ -33,7 +32,6 @@ const currentPath = localizedHref(Astro.url.pathname, 'de')!.replace(/\/$/, '') 
 	<nav id="site-nav" class="site-nav" aria-label={t("Hauptnavigation")} hidden>
 		<div class="site-nav__head container">
 			<Brand href={localizedHref("/", locale)} class="site-nav__brand" />
-			<LanguageSwitcher />
 
 			<button type="button" class="nav-toggle nav-toggle--close" aria-label={t("Menü schließen")}>
 				<span class="nav-toggle__bar" aria-hidden="true"></span>
@@ -54,6 +52,10 @@ const currentPath = localizedHref(Astro.url.pathname, 'de')!.replace(/\/$/, '') 
 					))
 				}
 			</ul>
+			<div class="site-nav__language">
+				<span class="site-nav__language-label">{t('Sprache')}</span>
+				<LanguageSwitcher />
+			</div>
 		</div>
 	</nav>
 </header>
@@ -203,6 +205,17 @@ const currentPath = localizedHref(Astro.url.pathname, 'de')!.replace(/\/$/, '') 
 		list-style: none;
 	}
 
+	.site-nav__language {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-md);
+		margin-top: var(--space-lg);
+		padding-top: var(--space-md);
+		border-top: 1px solid rgb(74 52 40 / .12);
+	}
+	.site-nav__language-label { font-size: .8125rem; color: rgb(74 52 40 / .65); }
+
 	.site-nav__item + .site-nav__item {
 		border-top: none;
 	}
@@ -265,8 +278,13 @@ const currentPath = localizedHref(Astro.url.pathname, 'de')!.replace(/\/$/, '') 
 		}
 
 		.site-nav__body {
+			display: flex;
+			align-items: center;
 			padding: 0;
 		}
+
+		.site-nav__language { margin: 0 0 0 1rem; padding: 0 0 0 .75rem; border-top: 0; border-left: 1px solid rgb(74 52 40 / .12); }
+		.site-nav__language-label { display: none; }
 
 		.site-header__inner {
 			gap: var(--space-lg);

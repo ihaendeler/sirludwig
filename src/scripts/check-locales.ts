@@ -33,8 +33,13 @@ for (const [dePath, enPath] of routes) {
 	assert.ok(en.includes(`hreflang="de" href="${siteUrl}${dePath}"`));
 	assert.ok(en.includes(`hreflang="en" href="${siteUrl}${enPath}"`));
 	assert.ok(en.includes(`rel="canonical" href="${siteUrl}${enPath}"`));
-	// Every existing page link in English must stay within the English version.
-	for (const [, href] of en.matchAll(/<a\b[^>]*href="([^"?#]*)/g)) {
+	// Page links stay English, except the explicit switch to the matching German page.
+	for (const [tag] of en.matchAll(/<a\b[^>]*>/g)) {
+		const href = tag.match(/\bhref="([^"?#]*)/)?.[1];
+		if (/\bdata-language-switch(?:\s|=|>)/.test(tag)) {
+			assert.equal(href, dePath, `Language switch on ${enPath} must lead to ${dePath}`);
+			continue;
+		}
 		assert.ok(!routes.some(([path]) => path === href), `German page link on ${enPath}: ${href}`);
 	}
 }

@@ -1,28 +1,42 @@
 ---
 import { getLocale, localizedHref } from '../i18n';
 const locale = getLocale(Astro.url.pathname);
+const targetLocale = locale === 'de' ? 'en' : 'de';
+const targetLabel = targetLocale === 'en' ? 'Switch to English' : 'Zu Deutsch wechseln';
 ---
-<label class="language-switcher">
-	<span class="visually-hidden">{locale === 'en' ? 'Language' : 'Sprache'}</span>
-	<select data-language-switch aria-label={locale === 'en' ? 'Language' : 'Sprache'}>
-		<option value={localizedHref(Astro.url.pathname, 'de')} selected={locale === 'de'} lang="de">Deutsch</option>
-		<option value={localizedHref(Astro.url.pathname, 'en')} selected={locale === 'en'} lang="en">English</option>
-	</select>
-</label>
+<a class="language-switcher" href={localizedHref(Astro.url.pathname, targetLocale)}
+	data-language-switch lang={targetLocale} hreflang={targetLocale}
+	aria-label={targetLabel} title={targetLabel}>
+	{targetLocale === 'en' ? (
+		<svg width="24" height="16" viewBox="0 0 60 40" aria-hidden="true" focusable="false">
+			<rect width="60" height="40" fill="#012169" />
+			<path d="M0 0 60 40M60 0 0 40" stroke="#fff" stroke-width="8" />
+			<path d="M0 0 60 40M60 0 0 40" stroke="#c8102e" stroke-width="3" />
+			<path d="M30 0V40M0 20H60" stroke="#fff" stroke-width="12" />
+			<path d="M30 0V40M0 20H60" stroke="#c8102e" stroke-width="6" />
+		</svg>
+	) : (
+		<svg width="24" height="16" viewBox="0 0 60 40" aria-hidden="true" focusable="false">
+			<rect width="60" height="40" fill="#ffce00" />
+			<rect width="60" height="26.667" fill="#d00" />
+			<rect width="60" height="13.333" fill="#111" />
+		</svg>
+	)}
+</a>
 
 <style>
-	.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
-	.language-switcher { flex-shrink: 0; margin-inline-end: auto; }
-	select { min-height: var(--touch-min); max-width: 7.5rem; padding: .5rem 1.5rem .5rem .5rem; border: 1px solid rgb(74 52 40 / .2); border-radius: var(--radius-sm); background-color: transparent; color: var(--color-brown); font: inherit; font-size: .8125rem; cursor: pointer; }
-	select:focus-visible { outline: 2px solid var(--color-brown); outline-offset: 3px; }
-	@media (max-width: 30rem) { select { max-width: 6rem; padding-inline-end: .25rem; } }
+	.language-switcher { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: var(--touch-min); height: var(--touch-min); color: inherit; border-radius: var(--radius-sm); }
+	.language-switcher svg { display: block; overflow: hidden; }
+	.language-switcher:hover { background: rgb(74 52 40 / .05); }
+	.language-switcher:focus-visible { outline: 2px solid var(--color-brown); outline-offset: 3px; }
 </style>
 
 <script>
-	document.querySelectorAll<HTMLSelectElement>('[data-language-switch]').forEach((switcher) => switcher.addEventListener('change', (event) => {
-		const select = event.currentTarget as HTMLSelectElement;
+	document.querySelectorAll<HTMLAnchorElement>('[data-language-switch]').forEach((switcher) => switcher.addEventListener('click', (event) => {
+		if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+		event.preventDefault();
 		document.dispatchEvent(new Event('language-changing'));
-		const target = new URL(select.value, location.origin);
+		const target = new URL(switcher.href);
 		target.search = location.search;
 		target.hash = location.hash;
 		location.assign(target.href);
