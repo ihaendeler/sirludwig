@@ -4,14 +4,20 @@ import { Image, getImage } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import { getCanonical } from '../config/site';
-import { galleryPhotos } from '../data/photos';
+import { gallerySections } from '../data/photos';
 import '../styles/gallery.css';
 export const prerender = true;
 const locale = getLocale(Astro.url.pathname);
 const t = translator(locale);
-const pictures = await Promise.all(galleryPhotos.map(async (photo) => ({ ...photo,
-  large: await getImage({ src: photo.image, width: 1920, format: 'webp', quality: 88 }),
-})));
+let offset = 0;
+const sections = await Promise.all(gallerySections.map(async (section) => {
+  const start = offset;
+  offset += section.photos.length;
+  return { ...section, pictures: await Promise.all(section.photos.map(async (photo, index) => ({ ...photo,
+    index: start + index,
+    large: await getImage({ src: photo.image, width: Math.min(1920, photo.image.width), format: 'webp', quality: 88 }),
+  }))) };
+}));
 ---
 
 <BaseLayout title={t('Galerie — SIR LUDWIG')}
@@ -20,26 +26,33 @@ const pictures = await Promise.all(galleryPhotos.map(async (photo) => ({ ...phot
   <PageHero label={t('Einblicke')} title={t('Unterwegs mit Ludwig')}
     intro={t('Ein wacher Blick, fliegende Ohren, ein guter Fund am Wegesrand. Ludwig draußen in seinem Element.')}
     headingId="gallery-heading" />
-  <section class="gallery-section" aria-labelledby="gallery-series">
+  <section class="gallery-section" aria-labelledby="gallery-heading">
     <div class="container">
+      <nav class="gallery-jump" aria-label={t('Galeriebereiche')}>
+        {sections.map((section) => <a href={`#${section.id}`}>{t(section.title)}</a>)}
+      </nav>
+      {sections.map((section) => (
+      <section class="gallery-chapter" id={section.id} aria-labelledby={`gallery-${section.id}`}>
       <header class="gallery-series">
-        <h2 id="gallery-series">{t('Herbstmomente')}</h2>
-        <p>{t('Oktober 2026')}</p>
+        <h2 id={`gallery-${section.id}`}>{t(section.title)}</h2>
+        <p>{t(section.date)}</p>
       </header>
       <div class="gallery-grid">
-        {pictures.map((photo, index) => (
+        {section.pictures.map((photo) => (
           <figure class="gallery-item">
-            <a href={photo.large.src} data-gallery-open data-gallery-index={index}
+            <a href={photo.large.src} data-gallery-open data-gallery-index={photo.index}
               data-caption={t(photo.title)} aria-label={`${t('Foto vergrößern')}: ${t(photo.title)}`}>
               <Image src={photo.image} alt={t(photo.alt)} format="webp"
-                widths={[480, 640, 828, 1080, 1440]} sizes="(min-width: 72rem) 30vw, (min-width: 40rem) 46vw, 100vw"
+                widths={[480, 640, 828, 1080, 1440].filter((width) => width <= photo.image.width)} sizes="(min-width: 72rem) 30vw, (min-width: 40rem) 46vw, 100vw"
                 loading="lazy" decoding="async" />
               <span class="gallery-item__expand" aria-hidden="true">↗</span>
             </a>
-            <figcaption><span>{t(photo.title)}</span><span class="gallery-item__number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span></figcaption>
+            <figcaption><span>{t(photo.title)}</span><span class="gallery-item__number" aria-hidden="true">{String(photo.index + 1).padStart(2, '0')}</span></figcaption>
           </figure>
         ))}
       </div>
+      </section>
+      ))}
     </div>
   </section>
   <dialog class="photo-viewer" aria-labelledby="photo-caption" data-photo-viewer>

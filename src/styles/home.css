@@ -651,6 +651,10 @@
 }
 
 .home-hero__actions { display: flex; flex-wrap: wrap; gap: .75rem; padding-top: .5rem; }
+.home-scene__figure { margin: 0; }
+.home-scene__figure img { display: block; width: 100%; height: auto; }
+.home-scene__figure figcaption { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding-top: 1.5rem; }
+.home-scene__figure a { display: inline-flex; align-items: center; min-height: 44px; color: var(--color-brown); text-underline-offset: .3em; font-size: .9375rem; }
 .home-hero__actions .btn { font-size: .9375rem; white-space: normal; }
 @media (max-width: 39.99rem) {
  .home-hero { min-height: auto; }

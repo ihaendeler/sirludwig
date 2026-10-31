@@ -186,6 +186,200 @@
         "shadows": 0.015,
         "highlights": 0.02
       }
+    },
+    {
+      "asset": "kleine-pfote.jpg",
+      "source": "PXL_20261027_144836290.RAW-01.MP.jpg",
+      "source_sha256": "a148c4fb1d33e6e83ad2cdbfd9e3c4eaa6aa9d50d0136a777cf539c4fa662ce0",
+      "recipe": {
+        "index": 2,
+        "name": "kleine-pfote",
+        "ev": 0.08,
+        "wb": [
+          1,
+          1,
+          1
+        ],
+        "shadows": 0.03,
+        "highlights": 0.025
+      }
+    },
+    {
+      "asset": "frontal-im-gras.jpg",
+      "source": "PXL_20261027_145102997.RAW-01.MP.jpg",
+      "source_sha256": "3ee68b8c36dad748d5b61fd27ff384c07a85f7e3e93be7b665aa449d8d7fcc31",
+      "recipe": {
+        "index": 8,
+        "name": "frontal-im-gras",
+        "ev": 0.06,
+        "wb": [
+          0.997,
+          1,
+          1.008
+        ],
+        "shadows": 0.025,
+        "highlights": 0.02
+      }
+    },
+    {
+      "asset": "kopfprofil-sonne.jpg",
+      "source": "PXL_20261027_145243568.RAW-01.MP.jpg",
+      "source_sha256": "9c73401c99ff1840621a0f42a764962aa6db06f3ff998e753e14cb7b67896460",
+      "recipe": {
+        "index": 16,
+        "name": "kopfprofil-sonne",
+        "ev": 0.02,
+        "wb": [
+          0.994,
+          1,
+          1.012
+        ],
+        "shadows": 0.018,
+        "highlights": 0.025
+      }
+    },
+    {
+      "asset": "spielerischer-sprung.jpg",
+      "source": "PXL_20261027_145659511.RAW-01.MP.jpg",
+      "source_sha256": "f9414672d97824ce63232050e1c21419b8b8ac91c162a480666d98f5e81748a1",
+      "recipe": {
+        "index": 45,
+        "name": "spielerischer-sprung",
+        "ev": 0.02,
+        "wb": [
+          0.994,
+          1,
+          1.012
+        ],
+        "shadows": 0.018,
+        "highlights": 0.025
+      }
+    },
+    {
+      "asset": "gemeinsame-beschaeftigung.jpg",
+      "source": "PXL_20261027_145921204.RAW-01.MP.jpg",
+      "source_sha256": "101927aa43fbe157a38dbce6279668ac4c238cec5a85fb5331295f49df1ae6eb",
+      "recipe": {
+        "index": 54,
+        "name": "gemeinsame-beschaeftigung",
+        "ev": 0.08,
+        "wb": [
+          0.997,
+          1,
+          1.008
+        ],
+        "shadows": 0.025,
+        "highlights": 0.025
+      }
+    },
+    {
+      "asset": "seitenstand.jpg",
+      "source": "PXL_20261027_145952691.RAW-01.MP.jpg",
+      "source_sha256": "9cd0c9fd72798b7450ed20797d3d9be891388d65a144d352ecb3465e471a6181",
+      "recipe": {
+        "index": 58,
+        "name": "seitenstand",
+        "ev": 0.03,
+        "wb": [
+          0.994,
+          1,
+          1.012
+        ],
+        "shadows": 0.018,
+        "highlights": 0.025
+      }
+    },
+    {
+      "asset": "sitzende-silhouette.jpg",
+      "source": "PXL_20261027_150117307.RAW-01.MP.jpg",
+      "source_sha256": "f70a292170258d9f2c05f2405d87aa44ebdf6c840acc79421bf68bd5af6b12a2",
+      "recipe": {
+        "index": 69,
+        "name": "sitzende-silhouette",
+        "ev": 0.1,
+        "wb": [
+          1,
+          1,
+          1
+        ],
+        "shadows": 0.03,
+        "highlights": 0.025
+      }
+    },
+    {
+      "asset": "froehlicher-blick.jpg",
+      "source": "PXL_20261027_150158115.RAW-01.jpg",
+      "source_sha256": "f71937e6f97ad2392966752eaeaa3b1e9590ac080df17998145a39db2f9f25be",
+      "recipe": {
+        "index": 77,
+        "name": "froehlicher-blick",
+        "ev": 0.03,
+        "wb": [
+          0.997,
+          1,
+          1.008
+        ],
+        "shadows": 0.02,
+        "highlights": 0.025
+      }
+    },
+    {
+      "asset": "spiel-nahaufnahme.jpg",
+      "source": "PXL_20261027_151427649.RAW-01.MP.jpg",
+      "source_sha256": "b17ec63162078cbe5d90fca46bd8225bf0cb1d7d9e649349d076da46b83d34fd",
+      "recipe": {
+        "index": 88,
+        "name": "spiel-nahaufnahme",
+        "ev": 0.07,
+        "wb": [
+          1.025,
+          1,
+          0.965
+        ],
+        "shadows": 0.018,
+        "highlights": 0.02
+      }
+    },
+    {
+      "asset": "talblick.jpg",
+      "source": "PXL_20261027_152114149.RAW-01.MP.jpg",
+      "source_sha256": "28ab66d2d5061533a1f49305905bea40b677f3a877062530e08c37558a6c5e2d",
+      "recipe": {
+        "index": 101,
+        "name": "talblick",
+        "ev": 0.18,
+        "wb": [
+          1.02,
+          1,
+          0.97
+        ],
+        "shadows": 0.03,
+        "highlights": 0.025
+      }
+    },
+    {
+      "asset": "talblick-quer.jpg",
+      "source": "PXL_20261027_152114149.RAW-01.MP.jpg",
+      "source_sha256": "28ab66d2d5061533a1f49305905bea40b677f3a877062530e08c37558a6c5e2d",
+      "recipe": {
+        "index": 101,
+        "name": "talblick",
+        "ev": 0.18,
+        "wb": [
+          1.02,
+          1,
+          0.97
+        ],
+        "shadows": 0.03,
+        "highlights": 0.025
+      },
+      "crop_pixels": [
+        0,
+        500,
+        3072,
+        2548
+      ]
     }
-  ]
+  ],
+  "review": "All 104 October photos visually reviewed again on 13 larger contact sheets; four existing May photos also reviewed."
 }

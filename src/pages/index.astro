@@ -197,6 +197,20 @@ const timelineEntries = [
 		</div>
 	</section>
 
+	<section class="home-section home-scene" aria-labelledby="scene-heading">
+		<div class="container">
+			<figure class="home-scene__figure">
+				<Image src={photos.talblickQuer.image} alt={t(photos.talblickQuer.alt)}
+					format="webp" widths={[640, 960, 1280, 1600, 1920, 2400]}
+					sizes="(min-width: 75rem) 67rem, 100vw" loading="lazy" decoding="async" />
+				<figcaption>
+					<h2 id="scene-heading" class="section-title">{t('Draußen in seinem Element')}</h2>
+					<a href={localizedHref('/galerie#everyday', locale)}>{t('Mehr aus dem Alltag ansehen')}</a>
+				</figcaption>
+			</figure>
+		</div>
+	</section>
+
 	<!-- 5. Trust -->
 	<section class="home-section home-trust" aria-labelledby="trust-heading" data-reveal>
 		<div class="container">

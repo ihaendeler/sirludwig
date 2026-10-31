@@ -1,0 +1,736 @@
+{
+  "reviewed": 104,
+  "used_october": 20,
+  "used_may": 4,
+  "method": "Visual review on 13 sheets with eight images each, additional larger review of selected images; no claim of 100-percent pixel inspection for every file.",
+  "photos": [
+    {
+      "index": 1,
+      "file": "PXL_20261027_144834579.RAW-01.MP.jpg",
+      "sha256": "58ca51faac730f9fcca0c8f94bfc1ce7b50f32f6047a66a2dbb48fa343d95ca0",
+      "status": "verwendet",
+      "reason": "Sitzserie: 001, 002 und 008 decken Profil, kleine Bewegung und Frontalansicht ab; übrige ähnliche Posen als Reserve."
+    },
+    {
+      "index": 2,
+      "file": "PXL_20261027_144836290.RAW-01.MP.jpg",
+      "sha256": "a148c4fb1d33e6e83ad2cdbfd9e3c4eaa6aa9d50d0136a777cf539c4fa662ce0",
+      "status": "verwendet",
+      "reason": "Sitzserie: 001, 002 und 008 decken Profil, kleine Bewegung und Frontalansicht ab; übrige ähnliche Posen als Reserve."
+    },
+    {
+      "index": 3,
+      "file": "PXL_20261027_144919794.RAW-01.MP.jpg",
+      "sha256": "ac625720e1934d70118ecae04e7a28e1d897ee3413ef4ba162f43b4402b1d998",
+      "status": "Reserve",
+      "reason": "Sitzserie: 001, 002 und 008 decken Profil, kleine Bewegung und Frontalansicht ab; übrige ähnliche Posen als Reserve."
+    },
+    {
+      "index": 4,
+      "file": "PXL_20261027_145019749.RAW-01.MP.jpg",
+      "sha256": "6eb105cc8b48a5151916998d2315e88ae90a6e404a16c4c057836137b1d16c85",
+      "status": "Reserve",
+      "reason": "Sitzserie: 001, 002 und 008 decken Profil, kleine Bewegung und Frontalansicht ab; übrige ähnliche Posen als Reserve."
+    },
+    {
+      "index": 5,
+      "file": "PXL_20261027_145022411.RAW-01.jpg",
+      "sha256": "f7e1e206529e867afab3a54e7521b9e17bc9177fac1b0cdc5055061f679c1a6d",
+      "status": "Reserve",
+      "reason": "Sitzserie: 001, 002 und 008 decken Profil, kleine Bewegung und Frontalansicht ab; übrige ähnliche Posen als Reserve."
+    },
+    {
+      "index": 6,
+      "file": "PXL_20261027_145025645.RAW-01.MP.jpg",
+      "sha256": "dc4181f69104aadce5637c7478f657e0b29eccc6600d4e6b1275532c2395527b",
+      "status": "Reserve",
+      "reason": "Sitzserie: 001, 002 und 008 decken Profil, kleine Bewegung und Frontalansicht ab; übrige ähnliche Posen als Reserve."
+    },
+    {
+      "index": 7,
+      "file": "PXL_20261027_145056761.RAW-01.MP.jpg",
+      "sha256": "74053a1342029c0f33e5f607ea00d82036c5ee5fbcf70c1ec80d1b8c7c9c5ea5",
+      "status": "Reserve",
+      "reason": "Sitzserie: 001, 002 und 008 decken Profil, kleine Bewegung und Frontalansicht ab; übrige ähnliche Posen als Reserve."
+    },
+    {
+      "index": 8,
+      "file": "PXL_20261027_145102997.RAW-01.MP.jpg",
+      "sha256": "3ee68b8c36dad748d5b61fd27ff384c07a85f7e3e93be7b665aa449d8d7fcc31",
+      "status": "verwendet",
+      "reason": "Sitzserie: 001, 002 und 008 decken Profil, kleine Bewegung und Frontalansicht ab; übrige ähnliche Posen als Reserve."
+    },
+    {
+      "index": 9,
+      "file": "PXL_20261027_145220291.RAW-01.MP.jpg",
+      "sha256": "097fd08500cb12c2c0e0f4c4c54270add70fd7e631e30fdc66b8605d142f3704",
+      "status": "Reserve",
+      "reason": "Porträtserie: 014 und 016 für Blickkontakt und Kopfprofil ausgewählt; ähnliche Nachbarbilder als Reserve."
+    },
+    {
+      "index": 10,
+      "file": "PXL_20261027_145223919.RAW-01.jpg",
+      "sha256": "7f2c718c8c1d5cf2321bf9a8ff32c45834667e52f613af0565d4f5f92b4c82a7",
+      "status": "Reserve",
+      "reason": "Porträtserie: 014 und 016 für Blickkontakt und Kopfprofil ausgewählt; ähnliche Nachbarbilder als Reserve."
+    },
+    {
+      "index": 11,
+      "file": "PXL_20261027_145225923.RAW-01.MP.jpg",
+      "sha256": "03079e1f77ba891b1fa02a94b3868f04f5348630365aa1812aab95235a1d6ab9",
+      "status": "Reserve",
+      "reason": "Porträtserie: 014 und 016 für Blickkontakt und Kopfprofil ausgewählt; ähnliche Nachbarbilder als Reserve."
+    },
+    {
+      "index": 12,
+      "file": "PXL_20261027_145231459.RAW-01.jpg",
+      "sha256": "796a354d625f4af980cd6365f2cb10e8c955571ff4417a3f54be4910f2b3137b",
+      "status": "Reserve",
+      "reason": "Porträtserie: 014 und 016 für Blickkontakt und Kopfprofil ausgewählt; ähnliche Nachbarbilder als Reserve."
+    },
+    {
+      "index": 13,
+      "file": "PXL_20261027_145232527.RAW-01.jpg",
+      "sha256": "4a525b42550c2bbbd681a9387b65e008f4b13e24acec57192d898afd55c52b79",
+      "status": "Reserve",
+      "reason": "Porträtserie: 014 und 016 für Blickkontakt und Kopfprofil ausgewählt; ähnliche Nachbarbilder als Reserve."
+    },
+    {
+      "index": 14,
+      "file": "PXL_20261027_145233615.RAW-01.jpg",
+      "sha256": "be040da08f08fcd84a84d466e7c9b67761a9c6eec08111a6e7a510b2ea809007",
+      "status": "verwendet",
+      "reason": "Porträtserie: 014 und 016 für Blickkontakt und Kopfprofil ausgewählt; ähnliche Nachbarbilder als Reserve."
+    },
+    {
+      "index": 15,
+      "file": "PXL_20261027_145239556.RAW-01.MP.jpg",
+      "sha256": "c4e4165667caca498394eb4f2b0c745e81c7f9021b0c6b4053fd5e800517d5c9",
+      "status": "Reserve",
+      "reason": "Porträtserie: 014 und 016 für Blickkontakt und Kopfprofil ausgewählt; ähnliche Nachbarbilder als Reserve."
+    },
+    {
+      "index": 16,
+      "file": "PXL_20261027_145243568.RAW-01.MP.jpg",
+      "sha256": "9c73401c99ff1840621a0f42a764962aa6db06f3ff998e753e14cb7b67896460",
+      "status": "verwendet",
+      "reason": "Porträtserie: 014 und 016 für Blickkontakt und Kopfprofil ausgewählt; ähnliche Nachbarbilder als Reserve."
+    },
+    {
+      "index": 17,
+      "file": "PXL_20261027_145244904.RAW-01.jpg",
+      "sha256": "4b1e0585d86a5f11ead2e99490efa816f597744df45a8f4c0671a54f6d260639",
+      "status": "Reserve",
+      "reason": "Porträtserie: 014 und 016 für Blickkontakt und Kopfprofil ausgewählt; ähnliche Nachbarbilder als Reserve."
+    },
+    {
+      "index": 18,
+      "file": "PXL_20261027_145246380.RAW-01.jpg",
+      "sha256": "a6665d749f922d434b36c0bbb5b762c4060bc9dd0e94b967d68b09eae7873132",
+      "status": "Reserve",
+      "reason": "Porträtserie: 014 und 016 für Blickkontakt und Kopfprofil ausgewählt; ähnliche Nachbarbilder als Reserve."
+    },
+    {
+      "index": 19,
+      "file": "PXL_20261027_145249109.RAW-01.jpg",
+      "sha256": "798a68f77f88bc50b6e398506e15cb496b70b53ddd799fd678bc7c8205deb042",
+      "status": "Reserve",
+      "reason": "Porträtserie: 014 und 016 für Blickkontakt und Kopfprofil ausgewählt; ähnliche Nachbarbilder als Reserve."
+    },
+    {
+      "index": 20,
+      "file": "PXL_20261027_145306988.RAW-01.MP.jpg",
+      "sha256": "99232085608346ee44e979ad1212b65e90825534f5496e59f54e098d74059fdf",
+      "status": "Reserve",
+      "reason": "Standserie: 022 und 027 bereits verwendet; weitere ähnliche Ansichten nicht zusätzlich veröffentlicht."
+    },
+    {
+      "index": 21,
+      "file": "PXL_20261027_145307809.RAW-01.jpg",
+      "sha256": "eee314955695b484b3b3774941d30cfe6eb30fadc45b8cbb5c9d57d17da8247f",
+      "status": "Reserve",
+      "reason": "Standserie: 022 und 027 bereits verwendet; weitere ähnliche Ansichten nicht zusätzlich veröffentlicht."
+    },
+    {
+      "index": 22,
+      "file": "PXL_20261027_145308805.RAW-01.jpg",
+      "sha256": "99671e50016e313f3f67fac65233eabefc7a34b4c1769bb4788c154bab1ec75f",
+      "status": "verwendet",
+      "reason": "Standserie: 022 und 027 bereits verwendet; weitere ähnliche Ansichten nicht zusätzlich veröffentlicht."
+    },
+    {
+      "index": 23,
+      "file": "PXL_20261027_145309886.RAW-01.jpg",
+      "sha256": "33ce3ffd650748748057030dacd632c137d41d34290b571bfbcb9ffcb09cdbfc",
+      "status": "Reserve",
+      "reason": "Standserie: 022 und 027 bereits verwendet; weitere ähnliche Ansichten nicht zusätzlich veröffentlicht."
+    },
+    {
+      "index": 24,
+      "file": "PXL_20261027_145441382.RAW-01.MP.jpg",
+      "sha256": "5967b2653f41e7d24bf5fc3123b3cb1d27f36e25edfdff117de265e41d660edd",
+      "status": "Reserve",
+      "reason": "Standserie: 022 und 027 bereits verwendet; weitere ähnliche Ansichten nicht zusätzlich veröffentlicht."
+    },
+    {
+      "index": 25,
+      "file": "PXL_20261027_145441951.RAW-01.jpg",
+      "sha256": "3f1cdc113e6ca85ad414b98f77165d8e36f3d9946e05b651ef486381c9ae624b",
+      "status": "Reserve",
+      "reason": "Standserie: 022 und 027 bereits verwendet; weitere ähnliche Ansichten nicht zusätzlich veröffentlicht."
+    },
+    {
+      "index": 26,
+      "file": "PXL_20261027_145442842.RAW-01.jpg",
+      "sha256": "395b9587a99facd0ec2dbe1e65ea42d4ce41ceb4a719d5ed0b5bdf2eaef29a30",
+      "status": "Reserve",
+      "reason": "Standserie: 022 und 027 bereits verwendet; weitere ähnliche Ansichten nicht zusätzlich veröffentlicht."
+    },
+    {
+      "index": 27,
+      "file": "PXL_20261027_145446631.RAW-01.MP.jpg",
+      "sha256": "4245df8494080717e34402479118f1fe7dcced693792ad39fe766f546bb02af9",
+      "status": "verwendet",
+      "reason": "Standserie: 022 und 027 bereits verwendet; weitere ähnliche Ansichten nicht zusätzlich veröffentlicht."
+    },
+    {
+      "index": 28,
+      "file": "PXL_20261027_145447445.RAW-01.jpg",
+      "sha256": "7d80da0b49b80a01120443bf0107aa8030c6e145b34ef9b133b589bc88be5841",
+      "status": "Reserve",
+      "reason": "Standserie: 022 und 027 bereits verwendet; weitere ähnliche Ansichten nicht zusätzlich veröffentlicht."
+    },
+    {
+      "index": 29,
+      "file": "PXL_20261027_145448762.RAW-01.jpg",
+      "sha256": "ca48908610f5a36529fd020dc8aa35f199bcfaf676f6f830b56e307fbe973550",
+      "status": "Reserve",
+      "reason": "Standserie: 022 und 027 bereits verwendet; weitere ähnliche Ansichten nicht zusätzlich veröffentlicht."
+    },
+    {
+      "index": 30,
+      "file": "PXL_20261027_145454341.RAW-01.MP.jpg",
+      "sha256": "21c044d39ff433e97ab84be9d64825511c7ca1079ec82333337ddee9bf55c9ad",
+      "status": "Reserve",
+      "reason": "Aufmerksamkeitsserie: 035 als ruhige Sitzpose ausgewählt; weitere ähnliche Posen und Hände am Bildrand als Reserve."
+    },
+    {
+      "index": 31,
+      "file": "PXL_20261027_145500581.RAW-01.MP.jpg",
+      "sha256": "6449073f9108587a3b514f75a3efe362d6bbdf66a9f8fc6ba2c90512baac1f20",
+      "status": "Reserve",
+      "reason": "Aufmerksamkeitsserie: 035 als ruhige Sitzpose ausgewählt; weitere ähnliche Posen und Hände am Bildrand als Reserve."
+    },
+    {
+      "index": 32,
+      "file": "PXL_20261027_145503337.RAW-01.MP.jpg",
+      "sha256": "3313d32c6a2602abccce367dc193060dbfb42d3c8110f86d172f48ca787c2772",
+      "status": "Reserve",
+      "reason": "Aufmerksamkeitsserie: 035 als ruhige Sitzpose ausgewählt; weitere ähnliche Posen und Hände am Bildrand als Reserve."
+    },
+    {
+      "index": 33,
+      "file": "PXL_20261027_145505608.RAW-01.MP.jpg",
+      "sha256": "0f021d521cdead6f0f949066d45f983fd9797bfc0109b8d06c8b7fe42ba8390d",
+      "status": "Reserve",
+      "reason": "Aufmerksamkeitsserie: 035 als ruhige Sitzpose ausgewählt; weitere ähnliche Posen und Hände am Bildrand als Reserve."
+    },
+    {
+      "index": 34,
+      "file": "PXL_20261027_145507828.RAW-01.MP.jpg",
+      "sha256": "c4c984e514281ea186e8744f0e17e951d20d647a0e9564b1914367896bc0dedd",
+      "status": "Reserve",
+      "reason": "Aufmerksamkeitsserie: 035 als ruhige Sitzpose ausgewählt; weitere ähnliche Posen und Hände am Bildrand als Reserve."
+    },
+    {
+      "index": 35,
+      "file": "PXL_20261027_145510516.RAW-01.MP.jpg",
+      "sha256": "c2c1e0b48a0afbbfd9895188a395dbac2294dd6c2235fbfa0bc924c4c4aedbc0",
+      "status": "verwendet",
+      "reason": "Aufmerksamkeitsserie: 035 als ruhige Sitzpose ausgewählt; weitere ähnliche Posen und Hände am Bildrand als Reserve."
+    },
+    {
+      "index": 36,
+      "file": "PXL_20261027_145511732.RAW-01.jpg",
+      "sha256": "eab305e9f66bd9aa8b4162b7b561753353e37b5321d3bee44e81e0b9ad8dbedb",
+      "status": "Reserve",
+      "reason": "Aufmerksamkeitsserie: 035 als ruhige Sitzpose ausgewählt; weitere ähnliche Posen und Hände am Bildrand als Reserve."
+    },
+    {
+      "index": 37,
+      "file": "PXL_20261027_145519397.RAW-01.MP.jpg",
+      "sha256": "73489aea8014e529d7b618e7fec9ad5acf6ac70e34e3981e8c3cca717ac9091c",
+      "status": "Reserve",
+      "reason": "Aufmerksamkeitsserie: 035 als ruhige Sitzpose ausgewählt; weitere ähnliche Posen und Hände am Bildrand als Reserve."
+    },
+    {
+      "index": 38,
+      "file": "PXL_20261027_145521271.RAW-01.MP.jpg",
+      "sha256": "fc83b48dde9cf5811b7f9b3b09511d9d9ed129bfe55b5b86b684d6556b2e87c2",
+      "status": "Reserve",
+      "reason": "Aufmerksamkeitsserie: 035 als ruhige Sitzpose ausgewählt; weitere ähnliche Posen und Hände am Bildrand als Reserve."
+    },
+    {
+      "index": 39,
+      "file": "PXL_20261027_145522097.RAW-01.jpg",
+      "sha256": "5e488ec4a119cfe0d90dba7caaad2a5977287932c54479aa04c78d3451488e0f",
+      "status": "Reserve",
+      "reason": "Aufmerksamkeitsserie: 035 als ruhige Sitzpose ausgewählt; weitere ähnliche Posen und Hände am Bildrand als Reserve."
+    },
+    {
+      "index": 40,
+      "file": "PXL_20261027_145523842.RAW-01.MP.jpg",
+      "sha256": "4711b6a23220bb887279b094ff91636b5bdbff33fdf5a1d345bd5b494bcc8162",
+      "status": "Reserve",
+      "reason": "Aufmerksamkeitsserie: 035 als ruhige Sitzpose ausgewählt; weitere ähnliche Posen und Hände am Bildrand als Reserve."
+    },
+    {
+      "index": 41,
+      "file": "PXL_20261027_145524737.RAW-01.jpg",
+      "sha256": "002e4b005e76fa65302f87e601bfb91af9aea954d0b962b0f6c5556617034735",
+      "status": "Reserve",
+      "reason": "Spielserie: 045 für die deutlich erkennbare aufgerichtete Bewegung gewählt; ähnliche Momente als Reserve."
+    },
+    {
+      "index": 42,
+      "file": "PXL_20261027_145551446.RAW-01.jpg",
+      "sha256": "42cb9157fa7b8ece4f87438e596e288e7356372f48818def8462eac0e2054bf8",
+      "status": "Reserve",
+      "reason": "Spielserie: 045 für die deutlich erkennbare aufgerichtete Bewegung gewählt; ähnliche Momente als Reserve."
+    },
+    {
+      "index": 43,
+      "file": "PXL_20261027_145629810.RAW-01.MP.jpg",
+      "sha256": "70b1a06348b56d2c039c60a406d7254b299026aae50fad7c8d8a6d3dad2ae436",
+      "status": "Reserve",
+      "reason": "Spielserie: 045 für die deutlich erkennbare aufgerichtete Bewegung gewählt; ähnliche Momente als Reserve."
+    },
+    {
+      "index": 44,
+      "file": "PXL_20261027_145657174.RAW-01.MP.jpg",
+      "sha256": "035ca5c92099c9e1197853ce512a6ce00642577d41402c576f5c0c941fc4fe0d",
+      "status": "Reserve",
+      "reason": "Spielserie: 045 für die deutlich erkennbare aufgerichtete Bewegung gewählt; ähnliche Momente als Reserve."
+    },
+    {
+      "index": 45,
+      "file": "PXL_20261027_145659511.RAW-01.MP.jpg",
+      "sha256": "f9414672d97824ce63232050e1c21419b8b8ac91c162a480666d98f5e81748a1",
+      "status": "verwendet",
+      "reason": "Spielserie: 045 für die deutlich erkennbare aufgerichtete Bewegung gewählt; ähnliche Momente als Reserve."
+    },
+    {
+      "index": 46,
+      "file": "PXL_20261027_145659511.RAW-01.MP~2.jpg",
+      "sha256": "6592549f837ea0477cd408dd18d6d19f2d8022fd7944f681861240c159517ddd",
+      "status": "Reserve",
+      "reason": "Spielserie: 045 für die deutlich erkennbare aufgerichtete Bewegung gewählt; ähnliche Momente als Reserve."
+    },
+    {
+      "index": 47,
+      "file": "PXL_20261027_145711396.RAW-01.jpg",
+      "sha256": "c745e78018695fd721a3983a7beedca76ee74eb9235ff6324eac8a463483711f",
+      "status": "Reserve",
+      "reason": "Spielserie: 045 für die deutlich erkennbare aufgerichtete Bewegung gewählt; ähnliche Momente als Reserve."
+    },
+    {
+      "index": 48,
+      "file": "PXL_20261027_145711628.RAW-01.jpg",
+      "sha256": "f964a50c2d7b9f56794f0301e00e31d17f7d308019f7f253b2d170902f0bc19e",
+      "status": "Reserve",
+      "reason": "Spielserie: 045 für die deutlich erkennbare aufgerichtete Bewegung gewählt; ähnliche Momente als Reserve."
+    },
+    {
+      "index": 49,
+      "file": "PXL_20261027_145711830.RAW-01.jpg",
+      "sha256": "c20e069a732b52d2d9a9b666514bb08f902ee2de04926a00f6af2d977e563d01",
+      "status": "Reserve",
+      "reason": "Spielserie: 045 für die deutlich erkennbare aufgerichtete Bewegung gewählt; ähnliche Momente als Reserve."
+    },
+    {
+      "index": 50,
+      "file": "PXL_20261027_145828931.RAW-01.jpg",
+      "sha256": "4959e91100f8520ca3cf888f1cef53476ad60de53db575e45b5213c0887d5a64",
+      "status": "Reserve",
+      "reason": "Seiten-/Beschäftigungsserie: 054 mit Belohnung und 058 als klare Seitenansicht gewählt; Serienvarianten als Reserve."
+    },
+    {
+      "index": 51,
+      "file": "PXL_20261027_145847567.RAW-01.MP.jpg",
+      "sha256": "708170a41420729bd89153900c12089dd6f8a9b87ae1f61bd43eb5d2b84ba66b",
+      "status": "Reserve",
+      "reason": "Seiten-/Beschäftigungsserie: 054 mit Belohnung und 058 als klare Seitenansicht gewählt; Serienvarianten als Reserve."
+    },
+    {
+      "index": 52,
+      "file": "PXL_20261027_145900548.RAW-01.MP.jpg",
+      "sha256": "e22727fb866042de261dff3e9d8dbfc23cd1694c9a68e1ee981394803b3c0776",
+      "status": "Reserve",
+      "reason": "Seiten-/Beschäftigungsserie: 054 mit Belohnung und 058 als klare Seitenansicht gewählt; Serienvarianten als Reserve."
+    },
+    {
+      "index": 53,
+      "file": "PXL_20261027_145901861.RAW-01.jpg",
+      "sha256": "9d567faadef06363da9bd0a13c4a59fd72478ffd02ece3ef02935ec289a9f6cb",
+      "status": "Reserve",
+      "reason": "Seiten-/Beschäftigungsserie: 054 mit Belohnung und 058 als klare Seitenansicht gewählt; Serienvarianten als Reserve."
+    },
+    {
+      "index": 54,
+      "file": "PXL_20261027_145921204.RAW-01.MP.jpg",
+      "sha256": "101927aa43fbe157a38dbce6279668ac4c238cec5a85fb5331295f49df1ae6eb",
+      "status": "verwendet",
+      "reason": "Seiten-/Beschäftigungsserie: 054 mit Belohnung und 058 als klare Seitenansicht gewählt; Serienvarianten als Reserve."
+    },
+    {
+      "index": 55,
+      "file": "PXL_20261027_145943736.RAW-01.MP.jpg",
+      "sha256": "148060b9044d3f2f7d31ffea9e263a952ca1c691c852f845df2468f012bb9543",
+      "status": "Reserve",
+      "reason": "Seiten-/Beschäftigungsserie: 054 mit Belohnung und 058 als klare Seitenansicht gewählt; Serienvarianten als Reserve."
+    },
+    {
+      "index": 56,
+      "file": "PXL_20261027_145944750.RAW-01.jpg",
+      "sha256": "cf5b48007c79994b3f8f8d4d698a8fa5c0ea9cb9a5bdc0d67eab47fa734a9cbb",
+      "status": "Reserve",
+      "reason": "Seiten-/Beschäftigungsserie: 054 mit Belohnung und 058 als klare Seitenansicht gewählt; Serienvarianten als Reserve."
+    },
+    {
+      "index": 57,
+      "file": "PXL_20261027_145948203.RAW-01.MP.jpg",
+      "sha256": "2ffa732766cf51b9c8ad6f4c87ccf98c13512b26d1ba18115405f9fe1b91b94b",
+      "status": "Reserve",
+      "reason": "Seiten-/Beschäftigungsserie: 054 mit Belohnung und 058 als klare Seitenansicht gewählt; Serienvarianten als Reserve."
+    },
+    {
+      "index": 58,
+      "file": "PXL_20261027_145952691.RAW-01.MP.jpg",
+      "sha256": "9cd0c9fd72798b7450ed20797d3d9be891388d65a144d352ecb3465e471a6181",
+      "status": "verwendet",
+      "reason": "Seiten-/Beschäftigungsserie: 054 mit Belohnung und 058 als klare Seitenansicht gewählt; Serienvarianten als Reserve."
+    },
+    {
+      "index": 59,
+      "file": "PXL_20261027_145953683.RAW-01.jpg",
+      "sha256": "d1d6811b0d19246f660b58fe70208c826fe45fb1d9581aa8928a8c709f1e22bd",
+      "status": "Reserve",
+      "reason": "Seiten-/Beschäftigungsserie: 054 mit Belohnung und 058 als klare Seitenansicht gewählt; Serienvarianten als Reserve."
+    },
+    {
+      "index": 60,
+      "file": "PXL_20261027_145953880.RAW-01.jpg",
+      "sha256": "bd7678e3338347b87fd963abf1cdf5b8222dfda3ea949c9e4128cd946fd8edb7",
+      "status": "Reserve",
+      "reason": "Seiten-/Beschäftigungsserie: 054 mit Belohnung und 058 als klare Seitenansicht gewählt; Serienvarianten als Reserve."
+    },
+    {
+      "index": 61,
+      "file": "PXL_20261027_150002987.RAW-01.MP.jpg",
+      "sha256": "b956bd543772d2eb502f0c1e796017f0f259255c62459e268bc84c12e7fb8e54",
+      "status": "Reserve",
+      "reason": "Seiten-/Beschäftigungsserie: 054 mit Belohnung und 058 als klare Seitenansicht gewählt; Serienvarianten als Reserve."
+    },
+    {
+      "index": 62,
+      "file": "PXL_20261027_150004005.RAW-01.jpg",
+      "sha256": "8219a68eacfbce9bcb3894d3038892c7b927f4aaa80177b8d1ad96ffb238d7fd",
+      "status": "Reserve",
+      "reason": "Seiten-/Beschäftigungsserie: 054 mit Belohnung und 058 als klare Seitenansicht gewählt; Serienvarianten als Reserve."
+    },
+    {
+      "index": 63,
+      "file": "PXL_20261027_150008965.RAW-01.MP.jpg",
+      "sha256": "fcb1dbd7787120113a9a917586a8acde1002248d298cf8e7ee478bb6c7c54a96",
+      "status": "Reserve",
+      "reason": "Seiten-/Beschäftigungsserie: 054 mit Belohnung und 058 als klare Seitenansicht gewählt; Serienvarianten als Reserve."
+    },
+    {
+      "index": 64,
+      "file": "PXL_20261027_150009786.RAW-01.jpg",
+      "sha256": "6445a2346c07312b560939837ff7b78aec24ca34201fd608284870031232cf14",
+      "status": "Reserve",
+      "reason": "Seiten-/Beschäftigungsserie: 054 mit Belohnung und 058 als klare Seitenansicht gewählt; Serienvarianten als Reserve."
+    },
+    {
+      "index": 65,
+      "file": "PXL_20261027_150010666.RAW-01.jpg",
+      "sha256": "1657cbe9340b722d8535c90ddb5cc828fd9a1cfbfcc66cab8aca9a58afe9b332",
+      "status": "Reserve",
+      "reason": "Seiten-/Beschäftigungsserie: 054 mit Belohnung und 058 als klare Seitenansicht gewählt; Serienvarianten als Reserve."
+    },
+    {
+      "index": 66,
+      "file": "PXL_20261027_150012722.RAW-02.ORIGINAL.jpg",
+      "sha256": "3cc78142b768c3681bdfa6c5ce1304a849906de157047048c03a5703d6746b7d",
+      "status": "Reserve",
+      "reason": "Seiten-/Beschäftigungsserie: 054 mit Belohnung und 058 als klare Seitenansicht gewählt; Serienvarianten als Reserve."
+    },
+    {
+      "index": 67,
+      "file": "PXL_20261027_150113370.RAW-01.MP.jpg",
+      "sha256": "06181aae68cf84a2bd59c5d9965e642256da6e202eb13831bc28cc0a10fb2a8d",
+      "status": "Reserve",
+      "reason": "Sitz-/Liegeporträts: 069, 070 und 077 zeigen unterschiedliche Haltung und Mimik; übrige ähnliche Bilder als Reserve."
+    },
+    {
+      "index": 68,
+      "file": "PXL_20261027_150115361.RAW-01.MP.jpg",
+      "sha256": "d73bcbac915dbf3a1e3f16bb5378a4891b6380e9ea69b671d65099ee370f1bcf",
+      "status": "Reserve",
+      "reason": "Sitz-/Liegeporträts: 069, 070 und 077 zeigen unterschiedliche Haltung und Mimik; übrige ähnliche Bilder als Reserve."
+    },
+    {
+      "index": 69,
+      "file": "PXL_20261027_150117307.RAW-01.MP.jpg",
+      "sha256": "f70a292170258d9f2c05f2405d87aa44ebdf6c840acc79421bf68bd5af6b12a2",
+      "status": "verwendet",
+      "reason": "Sitz-/Liegeporträts: 069, 070 und 077 zeigen unterschiedliche Haltung und Mimik; übrige ähnliche Bilder als Reserve."
+    },
+    {
+      "index": 70,
+      "file": "PXL_20261027_150141496.RAW-01.MP.jpg",
+      "sha256": "aa9174d7321a2e330dbda77e9c5a072ed99e2d672ff6e4348adc77efff0d3717",
+      "status": "verwendet",
+      "reason": "Sitz-/Liegeporträts: 069, 070 und 077 zeigen unterschiedliche Haltung und Mimik; übrige ähnliche Bilder als Reserve."
+    },
+    {
+      "index": 71,
+      "file": "PXL_20261027_150147208.RAW-01.MP.jpg",
+      "sha256": "4b6d6f2e10b17c86ece7e7ebbe382302953fbc3fa21460d577a7fcd084eb1194",
+      "status": "Reserve",
+      "reason": "Sitz-/Liegeporträts: 069, 070 und 077 zeigen unterschiedliche Haltung und Mimik; übrige ähnliche Bilder als Reserve."
+    },
+    {
+      "index": 72,
+      "file": "PXL_20261027_150151393.RAW-01.MP.jpg",
+      "sha256": "a44e00c296e03709e886f0d400ce0db094cb189435d08a2542e40663f1f21dd7",
+      "status": "Reserve",
+      "reason": "Sitz-/Liegeporträts: 069, 070 und 077 zeigen unterschiedliche Haltung und Mimik; übrige ähnliche Bilder als Reserve."
+    },
+    {
+      "index": 73,
+      "file": "PXL_20261027_150152807.RAW-01.jpg",
+      "sha256": "773d11896186183ac5dd47950207c75d352b184d763a369a104dc0ff7586b8e0",
+      "status": "Reserve",
+      "reason": "Sitz-/Liegeporträts: 069, 070 und 077 zeigen unterschiedliche Haltung und Mimik; übrige ähnliche Bilder als Reserve."
+    },
+    {
+      "index": 74,
+      "file": "PXL_20261027_150155623.RAW-01.MP.jpg",
+      "sha256": "a9e5ae19f0ee2647d29869bd9c525a46354e9783445daf1b92fe2ba5a9c18abd",
+      "status": "Reserve",
+      "reason": "Sitz-/Liegeporträts: 069, 070 und 077 zeigen unterschiedliche Haltung und Mimik; übrige ähnliche Bilder als Reserve."
+    },
+    {
+      "index": 75,
+      "file": "PXL_20261027_150156029.RAW-01.jpg",
+      "sha256": "b283e6466c65b0aada5df00c257f3b3352137d2894a2e66e386fb4950677720f",
+      "status": "Reserve",
+      "reason": "Sitz-/Liegeporträts: 069, 070 und 077 zeigen unterschiedliche Haltung und Mimik; übrige ähnliche Bilder als Reserve."
+    },
+    {
+      "index": 76,
+      "file": "PXL_20261027_150156652.RAW-01.jpg",
+      "sha256": "d15e174d7cd021be3d7bb3076bd710d3cf9cea12a05e0e24c52a4aee5c1d18ce",
+      "status": "Reserve",
+      "reason": "Sitz-/Liegeporträts: 069, 070 und 077 zeigen unterschiedliche Haltung und Mimik; übrige ähnliche Bilder als Reserve."
+    },
+    {
+      "index": 77,
+      "file": "PXL_20261027_150158115.RAW-01.jpg",
+      "sha256": "f71937e6f97ad2392966752eaeaa3b1e9590ac080df17998145a39db2f9f25be",
+      "status": "verwendet",
+      "reason": "Sitz-/Liegeporträts: 069, 070 und 077 zeigen unterschiedliche Haltung und Mimik; übrige ähnliche Bilder als Reserve."
+    },
+    {
+      "index": 78,
+      "file": "PXL_20261027_150159218.RAW-01.jpg",
+      "sha256": "6cebf22d7a462cf0c066e4c587556fcad7020ceac19b3336f77594a83cc3b161",
+      "status": "Reserve",
+      "reason": "Sitz-/Liegeporträts: 069, 070 und 077 zeigen unterschiedliche Haltung und Mimik; übrige ähnliche Bilder als Reserve."
+    },
+    {
+      "index": 79,
+      "file": "PXL_20261027_150200845.RAW-01.MP.jpg",
+      "sha256": "bfef51553dcac096db3ee4264b69e2ba1eb4084287bdd0cc39acc24a1e619107",
+      "status": "Reserve",
+      "reason": "Sitz-/Liegeporträts: 069, 070 und 077 zeigen unterschiedliche Haltung und Mimik; übrige ähnliche Bilder als Reserve."
+    },
+    {
+      "index": 80,
+      "file": "PXL_20261027_150203843.RAW-01.jpg",
+      "sha256": "900ff92ceb24812805c93ba4de29317a464a497cc18c4e5c12fac26e84182991",
+      "status": "Reserve",
+      "reason": "Sitz-/Liegeporträts: 069, 070 und 077 zeigen unterschiedliche Haltung und Mimik; übrige ähnliche Bilder als Reserve."
+    },
+    {
+      "index": 81,
+      "file": "PXL_20261027_150205643.RAW-01.jpg",
+      "sha256": "113a36ec77eaadbb4ce982a1e8458cd1ea4477878889a5c53c5dfe80808bec98",
+      "status": "Reserve",
+      "reason": "Sitz-/Liegeporträts: 069, 070 und 077 zeigen unterschiedliche Haltung und Mimik; übrige ähnliche Bilder als Reserve."
+    },
+    {
+      "index": 82,
+      "file": "PXL_20261027_150626475.RAW-01.jpg",
+      "sha256": "533da161228c96014e69a5ff5b5add980b3c38a572b557d3a7f5f7d8b4adb6a0",
+      "status": "Reserve",
+      "reason": "Laufserie: 083 wegen fliegender Ohren und lebendigem Ausdruck gewählt; ähnliche Laufphasen als Reserve."
+    },
+    {
+      "index": 83,
+      "file": "PXL_20261027_150646104.RAW-01.jpg",
+      "sha256": "0dd5d0c83829a5050070c0132329da266a3c5504170aebc64a2739a9e0ed06da",
+      "status": "verwendet",
+      "reason": "Laufserie: 083 wegen fliegender Ohren und lebendigem Ausdruck gewählt; ähnliche Laufphasen als Reserve."
+    },
+    {
+      "index": 84,
+      "file": "PXL_20261027_150646230.RAW-01.jpg",
+      "sha256": "c85f30f379c44904086eebf50ce18401eef2d8e18ed2eb628cb78c1220fdc95d",
+      "status": "Reserve",
+      "reason": "Laufserie: 083 wegen fliegender Ohren und lebendigem Ausdruck gewählt; ähnliche Laufphasen als Reserve."
+    },
+    {
+      "index": 85,
+      "file": "PXL_20261027_151420794.RAW-01.MP.jpg",
+      "sha256": "58c87eb36a58d0b43354f911b0b4f76bfcbd2b39f936ad2d208f013b79dce224",
+      "status": "verwendet",
+      "reason": "Stockspiel: 085, 088 und 090 decken Spielhaltung, Nahaufnahme und Ruhe ab; ähnliche Spielphasen als Reserve."
+    },
+    {
+      "index": 86,
+      "file": "PXL_20261027_151421800.RAW-01.jpg",
+      "sha256": "c67455dbc2b63ffafffdb5ec145755c61302173b4b21f37ab2f1e88007508f0d",
+      "status": "Reserve",
+      "reason": "Stockspiel: 085, 088 und 090 decken Spielhaltung, Nahaufnahme und Ruhe ab; ähnliche Spielphasen als Reserve."
+    },
+    {
+      "index": 87,
+      "file": "PXL_20261027_151424502.RAW-01.MP.jpg",
+      "sha256": "ea1635a7c84b28db10568ec1d88e49c94ba779c11cd6ac93677a11d67f01b31d",
+      "status": "Reserve",
+      "reason": "Stockspiel: 085, 088 und 090 decken Spielhaltung, Nahaufnahme und Ruhe ab; ähnliche Spielphasen als Reserve."
+    },
+    {
+      "index": 88,
+      "file": "PXL_20261027_151427649.RAW-01.MP.jpg",
+      "sha256": "b17ec63162078cbe5d90fca46bd8225bf0cb1d7d9e649349d076da46b83d34fd",
+      "status": "verwendet",
+      "reason": "Stockspiel: 085, 088 und 090 decken Spielhaltung, Nahaufnahme und Ruhe ab; ähnliche Spielphasen als Reserve."
+    },
+    {
+      "index": 89,
+      "file": "PXL_20261027_151433263.RAW-01.jpg",
+      "sha256": "7842cf12aac2a4c12595926094b656493c6f6931f25de24565075c201d7dcdd1",
+      "status": "Reserve",
+      "reason": "Stockspiel: 085, 088 und 090 decken Spielhaltung, Nahaufnahme und Ruhe ab; ähnliche Spielphasen als Reserve."
+    },
+    {
+      "index": 90,
+      "file": "PXL_20261027_151434408.RAW-01.jpg",
+      "sha256": "60aa6c1bce71711707be4b8e34585ad875e289aecc8353765a200ed68a9106b3",
+      "status": "verwendet",
+      "reason": "Stockspiel: 085, 088 und 090 decken Spielhaltung, Nahaufnahme und Ruhe ab; ähnliche Spielphasen als Reserve."
+    },
+    {
+      "index": 91,
+      "file": "PXL_20261027_151434990.RAW-01.jpg",
+      "sha256": "5df5c026ca3a4e6bea3271aff8a2584e9b617e435d4d62b6c7d2ba68419f8311",
+      "status": "Reserve",
+      "reason": "Stockspiel: 085, 088 und 090 decken Spielhaltung, Nahaufnahme und Ruhe ab; ähnliche Spielphasen als Reserve."
+    },
+    {
+      "index": 92,
+      "file": "PXL_20261027_151437956.RAW-01.MP.jpg",
+      "sha256": "13c85972c00e18a237dee6852ce84357d05eb6a79d49af8ba3e879b2b27b3914",
+      "status": "Reserve",
+      "reason": "Stockspiel: 085, 088 und 090 decken Spielhaltung, Nahaufnahme und Ruhe ab; ähnliche Spielphasen als Reserve."
+    },
+    {
+      "index": 93,
+      "file": "PXL_20261027_151439752.RAW-01.MP.jpg",
+      "sha256": "d73e754a1b542752fd5feb9de56d0815ee4ff73161700d79ae4e41e4e5ef0a60",
+      "status": "Reserve",
+      "reason": "Stockspiel: 085, 088 und 090 decken Spielhaltung, Nahaufnahme und Ruhe ab; ähnliche Spielphasen als Reserve."
+    },
+    {
+      "index": 94,
+      "file": "PXL_20261027_151440423.RAW-01.jpg",
+      "sha256": "c3097d8e3e8858496bb4c81c6612271936da27033c3be935f0470ffbfd5172cb",
+      "status": "Reserve",
+      "reason": "Stockspiel: 085, 088 und 090 decken Spielhaltung, Nahaufnahme und Ruhe ab; ähnliche Spielphasen als Reserve."
+    },
+    {
+      "index": 95,
+      "file": "PXL_20261027_151442772.RAW-01.MP.jpg",
+      "sha256": "5bc8545d96311d439be85be54f61c4b3da36ca560cc93ed2bdd9b62e1b13f96f",
+      "status": "Reserve",
+      "reason": "Stockspiel: 085, 088 und 090 decken Spielhaltung, Nahaufnahme und Ruhe ab; ähnliche Spielphasen als Reserve."
+    },
+    {
+      "index": 96,
+      "file": "PXL_20261027_151446372.RAW-01.MP.jpg",
+      "sha256": "02cfc16ae9d0380f96b2e48a80e2aada3c2b79d8655661332e67e18f050b751b",
+      "status": "Reserve",
+      "reason": "Stockspiel: 085, 088 und 090 decken Spielhaltung, Nahaufnahme und Ruhe ab; ähnliche Spielphasen als Reserve."
+    },
+    {
+      "index": 97,
+      "file": "PXL_20261027_152106184.RAW-01.MP.jpg",
+      "sha256": "8b958d1915956ac242109ccd7c017fb22350011356ab1f06df0227f90757b53c",
+      "status": "Reserve",
+      "reason": "Ruheserie: 100 als nahes Porträt, 101 für die Umgebung gewählt; übrige Bilder mit ähnlicher Pose oder viel Vordergrund als Reserve."
+    },
+    {
+      "index": 98,
+      "file": "PXL_20261027_152107533.RAW-01.jpg",
+      "sha256": "a73451b1623b41fd85d42fb5a3a19d7383f4c4663800866e05ccd9224dfd8113",
+      "status": "Reserve",
+      "reason": "Ruheserie: 100 als nahes Porträt, 101 für die Umgebung gewählt; übrige Bilder mit ähnlicher Pose oder viel Vordergrund als Reserve."
+    },
+    {
+      "index": 99,
+      "file": "PXL_20261027_152109292.RAW-01.MP.jpg",
+      "sha256": "86131077cef0254973fc9f608660895e4f36b0598101ebc6279d5f7c6fe7987e",
+      "status": "Reserve",
+      "reason": "Ruheserie: 100 als nahes Porträt, 101 für die Umgebung gewählt; übrige Bilder mit ähnlicher Pose oder viel Vordergrund als Reserve."
+    },
+    {
+      "index": 100,
+      "file": "PXL_20261027_152112472.RAW-01.MP.jpg",
+      "sha256": "1b3fdc0014635bc73905cac4a355860bfee63666b3af44eff79cda7a9c258a2e",
+      "status": "verwendet",
+      "reason": "Ruheserie: 100 als nahes Porträt, 101 für die Umgebung gewählt; übrige Bilder mit ähnlicher Pose oder viel Vordergrund als Reserve."
+    },
+    {
+      "index": 101,
+      "file": "PXL_20261027_152114149.RAW-01.MP.jpg",
+      "sha256": "28ab66d2d5061533a1f49305905bea40b677f3a877062530e08c37558a6c5e2d",
+      "status": "verwendet",
+      "reason": "Ruheserie: 100 als nahes Porträt, 101 für die Umgebung gewählt; übrige Bilder mit ähnlicher Pose oder viel Vordergrund als Reserve."
+    },
+    {
+      "index": 102,
+      "file": "PXL_20261027_152123816.RAW-01.MP.jpg",
+      "sha256": "da52f16d54ea2dadf18a2741149d7e77145eac46437bb0f9cd75340b738ecac5",
+      "status": "Reserve",
+      "reason": "Ruheserie: 100 als nahes Porträt, 101 für die Umgebung gewählt; übrige Bilder mit ähnlicher Pose oder viel Vordergrund als Reserve."
+    },
+    {
+      "index": 103,
+      "file": "PXL_20261027_152124707.RAW-01.jpg",
+      "sha256": "c142c1f2f4d3b05f885d8463eeaf84ac80001ba12cd6c7ea1588c94ee3bcfbe4",
+      "status": "Reserve",
+      "reason": "Ruheserie: 100 als nahes Porträt, 101 für die Umgebung gewählt; übrige Bilder mit ähnlicher Pose oder viel Vordergrund als Reserve."
+    },
+    {
+      "index": 104,
+      "file": "PXL_20261027_152125965.RAW-01.jpg",
+      "sha256": "3c7733abdb49df394235827f37a59aaaaa379fdf6f859d153a7e93d5e4163b39",
+      "status": "Reserve",
+      "reason": "Ruheserie: 100 als nahes Porträt, 101 für die Umgebung gewählt; übrige Bilder mit ähnlicher Pose oder viel Vordergrund als Reserve."
+    }
+  ]
+}

@@ -1,4 +1,8 @@
 .gallery-section { padding-block: 1.5rem var(--space-3xl); }
+.gallery-jump { display: flex; flex-wrap: wrap; gap: .75rem 1.75rem; margin-bottom: 2.5rem; }
+.gallery-jump a { display: inline-flex; align-items: center; min-height: 44px; color: var(--color-brown); font-size: .875rem; text-decoration: underline; text-underline-offset: .35em; }
+.gallery-chapter { scroll-margin-top: calc(var(--header-height) + 1.5rem); }
+.gallery-chapter + .gallery-chapter { margin-top: clamp(3rem, 7vw, 6rem); }
 .gallery-series { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 1rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgb(74 52 40 / .15); margin-bottom: 2rem; }
 .gallery-series h2 { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 1.5rem; }
 .gallery-series p { margin: 0; font-size: .875rem; color: rgb(74 52 40 / .72); }

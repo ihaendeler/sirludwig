@@ -55,7 +55,7 @@ Fachlicher Umfang, Quellen, Szenarioformat und Speicherverhalten sind in [docs/f
 ## Offene Inhalte
 
 - Die verlinkten Seiten `/impressum/` und `/datenschutz/` fehlen. Vor einer Veröffentlichung müssen sie mit bestätigten Betreiberangaben und Informationen zur tatsächlichen Datenverarbeitung ergänzt werden.
-- Die Galerie enthält zehn Oktober-Aufnahmen mit Großansicht; Nachzucht ist noch ein Platzhalter.
+- Die Galerie enthält 24 Aufnahmen in vier Themenbereichen mit Großansicht: 20 Oktober-Motive und vier frühere Fotos aus Mai. Nachzucht ist noch ein Platzhalter.
 - `src/config/site.ts` verwendet weiterhin `https://sirludwig.pages.dev` als kanonische URL. Bei einem Domainwechsel muss diese Konfiguration angepasst werden.
 
 ## Cloudflare Pages – Build Settings

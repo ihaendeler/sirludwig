@@ -10,9 +10,12 @@ Stand der Besprechung vom 26.10.2026.
 
 ## Fotos
 
-Am 31.10.2026 wurden zehn klassisch bearbeitete Aufnahmen aus dem gelieferten
-Oktober-Ordner in Startseite, Ludwig-Seite und Galerie eingebaut. Die Galerie
-ersetzt den Platzhalter. Bildzuordnung und Herkunft stehen in
+Am 31.10.2026 wurden nach einer erneuten vollständigen Sichtung aller 104
+Oktober-Fotos insgesamt 20 Motive ausgewählt und klassisch bearbeitet.
+Die Galerie umfasst zusammen mit den vier vorhandenen Mai-Aufnahmen 24 Bilder
+in vier Themenbereichen. Startseite und Ludwig-Seite zeigen zusätzliche
+Aufnahmen von Umgebung, Herkunft, Seitenansicht und gemeinsamer Beschäftigung.
+Bildzuordnung und Herkunft stehen in
 [bildauswahl-2026-10.md](bildauswahl-2026-10.md). Das vorhandene Material ist die
 Grundlage der aktuellen Website; zusätzliche Aufnahmen sind keine Voraussetzung.
 

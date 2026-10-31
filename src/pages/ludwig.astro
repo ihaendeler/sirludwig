@@ -54,12 +54,20 @@ const projectGoals = [
 	<!-- Herkunft -->
 	<section class="ludwig-section" aria-labelledby="ludwig-origin-heading">
 		<div class="container">
+			<div class="ludwig-story">
+				<figure class="ludwig-photo">
+					<Image src={photos.fruehesPortraet.image} alt={t(photos.fruehesPortraet.alt)}
+						format="webp" widths={imageWidths} sizes="(min-width: 48rem) 42vw, 100vw" loading="lazy" />
+					<figcaption>{t('Mai 2026')}</figcaption>
+				</figure>
 			<div class="ludwig-section__inner">
 				<p class="ludwig-eyebrow">{t("Herkunft")}</p>
 				<h2 id="ludwig-origin-heading" class="ludwig-title">{t("FlyingRoyals von Reckewitz")}</h2>
 				<p class="ludwig-text">
 					{t("Ludwig gehört zum Rudel FlyingRoyals von Reckewitz und wird als eigenständiger zukünftiger Deckrüde präsentiert.")}
 				</p>
+				<a class="ludwig-gallery-link" href={localizedHref('/galerie#early', locale)}>{t('Frühere Eindrücke ansehen')}</a>
+			</div>
 			</div>
 		</div>
 	</section>
@@ -67,12 +75,16 @@ const projectGoals = [
 	<!-- Auswahl -->
 	<section class="ludwig-section" aria-labelledby="ludwig-selection-heading">
 		<div class="container">
+			<div class="ludwig-story">
 			<div class="ludwig-section__inner">
 				<p class="ludwig-eyebrow">{t("Auswahl")}</p>
 				<h2 id="ludwig-selection-heading" class="ludwig-title">{t("Bewusste Entscheidung")}</h2>
 				<p class="ludwig-text">
 					{t("Ludwig wurde aufgrund seiner Abstammung, Gesundheit und seines Potenzials als zukünftiger Deckrüde ausgewählt.")}
 				</p>
+			</div>
+				<Image src={photos.seitenstand.image} alt={t(photos.seitenstand.alt)}
+					format="webp" widths={imageWidths} sizes="(min-width: 48rem) 42vw, 100vw" loading="lazy" />
 			</div>
 		</div>
 	</section>
@@ -91,6 +103,29 @@ const projectGoals = [
 					</p>
 				</div>
 			</div>
+		</div>
+	</section>
+
+	<section class="ludwig-section" aria-labelledby="ludwig-everyday-heading">
+		<div class="container">
+			<div class="ludwig-section__inner">
+				<p class="ludwig-eyebrow">{t('Alltag')}</p>
+				<h2 id="ludwig-everyday-heading" class="ludwig-title">{t('Spiel & Konzentration')}</h2>
+				<p class="ludwig-text">{t('Ein Blickkontakt, eine kleine Belohnung, ein spielerischer Moment – Eindrücke vom gemeinsamen Unterwegssein.')}</p>
+			</div>
+			<div class="ludwig-moments">
+				<figure class="ludwig-photo">
+					<Image src={photos.gemeinsameBeschaeftigung.image} alt={t(photos.gemeinsameBeschaeftigung.alt)}
+						format="webp" widths={imageWidths} sizes="(min-width: 48rem) 45vw, 100vw" loading="lazy" />
+					<figcaption>{t(photos.gemeinsameBeschaeftigung.title)}</figcaption>
+				</figure>
+				<figure class="ludwig-photo">
+					<Image src={photos.spielerischerSprung.image} alt={t(photos.spielerischerSprung.alt)}
+						format="webp" widths={imageWidths} sizes="(min-width: 48rem) 45vw, 100vw" loading="lazy" />
+					<figcaption>{t(photos.spielerischerSprung.title)}</figcaption>
+				</figure>
+			</div>
+			<a class="ludwig-gallery-link" href={localizedHref('/galerie#everyday', locale)}>{t('Mehr aus dem Alltag ansehen')}</a>
 		</div>
 	</section>
 

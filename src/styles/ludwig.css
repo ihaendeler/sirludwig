@@ -107,4 +107,10 @@
 .ludwig-hero.page-hero--media { min-height: 0; align-items: center; }
 .ludwig-story { display: grid; gap: var(--space-2xl); align-items: center; }
 .ludwig-story > img { display: block; width: 100%; height: auto; }
+.ludwig-photo { margin: 0; min-width: 0; }
+.ludwig-photo img { display: block; width: 100%; height: auto; }
+.ludwig-photo figcaption { padding-top: .75rem; font-size: .875rem; color: rgb(74 52 40 / .7); }
+.ludwig-moments { display: grid; gap: var(--space-xl); margin-block: var(--space-2xl); }
+.ludwig-gallery-link { display: inline-flex; align-items: center; min-height: 44px; color: var(--color-brown); font-size: .9375rem; text-underline-offset: .3em; }
+@media (min-width: 48rem) { .ludwig-moments { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 48rem) { .ludwig-story { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-3xl); } }
