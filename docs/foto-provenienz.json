@@ -20,7 +20,8 @@
         "highlights": 0.018,
         "use": "Favorit fuer Ueber Ludwig und ein hohes Startseitenmotiv.",
         "note": "Starker direkter Blick, schoene Fellzeichnung. Einzelne Halme vor Brust und Gesicht bleiben erhalten."
-      }
+      },
+      "development_version": 2
     },
     {
       "asset": "stand-gegenlicht.jpg",
@@ -39,7 +40,8 @@
         "highlights": 0.025,
         "use": "Bevorzugtes seitliches Ganzkoerperbild; Profil und mobile Startseite.",
         "note": "Koerper und Rute im Bild, schoene Lichtkante. Schattenseite und schraeger Boden begrenzen die Beurteilung des Koerperbaus."
-      }
+      },
+      "development_version": 2
     },
     {
       "asset": "stand-sonne.jpg",
@@ -58,7 +60,8 @@
         "highlights": 0.025,
         "use": "Ergaenzende Galerieaufnahme zum Vergleich des Looks im Sonnenlicht.",
         "note": "Gute Fellstruktur und Seitenansicht. Rute am linken Originalrand angeschnitten; deshalb kein bevorzugtes Zuchtprofil."
-      }
+      },
+      "development_version": 2
     },
     {
       "asset": "nahportraet.jpg",
@@ -77,7 +80,8 @@
         "highlights": 0.02,
         "use": "Emotionales Nahportraet fuer Portraetbereich oder Galerie.",
         "note": "Schoenes Auge und Fellstruktur. Halme kreuzen Schnauze und Brust; sie werden nicht entfernt."
-      }
+      },
+      "development_version": 2
     },
     {
       "asset": "bewegung.jpg",
@@ -96,7 +100,8 @@
         "highlights": 0.02,
         "use": "Charakter und Lebensfreude; Bewegungsfoto in der Galerie.",
         "note": "Lebendiger Blick, fliegende Ohren. Frontal und nah aufgenommen, deshalb kein Nachweis der Koerperproportionen; Bewegung begrenzt feinste Schaerfe."
-      }
+      },
+      "development_version": 2
     },
     {
       "asset": "alltag-stock.jpg",
@@ -115,7 +120,8 @@
         "highlights": 0.018,
         "use": "Alltag, Wesen und persoenliche Geschichte.",
         "note": "Freundlicher Ausdruck mit Stock. Koerper am rechten Originalrand angeschnitten; fuer Galerie, weniger fuer formales Profil."
-      }
+      },
+      "development_version": 2
     },
     {
       "asset": "ruhe.jpg",
@@ -134,7 +140,8 @@
         "highlights": 0.02,
         "use": "Ruhiges alternatives Portraet im Schatten; zweiter Weissabgleichstest.",
         "note": "Schoener Seitenblick; steiniger Hintergrund wirkt sachlicher als die Wiese. Auge liegt teilweise im Schatten."
-      }
+      },
+      "development_version": 2
     },
     {
       "asset": "sitzprofil.jpg",
@@ -151,7 +158,8 @@
         ],
         "shadows": 0.03,
         "highlights": 0.025
-      }
+      },
+      "development_version": 2
     },
     {
       "asset": "aufmerksam.jpg",
@@ -168,7 +176,8 @@
         ],
         "shadows": 0.016,
         "highlights": 0.025
-      }
+      },
+      "development_version": 2
     },
     {
       "asset": "spielpause.jpg",
@@ -185,7 +194,8 @@
         ],
         "shadows": 0.015,
         "highlights": 0.02
-      }
+      },
+      "development_version": 2
     },
     {
       "asset": "kleine-pfote.jpg",
@@ -202,7 +212,8 @@
         ],
         "shadows": 0.03,
         "highlights": 0.025
-      }
+      },
+      "development_version": 2
     },
     {
       "asset": "frontal-im-gras.jpg",
@@ -219,7 +230,8 @@
         ],
         "shadows": 0.025,
         "highlights": 0.02
-      }
+      },
+      "development_version": 2
     },
     {
       "asset": "kopfprofil-sonne.jpg",
@@ -236,7 +248,8 @@
         ],
         "shadows": 0.018,
         "highlights": 0.025
-      }
+      },
+      "development_version": 2
     },
     {
       "asset": "seitenstand.jpg",
@@ -253,7 +266,8 @@
         ],
         "shadows": 0.018,
         "highlights": 0.025
-      }
+      },
+      "development_version": 2
     },
     {
       "asset": "sitzende-silhouette.jpg",
@@ -270,7 +284,8 @@
         ],
         "shadows": 0.03,
         "highlights": 0.025
-      }
+      },
+      "development_version": 2
     },
     {
       "asset": "froehlicher-blick.jpg",
@@ -287,7 +302,8 @@
         ],
         "shadows": 0.02,
         "highlights": 0.025
-      }
+      },
+      "development_version": 2
     },
     {
       "asset": "spiel-nahaufnahme.jpg",
@@ -304,7 +320,8 @@
         ],
         "shadows": 0.018,
         "highlights": 0.02
-      }
+      },
+      "development_version": 2
     },
     {
       "asset": "talblick.jpg",
@@ -321,7 +338,8 @@
         ],
         "shadows": 0.03,
         "highlights": 0.025
-      }
+      },
+      "development_version": 2
     },
     {
       "asset": "talblick-quer.jpg",
@@ -344,9 +362,31 @@
         500,
         3072,
         2548
-      ]
+      ],
+      "development_version": 2
     }
   ],
   "review": "All 104 original October photos reviewed. Older May files were placeholders, not authentic earlier Ludwig photos, and are removed. Only 18 October photos without visible people or human body parts are used; one additional landscape crop is derived from the same original.",
-  "selection_policy": "Do not reintroduce May placeholder photos. Exclude photographs with visible hands, arms, legs, people or other human body parts unless a clean crop preserves Ludwig and removes every human part."
+  "selection_policy": "Do not reintroduce May placeholder photos. Exclude photographs with visible hands, arms, legs, people or other human body parts unless a clean crop preserves Ludwig and removes every human part.",
+  "development": {
+    "version": 2,
+    "date": "2026-11-03",
+    "contrast_exponent": 1.08,
+    "additional_warmth_linear_rgb": [
+      1.015,
+      1.0,
+      0.98
+    ],
+    "neutral_chroma_threshold": 0.12,
+    "full_warmth_chroma": 0.42,
+    "saturation": 1.0,
+    "hue_rotation": 0,
+    "sharpening": {
+      "radius": 0.75,
+      "percent": 18,
+      "threshold": 3
+    },
+    "export_quality": 93,
+    "note": "Rebuilt from originals, retaining individual base exposure/WB. Gentle luminance-only S curve; additional warmth fades out in neutral colours and highlights. No selective fur recolouring, no generative processing, no watermark. Existing crop preserved."
+  }
 }

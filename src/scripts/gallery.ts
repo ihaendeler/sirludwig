@@ -1,16 +1,14 @@
 const viewer = document.querySelector<HTMLDialogElement>('[data-photo-viewer]');
 const image = viewer?.querySelector<HTMLImageElement>('[data-photo-image]');
-const caption = viewer?.querySelector<HTMLElement>('[data-photo-caption]');
 const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-gallery-open]')];
 let current = 0;
 let galleryOpener: HTMLAnchorElement | undefined;
 function show(index: number) {
-  if (!image || !caption || !links.length) return;
+  if (!image || !links.length) return;
   current = (index + links.length) % links.length;
   const link = links[current];
   image.src = link.href;
   image.alt = link.querySelector('img')?.alt ?? '';
-  caption.textContent = `${link.dataset.caption ?? ''} · ${current + 1} / ${links.length}`;
 }
 for (const [index, link] of links.entries()) {
   link.addEventListener('click', (event) => {

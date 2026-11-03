@@ -61,7 +61,7 @@
 .tuxedo-guide .color-eyebrow { font-size: .75rem; }
 .tuxedo-guide__portrait { margin: 0; max-width: 18rem; }
 .tuxedo-guide__portrait img { width: 100%; height: auto; }
-.tuxedo-guide__portrait figcaption, .tuxedo-litter figcaption { color: #705e51; font-size: .8125rem; line-height: 1.65; margin-top: .7rem; }
+.tuxedo-litter figcaption { color: #705e51; font-size: .8125rem; line-height: 1.65; margin-top: .7rem; }
 .tuxedo-guide__pairing { margin-top: 2rem; }
 .tuxedo-pairings { border-collapse: collapse; width: 100%; table-layout: fixed; margin-top: 1.25rem; font-size: .9375rem; font-variant-numeric: tabular-nums; }
 .tuxedo-pairings caption { text-align: left; color: #705e51; font-size: .8125rem; margin-bottom: .65rem; }

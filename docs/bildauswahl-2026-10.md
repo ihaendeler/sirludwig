@@ -5,8 +5,11 @@ Ordner „Ludwig“ die Oktober-Serie. Alle Dateien wurden erneut dekodiert und 
 den ursprünglichen SHA-256-Prüfsummen abgeglichen. Die visuelle Sichtung erfolgte
 auf 13 größeren Bögen mit je acht Fotos, ergänzt durch größere Ansichten der
 ausgewählten Motive. Eine 100-Prozent-Pixelprüfung jedes Fotos wird nicht behauptet.
-Klassische Bearbeitung entsprechend Referenzlook 01: geringe Weißabgleich- und
-Belichtungskorrekturen, sanfte Schatten/Lichter, zurückhaltende Schärfung.
+Klassische Bearbeitung, seit 3. November als Referenzlook 02: Die individuellen
+Weißabgleich- und Belichtungskorrekturen bleiben die Basis. Eine etwas kräftigere,
+sanfte Helligkeitskurve betont die Fellzeichnung; zusätzliche Wärme ist gering
+und wird in neutralen und sehr hellen Bereichen zurückgenommen. Apricot und Weiß
+bleiben natürlich, die Sättigung unverändert. Zurückhaltende Luminanzschärfung.
 Keine generative KI, keine Umfärbung oder Formänderung, keine Wasserzeichen.
 Die gelieferten Dateien sind JPEGs; „RAW“ im Namen ist keine RAW-Datei.
 Originaldateien bleiben außerhalb des Repositorys unverändert erhalten.
@@ -44,8 +47,10 @@ stand-gegenlicht.jpg verwendet. Perspektive und Boden sind dort nicht
 standardisiert; es ist keine eigens angefertigte Exterieur-Dokumentation.
 
 Galeriebereiche: Porträts & Ausdruck (7), Typ & Erscheinung (5), Spiel & Alltag
-(6). Die Gesamtzählung und die Großansicht reichen über
-alle Themenbereiche; direkte Sprunglinks erhalten ihren Anker beim Sprachwechsel.
+(6). Die Großansicht reicht über alle Themenbereiche; direkte Sprunglinks
+erhalten ihren Anker beim Sprachwechsel. Sichtbare Bildunterschriften und
+Bildnummern entfallen auf allen Seiten und in der Großansicht. Beschreibende
+Alternativtexte und die zugänglichen Namen der Bedienelemente bleiben erhalten.
 
 Die Mai-Dateien waren nach ausdrücklicher Korrektur des Nutzers ausschließlich
 Platzhalter, keine früheren Fotos von Ludwig. Sie sind aus allen Komponenten,
@@ -63,3 +68,7 @@ Nahezu identische Serienvarianten bleiben als Reserve erhalten. Eine Begründung
 für jede der 104 Oktober-Dateien steht in fotosichtung-gesamt.json.
 
 Quellnamen, Prüfsummen und Bearbeitungsparameter: foto-provenienz.json.
+Die Exporte werden mit scripts/develop-photos.py direkt aus den unveränderten
+Originalen erstellt (Python, Pillow und numpy). Die 19 Bilddateien umfassen
+18 Motive plus den bestehenden Landschaftsausschnitt. Metadaten außer sRGB-ICC
+werden nicht übernommen. Der ursprüngliche Referenzlook bleibt separat erhalten.
