@@ -101,18 +101,19 @@
         "use": "Charakter und Lebensfreude; Bewegungsfoto in der Galerie.",
         "note": "Lebendiger Blick, fliegende Ohren. Frontal und nah aufgenommen, deshalb kein Nachweis der Koerperproportionen; Bewegung begrenzt feinste Schaerfe."
       },
-      "development_version": 3,
+      "development_version": 4,
       "development_adjustments": {
-        "version": 3,
-        "date": "2026-11-03",
+        "version": 4,
+        "date": "2026-11-04",
         "wb_multiplier": [
-          1.04,
+          1.06,
           1.0,
-          0.94
+          0.92
         ],
-        "contrast_exponent": 1.15,
+        "contrast_exponent": 1.18,
         "ev_offset": 0.04,
-        "note": "Stronger warmth and luminance contrast for the shaded everyday series; no added saturation, existing highlight protection and crop retained."
+        "note": "Richer apricot on user request: modest vibrance in existing warm colours, neutral whites and cool hues protected; no hue replacement or painted fur mask.",
+        "warm_chroma_gain": 1.15
       }
     },
     {
@@ -133,18 +134,19 @@
         "use": "Alltag, Wesen und persoenliche Geschichte.",
         "note": "Freundlicher Ausdruck mit Stock. Koerper am rechten Originalrand angeschnitten; fuer Galerie, weniger fuer formales Profil."
       },
-      "development_version": 3,
+      "development_version": 4,
       "development_adjustments": {
-        "version": 3,
-        "date": "2026-11-03",
+        "version": 4,
+        "date": "2026-11-04",
         "wb_multiplier": [
-          1.04,
+          1.06,
           1.0,
-          0.94
+          0.92
         ],
-        "contrast_exponent": 1.15,
+        "contrast_exponent": 1.18,
         "ev_offset": 0.04,
-        "note": "Stronger warmth and luminance contrast for the shaded everyday series; no added saturation, existing highlight protection and crop retained."
+        "note": "Richer apricot on user request: modest vibrance in existing warm colours, neutral whites and cool hues protected; no hue replacement or painted fur mask.",
+        "warm_chroma_gain": 1.15
       }
     },
     {
@@ -165,18 +167,19 @@
         "use": "Ruhiges alternatives Portraet im Schatten; zweiter Weissabgleichstest.",
         "note": "Schoener Seitenblick; steiniger Hintergrund wirkt sachlicher als die Wiese. Auge liegt teilweise im Schatten."
       },
-      "development_version": 3,
+      "development_version": 4,
       "development_adjustments": {
-        "version": 3,
-        "date": "2026-11-03",
+        "version": 4,
+        "date": "2026-11-04",
         "wb_multiplier": [
-          1.04,
+          1.06,
           1.0,
-          0.94
+          0.92
         ],
-        "contrast_exponent": 1.15,
+        "contrast_exponent": 1.18,
         "ev_offset": 0.04,
-        "note": "Stronger warmth and luminance contrast for the shaded everyday series; no added saturation, existing highlight protection and crop retained."
+        "note": "Richer apricot on user request: modest vibrance in existing warm colours, neutral whites and cool hues protected; no hue replacement or painted fur mask.",
+        "warm_chroma_gain": 1.15
       }
     },
     {
@@ -231,18 +234,19 @@
         "shadows": 0.015,
         "highlights": 0.02
       },
-      "development_version": 3,
+      "development_version": 4,
       "development_adjustments": {
-        "version": 3,
-        "date": "2026-11-03",
+        "version": 4,
+        "date": "2026-11-04",
         "wb_multiplier": [
-          1.04,
+          1.06,
           1.0,
-          0.94
+          0.92
         ],
-        "contrast_exponent": 1.15,
+        "contrast_exponent": 1.18,
         "ev_offset": 0.04,
-        "note": "Stronger warmth and luminance contrast for the shaded everyday series; no added saturation, existing highlight protection and crop retained."
+        "note": "Richer apricot on user request: modest vibrance in existing warm colours, neutral whites and cool hues protected; no hue replacement or painted fur mask.",
+        "warm_chroma_gain": 1.15
       }
     },
     {
@@ -369,18 +373,19 @@
         "shadows": 0.018,
         "highlights": 0.02
       },
-      "development_version": 3,
+      "development_version": 4,
       "development_adjustments": {
-        "version": 3,
-        "date": "2026-11-03",
+        "version": 4,
+        "date": "2026-11-04",
         "wb_multiplier": [
-          1.04,
+          1.06,
           1.0,
-          0.94
+          0.92
         ],
-        "contrast_exponent": 1.15,
+        "contrast_exponent": 1.18,
         "ev_offset": 0.04,
-        "note": "Stronger warmth and luminance contrast for the shaded everyday series; no added saturation, existing highlight protection and crop retained."
+        "note": "Richer apricot on user request: modest vibrance in existing warm colours, neutral whites and cool hues protected; no hue replacement or painted fur mask.",
+        "warm_chroma_gain": 1.15
       }
     },
     {
@@ -399,18 +404,19 @@
         "shadows": 0.03,
         "highlights": 0.025
       },
-      "development_version": 3,
+      "development_version": 4,
       "development_adjustments": {
-        "version": 3,
-        "date": "2026-11-03",
+        "version": 4,
+        "date": "2026-11-04",
         "wb_multiplier": [
-          1.04,
+          1.06,
           1.0,
-          0.94
+          0.92
         ],
-        "contrast_exponent": 1.15,
+        "contrast_exponent": 1.18,
         "ev_offset": 0.04,
-        "note": "Stronger warmth and luminance contrast for the shaded everyday series; no added saturation, existing highlight protection and crop retained."
+        "note": "Richer apricot on user request: modest vibrance in existing warm colours, neutral whites and cool hues protected; no hue replacement or painted fur mask.",
+        "warm_chroma_gain": 1.15
       }
     },
     {
@@ -435,18 +441,19 @@
         3072,
         2548
       ],
-      "development_version": 3,
+      "development_version": 4,
       "development_adjustments": {
-        "version": 3,
-        "date": "2026-11-03",
+        "version": 4,
+        "date": "2026-11-04",
         "wb_multiplier": [
-          1.04,
+          1.06,
           1.0,
-          0.94
+          0.92
         ],
-        "contrast_exponent": 1.15,
+        "contrast_exponent": 1.18,
         "ev_offset": 0.04,
-        "note": "Stronger warmth and luminance contrast for the shaded everyday series; no added saturation, existing highlight protection and crop retained."
+        "note": "Richer apricot on user request: modest vibrance in existing warm colours, neutral whites and cool hues protected; no hue replacement or painted fur mask.",
+        "warm_chroma_gain": 1.15
       }
     }
   ],

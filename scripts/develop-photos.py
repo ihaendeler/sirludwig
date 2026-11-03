@@ -1,7 +1,7 @@
 """Rebuild selected JPEGs from untouched originals using conventional photo adjustments.
 
 Requires Pillow and numpy. Run from any directory; originals live in ../Ludwig.
-No generative tools, object edits, saturation changes or metadata copied from sources.
+No generative tools, object edits or metadata copied from sources.
 """
 from pathlib import Path
 import argparse
@@ -70,6 +70,23 @@ def develop(image, recipe, adjustments=None):
     weight *= 1 - np.clip((maximum - .55) / .40, 0, 1)
     delta = np.array(SETTINGS['additional_warmth_linear_rgb'], dtype=np.float32) - 1
     a *= 1 + weight[..., None] * delta
+
+    # Modest warm-colour vibrance, excluding cool hues and near-neutral whites.
+    # RGB differences scale about luminance: no hue rotation or painted fur mask.
+    vibrance = adjustments.get('warm_chroma_gain', 1.0)
+    if vibrance != 1.0:
+        maximum = np.max(a, axis=2)
+        minimum = np.min(a, axis=2)
+        chroma = (maximum - minimum) / np.maximum(maximum, 1e-7)
+        warm = np.clip((a[..., 0] - a[..., 2]) / np.maximum(maximum * .20, 1e-7), 0, 1)
+        warm *= np.clip((a[..., 1] - a[..., 2]) / np.maximum(maximum * .10, 1e-7), 0, 1)
+        warm *= np.clip((chroma - .18) / .30, 0, 1)
+        lum = a @ LUMA
+        gain = 1 + (vibrance - 1) * warm
+        # Bound chroma expansion before export, preserving highlight detail.
+        gain = np.minimum(gain, lum / np.maximum(lum - minimum, 1e-7))
+        gain = np.minimum(gain, (1 - lum) / np.maximum(maximum - lum, 1e-7))
+        a = lum[..., None] + (a - lum[..., None]) * gain[..., None]
 
     # Monotonic S curve changes brightness, preserving RGB ratios and detail.
     lum = a @ LUMA

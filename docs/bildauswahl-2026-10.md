@@ -16,6 +16,12 @@ etwas kräftigere Helligkeitskurve und +0,04 EV zum Erhalt der Schattenzeichnung
 Die vorhandenen Bildausschnitte bleiben erhalten; der Landschaftsausschnitt
 auf der Startseite wird aus derselben Entwicklung erzeugt. Parameter je Datei
 unter development_adjustments (Version 3) in foto-provenienz.json.
+Auf weiteren Wunsch nach kräftigerem Apricot nutzt die Alltag-Serie jetzt
+Version 4: etwas wärmerer Weißabgleich, Kontrastexponent 1,18 und maximal
+15 Prozent mehr Farbtiefe in bereits vorhandenen warmen Farben. Die Anpassung
+wird in nahezu neutralen Weißbereichen ausgeblendet; kühle Farben erhalten
+keine zusätzliche Sättigung. Es wird kein Farbton ersetzt und keine Fellmaske
+gemalt. Alle Einstellungen stehen je Datei in foto-provenienz.json.
 Keine generative KI, keine Umfärbung oder Formänderung, keine Wasserzeichen.
 Die gelieferten Dateien sind JPEGs; „RAW“ im Namen ist keine RAW-Datei.
 Originaldateien bleiben außerhalb des Repositorys unverändert erhalten.
