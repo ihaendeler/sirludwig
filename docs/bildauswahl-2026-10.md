@@ -5,23 +5,25 @@ Ordner „Ludwig“ die Oktober-Serie. Alle Dateien wurden erneut dekodiert und 
 den ursprünglichen SHA-256-Prüfsummen abgeglichen. Die visuelle Sichtung erfolgte
 auf 13 größeren Bögen mit je acht Fotos, ergänzt durch größere Ansichten der
 ausgewählten Motive. Eine 100-Prozent-Pixelprüfung jedes Fotos wird nicht behauptet.
-Klassische Bearbeitung, seit 3. November als Referenzlook 02: Die individuellen
-Weißabgleich- und Belichtungskorrekturen bleiben die Basis. Eine etwas kräftigere,
-sanfte Helligkeitskurve betont die Fellzeichnung; zusätzliche Wärme ist gering
-und wird in neutralen und sehr hellen Bereichen zurückgenommen. Apricot und Weiß
-bleiben natürlich, die Sättigung unverändert. Zurückhaltende Luminanzschärfung.
-Für die sechs Schattenmotive in „Spiel & Alltag“ wurde der Look anschließend
-auf Wunsch verstärkt: zusätzlicher Weißabgleich gegen den Blaustich,
-etwas kräftigere Helligkeitskurve und +0,04 EV zum Erhalt der Schattenzeichnung.
-Die vorhandenen Bildausschnitte bleiben erhalten; der Landschaftsausschnitt
-auf der Startseite wird aus derselben Entwicklung erzeugt. Parameter je Datei
-unter development_adjustments (Version 3) in foto-provenienz.json.
-Auf weiteren Wunsch nach kräftigerem Apricot nutzt die Alltag-Serie jetzt
-Version 4: etwas wärmerer Weißabgleich, Kontrastexponent 1,18 und maximal
-15 Prozent mehr Farbtiefe in bereits vorhandenen warmen Farben. Die Anpassung
-wird in nahezu neutralen Weißbereichen ausgeblendet; kühle Farben erhalten
-keine zusätzliche Sättigung. Es wird kein Farbton ersetzt und keine Fellmaske
-gemalt. Alle Einstellungen stehen je Datei in foto-provenienz.json.
+Alle 18 ausgewählten Website-Motive tragen auf ausdrücklichen Wunsch den
+kräftigeren Apricot-Look, einschließlich der Startseite, aller Teaser, des
+Ludwig-Profils, des Farbrechners und der Vorschaubilder für geteilte Links.
+Die klassischen Weißabgleich- und Belichtungskorrekturen der Originale bleiben
+die Basis. Eine sanfte Helligkeitskurve betont die Fellzeichnung; bereits
+vorhandene warme Farben erhalten maximal 15 Prozent mehr Farbtiefe. Die
+Farbanpassung wird in nahezu neutralen Weißbereichen ausgeblendet; kühle
+Farben erhalten keine zusätzliche Sättigung. Es wird kein Farbton ersetzt und
+keine Fellmaske gemalt. Zurückhaltende Luminanzschärfung.
+
+Die Korrekturstärke berücksichtigt das Licht: Bei den bereits warmen
+Sonnenaufnahmen ist der zusätzliche Weißabgleich sehr gering, der
+Kontrastexponent beträgt 1,14. Gegenlicht- und Porträtmotive verwenden 1,15
+mit +0,02 bis +0,04 EV. Die sechs Schattenmotive aus „Spiel & Alltag“ behalten
+ihren bereits abgestimmten stärkeren Weißabgleich, 1,18 Kontrast und +0,04 EV.
+Der Landschaftsausschnitt auf der Startseite stammt aus derselben Entwicklung
+wie sein Hochformat in der Galerie. Die früheren Referenzlooks bleiben separat
+erhalten. Alle Parameter stehen je Datei unter development_adjustments in
+foto-provenienz.json (Version 4 für Alltag, Version 5 für die übrigen Motive).
 Keine generative KI, keine Umfärbung oder Formänderung, keine Wasserzeichen.
 Die gelieferten Dateien sind JPEGs; „RAW“ im Namen ist keine RAW-Datei.
 Originaldateien bleiben außerhalb des Repositorys unverändert erhalten.

@@ -21,7 +21,21 @@
         "use": "Favorit fuer Ueber Ludwig und ein hohes Startseitenmotiv.",
         "note": "Starker direkter Blick, schoene Fellzeichnung. Einzelne Halme vor Brust und Gesicht bleiben erhalten."
       },
-      "development_version": 2
+      "development_version": 5,
+      "development_adjustments": {
+        "version": 5,
+        "date": "2026-11-04",
+        "lighting": "portrait",
+        "wb_multiplier": [
+          1.012,
+          1.0,
+          0.982
+        ],
+        "contrast_exponent": 1.15,
+        "ev_offset": 0.02,
+        "warm_chroma_gain": 1.15,
+        "note": "Richer apricot look extended to every selected website photo. Warmth and brightness adapted to existing sunlight/backlight; neutral white and cool colours protected. Rebuilt from the original, no hue replacement."
+      }
     },
     {
       "asset": "stand-gegenlicht.jpg",
@@ -41,7 +55,21 @@
         "use": "Bevorzugtes seitliches Ganzkoerperbild; Profil und mobile Startseite.",
         "note": "Koerper und Rute im Bild, schoene Lichtkante. Schattenseite und schraeger Boden begrenzen die Beurteilung des Koerperbaus."
       },
-      "development_version": 2
+      "development_version": 5,
+      "development_adjustments": {
+        "version": 5,
+        "date": "2026-11-04",
+        "lighting": "backlight",
+        "wb_multiplier": [
+          1.018,
+          1.0,
+          0.975
+        ],
+        "contrast_exponent": 1.15,
+        "ev_offset": 0.04,
+        "warm_chroma_gain": 1.15,
+        "note": "Richer apricot look extended to every selected website photo. Warmth and brightness adapted to existing sunlight/backlight; neutral white and cool colours protected. Rebuilt from the original, no hue replacement."
+      }
     },
     {
       "asset": "stand-sonne.jpg",
@@ -61,7 +89,21 @@
         "use": "Ergaenzende Galerieaufnahme zum Vergleich des Looks im Sonnenlicht.",
         "note": "Gute Fellstruktur und Seitenansicht. Rute am linken Originalrand angeschnitten; deshalb kein bevorzugtes Zuchtprofil."
       },
-      "development_version": 2
+      "development_version": 5,
+      "development_adjustments": {
+        "version": 5,
+        "date": "2026-11-04",
+        "lighting": "sunlight",
+        "wb_multiplier": [
+          1.008,
+          1.0,
+          0.988
+        ],
+        "contrast_exponent": 1.14,
+        "ev_offset": 0,
+        "warm_chroma_gain": 1.15,
+        "note": "Richer apricot look extended to every selected website photo. Warmth and brightness adapted to existing sunlight/backlight; neutral white and cool colours protected. Rebuilt from the original, no hue replacement."
+      }
     },
     {
       "asset": "nahportraet.jpg",
@@ -81,7 +123,21 @@
         "use": "Emotionales Nahportraet fuer Portraetbereich oder Galerie.",
         "note": "Schoenes Auge und Fellstruktur. Halme kreuzen Schnauze und Brust; sie werden nicht entfernt."
       },
-      "development_version": 2
+      "development_version": 5,
+      "development_adjustments": {
+        "version": 5,
+        "date": "2026-11-04",
+        "lighting": "portrait",
+        "wb_multiplier": [
+          1.012,
+          1.0,
+          0.982
+        ],
+        "contrast_exponent": 1.15,
+        "ev_offset": 0.02,
+        "warm_chroma_gain": 1.15,
+        "note": "Richer apricot look extended to every selected website photo. Warmth and brightness adapted to existing sunlight/backlight; neutral white and cool colours protected. Rebuilt from the original, no hue replacement."
+      }
     },
     {
       "asset": "bewegung.jpg",
@@ -198,7 +254,21 @@
         "shadows": 0.03,
         "highlights": 0.025
       },
-      "development_version": 2
+      "development_version": 5,
+      "development_adjustments": {
+        "version": 5,
+        "date": "2026-11-04",
+        "lighting": "backlight",
+        "wb_multiplier": [
+          1.018,
+          1.0,
+          0.975
+        ],
+        "contrast_exponent": 1.15,
+        "ev_offset": 0.04,
+        "warm_chroma_gain": 1.15,
+        "note": "Richer apricot look extended to every selected website photo. Warmth and brightness adapted to existing sunlight/backlight; neutral white and cool colours protected. Rebuilt from the original, no hue replacement."
+      }
     },
     {
       "asset": "aufmerksam.jpg",
@@ -216,7 +286,21 @@
         "shadows": 0.016,
         "highlights": 0.025
       },
-      "development_version": 2
+      "development_version": 5,
+      "development_adjustments": {
+        "version": 5,
+        "date": "2026-11-04",
+        "lighting": "sunlight",
+        "wb_multiplier": [
+          1.008,
+          1.0,
+          0.988
+        ],
+        "contrast_exponent": 1.14,
+        "ev_offset": 0,
+        "warm_chroma_gain": 1.15,
+        "note": "Richer apricot look extended to every selected website photo. Warmth and brightness adapted to existing sunlight/backlight; neutral white and cool colours protected. Rebuilt from the original, no hue replacement."
+      }
     },
     {
       "asset": "spielpause.jpg",
@@ -265,7 +349,21 @@
         "shadows": 0.03,
         "highlights": 0.025
       },
-      "development_version": 2
+      "development_version": 5,
+      "development_adjustments": {
+        "version": 5,
+        "date": "2026-11-04",
+        "lighting": "backlight",
+        "wb_multiplier": [
+          1.018,
+          1.0,
+          0.975
+        ],
+        "contrast_exponent": 1.15,
+        "ev_offset": 0.04,
+        "warm_chroma_gain": 1.15,
+        "note": "Richer apricot look extended to every selected website photo. Warmth and brightness adapted to existing sunlight/backlight; neutral white and cool colours protected. Rebuilt from the original, no hue replacement."
+      }
     },
     {
       "asset": "frontal-im-gras.jpg",
@@ -283,7 +381,21 @@
         "shadows": 0.025,
         "highlights": 0.02
       },
-      "development_version": 2
+      "development_version": 5,
+      "development_adjustments": {
+        "version": 5,
+        "date": "2026-11-04",
+        "lighting": "backlight",
+        "wb_multiplier": [
+          1.018,
+          1.0,
+          0.975
+        ],
+        "contrast_exponent": 1.15,
+        "ev_offset": 0.04,
+        "warm_chroma_gain": 1.15,
+        "note": "Richer apricot look extended to every selected website photo. Warmth and brightness adapted to existing sunlight/backlight; neutral white and cool colours protected. Rebuilt from the original, no hue replacement."
+      }
     },
     {
       "asset": "kopfprofil-sonne.jpg",
@@ -301,7 +413,21 @@
         "shadows": 0.018,
         "highlights": 0.025
       },
-      "development_version": 2
+      "development_version": 5,
+      "development_adjustments": {
+        "version": 5,
+        "date": "2026-11-04",
+        "lighting": "sunlight",
+        "wb_multiplier": [
+          1.008,
+          1.0,
+          0.988
+        ],
+        "contrast_exponent": 1.14,
+        "ev_offset": 0,
+        "warm_chroma_gain": 1.15,
+        "note": "Richer apricot look extended to every selected website photo. Warmth and brightness adapted to existing sunlight/backlight; neutral white and cool colours protected. Rebuilt from the original, no hue replacement."
+      }
     },
     {
       "asset": "seitenstand.jpg",
@@ -319,7 +445,21 @@
         "shadows": 0.018,
         "highlights": 0.025
       },
-      "development_version": 2
+      "development_version": 5,
+      "development_adjustments": {
+        "version": 5,
+        "date": "2026-11-04",
+        "lighting": "sunlight",
+        "wb_multiplier": [
+          1.008,
+          1.0,
+          0.988
+        ],
+        "contrast_exponent": 1.14,
+        "ev_offset": 0,
+        "warm_chroma_gain": 1.15,
+        "note": "Richer apricot look extended to every selected website photo. Warmth and brightness adapted to existing sunlight/backlight; neutral white and cool colours protected. Rebuilt from the original, no hue replacement."
+      }
     },
     {
       "asset": "sitzende-silhouette.jpg",
@@ -337,7 +477,21 @@
         "shadows": 0.03,
         "highlights": 0.025
       },
-      "development_version": 2
+      "development_version": 5,
+      "development_adjustments": {
+        "version": 5,
+        "date": "2026-11-04",
+        "lighting": "backlight",
+        "wb_multiplier": [
+          1.018,
+          1.0,
+          0.975
+        ],
+        "contrast_exponent": 1.15,
+        "ev_offset": 0.04,
+        "warm_chroma_gain": 1.15,
+        "note": "Richer apricot look extended to every selected website photo. Warmth and brightness adapted to existing sunlight/backlight; neutral white and cool colours protected. Rebuilt from the original, no hue replacement."
+      }
     },
     {
       "asset": "froehlicher-blick.jpg",
@@ -355,7 +509,21 @@
         "shadows": 0.02,
         "highlights": 0.025
       },
-      "development_version": 2
+      "development_version": 5,
+      "development_adjustments": {
+        "version": 5,
+        "date": "2026-11-04",
+        "lighting": "portrait",
+        "wb_multiplier": [
+          1.012,
+          1.0,
+          0.982
+        ],
+        "contrast_exponent": 1.15,
+        "ev_offset": 0.02,
+        "warm_chroma_gain": 1.15,
+        "note": "Richer apricot look extended to every selected website photo. Warmth and brightness adapted to existing sunlight/backlight; neutral white and cool colours protected. Rebuilt from the original, no hue replacement."
+      }
     },
     {
       "asset": "spiel-nahaufnahme.jpg",
@@ -479,5 +647,11 @@
     },
     "export_quality": 93,
     "note": "Rebuilt from originals, retaining individual base exposure/WB. Gentle luminance-only S curve; additional warmth fades out in neutral colours and highlights. No selective fur recolouring, no generative processing, no watermark. Existing crop preserved."
+  },
+  "series_look": {
+    "scope": "All 18 selected photos plus the existing landscape crop, including home/profile, gallery, calculator and share images.",
+    "warm_chroma_gain": 1.15,
+    "lighting_adaptation": "Sunny and backlit photos receive gentler WB changes than the shaded everyday series.",
+    "captions": "No visible photo captions; descriptive alt text remains."
   }
 }
