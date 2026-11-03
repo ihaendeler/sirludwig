@@ -4,6 +4,7 @@ Requires Pillow and numpy. Run from any directory; originals live in ../Ludwig.
 No generative tools, object edits, saturation changes or metadata copied from sources.
 """
 from pathlib import Path
+import argparse
 import hashlib
 import io
 import json
@@ -15,7 +16,6 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCES = ROOT.parent / 'Ludwig'
 MANIFEST = ROOT / 'docs/foto-provenienz.json'
 DEST = ROOT / 'src/assets/images/autumn'
-REVIEW = ROOT.parent / 'Website-Vorschau/Referenzlook-02'
 SRGB = ImageCms.ImageCmsProfile(ImageCms.createProfile('sRGB')).tobytes()
 LUMA = np.array([.2126, .7152, .0722], dtype=np.float32)
 SETTINGS = dict(version=2, date='2026-11-03', contrast_exponent=1.08,
@@ -50,9 +50,12 @@ def load(path):
         return image
 
 
-def develop(image, recipe):
+def develop(image, recipe, adjustments=None):
+    adjustments = adjustments or {}
     a = decode(np.asarray(image, dtype=np.float32) / 255)
-    a *= np.array(recipe['wb'], dtype=np.float32) * 2 ** recipe['ev']
+    wb = np.array(recipe['wb'], dtype=np.float32)
+    wb *= np.array(adjustments.get('wb_multiplier', [1, 1, 1]), dtype=np.float32)
+    a *= wb * 2 ** (recipe['ev'] + adjustments.get('ev_offset', 0))
     lum = a @ LUMA
     target = lum + recipe['shadows'] * (1 - np.exp(-lum / .025)) * np.exp(-lum / .22)
     target += .018 * target * (1 - target) * (2 * target - 1)
@@ -71,8 +74,9 @@ def develop(image, recipe):
     # Monotonic S curve changes brightness, preserving RGB ratios and detail.
     lum = a @ LUMA
     perceptual = np.clip(encode(lum), 0, 1)
-    raised = perceptual ** SETTINGS['contrast_exponent']
-    curved = raised / np.maximum(raised + (1 - perceptual) ** SETTINGS['contrast_exponent'], 1e-7)
+    contrast = adjustments.get('contrast_exponent', SETTINGS['contrast_exponent'])
+    raised = perceptual ** contrast
+    curved = raised / np.maximum(raised + (1 - perceptual) ** contrast, 1e-7)
     target = decode(curved)
     a *= (target / np.maximum(lum, 1e-7))[..., None]
     a /= np.maximum(np.max(a, axis=2, keepdims=True), 1)
@@ -87,20 +91,28 @@ def save(image, path, quality=93):
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--only', nargs='+', help='Rebuild only these asset filenames')
+    parser.add_argument('--review-name', default='Referenzlook-02')
+    args = parser.parse_args()
+    review = ROOT.parent / 'Website-Vorschau' / args.review_name
     manifest = json.loads(MANIFEST.read_text(encoding='utf-8'))
-    REVIEW.mkdir(parents=True, exist_ok=True)
-    (REVIEW / 'Vorher').mkdir(exist_ok=True)
+    entries = [entry for entry in manifest['files'] if not args.only or entry['asset'] in args.only]
+    if args.only:
+        assert {entry['asset'] for entry in entries} == set(args.only), 'Unknown photo asset'
+    review.mkdir(parents=True, exist_ok=True)
+    (review / 'Vorher').mkdir(exist_ok=True)
     font = ImageFont.truetype('C:/Windows/Fonts/arial.ttf', 22)
     pairs = []
     sources = {}
-    for entry in manifest['files']:
+    for entry in entries:
         path = SOURCES / entry['source']
         assert hashlib.sha256(path.read_bytes()).hexdigest() == entry['source_sha256'], path
         sources[path] = entry['source_sha256']
-        before = REVIEW / 'Vorher' / entry['asset']
+        before = review / 'Vorher' / entry['asset']
         if not before.exists():
             before.write_bytes((DEST / entry['asset']).read_bytes())
-        edited = develop(load(path), entry['recipe'])
+        edited = develop(load(path), entry['recipe'], entry.get('development_adjustments'))
         if 'crop_pixels' in entry:
             edited = edited.crop(entry['crop_pixels'])
         save(edited, DEST / entry['asset'])
@@ -117,17 +129,17 @@ def main():
                 pair.paste(thumb, (x + (400 - thumb.width) // 2, 40 + (520 - thumb.height) // 2))
                 draw.text((x + 12, 565), label, font=font, fill='#332b22')
             pairs.append(pair)
-        entry['development_version'] = 2
+        entry['development_version'] = entry.get('development_adjustments', {}).get('version', 2)
         print(entry['asset'], flush=True)
     for batch in range((len(pairs) + 3) // 4):
         board = Image.new('RGB', (1600, 1180), '#f4f0e8')
         for slot, pair in enumerate(pairs[batch * 4:batch * 4 + 4]):
             board.paste(pair, ((slot % 2) * 800, (slot // 2) * 590))
-        save(board, REVIEW / f'Vergleich-{batch + 1:02d}.jpg', 92)
+        save(board, review / f'Vergleich-{batch + 1:02d}.jpg', 92)
     assert all(hashlib.sha256(p.read_bytes()).hexdigest() == sha for p, sha in sources.items())
     manifest['development'] = SETTINGS
     MANIFEST.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-    print(f'{len(sources)} unveränderte Originale; {len(manifest["files"])} Exporte geprüft.', flush=True)
+    print(f'{len(sources)} unveränderte Originale; {len(entries)} Exporte geprüft.', flush=True)
 
 
 if __name__ == '__main__':

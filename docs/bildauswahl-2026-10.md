@@ -10,6 +10,12 @@ Weißabgleich- und Belichtungskorrekturen bleiben die Basis. Eine etwas kräftig
 sanfte Helligkeitskurve betont die Fellzeichnung; zusätzliche Wärme ist gering
 und wird in neutralen und sehr hellen Bereichen zurückgenommen. Apricot und Weiß
 bleiben natürlich, die Sättigung unverändert. Zurückhaltende Luminanzschärfung.
+Für die sechs Schattenmotive in „Spiel & Alltag“ wurde der Look anschließend
+auf Wunsch verstärkt: zusätzlicher Weißabgleich gegen den Blaustich,
+etwas kräftigere Helligkeitskurve und +0,04 EV zum Erhalt der Schattenzeichnung.
+Die vorhandenen Bildausschnitte bleiben erhalten; der Landschaftsausschnitt
+auf der Startseite wird aus derselben Entwicklung erzeugt. Parameter je Datei
+unter development_adjustments (Version 3) in foto-provenienz.json.
 Keine generative KI, keine Umfärbung oder Formänderung, keine Wasserzeichen.
 Die gelieferten Dateien sind JPEGs; „RAW“ im Namen ist keine RAW-Datei.
 Originaldateien bleiben außerhalb des Repositorys unverändert erhalten.
